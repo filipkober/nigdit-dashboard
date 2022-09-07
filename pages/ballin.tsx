@@ -46,7 +46,7 @@ const Ballin: NextPage = () => {
           >
             <h2>Deploy &rarr;</h2>
             <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
+              Instantly deploy your Next.js site to a public URL with Vercel jkashdfhjkawdhuwjkahdjk.
             </p>
           </a>
         </div>
