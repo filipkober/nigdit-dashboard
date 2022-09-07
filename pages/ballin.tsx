@@ -45,7 +45,7 @@ const Ballin: NextPage = () => {
             className={styles.card}
           >
             <p>
-              Instantly deploasdasdasdasdsay your Next.js site to a public URL with Vercel
+              Instantly deploasdasdasdasdsay your Next.js site to a pfhfthtfhfthfhgfhtfublic URL with Vercel
             </p>
           </a>
         </div>
