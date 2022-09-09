@@ -11,7 +11,7 @@ export interface listElement {
 const todo = () => {
     // przydatne funkcje: array.find(), array.map()
     // map https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-    // find https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+    // filter https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
     // dodatkowe info: jeśli tworzycie komponenty w pętli potrzebują mieć unikatowy atrybut 'key', 
     // w tym wypadku można zrobić key={id}
 
