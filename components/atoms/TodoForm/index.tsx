@@ -10,7 +10,7 @@ const TodoForm = ({setVal}: props) => {
 
     return (
         <div className="w-[12vw] m-0 rounded">
-            <input type="text" value={inVal} onChange={() => {setInVal(inVal)}} className="w-[70%] border-solid border-gray-400 border-2 rounded"/>
+            <input type="text" value={inVal} onChange={(e) => {setInVal(inVal)}} className="w-[70%] border-solid border-gray-400 border-2 rounded"/>
             <button onClick={() => {setVal(inVal)}} className="text-center w-[30%] hover:bg-gray-300 bg-gray-500 border-gray-400 transition ease-in-out">Add item</button>
         </div>
     )

@@ -18,7 +18,8 @@ const todo = () => {
         <div className="bg-black w-[12vw]">
         <TodoForm setVal={setVal}/>
         <TodoList>
-            {/* PRZYKŁADOWY ELEMENT: <TodoElement title="cosaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" id={0} deleteE={deleteE}/> */}
+            <TodoElement title="cosaaaaaaaaa" id={0} deleteE={deleteE}/>
+            
         </TodoList>
         </div>
         </div>
