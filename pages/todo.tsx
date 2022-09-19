@@ -15,7 +15,7 @@ const todo = () => {
     // dodatkowe info: jeśli tworzycie komponenty w pętli potrzebują mieć unikatowy atrybut 'key', 
     // w tym wypadku można zrobić key={id}
 
-    const [val, setValData] = useState<listElement[]>([])
+    const [val, setValData] = useState<listElement[]>([]) // [wartosc, funkcja, metadane]
     const [counter, setCounter] = useState<number>(1)
     const setVal = (e: string) => {
         const newE: listElement = {
