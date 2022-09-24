@@ -4,8 +4,17 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        backgroundD: '#1E1E1E',
+        foregroundD: '#2B2B2B',
+        backgroundL: '',
+        foregroundL: '',
+      }
+    },
+
   },
-  plugins: [],
+  plugins: [require("tailwind-gradient-mask-image")],
 }
