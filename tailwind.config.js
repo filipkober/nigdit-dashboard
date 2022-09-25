@@ -10,8 +10,8 @@ module.exports = {
       colors:{
         backgroundD: '#1E1E1E',
         foregroundD: '#2B2B2B',
-        backgroundL: '',
-        foregroundL: '',
+        backgroundL: '#D9A7DA',
+        foregroundL: '#FF00FF',
       }
     },
 
