@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import '../styles/fonts.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(true);
   useEffect( () => { darkMode && document.querySelector("body")!.classList.add("dark") } );
   return <Component {...pageProps} />
 }
