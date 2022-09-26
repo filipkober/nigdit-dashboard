@@ -23,7 +23,7 @@ const Home: NextPage = () => {
         author="user"
         date={new Date('2022-09-23')}
         source={{ name: 'n/subnigdit', image: makpaj }}
-        votes={1500}  
+        votes={1500}
       />
       <PostMedia
         title="gif post"
