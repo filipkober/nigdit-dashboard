@@ -6,6 +6,15 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
+    screens: {
+      'ms': '320px',  //mobile phone 
+      'mm': '375px',
+      'ml': '425px',
+      'ts': '580px',  //tablet
+      'tm': '640px',
+      'tl': '768px',
+      'ls': '1024px', //laptop
+    },
     extend: {
       colors:{
         backgroundD: '#1E1E1E',
