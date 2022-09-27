@@ -3,6 +3,7 @@ import Image from 'next/image';
 import makpaj from '../../assets/makpaj.svg';
 import { useRouter } from 'next/router';
 import PostExtended from '../../components/molecules/PostExtended';
+import Comment from '../../components/molecules/Comment';
 
 const PostPage: NextPage = () => {
   const router = useRouter();
@@ -37,6 +38,7 @@ const PostPage: NextPage = () => {
           votes={504}
           date={new Date('2005-04-22')}
         />
+        <Comment id={1} />
       </div>
     </>
   );

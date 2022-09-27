@@ -1,26 +1,16 @@
 import { useState } from 'react';
+import Image from 'next/image'
+import makpaj from '../../../assets/makpaj.svg';
+import Arrow from '../../atoms/Arrow';
 
 type CommentProps = {
   id: number;
-  author: {
-    username: string;
-    image: string;
-  };
-  content: string;
-  votes: number;
-  date: Date;
-  replies?: number[];
   vote?: 'upvote' | 'downvote';
 };
 
 export default function Comment({
   id,
-  author,
-  content,
-  votes,
-  date,
   vote,
-  replies = [],
 }: CommentProps) {
   const [upvoteClicked, setUpvoteClicked] = useState<boolean>(
     vote === 'upvote'
@@ -39,5 +29,29 @@ export default function Comment({
     }
   };
 
-  return <></>;
+  const autor = "cyganslayer"
+
+
+  return (
+    <>
+      <div>
+        <div>
+            <Image src={makpaj}
+            width={25}
+            height={25}
+            className="overflow-hidden w-[100%] h-[100%] min-w-7 rounded-full"/>
+          <p>{autor}</p>
+        </div>
+        <div>
+
+        </div>
+        <Arrow 
+            variant="downvote"
+            className="absolute right-4 top-[calc(4.25rem+1.5rem)]"
+            setVote={voteOnComment}
+            clicked={downvoteClicked}
+        />
+      </div>
+    </>
+  );
 }

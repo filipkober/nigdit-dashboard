@@ -141,11 +141,18 @@ export default function PostExtended({
             <p>Report</p>
           </div>
         </div>
-        <div>{/* KOMETNARZE */}
-        <textarea className='px-1 w-[100%] resize-none bg-accentL dark:bg-accentD text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:italic' cols={50} rows={5} placeholder="Put your racist opinion here..."></textarea>
-        
-        <button className='p-1 rounded ml-auto flex bg-accentL dark:bg-accentD border-solid border-black dark:border-white text-black dark:text-white'>Comment</button>
-        
+        <div>
+          {/* KOMETNARZE */}
+          <textarea
+            className="px-1 w-[100%] resize-none bg-accentL dark:bg-accentD text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:italic"
+            cols={50}
+            rows={5}
+            placeholder="Put your racist opinion here..."
+          ></textarea>
+
+          <button className="p-1 rounded ml-auto flex bg-accentL dark:bg-accentD border-solid border-black dark:border-white text-black dark:text-white">
+            Comment
+          </button>
         </div>
       </div>
     </>
