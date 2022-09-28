@@ -42,7 +42,7 @@ export default function Navbar({searchbar}: Props)
                     </div>                   
                     <div className='w-[100%] m-[0.2rem]'>
                         <form>
-                            <input className='dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none' type="text" value={searchbar.value} placeholder={"search..."}onChange={event => searchbar.onChange(event.target.value)} />
+                            <input className='dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" value={searchbar.value} placeholder={"search..."}onChange={event => searchbar.onChange(event.target.value)} />
                         </form>
                     </div>
                 </div> 
