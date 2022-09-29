@@ -16,6 +16,14 @@ module.exports = {
       'ls': '1024px', //laptop
     },
     extend: {
+      dropShadow: {
+        'midget': '3px 4px 5px rgba(0, 0, 0, 0.2)',
+        'lucifer': '4px 4px 10px rgba(0, 0, 0, 0.3)', //x, y, blur, rgba
+        'bigChungus': [
+            '2px 5px 10px rgba(0, 0, 0, 0.3)',
+            '-2px -5px 10px rgba(0, 0, 0, 0.1)'
+        ]
+      },
       colors:{
         backgroundD: '#1E1E1E',
         foregroundD: '#2B2B2B',
