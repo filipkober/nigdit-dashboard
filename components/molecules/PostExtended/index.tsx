@@ -2,6 +2,11 @@ import moment from 'moment';
 import Image from 'next/image';
 import { useState } from 'react';
 import Arrow from '../../atoms/Arrow';
+import commentIcon from '../../../assets/comment-icon.svg';
+import shareIcon from '../../../assets/share-icon.svg';
+import reportIcon from '../../../assets/report-icon.svg';
+import makpaj from '../../../assets/makpaj.svg';
+import Comment from '../Comment';
 
 type PostExtendedProps = {
   title: string;
@@ -55,7 +60,7 @@ export default function PostExtended({
 
   return (
     <>
-      <div className="w-[50%] text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden min-w-[25vw] max-h-[50vh] mb-2">
+      <div className="w-[50%] text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden min-w-[25vw] mb-2">
         {/* GÓRNY PASEK AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
         <div className="flex flex-row min-w-[25vw]">
           <div className="font-['Roboto'] w-7 h-7 min-w-[25px] mr-1">
@@ -130,14 +135,21 @@ export default function PostExtended({
         </div>
         <div className="flex flex-row font-['Roboto'] dark:text-white text-xl mt-5">
           {/* chujstwo pod contenetm */}
-          {/* ikonka comments */}
+          <div className="pr-2 pt-1">
+            <Image src={commentIcon} width={23} height={23} />
+          </div>
+
           <p>666 Comments</p>
 
           <div className="flex flex-row ml-auto">
             {' '}
-            {/* ikonka share */}
+            <div className="pr-2 pt-1">
+              <Image src={shareIcon} width={23} height={23} />
+            </div>
             <p className="mr-5">Share</p>
-            {/* ikonka report sus */}
+            <div className="pr-2 pt-1">
+              <Image src={reportIcon} width={23} height={23} />
+            </div>
             <p>Report</p>
           </div>
         </div>
@@ -153,6 +165,10 @@ export default function PostExtended({
           <button className="p-1 rounded ml-auto flex bg-accentL dark:bg-accentD border-solid border-black dark:border-white text-black dark:text-white">
             Comment
           </button>
+
+          <div>
+              <Comment id={1} />
+          </div>
         </div>
       </div>
     </>

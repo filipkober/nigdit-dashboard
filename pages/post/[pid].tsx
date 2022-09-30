@@ -38,7 +38,7 @@ const PostPage: NextPage = () => {
           votes={504}
           date={new Date('2005-04-22')}
         />
-        <Comment id={1} />
+        {/* <Comment id={1} /> */}
       </div>
     </>
   );
