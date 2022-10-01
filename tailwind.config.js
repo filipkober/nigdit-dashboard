@@ -22,7 +22,9 @@ module.exports = {
         'bigChungus': [
             '2px 5px 10px rgba(0, 0, 0, 0.3)',
             '-2px -5px 10px rgba(0, 0, 0, 0.1)'
-        ]
+        ],
+        'buttonDevil': '0px 6px 0px #111',
+        'buttonDevilA': '0px 3px 0px #111'
       },
       colors:{
         backgroundD: '#1E1E1E',

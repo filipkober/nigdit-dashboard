@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Navbar from '../components/molecules/Navbar';
-import navbar from "../components/molecules/Navbar";
 
 const Navbartest: NextPage = () => {
 const onChange = (value: string)=> console.log(value);

@@ -1,9 +1,6 @@
 import React, { InputHTMLAttributes, useState } from 'react';
-import Arrow from '../../atoms/Arrow';
 import Image from 'next/image';
 import nigditIcon from '../../../assets/testimage.svg'
-import moment from 'moment';
-import { ExecSyncOptionsWithStringEncoding } from 'child_process';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     user?:
