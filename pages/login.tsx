@@ -1,14 +1,14 @@
 import type { NextPage } from 'next'
-import RegisterForm from '../components/molecules/RegisterForm';
+import LoginForm from '../components/molecules/LoginForm';
 
-const Register: NextPage = () => {
+const Login: NextPage = () => {
 
   return (    
     <div className="dark:text-white dark:bg-backgroundD bg-backgroundL w-[100%] m-0 h-screen">      
-      <RegisterForm/>
+      <LoginForm/>
     </div>
     
   )
 }
 
-export default Register
+export default Login
