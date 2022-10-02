@@ -1,0 +1,22 @@
+name: build-next
+run-name: ${{ github.actor }} is trying to build the app
+on: [pull_request]
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      with:
+          node-version: '14'
+      - run: npm install
+      - run: npm run build
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      with:
+          node-version: '14'
+      - run: npm install
+      - run: npm run build
