@@ -37,7 +37,7 @@ export default function LoginForm()
             </div>      
             {/* forgot some bitches? */}
             <div className='w-[100%] min-h-[2rem] h-[1vw] flex flex-row justify-center px-0 py-0 items-center'>
-                <a href="http://localhost:3000/register" target="_blank" className="pl-2.5 text-[1rem] font-['Roboto'] dark:text-white flex hover:underline">
+                <a href="http://localhost:3000/register" rel="noreferrer" target="_blank" className="pl-2.5 text-[1rem] font-['Roboto'] dark:text-white flex hover:underline">
                 ☞ Forgot your password? ☜
                 </a>                
             </div>        
