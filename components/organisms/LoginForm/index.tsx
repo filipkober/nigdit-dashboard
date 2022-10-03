@@ -1,4 +1,6 @@
 import React, { InputHTMLAttributes, useState } from 'react';
+import InputField from '../../atoms/InputField';
+
 
 export default function LoginForm()
 {
@@ -25,19 +27,15 @@ export default function LoginForm()
             </div>
             {/* login */}
             <div className=' w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center'>
-                <form className='w-[63%] h-[85%]'>
-                    <input className='focus:border-[#FF5C00] focus:ring-2 focus:ring-[#FF5C00] invalid:ring-1 invalid:ring-pink-500 focus:invalid:ring-2 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 drop-shadow-lucifer w-[100%] mx-[0.5rem] px-[0.5rem] min-h-[2rem] h-[100%] text-black text-[1.2rem] font-["Roboto"] bg-white outline-none border-black border-solid border-[1px] rounded-[5px]' type="text" placeholder={"lnos ǝɥʇ ɟo ɹǝuʍo ɹǝɯɹoɟ"}/>                
-                </form>            
+                <InputField className='w-[63%] h-[85%]' name={'login'} id={'login'} placeholder={'lnos ǝɥʇ ɟo ɹǝuʍo ɹǝɯɹoɟ'} type={'text'}/>
                 <p className="w-[37%] shrink-1 pl-4 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">Login</p>                        
             </div>
             {/* password */}
             <div className='w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center'>
-                <form className='w-[63%] h-[85%]'>
-                    <input className='focus:border-[#FF5C00] focus:ring-2 focus:ring-[#FF5C00] invalid:ring-1 invalid:ring-pink-500 focus:invalid:ring-2 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 drop-shadow-lucifer w-[100%] mx-[0.5rem] px-[0.5rem] min-h-[2rem] h-[100%] text-black text-[1.2rem] font-["Roboto"] bg-white outline-none border-black border-solid border-[1px] rounded-[5px]' type="password" placeholder={"pǝʞɐǝl ʎpɐǝɹlɐ ʎlqɐdoɹd"}/>                
-                </form>
+                <InputField className='w-[63%] h-[85%]' name={'password'} id={'password'} placeholder={'pǝʞɐǝl ʎpɐǝɹlɐ ʎlqɐdoɹd'} type={'password'}/>
                 <p className="w-[37%] shrink-1 pl-4 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">Password</p>
             </div>      
-            {/* forgot bitches? */}
+            {/* forgot some bitches? */}
             <div className='w-[100%] min-h-[2rem] h-[1vw] flex flex-row justify-center px-0 py-0 items-center'>
                 <a href="http://localhost:3000/register" target="_blank" className="pl-2.5 text-[1rem] font-['Roboto'] dark:text-white flex hover:underline">
                 ☞ Forgot your password? ☜

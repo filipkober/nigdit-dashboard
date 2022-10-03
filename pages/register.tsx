@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import RegisterForm from '../components/molecules/RegisterForm';
+import RegisterForm from '../components/organisms/RegisterForm';
 
 const Register: NextPage = () => {
 

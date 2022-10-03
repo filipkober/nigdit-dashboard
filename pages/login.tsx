@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import LoginForm from '../components/molecules/LoginForm';
+import LoginForm from '../components/organisms/LoginForm';
 
 const Login: NextPage = () => {
 
