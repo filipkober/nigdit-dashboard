@@ -33,7 +33,8 @@ export default function Comment({ id, vote }: CommentProps) {
       id: 1,
       pfp: makpaj,
       nick: 'Cygan77',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec elit est. Sed non rutrum purus, vitae sollicitudin diam. Quisque imperdiet lorem bibendum velit vehicula commodo. Vestibulum imperdiet feugiat turpis eget lobortis. Nullam fringilla tempor mauris vitae lobortis. Praesent sit amet venenatis quam, non tincidunt erat. Morbi semper ac purus id iaculis.',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec elit est. Sed non rutrum purus, vitae sollicitudin diam. Quisque imperdiet lorem bibendum velit vehicula commodo. Vestibulum imperdiet feugiat turpis eget lobortis. Nullam fringilla tempor mauris vitae lobortis. Praesent sit amet venenatis quam, non tincidunt erat. Morbi semper ac purus id iaculis.',
     },
     {
       id: 2,
@@ -45,15 +46,16 @@ export default function Comment({ id, vote }: CommentProps) {
       id: 3,
       pfp: makpaj,
       nick: 'Cygan79',
-      content: 'bla bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec elit est. Sed non rutrum purus, vitae sollicitudin diam. Quisque imperdiet lorem bibendum elit vehicula commodo.',
+      content:
+        'bla bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec elit est. Sed non rutrum purus, vitae sollicitudin diam. Quisque imperdiet lorem bibendum elit vehicula commodo.',
     },
   ];
 
   return (
     <>
       <div>
-        {komentarze.map((komentarz) => (
-          <div className="">
+        {komentarze.map((komentarz, index) => (
+          <div key={index} className="">
             <div className="flex flex-row min-w-[25vw]">
               <div className="font-['Roboto'] w-7 h-7 min-w-[25px] mr-1">
                 <Image
