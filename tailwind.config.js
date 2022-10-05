@@ -14,6 +14,7 @@ module.exports = {
       'tm': '640px',
       'tl': '768px',
       'ls': '1024px', //laptop
+      'cs': '1280px', //computer
     },
     extend: {
       dropShadow: {

@@ -38,9 +38,7 @@ export default function Navbar({searchbar}: Props)
                         <Image src={nigditIcon} width={33} height={33} className="overflow-hidden min-w-[100%] w-[100%] h-[100%]"/>
                     </div>                   
                     <div className='w-[100%] m-[0.2rem]'>
-                        <form>
-                            <input className='dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" value={searchbar.value} placeholder={"search..."}onChange={event => searchbar.onChange(event.target.value)} />
-                        </form>
+                        <input className='dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" value={searchbar.value} placeholder={"search..."}onChange={event => searchbar.onChange(event.target.value)} />
                     </div>
                 </div> 
             </div>
