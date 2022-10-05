@@ -15,9 +15,7 @@ const Home: NextPage = () => {
   `;
 
   return (
-    <div className="p-2 dark:text-white dark:bg-backgroundD bg-backgroundL w-[100%] m-0 h-screen">
       <PostText title="post" description={desc} author="user" date={new Date('2022-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={1500} />
-    </div>
   );
 };
 
