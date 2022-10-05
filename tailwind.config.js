@@ -19,6 +19,8 @@ module.exports = {
     extend: {
       dropShadow: {
         'midget': '3px 4px 5px rgba(0, 0, 0, 0.2)',
+        'minimalistic': '0px 3px 3px rgba(0, 0, 0, 0.2)',
+        'walter': '0px 4px 4px rgba(0, 0, 0, 0.25)',
         'lucifer': '4px 4px 10px rgba(0, 0, 0, 0.3)', //x, y, blur, rgba
         'bigChungus': [
             '2px 5px 10px rgba(0, 0, 0, 0.3)',
