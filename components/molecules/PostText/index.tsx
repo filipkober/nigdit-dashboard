@@ -20,6 +20,7 @@ export default function PostTekstowy({title,description,author,source,votes,date
 
   const [upvoteClicked, setUpvoteClicked] = useState<boolean>(vote === "upvote");
   const [downvoteClicked, setDownvoteClicked] = useState<boolean>(vote === "downvote");
+  
 
   const voteOnPost = (vote: "upvote" | "downvote") => {
     if(vote === "downvote" && !downvoteClicked){
