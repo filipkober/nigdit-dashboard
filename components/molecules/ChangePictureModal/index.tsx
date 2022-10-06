@@ -1,6 +1,5 @@
 import Image from "next/image"
 import Button from "../../atoms/Button"
-import Makpaj from "../../../assets/makpaj.svg"
 import { Formik } from "formik"
 
 type ChangePictureModalProps = {
@@ -31,9 +30,9 @@ export default function ChangePictureModal({open, changeVisible, initialImage}: 
             <button className="ml-2" onClick={changeVisible}>X</button>
         </div>
         
-        <div className="rounded-full bg-white w-[5vw] h-[5vw] ml-10 my-auto hover:cursor-pointer">
+        <div className="rounded-full bg-white w-[20vw] h-[20vw] ts:w-[5vw] ts:h-[5vw] ml-10 my-auto hover:cursor-pointer">
             <Image src={values.picture} alt="profile picture" width={100} height={100} className="rounded-full z-2" objectFit="cover" layout="responsive" loader={() => values.picture}/>
-            <div className="rounded-full text-transparent hover:text-black dark:hover:text-white bg-transparent hover:bg-[rgba(50,50,50,0.4)] absolute w-[5vw] h-[5vw] flex items-center my-[-5vw] text-2xl">
+            <div className="rounded-full text-transparent hover:text-black dark:hover:text-white bg-transparent hover:bg-[rgba(50,50,50,0.4)] absolute w-[20vw] h-[20vw] ts:w-[5vw] ts:h-[5vw] flex items-center my-[-20vw] ts:my-[-5vw] text-2xl">
             <a onClick={uploadImage}>Change picture</a>
             </div>
             <input hidden type={"file"} id="imgUpload" accept="image/*" name="picture" onChange={(e) => {setFieldValue("picture",URL.createObjectURL(e.target.files![0]))}}/>

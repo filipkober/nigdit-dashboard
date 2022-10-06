@@ -13,7 +13,7 @@ export default function TextArea({className, name, placeholder, initialValue, on
     const [value, setValue] = useState<string>(initialValue || "")
   return (
     <div className={className}>
-        <textarea className="resize-none bg-backgroundL dark:bg-backgroundD border-black border-2 hover:bg-foregroundL dark:hover:bg-foregroundD rounded-md p-1" name={name} placeholder={placeholder} value={onChange ? initialValue : value} onChange={onChange ? onChange : (e) => {setValue(e.target.value)}} rows={rows} cols={cols}/>
+        <textarea className="resize-none bg-backgroundL dark:bg-backgroundD border-black border-2 hover:bg-foregroundL dark:hover:bg-foregroundD rounded-md p-1 h-[50vh]" name={name} placeholder={placeholder} value={onChange ? initialValue : value} onChange={onChange ? onChange : (e) => {setValue(e.target.value)}} rows={rows} cols={cols}/>
     </div>
   )
 }
