@@ -25,7 +25,7 @@ export default function Navbar({searchbar}: Props)
         <div className="flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky">
             <div className='min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:w-[13rem] h-[100%] flex flex-row my-2 mx-2'>
                 <div className='shrink-0'>
-                    <Image src={nigditIcon} width={36} height={36} className="overflow-hidden p-0 w-[2.4rem] h-[100%] rounded-full"/>
+                    <Image src={nigditIcon} width={36} height={36} className="object-cover overflow-hidden p-0 w-[2.4rem] h-[100%] rounded-full"/>
                 </div> 
                 <div className='w-[5rem] hidden ml:block'>
                     <p className="shrink-1 text-[24px] font-['Roboto'] dark:text-white pl-2">NigDIT</p>
@@ -35,7 +35,7 @@ export default function Navbar({searchbar}: Props)
             <div className='min-w-[12rem] w-[25vw] max-w-[30rem] h-[100%] grow flex flex-row my-2 mx-2'>
                 <div className='flex flex-row h-[70%] w-[100%] bg-backgroundL dark:bg-backgroundD border-black border-solid border-0 rounded-[10px]'>
                     <div className='w-[2.1rem] min-w-[2.1rem]'>
-                        <Image src={nigditIcon} width={33} height={33} className="overflow-hidden min-w-[100%] w-[100%] h-[100%]"/>
+                        <Image src={nigditIcon} width={33} height={33} className="object-cover overflow-hidden min-w-[100%] w-[100%] h-[100%]"/>
                     </div>                   
                     <div className='w-[100%] m-[0.2rem]'>
                         <form>
@@ -46,7 +46,7 @@ export default function Navbar({searchbar}: Props)
             </div>
             <div className='min-w-[2.4rem] w-[2.4rem] tm:w-[13rem] h-[100%] flex flex-row-reverse my-2 mx-2'>
                 <div className='ml-auto min-w-[2.4rem] w-[2.4rem] shrink-0'>
-                    <Image src={nigditIcon} width={36} height={36} className=" overflow-hidden w-[100%] h-[100%] rounded-full"/>
+                    <Image src={nigditIcon} width={36} height={36} className="object-cover overflow-hidden w-[100%] h-[100%] rounded-full"/>
                 </div> 
                 <div className='overflow-hidden ml-auto shrink-1 w-[10.6rem] hidden tm:block'><p className="overflow-hidden text-right text-[20px] font-thin dark:text-white pr-2">nobodywwwwww</p></div>                 
             </div>
