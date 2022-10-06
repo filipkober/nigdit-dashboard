@@ -15,18 +15,19 @@ const memberCount = 69;
 export default function SubnigditInfo({ id }: SubnigditInfoProps) {
   return (
     <>
-      <div className="text-left font-normal flex flex-row dark:text-white bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2 ">
-        <div className="">
-          <div className="flex flex-row mb-5">
-            <Image
-              src={makpaj}
-              width={25}
-              height={25}
-              className="overflow-hidden rounded-full"
-            />
-            <p className="ml-1 font-['Roboto'] font-semibold dark:text-white text-base">
+      <div className="text-left font-normal dark:text-white bg-foregroundL dark:bg-foregroundD border-solid border-black drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2 ">
+          <div className="mb-5 flex flex-row">
+              <Image
+                src={makpaj}
+                width={25}
+                height={25}
+                layout="fixed"
+                objectFit='cover'
+                className="overflow-hidden rounded-full w-full h-7"
+              />
+            <span className="ml-1 font-['Roboto'] font-semibold dark:text-white text-base">
               {name}
-            </p>
+            </span>
           </div>
 
           <div className="font-['Roboto'] dark:text-white text-base mb-5">
@@ -48,7 +49,7 @@ export default function SubnigditInfo({ id }: SubnigditInfoProps) {
                 <p>{memberCount}</p>
               </div>
               <div>
-                <p className='text-lg'>{'Members'}</p>
+                <p className="text-lg">{'Members'}</p>
               </div>
             </div>
           </div>
@@ -61,7 +62,6 @@ export default function SubnigditInfo({ id }: SubnigditInfoProps) {
             <JoinButton />
           </div>
         </div>
-      </div>
     </>
   );
 }

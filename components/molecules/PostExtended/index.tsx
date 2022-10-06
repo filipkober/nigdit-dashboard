@@ -61,29 +61,30 @@ export default function PostExtended({
   return (
     <>
       <div>
-        <div className="text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden min-w-[25vw]  mb-2">
+        <div className="text-left font-normal border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2">
           {/* GÓRNY PASEK AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
-          
+
           {/* Post Info */}
-          <div className="flex flex-row min-w-[25vw] absolute ">
-            <div className="font-['Roboto'] w-7 h-7 min-w-[25px] mr-1">
+          <div className="flex">
+            <div className="font-['Roboto'] w-7 h-7 mr-1">
               <Image
                 src={source.image}
                 width={25}
                 height={25}
-                className="overflow-hidden w-[100%] h-[100%] min-w-7 rounded-full"
+                objectFit="cover"
+                className="overflow-hidden w-[100%] h-[100%] rounded-full"
               />
             </div>
-            <p className="font-['Roboto'] dark:text-white text-base whitespace-nowrap">
+            <p className="font-['Roboto'] dark:text-white text-base">
               {source.name}
             </p>
-            <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base whitespace-nowrap">
+            <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base">
               autor:
             </p>
             <p className="font-['Roboto'] dark:text-white ml-2 text-base">
               {author}
             </p>
-            <p className="h-[15px] font-['Roboto'] dark:text-white ml-auto text-base whitespace-nowrap">
+            <p className="pl-5 h-[15px] font-['Roboto'] dark:text-white ml-auto text-base whitespace-nowrap">
               posted {moment(date).fromNow()}
             </p>
           </div>
@@ -106,16 +107,16 @@ export default function PostExtended({
           </div>
 
           {/* CONTENT  */}
-          <div>
+          <div className="">
             <div>
-              <p className="h-11 w-[179px] font-['IBM_Plex_Sans'] text-[170%] dark:text-white">
+              <p className="font-['IBM_Plex_Sans'] text-[170%] dark:text-white">
                 {title}
               </p>
             </div>
             <div>
               {description ? (
                 <div>
-                  <p className="font-['Roboto'] dark:text-white text-xl w-[92%]">
+                  <p className="font-['Roboto'] dark:text-white text-xl">
                     {description}
                   </p>
                 </div>
@@ -128,7 +129,7 @@ export default function PostExtended({
                   objectFit="none"
                   loader={(img) => media.source}
                   objectPosition={'50% 0'}
-                  className="w-[100%] h-[100%] min-w-[25vw] min-h-[25vw] object-cover"
+                  className="w-[100%] h-[100%] object-cover"
                 />
               ) : (
                 <video controls className="w-[92%]">
@@ -137,26 +138,12 @@ export default function PostExtended({
               )}
             </div>
           </div>
-          <div className="flex flex-row font-['Roboto'] dark:text-white text-xl mt-5">
+          <div className="flex font-['Roboto'] dark:text-white text-xl mt-5">
             {/* chujstwo pod contentem */}
-            <div className="pr-2 pt-1">
-              <Image src={commentIcon} width={23} height={23} />
+            <p className="mr-5">666 Comments</p>
+            <p className="ml-auto">Share</p>
+            <p className="ml-5">Report</p>
             </div>
-
-            <p>666 Comments</p>
-
-            <div className="flex flex-row ml-auto">
-              {' '}
-              <div className="pr-2 pt-1">
-                <Image src={shareIcon} width={23} height={23} />
-              </div>
-              <p className="mr-5">Share</p>
-              <div className="pr-2 pt-1">
-                <Image src={reportIcon} width={23} height={23} />
-              </div>
-              <p>Report</p>
-            </div>
-          </div>
           <div>
             {/* KOMETNARZE */}
             <textarea
