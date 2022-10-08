@@ -34,6 +34,8 @@ module.exports = {
         foregroundD: '#2B2B2B',
         backgroundL: '#D9A7DA',
         foregroundL: '#FF00FF',
+        experimentA: '#393939',
+        experimentB: '#484848',
       }
     },
 
