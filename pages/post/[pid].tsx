@@ -13,7 +13,7 @@ const PostPage: NextPage = () => {
   const { pid } = router.query;
 
   return (
-    <div className="dark:bg-backgroundD bg-backgroundL w-[100%] m-0 h-screen">
+    <>
       <Navbar
         searchbar={{
           value: undefined,
@@ -22,7 +22,8 @@ const PostPage: NextPage = () => {
           },
         }}
       />
-      <div className="ls:gap-x-[3vw] ls:mx-[10vh] my-[5vh] flex flex-row">
+      <div className="dark:bg-backgroundD bg-backgroundL m-0 h-screen ls:flex">
+        <div className="ls:gap-x-[3vw] ls:ml-[10vh] my-[5vh] ">
           <PostExtended
             title={'Makpie Gej'}
             author={'EnslaveAfrica'}
@@ -49,15 +50,15 @@ const PostPage: NextPage = () => {
             votes={504}
             date={new Date('2005-04-22')}
           />
-        {/* Prawe bloki */}
-
-        <div className="my-[5vh]">
-          <SubnigditInfo id={1} />
-
-          <SubnigditRules id={1} />
+          {/* Prawe bloki */}
         </div>
+        <div className="my-[5vh] hidden ls:block ls:mx-[10vh]">
+            <SubnigditInfo id={1} />
+
+            <SubnigditRules id={1} />
+          </div>
       </div>
-    </div>
+    </>
   );
 };
 

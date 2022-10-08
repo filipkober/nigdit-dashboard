@@ -65,28 +65,33 @@ export default function PostExtended({
           {/* GÓRNY PASEK AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
 
           {/* Post Info */}
-          <div className="flex">
-            <div className="font-['Roboto'] w-7 h-7 mr-1">
-              <Image
-                src={source.image}
-                width={25}
-                height={25}
-                objectFit="cover"
-                className="overflow-hidden w-[100%] h-[100%] rounded-full"
-              />
+
+          <div className="flex ls:flex-row flex-col">
+            <div className="flex ">
+
+              <div className="font-['Roboto'] w-7 h-7 mr-1">
+                <Image
+                  src={source.image}
+                  width={25}
+                  height={25}
+                  objectFit="cover"
+                  className="overflow-hidden w-[100%] h-[100%] rounded-full"
+                />
+              </div>
+              <p className="font-['Roboto'] dark:text-white text-base">
+                {source.name}
+              </p>
+              <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base truncate">
+                autor: <span className="dark:text-white">{author}</span>
+              </p>
             </div>
-            <p className="font-['Roboto'] dark:text-white text-base">
-              {source.name}
-            </p>
-            <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base">
-              autor:
-            </p>
-            <p className="font-['Roboto'] dark:text-white ml-2 text-base">
-              {author}
-            </p>
-            <p className="pl-5 h-[15px] font-['Roboto'] dark:text-white ml-auto text-base whitespace-nowrap">
-              posted {moment(date).fromNow()}
-            </p>
+            <div className='ls:ml-auto'>
+              {' '}
+              <p className="font-['Roboto'] dark:text-white text-base whitespace-nowrap">
+                posted {moment(date).fromNow()}
+              </p>
+            </div>
+
           </div>
           <div>
             <Arrow
@@ -143,7 +148,7 @@ export default function PostExtended({
             <p className="mr-5">666 Comments</p>
             <p className="ml-auto">Share</p>
             <p className="ml-5">Report</p>
-            </div>
+          </div>
           <div>
             {/* KOMETNARZE */}
             <textarea
