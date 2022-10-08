@@ -63,11 +63,12 @@ export default function MyAccountPanel(){
                     <div className="flex flex-col">
                     <Input type="text" className="mt-8 mx-auto ls:ml-8" name="username" placeholder="Username" initialValue={values.username} onChange={handleChange}/>
                     <Input type="email" className="mt-8 ls:ml-8 mx-auto" name="email" placeholder="Email" initialValue={values.email} onChange={handleChange}/>
+                    <Button variant="submit" content="Save" className="ls:ml-8 mt-8 ls:top-1/4 ls:self-auto self-center"/>
+
                     </div>
                     <div className="flex flex-col ls:ml-2 mt-8">
                     <TextArea name={"aboutMe"} cols={15} placeholder={"About me"} initialValue={values.aboutMe} onChange={handleChange} className="ls:self-auto self-center mx-auto ls:mx-0"/>
                     </div>
-                    <Button variant="submit" content="Save" className="mt-8 ls:ml-8 ls:absolute ls:top-1/4 ls:self-auto self-center"/>
                     </div>
                 </form>
                 )}
