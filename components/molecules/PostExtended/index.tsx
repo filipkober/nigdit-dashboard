@@ -6,7 +6,7 @@ import commentIcon from '../../../assets/comment-icon.svg';
 import shareIcon from '../../../assets/share-icon.svg';
 import reportIcon from '../../../assets/report-icon.svg';
 import makpaj from '../../../assets/makpaj.svg';
-import Comment from '../Comment';
+import Comment from '../Comments';
 
 type PostExtendedProps = {
   title: string;

@@ -3,7 +3,7 @@ type SubnigditRulesProps = {
 };
 
 const name = 'n/jebaniemakpie';
-const rules = ['1. Jebać Makpie', '2. Zakaz spamu', '3. Jebać Makpie'];
+const rules = ['Jebać Makpie', 'Zakaz spamu', 'Jebać Makpie'];
 
 export default function SubnigditRules({ id }: SubnigditRulesProps) {
   return (
@@ -17,11 +17,11 @@ export default function SubnigditRules({ id }: SubnigditRulesProps) {
           <div>
             <hr className="my-5 border-white border-solid border-[1px] w-[100%]"></hr>
           </div>
-          <div>
-              {rules.map((rule, index) => (
-                <p key={index}>{rule}</p>
-              ))}
-          </div>
+          <ol className="ml-4">
+            {rules.map((rule, index) => (
+              <li className=" list-decimal" key={index}>{rule}</li>
+            ))}
+          </ol>
         </div>
       </div>
     </>

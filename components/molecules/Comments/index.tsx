@@ -54,29 +54,29 @@ export default function Comment({ id, vote }: CommentProps) {
   return (
     <>
       <div>
-        {komentarze.map((komentarz, index) => (
-          <div key={index} className="">
-            <div className="flex flex-row">
-              <div className="font-['Roboto'] mr-1">
-                <Image
-                  src={komentarz.pfp}
-                  width={25}
-                  height={25}
-                  objectFit="cover"
-                  className="overflow-hidden w-[100%] h-[100%] rounded-full"
-                />
+          {komentarze.map((komentarz, index) => (
+              <div key={index} className="">
+                <div className="flex flex-row">
+                  <div className="font-['Roboto'] mr-1">
+                    <Image
+                      src={komentarz.pfp}
+                      width={25}
+                      height={25}
+                      objectFit="cover"
+                      className="overflow-hidden w-[100%] h-[100%] rounded-full"
+                    />
+                  </div>
+                  <p className="font-['Roboto'] font-semibold dark:text-white text-base">
+                    {komentarz.nick}
+                  </p>
+                </div>
+                <div className="ml-[30px]">
+                  <p className="font-['Roboto'] font-light dark:text-white text-base">
+                    {komentarz.content}
+                  </p>
+                </div>
               </div>
-              <p className="font-['Roboto'] font-semibold dark:text-white text-base">
-                {komentarz.nick}
-              </p>
-            </div>
-            <div className="ml-[30px]">
-              <p className="font-['Roboto'] font-light dark:text-white text-base">
-                {komentarz.content}
-              </p>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </>
   );

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import makpaj from '../../assets/makpaj.svg';
 import { useRouter } from 'next/router';
 import PostExtended from '../../components/molecules/PostExtended';
-import Comment from '../../components/molecules/Comment';
+import Comment from '../../components/molecules/Comments';
 import SubnigditInfo from '../../components/molecules/SubnigditInfo';
 import SubnigditRules from '../../components/molecules/SubnigditRules';
 import Navbar from '../../components/molecules/Navbar';
