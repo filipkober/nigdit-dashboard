@@ -36,6 +36,8 @@ module.exports = {
         foregroundL: '#FF00FF',
         accentD: '#3F3F3F',
         accentL: ''
+        experimentA: '#393939',
+        experimentB: '#484848',
       }
     },
 
