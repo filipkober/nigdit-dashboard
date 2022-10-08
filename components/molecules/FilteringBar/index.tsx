@@ -34,7 +34,7 @@ export default function FilteringBar({postTypeSelection} : PostFilters)
                </div>
                 <div className="h-[100%] ml:mr-1">
                     <div className="rounded-[10px] hover:cursor-pointer h-[100%] w-[100%] flex justify-between flex-row items-center p-1">
-                        <div className="w-[100%] h-[100%] flex justify-center flex-row items-center hover:bg-experimentB bg-experimentA px-2 rounded-[5px]">
+                        <div className="w-[100%] h-[100%] flex justify-center flex-row items-center hover:bg-experimentB bg-experimentA px-2 rounded-[5px]">    
                             <p className="shrink-1 text-[12px] ts:text-[14px] tm:text-[16px] tl:text-[18px] font-['Roboto'] dark:text-white">Subscribed</p>
                         </div>                        
                     </div>
@@ -43,5 +43,6 @@ export default function FilteringBar({postTypeSelection} : PostFilters)
         </div>
     )
 }
+//dodaj on clicka 
 
 //<Image src={nigditIcon} width={50} height={28} className="object-cover overflow-hidden w-[100%] h-[100%]"/>
