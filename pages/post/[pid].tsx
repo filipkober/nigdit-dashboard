@@ -22,12 +22,16 @@ const PostPage: NextPage = () => {
           },
         }}
       />
-      <div className="dark:bg-backgroundD bg-backgroundL m-0 h-screen ls:flex">
+      <div className="dark:bg-backgroundD bg-backgroundL m-0 ls:flex">
         <div className="ls:gap-x-[3vw] ls:ml-[10vh] my-[5vh] ">
           <PostExtended
             title={'Makpie Gej'}
             author={'EnslaveAfrica'}
-            description={'Makpie ssie'}
+            // description={'Makpie ssie'}
+            media={{
+              source: 'https://www.w3schools.com/html/mov_bbb.mp4',
+              type: 'video',
+            }}
             source={{
               image: makpaj,
               name: 'n/jebaniemakpie',
@@ -53,10 +57,10 @@ const PostPage: NextPage = () => {
           {/* Prawe bloki */}
         </div>
         <div className="my-[5vh] hidden ls:block ls:mx-[10vh]">
-            <SubnigditInfo id={1} />
+          <SubnigditInfo id={1} />
 
-            <SubnigditRules id={1} />
-          </div>
+          <SubnigditRules id={1} />
+        </div>
       </div>
     </>
   );

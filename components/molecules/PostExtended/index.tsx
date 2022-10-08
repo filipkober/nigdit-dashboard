@@ -1,5 +1,5 @@
 import moment from 'moment';
-import Image from 'next/image';
+import Image from 'next/future/image';
 import { useState } from 'react';
 import Arrow from '../../atoms/Arrow';
 import commentIcon from '../../../assets/comment-icon.svg';
@@ -68,14 +68,12 @@ export default function PostExtended({
 
           <div className="flex ls:flex-row flex-col">
             <div className="flex ">
-
               <div className="font-['Roboto'] w-7 h-7 mr-1">
                 <Image
                   src={source.image}
                   width={25}
                   height={25}
-                  objectFit="cover"
-                  className="overflow-hidden w-[100%] h-[100%] rounded-full"
+                  className="overflow-hidden w-[100%] h-[100%] rounded-full object-cover"
                 />
               </div>
               <p className="font-['Roboto'] dark:text-white text-base">
@@ -85,27 +83,26 @@ export default function PostExtended({
                 autor: <span className="dark:text-white">{author}</span>
               </p>
             </div>
-            <div className='ls:ml-auto'>
+            <div className="ls:ml-auto">
               {' '}
               <p className="font-['Roboto'] dark:text-white text-base whitespace-nowrap">
                 posted {moment(date).fromNow()}
               </p>
             </div>
-
           </div>
           <div>
             <Arrow
               variant="upvote"
-              className="absolute right-4 top-[calc(4.25rem-1.25rem)]"
+              className="absolute right-4 ls:top-[calc(4.25rem-1.25rem)] top-[calc(3.25rem-1.25rem)]"
               setVote={voteOnPost}
               clicked={upvoteClicked}
             />
-            <p className="h-5 font-['Roboto'] dark:text-white absolute right-4 top-[4.25rem] text-base">
+            <p className="h-5 font-['Roboto'] dark:text-white absolute right-4 top-[3.25rem] ls:top-[4.25rem] text-base">
               {Intl.NumberFormat('en', { notation: 'compact' }).format(votes)}
             </p>
             <Arrow
               variant="downvote"
-              className="absolute right-4 top-[calc(4.25rem+1.5rem)]"
+              className="absolute right-4 top-[calc(3.25rem+1.5rem)] ls:top-[calc(4.25rem+1.5rem)]"
               setVote={voteOnPost}
               clicked={downvoteClicked}
             />
@@ -118,7 +115,7 @@ export default function PostExtended({
                 {title}
               </p>
             </div>
-            <div>
+            <div className="">
               {description ? (
                 <div>
                   <p className="font-['Roboto'] dark:text-white text-xl">
@@ -126,18 +123,20 @@ export default function PostExtended({
                   </p>
                 </div>
               ) : media && (media.type == 'image' || media.type == 'gif') ? (
-                <Image
-                  src={media.source}
-                  alt={title + ' image or gif'}
-                  width={880}
-                  height={880}
-                  objectFit="none"
-                  loader={(img) => media.source}
-                  objectPosition={'50% 0'}
-                  className="w-[100%] h-[100%] object-cover"
-                />
+                <div className="text-center mr-10 w-[92%] max-h-[100vh]">
+                  <Image
+                    src={media.source}
+                    alt={title + ' image or gif'}
+                    width="100"
+                    height="100"
+                    max-height="100vh"
+                    max-width="100vw"
+                    loader={(img) => media.source}
+                    className="w-[100%] h-[100%] object-cover"
+                  />
+                </div>
               ) : (
-                <video controls className="w-[92%]">
+                <video controls className="w-[92%] max-h-[100vh]">
                   <source src={media!.source} />
                 </video>
               )}
