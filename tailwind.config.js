@@ -41,6 +41,22 @@ module.exports = {
         accentL: ''
         experimentA: '#393939',
         experimentB: '#484848',
+      },
+      animation: {
+        'droplet': 'drop 1s cubic-bezier(.57,0,.75,.07)',//cubic-bezier(.65,0,.71,.3)
+        'wiggle': 'wiggle 3s linear infinite',
+      },
+      keyframes: {
+        drop: {
+          '0%': { transform: 'translateY(-135px)', opacity: 0 },
+          '1%': { transform: 'translateY(-135px)', opacity: 1},    
+          '99%': { transform: 'translateY(100vh)', opacity: 1 },
+          '100%': { transform: 'translateY(100vh)', opacity: 0 },
+        },
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        }
       }
     },
 
