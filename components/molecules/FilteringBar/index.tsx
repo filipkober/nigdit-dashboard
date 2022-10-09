@@ -44,6 +44,7 @@ export default function FilteringBar({clicked}: Props)
         elementRef3.current.childFunction(val);
         elementRef4.current.childFunction(val);
     }
+    const [harvestedSouls,setHarvestedSouls] = useState<number>(0);
 
     return(
         <>       
