@@ -15,6 +15,7 @@ module.exports = {
       'tl': '768px',
       'ls': '1024px', //laptop
       'cs': '1280px', //computer
+      'xl': '7680px', //cinema
     },
     extend: {
       dropShadow: {
@@ -27,7 +28,9 @@ module.exports = {
             '-2px -5px 10px rgba(0, 0, 0, 0.1)'
         ],
         'buttonDevil': '0px 6px 0px #111',
-        'buttonDevilA': '0px 3px 0px #111'
+        'buttonDevilA': '0px 3px 0px #111',
+        'buttonImp': '0px 4px 0px #111',
+        'buttonImpA': '0px 2px 0px #111'
       },
       colors:{
         backgroundD: '#1E1E1E',
@@ -42,5 +45,8 @@ module.exports = {
     },
 
   },
-  plugins: [require("tailwind-gradient-mask-image")],
+  plugins: [
+    require("tailwind-gradient-mask-image"),
+    require('tailwind-scrollbar')
+  ],
 }
