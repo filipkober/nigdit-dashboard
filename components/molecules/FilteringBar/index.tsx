@@ -50,18 +50,3 @@ export default function FilteringBar()
         </>
     )
 }
-//    const [harvestedSouls] = useState<number[]>([]);
-//    harvestedSouls.push(harvestedSouls.length+1);
-//    const help = useRef<number>(0);
-//    let zmienna = <Image src={bloodDrop} width={30} height={30} className=""/>;
-// {harvestedSouls.map(() => {
-//     help.current = (Math.round(Math.random()*500));
-//     console.log(help.current);
-//     return (
-//         <div className={`absolute overflow-hidden translate-x-[${help.current}px] translate-y-[-120px] bg-cove h-[100%] bg-black`}>
-//             <div className="animate-droplet">
-//                 <Image src={bloodDrop} width={30} height={30} className=""/>
-//             </div>
-//         </div>                     
-//     )
-// })} 
