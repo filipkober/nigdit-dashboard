@@ -43,15 +43,24 @@ module.exports = {
         experimentB: '#484848',
       },
       animation: {
-        'droplet': 'drop 1s cubic-bezier(.57,0,.75,.07)',//cubic-bezier(.65,0,.71,.3)
+        'droplet1': 'drop 1.4s cubic-bezier(.57,0,.75,.07)',
+        'droplet2': 'drop 1.5s cubic-bezier(.65,0,.71,.3)',
+        'droplet3': 'drop 1.6s cubic-bezier(.57,0,.75,.07)',
+        'droplet4': 'drop 1.7s cubic-bezier(.65,0,.71,.3)',
+        'droplet5': 'drop 1.8s cubic-bezier(.57,0,.75,.07)',
+        'droplet6': 'drop 1.9s cubic-bezier(.57,0,.75,.07)',
+        'droplet7': 'drop 2.0s cubic-bezier(.65,0,.71,.3)',
+        'droplet8': 'drop 2.1s cubic-bezier(.57,0,.75,.07)',
+        'droplet9': 'drop 2.2s cubic-bezier(.65,0,.71,.3)',
+        'droplet0': 'drop 2.3s cubic-bezier(.57,0,.75,.07)',
         'wiggle': 'wiggle 3s linear infinite',
       },
       keyframes: {
         drop: {
-          '0%': { transform: 'translateY(-135px)', opacity: 0 },
-          '1%': { transform: 'translateY(-135px)', opacity: 1},    
-          '99%': { transform: 'translateY(100vh)', opacity: 1 },
-          '100%': { transform: 'translateY(100vh)', opacity: 0 },
+          '0%': { transform: 'translateY(20px)', opacity: 0 }, //-135
+          '1%': { transform: 'translateY(20px)', opacity: 1},    
+          '99%': { transform: 'translateY(97vh)', opacity: 1 },
+          '100%': { transform: 'translateY(97vh)', opacity: 0 },
         },
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
