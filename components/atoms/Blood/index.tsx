@@ -15,9 +15,10 @@ function Blood({}: Props, ref: ForwardedRef<any>)
             for (let i =0; i<val; i++)
             {
                 if (harvestedSouls.current.length>0)
-                    harvestedSouls.current.push(harvestedSouls.current.length+1+Math.ceil(harvestedSouls.current[harvestedSouls.current.length-1]*1.5));
+                    harvestedSouls.current.push(harvestedSouls.current.length+1+Math.ceil(harvestedSouls.current[harvestedSouls.current.length-1]*1.3));
                 else
                     harvestedSouls.current.push(666);
+                    console.log(harvestedSouls.current[harvestedSouls.current.length-1]%21);
             }
         }
     }))

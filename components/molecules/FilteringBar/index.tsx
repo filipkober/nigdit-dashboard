@@ -1,6 +1,6 @@
 import React, {useState, useRef, useImperativeHandle, forwardRef } from "react";
 import FilterElement from "../../atoms/FilterElement";
-import Image from 'next/image';
+import Image from 'next/future/image';
 import bloodDrop from '../../../assets/blooddrop.svg';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Blood from "../../atoms/Blood";
@@ -21,8 +21,7 @@ export default function FilteringBar()
     {
         clickCount.current = clickCount.current+1;
         collection === "Everything" ? setCollection("Subscribed") : setCollection("Everything");
-        if (clickCount.current >= 16) bftbg.current.blood(Math.round(Math.random()*Math.min(clickCount.current-16,9)));
-        console.log(clickCount.current);
+        if (clickCount.current >= 16) bftbg.current.blood(Math.round(Math.random()*Math.min(clickCount.current-16,9)));        
     }
 
     const elementRef1 = useRef() as React.MutableRefObject<RefHandler>; //nie mogłem odwołać wszystkiego do 1 elementu
@@ -53,7 +52,14 @@ export default function FilteringBar()
                 </div>
             </div>
         </div>          
-        <Blood ref={bftbg}/>    
+        <Blood ref={bftbg}/>
+        {clickCount.current > 20 ? (        
+        <div className="flex translate-y-[-127px] animate-drip">
+            <div className="w-[100vw] h-[85px] bg-bloodDrip bg-repeat-x bg-contain cursor-no-drop"></div> 
+        </div> 
+        ) : (        
+        <div></div>
+        )}  
         </>
     )
 }
