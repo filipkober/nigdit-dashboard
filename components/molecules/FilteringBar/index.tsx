@@ -3,20 +3,26 @@ import FilterElement from "../../atoms/FilterElement";
 import Image from 'next/image';
 import bloodDrop from '../../../assets/blooddrop.svg';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
+import Blood from "../../atoms/Blood";
 
 type RefHandler = {
     childFunction: (val: string) => void
+    blood: (val: number) => void
 }
 
 export default function FilteringBar()
 {   
-    const [parent] = useAutoAnimate<HTMLDivElement>({duration: 300, easing: 'ease-in-out'});
+    //const [parent] = useAutoAnimate<HTMLDivElement>({duration: 300, easing: 'ease-in-out'});
     const [collection,setCollection] = useState<string>("Everything");
+    const clickCount = useRef<number>(0);    
+    const bftbg = useRef() as React.MutableRefObject<RefHandler>;
 
     function swapCollection()
     {
+        clickCount.current = clickCount.current+1;
         collection === "Everything" ? setCollection("Subscribed") : setCollection("Everything");
-        
+        if (clickCount.current >= 16) bftbg.current.blood(Math.round(Math.random()*Math.min(clickCount.current-16,9)));
+        console.log(clickCount.current);
     }
 
     const elementRef1 = useRef() as React.MutableRefObject<RefHandler>; //nie mogłem odwołać wszystkiego do 1 elementu
@@ -46,7 +52,8 @@ export default function FilteringBar()
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>          
+        <Blood ref={bftbg}/>    
         </>
     )
 }
