@@ -6,6 +6,9 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
+    backgroundImage: {
+      'bloodDrip': "url('../../assets/drippin.svg')",
+    },
     screens: {
       'ms': '320px',  //mobile phone 
       'mm': '375px',
@@ -47,13 +50,20 @@ module.exports = {
         'droplet4': 'drop 1.7s cubic-bezier(.65,0,.71,.3)',
         'droplet5': 'drop 1.8s cubic-bezier(.57,0,.75,.07)',
         'droplet6': 'drop 1.9s cubic-bezier(.57,0,.75,.07)',
-        'droplet7': 'drop 2.0s cubic-bezier(.65,0,.71,.3)',
-        'droplet8': 'drop 2.1s cubic-bezier(.57,0,.75,.07)',
-        'droplet9': 'drop 2.2s cubic-bezier(.65,0,.71,.3)',
-        'droplet0': 'drop 2.3s cubic-bezier(.57,0,.75,.07)',
+        'droplet7': 'drop 1.0s cubic-bezier(.65,0,.71,.3)',
+        'droplet8': 'drop 1.1s cubic-bezier(.57,0,.75,.07)',
+        'droplet9': 'drop 1.2s cubic-bezier(.65,0,.71,.3)',
+        'droplet0': 'drop 1.3s cubic-bezier(.57,0,.75,.07)',
+        'drip': 'drip 30s cubic-bezier(0,1.05,.59,.9)',
         'wiggle': 'wiggle 3s linear infinite',
       },
       keyframes: {
+        drip: {
+          '0%': { transform: 'translateY(-215px)', opacity: 0 }, //-135
+          '1%': { transform: 'translateY(-215px)', opacity: 1},    
+          '99%': { transform: 'translateY(-127px)', opacity: 1 },
+          '100%': { transform: 'translateY(-127px)', opacity: 0 },
+        },
         drop: {
           '0%': { transform: 'translateY(20px)', opacity: 0 }, //-135
           '1%': { transform: 'translateY(20px)', opacity: 1},    
