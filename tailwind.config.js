@@ -59,10 +59,10 @@ module.exports = {
       },
       keyframes: {
         drip: {
-          '0%': { transform: 'translateY(-135px) translateX(-10vw)', opacity: 0 }, //-215
-          '1%': { transform: 'translateY(-135px) translateX(-10vw)', opacity: 1},    
-          '99%': { transform: 'translateY(-70px) translateX(-10vw)', opacity: 1 },  //-127
-          '100%': { transform: 'translateY(-70px) translateX(-10vw)', opacity: 0 },
+          '0%': { transform: 'translateY(-135px) translateX(-22vw)', opacity: 0 }, //-215
+          '1%': { transform: 'translateY(-135px) translateX(-22vw)', opacity: 1},    
+          '99%': { transform: 'translateY(-70px) translateX(-22vw)', opacity: 1 },  //-127
+          '100%': { transform: 'translateY(-70px) translateX(-22vw)', opacity: 0 },
         },
         drop: {
           '0%': { transform: 'translateY(20px)', opacity: 0 }, //-135

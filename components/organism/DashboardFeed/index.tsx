@@ -16,7 +16,9 @@ export default function DashboardFeed()
         <div className='tl:w-[56%] w-[100%] h-[6.3vh] min-h-[56px] max-h-[4rem] bg-[rgba(255,255,0,0)]'><FilteringBar/></div>
         <div className='tl:w-[22%] w-[0%] h-[250px] bg-[rgba(255,0,255,0)] tl:block hidden'>
           <div className=" w-[100%] h-[100%] flex flex-row justify-start tl:p-2">
-            <div className="w-[95%] max-w-[320px] h-[100%] bg-foregroundL dark:bg-foregroundD drop-shadow-midget rounded-[10px] border-black border-[2px] border-solid"></div>
+            <div className="w-[95%] max-w-[320px] h-[100%] bg-foregroundL dark:bg-foregroundD drop-shadow-midget rounded-[10px] border-black border-[2px] border-solid">
+              
+            </div>
           </div>
         </div>
       </div> 
