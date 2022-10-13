@@ -1,16 +1,51 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import makpaj from '../../../assets/makpaj.svg';
-import Arrow from '../../atoms/Arrow';
-import Replies from '../../atoms/Replies';
-import ShowReplies from '../../atoms/ShowReplies';
+import Arrow from '../Arrow';
 
-type CommentsProps = {
+type RepliesProps = {
   id: number;
   vote?: 'upvote' | 'downvote';
 };
 
-export default function Comment({ id, vote }: CommentsProps) {
+const autor = 'niggerman654';
+
+const odpowiedzi = [
+  {
+    id: 1,
+    votes: 65,
+    pfp: makpaj,
+    nick: 'Cygan45',
+    content: 'Jeste gejem',
+    responseTo: 1,
+  },
+  {
+    id: 2,
+    votes: 345,
+    pfp: makpaj,
+    nick: 'Cygan46',
+    content: 'hehehehaw',
+    responseTo: 2,
+  },
+  {
+    id: 3,
+    votes: 8855,
+    pfp: makpaj,
+    nick: 'Cygan47',
+    content: 'ballin',
+    responseTo: 3,
+  },
+  {
+    id: 4,
+    votes: -4,
+    pfp: makpaj,
+    nick: 'Cygan48',
+    content: 'ja tesz',
+    responseTo: 1,
+  },
+];
+
+export default function Replies({ id, vote }: RepliesProps) {
   const [upvoteClicked, setUpvoteClicked] = useState<boolean>(
     vote === 'upvote'
   );
@@ -28,63 +63,37 @@ export default function Comment({ id, vote }: CommentsProps) {
     }
   };
 
-  const autor = 'cyganslayer';
-
-  const komentarze = [
-    {
-      id: 1,
-      votes: 5,
-      pfp: makpaj,
-      nick: 'Cygan77',
-      content: 
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec elit est. Sed non rutrum purus, vitae sollicitudin diam. Quisque imperdiet lorem bibendum velit vehicula commodo. Vestibulum imperdiet feugiat turpis eget lobortis. Nullam fringilla tempor mauris vitae lobortis. Praesent sit amet venenatis quam, non tincidunt erat. Morbi semper ac purus id iaculis.',
-    },
-    {
-      id: 2,
-      votes: -6,
-      pfp: makpaj,
-      nick: 'Cygan78',
-      content: 'jigger bigger digger rigger',
-    },
-    {
-      id: 3,
-      votes: 6969,
-      pfp: makpaj,
-      nick: 'Cygan79',
-      content:
-        'bla bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec elit est. Sed non rutrum purus, vitae sollicitudin diam. Quisque imperdiet lorem bibendum elit vehicula commodo.',
-    },
-  ].sort((a, b) => b.votes - a.votes);
-
   return (
     <>
-      <div>
-        {komentarze.map((komentarz, index) => (
-          <div key={index}>
-            <div className="">
+      <div className="ml-[2vw] my-[1vh]">
+        {odpowiedzi
+          .filter((odpowiedz) => odpowiedz.responseTo === id)
+          .map((odpowiedz, index) => (
+            <div key={index}>
               <div className="flex flex-row">
-                <div className="font-['Roboto'] mr-1">
+                <div className="mr-1">
                   <Image
-                    src={komentarz.pfp}
+                    src={odpowiedz.pfp}
                     width={25}
                     height={25}
                     objectFit="cover"
-                    className="overflow-hidden w-[100%] h-[100%] rounded-full"
+                    className="overflow-hidden w-[100%] h-[100%] rounded-full "
                   />
                 </div>
+
                 <p className="font-['Roboto'] font-semibold dark:text-white text-base">
-                  {komentarz.nick}
+                  {odpowiedz.nick}
                 </p>
               </div>
               <div className="ml-[30px]">
                 <p className="font-['Roboto'] font-light dark:text-white text-base">
-                  {komentarz.content}
+                  {odpowiedz.content}
                 </p>
               </div>
               <div className='flex flex-row'>
                 <div className="flex flex-row">
                   <Arrow
-                    commentId={komentarz.id}
+                    commentId={odpowiedz.id}
                     variant="upvote"
                     className=""
                     setVote={voteOnComment}
@@ -92,11 +101,11 @@ export default function Comment({ id, vote }: CommentsProps) {
                   />
                   <p className="font-['Roboto'] dark:text-white text-base">
                     {Intl.NumberFormat('en', { notation: 'compact' }).format(
-                      komentarz.votes
+                      odpowiedz.votes
                     )}
                   </p>
                   <Arrow
-                    commentId={komentarz.id}
+                    commentId={odpowiedz.id}
                     variant="downvote"
                     className=""
                     setVote={voteOnComment}
@@ -109,11 +118,7 @@ export default function Comment({ id, vote }: CommentsProps) {
                 </div>
               </div>
             </div>
-            <div>
-              <ShowReplies key={komentarz.id} id={komentarz.id} />
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </>
   );

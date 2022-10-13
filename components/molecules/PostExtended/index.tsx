@@ -115,7 +115,7 @@ export default function PostExtended({
                 {title}
               </p>
             </div>
-            <div className="">
+            <div className="flex">
               {description ? (
                 <div>
                   <p className="font-['Roboto'] dark:text-white text-xl">
@@ -129,9 +129,8 @@ export default function PostExtended({
                     alt={title + ' image or gif'}
                     width="100"
                     height="100"
-                    max-height="100vh"
-                    max-width="100vw"
                     loader={(img) => media.source}
+                    unoptimized
                     className="w-[100%] h-[100%] object-cover"
                   />
                 </div>
