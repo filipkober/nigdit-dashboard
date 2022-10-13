@@ -16,6 +16,7 @@ function Blood({}: Props, ref: ForwardedRef<any>)
 
     useImperativeHandle(ref, () => ({
         blood : (val: number): void => {
+            console.log("działa "+val)
             for (let i =0; i<val; i++)
             {                
                 if (harvestedSouls.length>0)
