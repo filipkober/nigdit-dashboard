@@ -56,15 +56,15 @@ module.exports = {
         'droplet8': 'drop 1.1s cubic-bezier(.57,0,.75,.07)',
         'droplet9': 'drop 1.2s cubic-bezier(.65,0,.71,.3)',
         'droplet0': 'drop 1.3s cubic-bezier(.57,0,.75,.07)',
-        'drip': 'drip 30s cubic-bezier(0,1.05,.59,.9)',
+        'drip': 'drip 15s cubic-bezier(.22,.73,.45,.83)',  //cubic-bezier(0,1.05,.59,.9)
         'wiggle': 'wiggle 3s linear infinite',
       },
       keyframes: {
         drip: {
-          '0%': { transform: 'translateY(-215px)', opacity: 0 }, //-135
-          '1%': { transform: 'translateY(-215px)', opacity: 1},    
-          '99%': { transform: 'translateY(-127px)', opacity: 1 },
-          '100%': { transform: 'translateY(-127px)', opacity: 0 },
+          '0%': { transform: 'translateY(-135px) translateX(-10vw)', opacity: 0 }, //-215
+          '1%': { transform: 'translateY(-135px) translateX(-10vw)', opacity: 1},    
+          '99%': { transform: 'translateY(-70px) translateX(-10vw)', opacity: 1 },  //-127
+          '100%': { transform: 'translateY(-70px) translateX(-10vw)', opacity: 0 },
         },
         drop: {
           '0%': { transform: 'translateY(20px)', opacity: 0 }, //-135
