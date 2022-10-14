@@ -22,7 +22,7 @@ export default function Navbar({searchbar}: Props)
 
     }
     return(        
-        <div className="flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky">
+        <div className="flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-40 top-0 left-0">
             <div className='min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:w-[13rem] h-[100%] flex flex-row my-2 mx-2'>
                 <div className='shrink-0'>
                     <Image src={nigditIcon} width={36} height={36} className="object-cover overflow-hidden p-0 w-[2.4rem] h-[100%] rounded-full"/>

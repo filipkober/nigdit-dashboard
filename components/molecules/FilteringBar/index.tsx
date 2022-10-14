@@ -10,9 +10,10 @@ type RefHandler = {
     blood: (val: number) => void    //🤫
 }
 type Props = {
+    clicked: (cc: number) => void;
 }
 
-export default function FilteringBar({}: Props)
+export default function FilteringBar({clicked}: Props)
 {     
     //const [parent] = useAutoAnimate<HTMLDivElement>({duration: 300, easing: 'ease-in-out'});
     const [collection,setCollection] = useState<string>("Everything");
@@ -22,8 +23,17 @@ export default function FilteringBar({}: Props)
     function swapCollection()
     {
         clickCount.current = clickCount.current+1;
-        collection === "Everything" ? setCollection("Subscribed") : setCollection("Everything");
-        if (clickCount.current >= 16) bftbg.current.blood(Math.round(Math.random()*Math.min(clickCount.current-16,9))); 
+        if (clickCount.current >= 66)
+        {
+            setCollection("STOP!");
+            collection === "STOP!" ? setCollection("Enough!") : setCollection("STOP!");
+        }
+        else
+        {
+            collection === "Everything" ? setCollection("Subscribed") : setCollection("Everything");
+        }
+        if (clickCount.current >= 16) bftbg.current.blood(Math.round(Math.random()*Math.min(clickCount.current-16,19))); 
+        clicked(clickCount.current)
     }
 
     const elementRef1 = useRef() as React.MutableRefObject<RefHandler>; //nie mogłem odwołać wszystkiego do 1 elementu
@@ -50,15 +60,19 @@ export default function FilteringBar({}: Props)
                 </div>
                     <div className="h-[100%] ml:mr-1 pt-[3px] px-[2px]">
                         <div className="flex justify-between flex-row items-center h-[80%]">  {/* specjalny przycisk: "użytkownik powinien wiedzieć, że może go kliknąć" */}
-                            <button onClick={swapCollection} className='hover:cursor-pointer shrink-1 text-[12px] ts:text-[14px] tm:text-[16px] tl:text-[18px] font-["Roboto"] dark:text-white active:translate-y-0.5 duration-[10ms] shrink-1 text-white text-center font-bold drop-shadow-buttonImp active:drop-shadow-buttonImpA border-black border-solid border-[1px] w-[100%] h-[100%] hover:bg-experimentB bg-experimentA px-2 rounded-[5px]'>{collection}</button>                                             
+                            
+                            {clickCount.current > 16 ?
+                            (<button onClick={swapCollection} className={`hover:cursor-pointer shrink-1 text-[12px] ts:text-[14px] tm:text-[16px] tl:text-[18px] font-["Roboto"] text-red-700 active:translate-y-0.5 duration-[10ms] shrink-1 text-center font-bold drop-shadow-buttonImp active:drop-shadow-buttonImpA border-black border-solid border-[1px] w-[100%] h-[100%] hover:bg-experimentB bg-experimentA px-2 rounded-[5px]`}>{collection}</button>                                             )
+                            : (<button onClick={swapCollection} className={`hover:cursor-pointer shrink-1 text-[12px] ts:text-[14px] tm:text-[16px] tl:text-[18px] font-["Roboto"] dark:text-white active:translate-y-0.5 duration-[10ms] shrink-1 text-center font-bold drop-shadow-buttonImp active:drop-shadow-buttonImpA border-black border-solid border-[1px] w-[100%] h-[100%] hover:bg-experimentB bg-experimentA px-2 rounded-[5px]`}>{collection}</button>                                             )
+                            }
                         </div>
                     </div>
                 </div>
             </div>
             <Blood ref={bftbg}/>
-            {clickCount.current > 25 ? (        
-            <div className="fixed flex translate-y-[-70px] translate-x-[-22vw] animate-drip">
-                <div className="fixed w-[100vw] h-[85px] bg-bloodDrip bg-repeat-x bg-contain cursor-no-drop"></div> 
+            {clickCount.current > 35 ? (        
+            <div className="z-30 fixed flex translate-y-[-18px] tl:translate-x-[-22vw] animate-drip">
+                <div className="z-30 fixed w-[100vw] h-[85px] bg-bloodDrip bg-repeat-x bg-contain cursor-no-drop"></div> 
             </div> 
             ) : (        
             <div></div>
