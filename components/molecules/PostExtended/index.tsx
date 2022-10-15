@@ -7,6 +7,7 @@ import shareIcon from '../../../assets/share-icon.svg';
 import reportIcon from '../../../assets/report-icon.svg';
 import makpaj from '../../../assets/makpaj.svg';
 import Comment from '../Comments';
+import Reply from '../../atoms/ReplyButton';
 
 type PostExtendedProps = {
   title: string;

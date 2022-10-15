@@ -4,6 +4,10 @@ import makpaj from '../../../assets/makpaj.svg';
 import Arrow from '../../atoms/Arrow';
 import Replies from '../../atoms/Replies';
 import ShowReplies from '../../atoms/ShowReplies';
+import Reply from '../../atoms/ReplyButton';
+import { useModal } from '../../../hooks/useModal';
+import ReplyTextarea from '../../atoms/ReplyTextarea';
+import ReplyButton from '../../atoms/ReplyButton';
 
 type CommentsProps = {
   id: number;
@@ -28,6 +32,8 @@ export default function Comment({ id, vote }: CommentsProps) {
     }
   };
 
+  const { visible, changeVisible } = useModal();
+
   const autor = 'cyganslayer';
 
   const komentarze = [
@@ -36,7 +42,7 @@ export default function Comment({ id, vote }: CommentsProps) {
       votes: 5,
       pfp: makpaj,
       nick: 'Cygan77',
-      content: 
+      content:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec elit est. Sed non rutrum purus, vitae sollicitudin diam. Quisque imperdiet lorem bibendum velit vehicula commodo. Vestibulum imperdiet feugiat turpis eget lobortis. Nullam fringilla tempor mauris vitae lobortis. Praesent sit amet venenatis quam, non tincidunt erat. Morbi semper ac purus id iaculis.',
     },
     {
@@ -55,6 +61,8 @@ export default function Comment({ id, vote }: CommentsProps) {
         'bla bla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec elit est. Sed non rutrum purus, vitae sollicitudin diam. Quisque imperdiet lorem bibendum elit vehicula commodo.',
     },
   ].sort((a, b) => b.votes - a.votes);
+
+  console.log('comments ' + visible);
 
   return (
     <>
@@ -81,7 +89,7 @@ export default function Comment({ id, vote }: CommentsProps) {
                   {komentarz.content}
                 </p>
               </div>
-              <div className='flex flex-row'>
+              <div className="flex flex-row mt-2">
                 <div className="flex flex-row">
                   <Arrow
                     commentId={komentarz.id}
@@ -103,10 +111,19 @@ export default function Comment({ id, vote }: CommentsProps) {
                     clicked={downvoteClicked}
                   />
                 </div>
-                <div className="flex font-['Roboto'] dark:text-white ml-auto">
+                <div className="flex font-['Roboto'] dark:text-white ml-5">
                   <p>Share</p>
                   <p className="ml-5">Report</p>
                 </div>
+                <div className="font-['Roboto'] dark:text-white">
+                  <button
+                    onClick={changeVisible}
+                    className="font-['Roboto'] dark:text-white ml-5"
+                  >Reply</button>
+                </div>
+              </div>
+              <div>
+                <ReplyTextarea id={komentarz.id} visible={visible} />
               </div>
             </div>
             <div>

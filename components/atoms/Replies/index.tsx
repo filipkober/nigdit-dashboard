@@ -90,7 +90,7 @@ export default function Replies({ id, vote }: RepliesProps) {
                   {odpowiedz.content}
                 </p>
               </div>
-              <div className='flex flex-row'>
+              <div className='flex flex-row mt-2'>
                 <div className="flex flex-row">
                   <Arrow
                     commentId={odpowiedz.id}
@@ -112,7 +112,7 @@ export default function Replies({ id, vote }: RepliesProps) {
                     clicked={downvoteClicked}
                   />
                 </div>
-                <div className="flex font-['Roboto'] dark:text-white ml-auto">
+                <div className="flex font-['Roboto'] dark:text-white ml-5">
                   <p>Share</p>
                   <p className="ml-5">Report</p>
                 </div>

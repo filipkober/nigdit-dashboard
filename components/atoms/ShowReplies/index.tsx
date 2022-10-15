@@ -13,9 +13,9 @@ export default function ShowReplies({ id }: ShowRepliesProps) {
     <>
       <div className="m-2">
         {' '}
-        <a onClick={changeVisible} className="font-bold hover:cursor-pointer ">
-          {!visible ? 'v Pokaż odpowiedzi' : '^ Schowaj odpowiedzi'}
-        </a>
+        <button onClick={changeVisible} className="font-bold hover:cursor-pointer ">
+          {!visible ? 'v Show Replies' : '^ Hide Replies'}
+        </button>
         {visible ? <Replies id={id} /> : ''}
       </div>
     </>
