@@ -8,29 +8,20 @@ import Reply from '../../atoms/ReplyButton';
 import { useModal } from '../../../hooks/useModal';
 import ReplyTextarea from '../../atoms/ReplyTextarea';
 import ReplyButton from '../../atoms/ReplyButton';
+import Comment from '../../atoms/Comment';
 
 type CommentsProps = {
   id: number;
   vote?: 'upvote' | 'downvote';
 };
 
-export default function Comment({ id, vote }: CommentsProps) {
+export default function Comments({ id, vote }: CommentsProps) {
   const [upvoteClicked, setUpvoteClicked] = useState<boolean>(
     vote === 'upvote'
   );
   const [downvoteClicked, setDownvoteClicked] = useState<boolean>(
     vote === 'downvote'
   );
-
-  const voteOnComment = (vote: 'upvote' | 'downvote') => {
-    if (vote === 'downvote' && !downvoteClicked) {
-      setDownvoteClicked(true);
-      setUpvoteClicked(false);
-    } else if (vote === 'upvote' && !upvoteClicked) {
-      setDownvoteClicked(false);
-      setUpvoteClicked(true);
-    }
-  };
 
   const { visible, changeVisible } = useModal();
 
@@ -62,74 +53,18 @@ export default function Comment({ id, vote }: CommentsProps) {
     },
   ].sort((a, b) => b.votes - a.votes);
 
-  console.log('comments ' + visible);
-
   return (
     <>
       <div>
         {komentarze.map((komentarz, index) => (
-          <div key={index}>
-            <div className="">
-              <div className="flex flex-row">
-                <div className="font-['Roboto'] mr-1">
-                  <Image
-                    src={komentarz.pfp}
-                    width={25}
-                    height={25}
-                    objectFit="cover"
-                    className="overflow-hidden w-[100%] h-[100%] rounded-full"
-                  />
-                </div>
-                <p className="font-['Roboto'] font-semibold dark:text-white text-base">
-                  {komentarz.nick}
-                </p>
-              </div>
-              <div className="ml-[30px]">
-                <p className="font-['Roboto'] font-light dark:text-white text-base">
-                  {komentarz.content}
-                </p>
-              </div>
-              <div className="flex flex-row mt-2">
-                <div className="flex flex-row">
-                  <Arrow
-                    commentId={komentarz.id}
-                    variant="upvote"
-                    className=""
-                    setVote={voteOnComment}
-                    clicked={upvoteClicked}
-                  />
-                  <p className="font-['Roboto'] dark:text-white text-base">
-                    {Intl.NumberFormat('en', { notation: 'compact' }).format(
-                      komentarz.votes
-                    )}
-                  </p>
-                  <Arrow
-                    commentId={komentarz.id}
-                    variant="downvote"
-                    className=""
-                    setVote={voteOnComment}
-                    clicked={downvoteClicked}
-                  />
-                </div>
-                <div className="flex font-['Roboto'] dark:text-white ml-5">
-                  <p>Share</p>
-                  <p className="ml-5">Report</p>
-                </div>
-                <div className="font-['Roboto'] dark:text-white">
-                  <button
-                    onClick={changeVisible}
-                    className="font-['Roboto'] dark:text-white ml-5"
-                  >Reply</button>
-                </div>
-              </div>
-              <div>
-                <ReplyTextarea id={komentarz.id} visible={visible} />
-              </div>
-            </div>
-            <div>
-              <ShowReplies key={komentarz.id} id={komentarz.id} />
-            </div>
-          </div>
+          <Comment
+            key={komentarz.id}
+            id={komentarz.id}
+            nick={komentarz.nick}
+            votes={komentarz.votes}
+            pfp={komentarz.pfp}
+            content={komentarz.content}
+          />
         ))}
       </div>
     </>

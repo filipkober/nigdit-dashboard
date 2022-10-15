@@ -7,7 +7,7 @@ type ReplyButtonProps = {
   id: number;
 };
 
-export default function ShowReplies({ id}: ReplyButtonProps) {
+export default function ReplyButton({ id}: ReplyButtonProps) {
 
   return (
     <>
