@@ -11,7 +11,7 @@ export default function DashboardFeed()
   function clicked(cc: number)
   {
     setCounter(cc*2)    
-    console.log(counter)
+    console.log(counter/2)
   }
 
   return (
