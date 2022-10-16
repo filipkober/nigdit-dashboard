@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useState } from 'react';
+import React, { InputHTMLAttributes, useEffect, useState } from 'react';
 import Image from 'next/image';
 import nigditIcon from '../../../assets/testimage.svg'
 
@@ -18,8 +18,24 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 
 export default function Navbar({searchbar}: Props) 
 {
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    useEffect( ()=> {        
+        return () =>     console.log(`
+        $$\\   $$\\ $$\\           $$$$$$$\\  $$$$$$\\ $$$$$$$$\\ 
+        $$$\\  $$ |\\__|          $$  __$$\\ \\_$$  _|\\__$$  __|
+        $$$$\\ $$ |$$\\  $$$$$$\\  $$ |  $$ |  $$ |     $$ |   
+        $$ $$\\$$ |$$ |$$  __$$\\ $$ |  $$ |  $$ |     $$ |   
+        $$ \\$$$$ |$$ |$$ /  $$ |$$ |  $$ |  $$ |     $$ |   
+        $$ |\\$$$ |$$ |$$ |  $$ |$$ |  $$ |  $$ |     $$ |   
+        $$ | \\$$ |$$ |\\$$$$$$$ |$$$$$$$  |$$$$$$\\    $$ |   
+        \\__|  \\__|\\__| \\____$$ |\\_______/ \\______|   \\__|   
+                      $$\\   $$ |                            
+                      \\$$$$$$  |                            
+                       \\______/`);
+    });
 
+
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        
     }
     return(        
         <div className="flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-40 top-0 left-0">
