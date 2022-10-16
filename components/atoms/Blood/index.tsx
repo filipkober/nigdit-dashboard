@@ -1,6 +1,6 @@
 import React, {useState, forwardRef, ForwardedRef, useImperativeHandle, useRef} from "react";
 import Image from 'next/image';
-import bloodDrop from '../../../assets/blooddrop.svg';
+import bloodDrop from '../../../assets/easterEgg1/blooddrop.svg';
 
 type Props = {
 }
