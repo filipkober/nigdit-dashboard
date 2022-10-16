@@ -7,8 +7,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     backgroundImage: {
-      'bloodDrip': "url('../../assets/drippin.svg')",
-      'ocean': "url('../../assets/seaofblood.png')",
+      'bloodDrip': "url('../../assets/easterEgg1/drippin.svg')",
+      'ocean': "url('../../assets/easterEgg1/seaofblood.png')",  //prawdopodobnie do konwersji na svg
+      'joinedGroups': "url('../../assets/colorful43.svg')",
     },
     screens: {
       'ms': '320px',  //mobile phone 
@@ -43,6 +44,7 @@ module.exports = {
         foregroundL: '#FF00FF',
         accentD: '#3F3F3F',
         accentL: ''
+        experimentC: '#323232',
         experimentA: '#393939',
         experimentB: '#484848',
       },
@@ -84,5 +86,9 @@ module.exports = {
   plugins: [
     require("tailwind-gradient-mask-image"),
     require('tailwind-scrollbar')
-  ],
+    
+  ],  
+  variants: {
+        scrollbar: ['rounded']
+  }
 }

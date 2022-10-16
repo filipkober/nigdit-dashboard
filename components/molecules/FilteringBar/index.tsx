@@ -1,7 +1,5 @@
 import React, {useState, useRef, useImperativeHandle, forwardRef, useEffect } from "react";
 import FilterElement from "../../atoms/FilterElement";
-import Image from 'next/future/image';
-import bloodDrop from '../../../assets/blooddrop.svg';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Blood from "../../atoms/Blood";
 
