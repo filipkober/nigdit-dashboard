@@ -29,19 +29,22 @@ function Blood({}: Props, ref: ForwardedRef<any>)
                 }
             }
         }
-    }))
+    }))//${(x%10)}
 
     return(
         <div className="fixed">
             {harvestedSouls.map((x,index) => {
                 const y = (x%99)-22;
-                console.log("added: "+x+" "+index+" "+y+" "+(x%10));
+                const z = x%2;  
+                console.log("added: "+x+" "+index+" "+y+" "+z);
                 return (
                     <div key={index}> 
-                    <div className="fixed" style={{transform: 'translate('+y+'vw, '+(-130-(x%66))+'px)'}}>
-                        <div className={`animate-droplet${(x%10)}`}>
-                            <Image src={bloodDrop} width={30} height={30} className="fixed"/>
-                        </div>
+                    <div className="fixed" style={{transform: 'translate('+y+'vw, '+(-130-(x%166))+'px)'}}>
+                        {z == 1 ? (
+                        <div className={"animate-droplet6"}><Image src={bloodDrop} width={30} height={30} className="fixed"/></div>
+                        ) : (
+                        <div className={"animate-droplet2"}><Image src={bloodDrop} width={30} height={30} className="fixed"/></div>
+                        )}  {/* tailwind - raz dziala, raz nie działa i chuj :) */}
                     </div>  
                     </div>                   
                 )
