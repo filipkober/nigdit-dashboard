@@ -22,8 +22,13 @@ export default function DashboardFeed()
           </div>
         </div>
       </div>
-      <div style={{bottom: counter+"px"}} className={"fixed w-[100%] h-[100%] bg-ocean bg-repeat-x bg-cover cursor-no-drop translate-y-[90%]"}>
-      </div>
+      {counter > 16 ? (        
+          <div style={{bottom: counter+"px"}} className={"fixed w-[100%] h-[100%] bg-ocean bg-repeat-x bg-cover cursor-no-drop translate-y-[90%]"}>
+          </div>
+        ) : (        
+          <div></div>
+        )}  
+
     </>
   )
 }
