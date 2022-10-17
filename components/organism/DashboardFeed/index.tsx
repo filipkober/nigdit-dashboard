@@ -1,6 +1,9 @@
 import React, {useState, useRef, useImperativeHandle, forwardRef, useEffect } from "react";
 import FilteringBar from "../../molecules/FilteringBar";
 import JoindeGroups from "../../molecules/JoinedGroups";
+import PostMedia from "../../molecules/PostMedia";
+import PostText from "../../molecules/PostText";
+import makpaj from '../../../assets/makpaj.svg'
 
 export default function DashboardFeed() 
 {
@@ -10,12 +13,27 @@ export default function DashboardFeed()
     setCounter(cc*2)    
     console.log(counter/2)
   }
+  const desc = `
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat
+        Duis aute irure dolor in reprehenderit in voluptate ...
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat
+        Duis aute irure dolor in reprehenderit in voluptate
+  `;  //temp
 
   return (
     <>
       <div className="flex flex-row justify-between w-[100%]">
         <div className='tl:w-[22%] w-[0%] h-[6.3vh] min-h-[56px] max-h-[4rem] bg-[rgba(255,0,0,0)] tl:block hidden'></div>
-        <div className='tl:w-[56%] w-[100%] h-[6.3vh] min-h-[56px] max-h-[4rem] bg-[rgba(255,255,0,0)]'><FilteringBar clicked={clicked}/></div>
+        <div className='tl:w-[56%] w-[100%] h-[6.3vh] min-h-[56px] max-h-[4rem] bg-[rgba(255,255,0,0)]'>
+          <FilteringBar clicked={clicked}/>
+          <PostText title="post" description={desc} author="user" date={new Date('2022-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={1500} />
+      <PostMedia title="gif post" media={{type: "gif", source: "https://c.tenor.com/hVm01utkmM8AAAAd/maciek-sze%C5%9Bcia%C5%84czyk-maciasek05.gif"}} author="makpaj" date={new Date('2000-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={-1500} />
+      <PostMedia title="gif post" media={{type: "video", source: "https://www.w3schools.com/html/mov_bbb.mp4"}} author="makpaj" date={new Date('2000-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={-1500} />
+        </div>
         <div className='tl:w-[22%] w-[0%] bg-[rgba(255,0,255,0)] tl:block hidden'>
           <div className=" w-[100%] h-[100%] flex flex-row justify-start tl:p-2">
             <JoindeGroups/>            
