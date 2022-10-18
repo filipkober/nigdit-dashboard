@@ -9,6 +9,8 @@ const onChange = (value: string)=> console.log(value);
 
 const onChange = (value: string)=> console.log(value);
 
+const onChange = (value: string)=> console.log(value);
+
 const Home: NextPage = () => {
   const desc = `
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
