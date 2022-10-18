@@ -35,7 +35,7 @@ export default function Navbar({searchbar}: Props)
 
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        
+        console.log("changed navbar content")
     }
     return(        
         <div className="flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-40 top-0 left-0">
@@ -58,7 +58,7 @@ export default function Navbar({searchbar}: Props)
                     </div>
                 </div> 
             </div>
-            <div className='min-w-[2.4rem] w-[2.4rem] tm:w-[13rem] h-[100%] flex flex-row-reverse my-2 mx-2'>
+            <div className='min-w-[2.4rem] w-[2.4rem] tm:w-[13rem] h-[100%] flex flex-row-reverse my-2 ml-1 mr-3'>
                 <div className='ml-auto min-w-[2.4rem] w-[2.4rem] shrink-0'>
                     <Image src={nigditIcon} width={36} height={36} className="hover:cursor-pointer object-cover overflow-hidden w-[100%] h-[100%] rounded-full"/>
                 </div> 

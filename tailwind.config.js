@@ -43,7 +43,7 @@ module.exports = {
         backgroundL: '#D9A7DA',
         foregroundL: '#FF00FF',
         accentD: '#3F3F3F',
-        accentL: ''
+        accentL: '',
         experimentC: '#323232',
         experimentA: '#393939',
         experimentB: '#484848',
