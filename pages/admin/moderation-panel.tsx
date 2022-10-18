@@ -10,7 +10,7 @@ const Ballin: NextPage = () => {
   return (
     <div className='bg-backgroundL dark:bg-backgroundD h-full'>
       <Navbar searchbar={{value: search, onChange: setSearch}} />
-      <TabSelector selected={selected} setSelected={setSelected}/>
+      <TabSelector selected={selected} setSelected={setSelected} tabs={['Posts', 'Comments', 'Subnigdits']}/>
       <ModerationPanel tab={selected} className={"h-screen"}/>
     </div>
   )
