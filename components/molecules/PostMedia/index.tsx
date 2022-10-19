@@ -35,7 +35,7 @@ export default function PostMedia({title,media,author,source,votes,date, vote}: 
   }
 
   return (
-    <div className="w-[50%] text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden min-w-[25vw] my-2">
+    <div className="w-[100%] text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden min-w-[25vw] my-2">
       <div className='max-h-[60vh]'>
       {/* GÓRNY PASEK AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
       <div className='flex flex-row min-w-[25vw]'>

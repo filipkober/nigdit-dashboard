@@ -20,6 +20,7 @@ export default function PostTekstowy({title,description,author,source,votes,date
 
   const [upvoteClicked, setUpvoteClicked] = useState<boolean>(vote === "upvote");
   const [downvoteClicked, setDownvoteClicked] = useState<boolean>(vote === "downvote");
+  
 
   const voteOnPost = (vote: "upvote" | "downvote") => {
     if(vote === "downvote" && !downvoteClicked){
@@ -32,7 +33,7 @@ export default function PostTekstowy({title,description,author,source,votes,date
   }
 
   return (
-    <div className="h-[10rem] w-[50%] text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden min-w-[25vw] max-h-[50vh] mb-2">
+    <div className="h-[10rem] w-[100%] text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden min-w-[25vw] max-h-[50vh] mb-2">
       {/* GÓRNY PASEK AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
       <div className='flex flex-row min-w-[25vw]'>
       <div className="font-['Roboto'] w-7 h-7 min-w-[25px] mr-1">
