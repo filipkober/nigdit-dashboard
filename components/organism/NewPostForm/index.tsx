@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import AsyncSelect from 'react-select/async';
-import {customStyles} from '../../../util/reactSelectCustomClasses';
+import getStyle from '../../../util/reactSelectCustomClasses';
 import TabSelector from '../../molecules/TabSelector';
 import MediaPostForm from '../MediaPostForm';
 import TextPostForm from '../TextPostForm';
@@ -23,7 +23,8 @@ export default function NewPostForm({}: newPostFormProps){
                     ].filter(i => i.label.toLowerCase().includes(inputValue.toLowerCase()))
                 }}
                 isSearchable={true}
-                styles={customStyles}
+                // ! TODO: Add a way to toggle between dark and light mode
+                styles={getStyle('dark')}
                 className="w-[80vw] ts:w-[25rem] mb-2 mt-4 mx-auto"
             />
             <TabSelector tabs={['Text', 'Media']} selected={selected} setSelected={setSelected}/>
