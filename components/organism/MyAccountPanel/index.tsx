@@ -58,16 +58,16 @@ export default function MyAccountPanel(){
 
                 >
                 {({values, handleChange, handleBlur, handleSubmit}) => (
-                <form onSubmit={handleSubmit} className="flex flex-col ml-8">
+                <form onSubmit={handleSubmit} className="flex flex-col ts:ml-8">
                     <div className="flex flex-col ls:flex-row">
                     <div className="flex flex-col">
-                    <Input type="text" className="mt-8 mx-auto ls:ml-8" name="username" placeholder="Username" initialValue={values.username} onChange={handleChange}/>
+                    <Input type="text" className="mt-8 ls:ml-8" name="username" placeholder="Username" initialValue={values.username} onChange={handleChange}/>
                     <Input type="email" className="mt-8 ls:ml-8 mx-auto" name="email" placeholder="Email" initialValue={values.email} onChange={handleChange}/>
-                    <Button variant="submit" content="Save" className="ls:ml-8 mt-8 ls:top-1/4 ls:self-auto self-center"/>
+                    <Button variant="submit" content="Save" className="ls:ml-8 mt-8 ls:top-1/4 ls:self-auto self-center w-full ts:w-auto"/>
 
                     </div>
                     <div className="flex flex-col ls:ml-2 mt-8">
-                    <TextArea name={"aboutMe"} cols={15} placeholder={"About me"} initialValue={values.aboutMe} onChange={handleChange} className="ls:self-auto self-center mx-auto ls:mx-0"/>
+                    <TextArea name={"aboutMe"} placeholder={"About me"} initialValue={values.aboutMe} onChange={handleChange} className="ls:self-auto self-center mx-auto ls:mx-0 h-[20vh] ts:h-full"/>
                     </div>
                     </div>
                 </form>

@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
 import Image from 'next/future/image';
+import { useRef, useState } from 'react';
 import Button from '../../atoms/Button';
 import Input from '../../atoms/Input';
 
@@ -11,6 +12,19 @@ const initialValues = {
   media: undefined,
 };
 export default function MediaPostForm({ className }: mediaPostFormProps) {
+
+  const inputFileRef = useRef<HTMLInputElement>(null);
+  const [mediaType,setMediaType] = useState("")
+
+  const dropHandler = (e: React.DragEvent<HTMLDivElement>, setFieldValue: (a:any, b:any) => void) => {;
+    e.preventDefault();
+    if (e.dataTransfer.files.length && inputFileRef.current) {
+      setFieldValue('media', e.dataTransfer.files[0]);
+      setMediaType(e.dataTransfer.files[0].type);
+    }
+  };
+
+
   return (
     <div className={className}>
       <Formik
@@ -27,9 +41,10 @@ export default function MediaPostForm({ className }: mediaPostFormProps) {
               onChange={handleChange}
               initialValue={values.title}
               placeholder={'Title'}
+              className="my-2 w-full h-[2rem] text-xl"
             />
 
-            <div className="flex justify-center items-center w-full relative">
+            <div className="flex justify-center items-center w-full relative" onDrop={(e) => dropHandler(e, setFieldValue)} onDragOver={e => e.preventDefault()}>
               {
                 !values.media ? (
                   <label
@@ -59,17 +74,25 @@ export default function MediaPostForm({ className }: mediaPostFormProps) {
                     Image or video formats
                   </p>
                 </div>
-                <input id="dropzone-file" type="file" className="hidden" value={values.media} onChange={(t) => {if(t.target.files) setFieldValue('media', t.target.files[0])}} />
+                <input id="dropzone-file" type="file" className="hidden" value={values.media} onChange={(t) => {if(t.target.files){ setFieldValue('media', t.target.files[0]); setMediaType(t.target.files[0].type)}}} ref={inputFileRef} accept="video/*,image/*"/>
               </label>
                 ) : (
                   <>
-                  <Image
-                  src={URL.createObjectURL(values.media)}
-                  alt="media"
-                  width={800}
-                  height={400}
-                  className="rounded-lg flex flex-col justify-center items-center w-full h-64"
-                />
+                  {mediaType.includes('image') ? (
+                    <Image
+                    src={URL.createObjectURL(values.media)}
+                    alt="media"
+                    width={800}
+                    height={400}
+                    className="rounded-lg flex flex-col justify-center items-center w-full"
+                  />
+                  ) : (
+                    <video
+                    src={URL.createObjectURL(values.media)}
+                    className="rounded-lg flex flex-col justify-center items-center w-full h-full"
+                    controls
+                  />
+                  )}
                 <button className='border-0 bg-transparent text-red-600 absolute top-2 right-4 font-bold' type='button' onClick={() => setFieldValue('media', undefined)}>
                   X
                 </button></>
@@ -77,7 +100,7 @@ export default function MediaPostForm({ className }: mediaPostFormProps) {
               }
             </div>
 
-            <Button variant="submit" content={'Submit'} />
+            <Button variant="submit" content={'Submit'} className="mt-2 w-full h-12"/>
           </form>
         )}
       </Formik>

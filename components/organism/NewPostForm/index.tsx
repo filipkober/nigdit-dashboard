@@ -25,10 +25,10 @@ export default function NewPostForm({}: newPostFormProps){
                 isSearchable={true}
                 // ! TODO: Add a way to toggle between dark and light mode
                 styles={getStyle('dark')}
-                className="w-[80vw] ts:w-[25rem] mb-2 mt-4 mx-auto"
+                className="w-[80vw] ts:w-[25rem] mb-2 mt-4 ml-2"
             />
             <TabSelector tabs={['Text', 'Media']} selected={selected} setSelected={setSelected}/>
-            {selected === 0 ? <TextPostForm/> : <MediaPostForm/>}
+            {selected === 0 ? <TextPostForm/> : <MediaPostForm className='mx-2'/>}
         </div>
     )
 }
