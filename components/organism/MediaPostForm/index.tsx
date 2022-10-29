@@ -93,7 +93,7 @@ export default function MediaPostForm({ className, subnigdit={name:'n/subnigdit'
                     alt="media"
                     width={800}
                     height={400}
-                    className="rounded-lg flex flex-col justify-center items-center w-full"
+                    className="rounded-lg flex flex-col justify-center items-center w-full h-[50vh]"
                   />
                   ) : (
                     <video
