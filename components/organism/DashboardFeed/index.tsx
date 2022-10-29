@@ -40,7 +40,7 @@ export default function DashboardFeed()
           </div>         
         </div>
         <div className='tl:w-[22%] w-[0%] bg-[rgba(255,0,255,0)] tl:block hidden'>
-          <div className=" w-[100%] h-[100%] flex flex-row justify-start tl:p-2">
+          <div className="w-[100%] h-[100%] flex flex-row justify-start tl:p-2">
             <JoindeGroups/>            
           </div>
         </div>

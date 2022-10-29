@@ -47,6 +47,10 @@ module.exports = {
         experimentC: '#323232',
         experimentA: '#393939',
         experimentB: '#484848',
+        cancel: '#700000',
+        cancelH: '#8F0000',
+        apply: '#007000',
+        applyH: '#008F00',
       },
       animation: {
         'droplet1': 'drop 1.4s cubic-bezier(.57,0,.75,.07)',
