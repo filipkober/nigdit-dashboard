@@ -1,17 +1,20 @@
 import { Formik } from 'formik';
 import Image from 'next/future/image';
 import { useRef, useState } from 'react';
+import SubnigditRulesType from '../../../models/SubnigditRulesType';
 import Button from '../../atoms/Button';
 import Input from '../../atoms/Input';
+import SubnigditRules from '../../molecules/SubnigditRules';
 
 type mediaPostFormProps = {
   className?: string;
+  subnigdit?: SubnigditRulesType;
 };
 const initialValues = {
   title: '',
   media: undefined,
 };
-export default function MediaPostForm({ className }: mediaPostFormProps) {
+export default function MediaPostForm({ className, subnigdit={name:'n/subnigdit', rules:['no rules']} }: mediaPostFormProps) {
 
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [mediaType,setMediaType] = useState("")
@@ -34,7 +37,13 @@ export default function MediaPostForm({ className }: mediaPostFormProps) {
         }}
       >
         {({ values, handleChange, handleSubmit, setFieldValue }) => (
-          <form onSubmit={handleSubmit}>
+          <div className='ts:flex flex-row-reverse'>
+            {subnigdit && <div className="mt-2 ts:ml-2 ts:w-1/2 ts:flex align-middle">
+              <div className="ml-auto ts:w-1/2 mx-auto">
+                <SubnigditRules rules={subnigdit}/>
+              </div>
+            </div>}
+          <form onSubmit={handleSubmit} className={subnigdit ? 'ts:w-1/2' : 'w-full'}>
             <Input
               type="text"
               name="title"
@@ -102,6 +111,7 @@ export default function MediaPostForm({ className }: mediaPostFormProps) {
 
             <Button variant="submit" content={'Submit'} className="mt-2 w-full h-12"/>
           </form>
+          </div>
         )}
       </Formik>
     </div>
