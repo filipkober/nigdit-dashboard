@@ -59,7 +59,7 @@ const PostPage: NextPage = () => {
         <div className="my-[5vh] hidden ls:block ls:mx-[5vh] w-[30%]">
           <SubnigditInfo id={1} />
 
-          <SubnigditRules id={1} />
+          <SubnigditRules/>
         </div>
       </div>
     </>
