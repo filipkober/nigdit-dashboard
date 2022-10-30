@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useModal } from '../../../hooks/useModal';
-import Replies from '../Replies';
+import Replies from '../../molecules/Replies';
 
 type ShowRepliesProps = {
   id: number;

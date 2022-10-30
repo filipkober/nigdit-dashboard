@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import makpaj from '../../../assets/makpaj.svg';
 import Arrow from '../../atoms/Arrow';
-import Replies from '../../atoms/Replies';
+import Replies from '../Replies';
 import ShowReplies from '../../atoms/ShowReplies';
 import Reply from '../../atoms/ReplyButton';
 import { useModal } from '../../../hooks/useModal';
