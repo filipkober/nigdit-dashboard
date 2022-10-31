@@ -35,11 +35,11 @@ export default function MyAccountPanel(){
     return (
         <div className="flex justify-center flex-col py-4">
         <div className="bg-foregroundL dark:bg-foregroundD w-full ls:w-[98%] cs:h-[60vh] font-[IBM_Plex_Sans] text-3xl flex-col ls:flex-row flex ls:mx-5 pb-4">
-            <div className="flex-col w-[100%] ls:w-[9%] ls:h-[100%] flex ml-2">
+            <div className="flex-col w-[100%] ls:w-[12%] ls:h-[100%] flex ml-2">
             <p className="mt-1 ml-2 text-md">My account</p>
             <div className="text-center mt-8 justify-center flex flex-col">
-            <div className="rounded-full bg-white w-[20vw] h-[20vw] ts:w-[5vw] ts:h-[5vw] mt-2 mx-auto">
-                <Image src={Makpaj} alt="profile picture" className="rounded-full w-full h-full object-cover"/>
+            <div className="rounded-full bg-white mt-2 mx-auto aspect-square w-[100px]">
+                <Image src={Makpaj} alt="profile picture" className="rounded-full object-cover aspect-square" width={100} height={100}/>
             </div>
             <Button variant="button" content="Change" onClick={changeVisible} className="mt-6"/>
             <ChangePictureModal open={visible} changeVisible={changeVisible} initialImage={macias}/>
@@ -58,16 +58,16 @@ export default function MyAccountPanel(){
 
                 >
                 {({values, handleChange, handleBlur, handleSubmit}) => (
-                <form onSubmit={handleSubmit} className="flex flex-col ts:ml-8">
+                <form onSubmit={handleSubmit} className="flex flex-col ts:ml-2 cs:ml-8">
                     <div className="flex flex-col ls:flex-row">
                     <div className="flex flex-col">
                     <Input type="text" className="mt-8 ls:ml-8" name="username" placeholder="Username" initialValue={values.username} onChange={handleChange}/>
                     <Input type="email" className="mt-8 ls:ml-8 mx-auto" name="email" placeholder="Email" initialValue={values.email} onChange={handleChange}/>
-                    <Button variant="submit" content="Save" className="ls:ml-8 mt-8 ls:top-1/4 ls:self-auto self-center w-full ts:w-auto"/>
+                    <Button variant="submit" content="Save" className="ls:ml-8 mt-8 ls:top-1/4 ls:self-auto self-center w-full ls:w-auto"/>
 
                     </div>
                     <div className="flex flex-col ls:ml-2 mt-8">
-                    <TextArea name={"aboutMe"} placeholder={"About me"} initialValue={values.aboutMe} onChange={handleChange} className="ls:self-auto self-center mx-auto ls:mx-0 h-[20vh] ts:h-full"/>
+                    <TextArea name={"aboutMe"} placeholder={"About me"} initialValue={values.aboutMe} onChange={handleChange} className="ls:self-auto self-center mx-auto ls:mx-0 h-[20vh] ls:h-full"/>
                     </div>
                     </div>
                 </form>
@@ -79,8 +79,8 @@ export default function MyAccountPanel(){
             <VerticalDivider height="80%"/>
             </div>
             <div className="flex flex-col">
-            <div className="flex flex-col ml-2 self-center ls:self-auto">
-                        <Button variant="button" content="Change password" className="mx-auto ls:ml-[-10vw] cs:ml-8 mt-8" onClick={() => {setChangePassVisible(!changePassVisible)}}/>
+            <div className="flex flex-col ml-2 self-center ls:self-start">
+                        <Button variant="button" content="Change password" className="mx-auto ls:ml-8 mt-8" onClick={() => {setChangePassVisible(!changePassVisible)}}/>
                     </div>
             <div ref={parent}>
                 {changePassVisible && <Formik
@@ -93,10 +93,10 @@ export default function MyAccountPanel(){
                 {({values, handleChange, handleBlur, handleSubmit}) => (
                 <form onSubmit={handleSubmit} className="flex flex-col">
                     <div className="flex flex-col cs:flex-row">
-                    <div className="flex flex-col ml-2 ls:ml-[-52vw] cs:ml-2">
-                    <Input type="password" className="mt-8 cs:ml-8 mx-auto" name="oldPassword" placeholder="Old password" initialValue={values.oldPassword} onChange={handleChange}/>
-                    <Input type="password" className="mt-8 cs:ml-8 mx-auto" name="newPassword" placeholder="New password" initialValue={values.newPassword} onChange={handleChange}/>
-                    <Input type="password" className="mt-8 cs:ml-8 mx-auto" name="newPasswordConfirm" placeholder="Confirm new pass" initialValue={values.newPasswordConfirm} onChange={handleChange}/>
+                    <div className="flex flex-col ml-2 cs:ml-2">
+                    <Input type="password" className="mt-8 ls:ml-8 mx-auto" name="oldPassword" placeholder="Old password" initialValue={values.oldPassword} onChange={handleChange}/>
+                    <Input type="password" className="mt-8 ls:ml-8 mx-auto" name="newPassword" placeholder="New password" initialValue={values.newPassword} onChange={handleChange}/>
+                    <Input type="password" className="mt-8 ls:ml-8 mx-auto" name="newPasswordConfirm" placeholder="Confirm new pass" initialValue={values.newPasswordConfirm} onChange={handleChange}/>
                     <Button variant="submit" content="Submit" className="ls:ml-8 mt-8 mx-auto"/>
                     </div>
                     </div>
