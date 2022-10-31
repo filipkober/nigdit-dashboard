@@ -1,6 +1,7 @@
 import React, { InputHTMLAttributes, useEffect, useState } from 'react';
 import Image from 'next/image';
 import nigditIcon from '../../../assets/testimage.svg'
+import Link from 'next/link';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     user?:
@@ -44,7 +45,7 @@ export default function Navbar({searchbar}: Props)
                     <Image src={nigditIcon} width={36} height={36} className="hover:cursor-pointer object-cover overflow-hidden p-0 w-[2.4rem] h-[100%] rounded-full"/>
                 </div> 
                 <div className='w-[5rem] hidden ml:block'>
-                    <p className="shrink-1 text-[24px] font-['Roboto'] dark:text-white pl-2">NigDIT</p>
+                    <p className="shrink-1 text-[24px] font-['Roboto'] dark:text-white pl-2"><Link href={'/'}>NigDIT</Link></p>
                 </div>                
                 <div className='w-[5.6rem] overflow-hidden shrink-1 hidden tl:flex'></div>
             </div>            
