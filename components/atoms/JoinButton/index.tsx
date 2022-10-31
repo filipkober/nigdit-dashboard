@@ -7,7 +7,7 @@ export function JoinButton() {
     <>
       <button
         onClick={() => setJoined(!joined)}
-        className="flex w-[8rem] justify-center py-3 font-semibold text-sm dark:bg-accentD text-white rounded-full shadow-sm"
+        className="w-[8rem] justify-center py-3 font-semibold text-sm text-white rounded-full shadow-sm border border-white"
       >
         {!joined ? 'Join' : 'Joined'}
       </button>
