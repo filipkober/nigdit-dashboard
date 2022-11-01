@@ -132,7 +132,7 @@ export default function SubnigditCreationPanel()
                   </div>
                   <div className="w-[100%] h-[150px] p-[1vw] tl:p-[0.5vw]">
                     <div className="w-[100%] h-[100%]">
-                      <TextArea name="description" placeholder="The descriptipon of this subnigdit..." className="w-full h-full"/>
+                      <TextArea name="description" placeholder="The description of your subnigdit..." className="w-full h-full"/>
                     </div>
                   </div>   
                   <div className="w-[100%] cs:w-[50%] h-[200px] tl:h-[300px] p-[1vw] tl:p-[0.5vw]">
