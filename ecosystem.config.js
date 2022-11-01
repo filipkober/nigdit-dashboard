@@ -8,7 +8,7 @@ module.exports = {
       key: 'nigdit_key.pem',
       user : 'azureuser',
       host : '51.142.107.198',
-      ref  : 'origin/master',
+      ref  : 'origin/main',
       repo : 'git@github.com:filipkober/nigdit-dashboard.git',
       path : '/home/azureuser',
       'pre-deploy-local': '',
