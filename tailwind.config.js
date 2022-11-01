@@ -39,6 +39,7 @@ module.exports = {
       },
       colors:{
         backgroundD: '#1E1E1E',
+        highlightD: '#252525',
         foregroundD: '#2B2B2B',
         backgroundL: '#D9A7DA',
         foregroundL: '#FF00FF',
@@ -48,6 +49,12 @@ module.exports = {
         experimentC: '#323232',
         experimentA: '#393939',
         experimentB: '#484848',
+        cancel: '#700000',
+        cancelH: '#8F0000',
+        apply: '#007000',
+        applyH: '#008F00',
+        delete: '#350000',
+        deleteH: '#5A0000',
       },
       animation: {
         'droplet1': 'drop 1.4s cubic-bezier(.57,0,.75,.07)',
