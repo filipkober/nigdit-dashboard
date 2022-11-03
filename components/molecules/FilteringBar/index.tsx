@@ -79,11 +79,3 @@ export default function FilteringBar({clicked}: Props)
         </>
     )
 }
-
-
-        // if (clickCount.current == 25)
-        // {
-        //     window.setInterval(() => {
-        //         bftbg.current.blood(4);
-        //     }, 700);  
-        // }
