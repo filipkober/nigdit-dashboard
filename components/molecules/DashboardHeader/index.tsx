@@ -25,7 +25,7 @@ export default function DashboardHeader() {
           <div><p className="text-left text-xl tm:ml-[23vh]">n/JebanieCygana</p></div>
           <div className="tm:ml-auto ml-[5vw] flex flex-row items-center">
           <p className="mr-[2vw] lm:text-lg text-base tm:flex hidden">420 members</p> 
-            <div className='scale-75 tm:scale-100'><JoinButton /></div>
+            <div className='scale-75 tm:scale-100 m-2'><JoinButton /></div>
           </div>
         </div>
         

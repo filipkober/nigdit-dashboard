@@ -22,6 +22,51 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 
 export default function SubnigditDashboard() {
   const [selected, setSelected] = useState<number>(0);
+  const content = (
+    <div className="ls:w-[50vw] flex flex-col">
+      <div className="mb-[1vh]">
+        <FilteringBar
+          clicked={function (cc: number): void {
+            throw new Error('Function not implemented.');
+          }}
+        />
+      </div>
+      {/* tu będzie map */}
+      <div className="px-2">
+        <PostMedia
+          title="gif post"
+          media={{
+            type: 'gif',
+            source:
+              'https://c.tenor.com/hVm01utkmM8AAAAd/maciek-sze%C5%9Bcia%C5%84czyk-maciasek05.gif',
+          }}
+          author="makpaj"
+          date={new Date('2000-09-23')}
+          source={{ name: 'n/subnigdit', image: makpaj }}
+          votes={-1500}
+        />
+        <PostText
+          title="post"
+          description={desc}
+          author="user"
+          date={new Date('2022-09-23')}
+          source={{ name: 'n/subnigdit', image: makpaj }}
+          votes={1500}
+        />
+        <PostMedia
+          title="gif post"
+          media={{
+            type: 'video',
+            source: 'https://www.w3schools.com/html/mov_bbb.mp4',
+          }}
+          author="makpaj"
+          date={new Date('2000-09-23')}
+          source={{ name: 'n/subnigdit', image: makpaj }}
+          votes={-1500}
+        />
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -37,58 +82,30 @@ export default function SubnigditDashboard() {
             setSelected={setSelected}
             tabs={['Posts', 'Other']}
           />
+          {selected === 0 ? (
+            content
+          ) : (
+            <div className="ls:hidden inline">
+              <div className="flex flex-row flex-wrap space-x-4 justify-center">
+                <div className="w-[40vw] min-w-[300px] my-2">
+                  <SubnigditRules />
+                </div>
+                <div className="w-[40vw] min-w-[300px] my-2">
+                  <SubnigditRules />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/*Desktop View*/}
         <div className="hidden ls:inline">
           <div className="flex flex-row justify-around">
-            <div className="w-[20vw] my-2">
+            <div className="w-[20vw] my-2 mx-2">
               <SubnigditRules />
             </div>
-            <div className="ls:w-[50vw] tl:w-[60vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px] flex flex-col">
-              <div className="mb-[1vh]">
-                <FilteringBar
-                  clicked={function (cc: number): void {
-                    throw new Error('Function not implemented.');
-                  }}
-                />
-              </div>
-              {/* tu będzie map */}
-              <div className="px-2">
-                <PostMedia
-                  title="gif post"
-                  media={{
-                    type: 'gif',
-                    source:
-                      'https://c.tenor.com/hVm01utkmM8AAAAd/maciek-sze%C5%9Bcia%C5%84czyk-maciasek05.gif',
-                  }}
-                  author="makpaj"
-                  date={new Date('2000-09-23')}
-                  source={{ name: 'n/subnigdit', image: makpaj }}
-                  votes={-1500}
-                />
-                <PostText
-                  title="post"
-                  description={desc}
-                  author="user"
-                  date={new Date('2022-09-23')}
-                  source={{ name: 'n/subnigdit', image: makpaj }}
-                  votes={1500}
-                />
-                <PostMedia
-                  title="gif post"
-                  media={{
-                    type: 'video',
-                    source: 'https://www.w3schools.com/html/mov_bbb.mp4',
-                  }}
-                  author="makpaj"
-                  date={new Date('2000-09-23')}
-                  source={{ name: 'n/subnigdit', image: makpaj }}
-                  votes={-1500}
-                />
-              </div>
-            </div>
-            <div className="w-[20vw] my-2">
+            {content}
+            <div className="w-[20vw] my-2 mx-2">
               <SubnigditRules />
             </div>
           </div>
