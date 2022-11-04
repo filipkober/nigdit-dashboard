@@ -49,13 +49,13 @@ export default function FilteringBar({clicked}: Props)
         <>       
         <div className="justify-start flex flex-col items-start w-[100%]">
             <div className="flex justify-center flex-row items-center w-[100%]">
-                <div className="m-2 p-0 ls:w-[50vw] tl:w-[60vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px] h-[4.5vh] min-h-[40px] max-h-[3rem] bg-foregroundL dark:bg-foregroundD border-black border-[2px] border-solid rounded-[5px] drop-shadow-minimalistic flex justify-between flex-row items-center">
-                <div className="flex justify-between flex-row items-center overflow-hidden h-[100%]">
-                    <FilterElement name={"Hot"} clearHL={callClearHL} initialVal={true} ref={elementRef1}/>
-                    <FilterElement name={"New"} clearHL={callClearHL} ref={elementRef2}/>
-                    <FilterElement name={"Top"} clearHL={callClearHL} ref={elementRef3}/>
-                    <FilterElement name={"Pop"} clearHL={callClearHL} ref={elementRef4}/>
-                </div>
+                <div className="mt-2 p-0 w-[100%] min-w-[320px] h-[4.5vh] min-h-[40px] max-h-[3rem] bg-foregroundL dark:bg-foregroundD border-black border-[2px] border-solid rounded-[5px] drop-shadow-minimalistic flex justify-between flex-row items-center">
+                    <div className="flex justify-between flex-row items-center overflow-hidden h-[100%]">
+                        <FilterElement name={"Hot"} clearHL={callClearHL} initialVal={true} ref={elementRef1}/>
+                        <FilterElement name={"New"} clearHL={callClearHL} ref={elementRef2}/>
+                        <FilterElement name={"Top"} clearHL={callClearHL} ref={elementRef3}/>
+                        <FilterElement name={"Pop"} clearHL={callClearHL} ref={elementRef4}/>
+                    </div>
                     <div className="h-[100%] ml:mr-1 pt-[3px] px-[2px]">
                         <div className="flex justify-between flex-row items-center h-[80%]">  {/* specjalny przycisk: "użytkownik powinien wiedzieć, że może go kliknąć" */}
                             
@@ -79,11 +79,3 @@ export default function FilteringBar({clicked}: Props)
         </>
     )
 }
-
-
-        // if (clickCount.current == 25)
-        // {
-        //     window.setInterval(() => {
-        //         bftbg.current.blood(4);
-        //     }, 700);  
-        // }
