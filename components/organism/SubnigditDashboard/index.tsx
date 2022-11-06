@@ -8,6 +8,7 @@ import DashboardFeed from '../DashboardFeed';
 import makpaj from '../../../assets/makpaj.svg';
 import TabSelector from '../../molecules/TabSelector';
 import { useState } from 'react';
+import CreatePostBlock from '../../molecules/CreatePostBlock';
 
 const desc = `
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -86,11 +87,11 @@ export default function SubnigditDashboard() {
             content
           ) : (
             <div className="ls:hidden inline">
-              <div className="flex flex-row flex-wrap space-x-4 justify-center">
-                <div className="w-[40vw] min-w-[300px] my-2">
-                  <SubnigditRules />
+              <div className="flex flex-col flex-wrap items-center ">
+                <div className="w-[40vw] min-w-[300px] my-2 mx-2">
+                  <CreatePostBlock />
                 </div>
-                <div className="w-[40vw] min-w-[300px] my-2">
+                <div className="w-[40vw] min-w-[300px] my-2 mx-2">
                   <SubnigditRules />
                 </div>
               </div>
@@ -101,11 +102,11 @@ export default function SubnigditDashboard() {
         {/*Desktop View*/}
         <div className="hidden ls:inline">
           <div className="flex flex-row justify-around">
-            <div className="w-[20vw] my-2 mx-2">
-              <SubnigditRules />
+            <div className="w-[20vw] my-2">
+              <CreatePostBlock />
             </div>
             {content}
-            <div className="w-[20vw] my-2 mx-2">
+            <div className="w-[20vw] my-2">
               <SubnigditRules />
             </div>
           </div>
