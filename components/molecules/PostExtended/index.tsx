@@ -8,6 +8,7 @@ import reportIcon from '../../../assets/report-icon.svg';
 import makpaj from '../../../assets/makpaj.svg';
 import Comment from '../Comments';
 import Reply from '../../atoms/ReplyButton';
+import ReportModal from '../ReportModal';
 
 type PostExtendedProps = {
   title: string;
@@ -167,6 +168,9 @@ export default function PostExtended({
           </div>
         </div>
       </div>
+      <ReportModal isOpen={true} contentType={'post'} onClose={function (): void {
+        throw new Error('Function not implemented.');
+      } } />
     </>
   );
 }
