@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Replies from '../Replies';
+import Replies from '../../molecules/Replies';
 import TextArea from '../TextArea';
 import { useModal } from '../../../hooks/useModal';
 

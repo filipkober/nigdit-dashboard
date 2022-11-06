@@ -67,7 +67,6 @@ export default function Comment({
         <div className="flex flex-row mt-2">
           <div className="flex flex-row">
             <Arrow
-              commentId={id}
               variant="upvote"
               className=""
               setVote={voteOnComment}
@@ -77,16 +76,14 @@ export default function Comment({
               {Intl.NumberFormat('en', { notation: 'compact' }).format(votes)}
             </p>
             <Arrow
-              commentId={id}
               variant="downvote"
               className=""
               setVote={voteOnComment}
               clicked={downvoteClicked}
             />
           </div>
-          <div className="flex font-['Roboto'] dark:text-white ml-5">
-            <p>Share</p>
-            <p className="ml-5">Report</p>
+          <div className="flex ml-5 font-['Roboto'] dark:text-white">
+            <p>Report</p>
           </div>
           <div className="font-['Roboto'] dark:text-white">
             <button
