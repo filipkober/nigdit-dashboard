@@ -15,7 +15,7 @@ const memberCount = 69;
 export default function SubnigditInfo({ id }: SubnigditInfoProps) {
   return (
     <>
-      <div className="text-left font-normal dark:text-white bg-foregroundL dark:bg-foregroundD border-solid border-black drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2 ">
+      <div className="text-left font-normal font-['Roboto'] dark:text-white bg-foregroundL dark:bg-foregroundD border-solid border-black drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2 ">
           <div className="mb-5 flex flex-row">
               <Image
                 src={makpaj}
