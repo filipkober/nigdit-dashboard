@@ -23,7 +23,7 @@ export default function Comments({ id, vote }: CommentsProps) {
     vote === 'downvote'
   );
 
-  const { visible, changeVisible } = useModal();
+  const [ visible, changeVisible ] = useModal();
 
   const autor = 'cyganslayer';
 

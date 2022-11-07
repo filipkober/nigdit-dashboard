@@ -14,7 +14,7 @@ import Image from "next/future/image";
 
 const macias = "https://media.tenor.com/hVm01utkmM8AAAAS/maciek-sze%C5%9Bcia%C5%84czyk-maciasek05.gif"
 export default function MyAccountPanel(){
-    const {visible, changeVisible} = useModal();
+    const [visible, changeVisible] = useModal();
     const [changePassVisible, setChangePassVisible] = useState<boolean>(false);
     const [darkMode, setDarkMode] = useContext(darkModeContext);
     const [parent] = useAutoAnimate<HTMLDivElement>({duration: 100, easing: 'ease-in-out'});
