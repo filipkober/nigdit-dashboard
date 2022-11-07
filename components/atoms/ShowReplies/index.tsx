@@ -7,7 +7,7 @@ type ShowRepliesProps = {
 };
 
 export default function ShowReplies({ id }: ShowRepliesProps) {
-  const { visible, changeVisible } = useModal();
+  const [ visible, changeVisible ] = useModal();
 
   return (
     <>

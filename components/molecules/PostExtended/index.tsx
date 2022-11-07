@@ -9,6 +9,7 @@ import makpaj from '../../../assets/makpaj.svg';
 import Comment from '../Comments';
 import Reply from '../../atoms/ReplyButton';
 import ReportModal from '../ReportModal';
+import { useModal } from '../../../hooks/useModal';
 
 type PostExtendedProps = {
   title: string;
@@ -49,6 +50,7 @@ export default function PostExtended({
   const [downvoteClicked, setDownvoteClicked] = useState<boolean>(
     vote === 'downvote'
   );
+  const [modalReportVisible, changeModalReportVisible] = useModal();
 
   const voteOnPost = (vote: 'upvote' | 'downvote') => {
     if (vote === 'downvote' && !downvoteClicked) {
@@ -147,7 +149,7 @@ export default function PostExtended({
             {/* chujstwo pod contentem */}
             <p className="mr-5">666 Comments</p>
             <p className="ml-auto">Share</p>
-            <p className="ml-5">Report</p>
+            <p className="ml-5 cursor-pointer"><a onClick={changeModalReportVisible}>Report</a></p>
           </div>
           <div>
             {/* KOMETNARZE */}
@@ -168,9 +170,7 @@ export default function PostExtended({
           </div>
         </div>
       </div>
-      <ReportModal isOpen={true} contentType={'post'} onClose={function (): void {
-        throw new Error('Function not implemented.');
-      } } />
+      <ReportModal isOpen={modalReportVisible} contentType={'post'} onClose={changeModalReportVisible} />
     </>
   );
 }

@@ -30,7 +30,7 @@ export default function Comment({
     vote === 'upvote'
   );
 
-  const { visible, changeVisible } = useModal();
+  const [ modalVisible, changeModalVisible ] = useModal();
 
   const voteOnComment = (vote: 'upvote' | 'downvote') => {
     if (vote === 'downvote' && !downvoteClicked) {
@@ -90,7 +90,7 @@ export default function Comment({
           </div>
           <div className="font-['Roboto'] dark:text-white">
             <button
-              onClick={changeVisible}
+              onClick={changeModalVisible}
               className="font-['Roboto'] dark:text-white ml-5"
             >
               Reply
@@ -98,7 +98,7 @@ export default function Comment({
           </div>
         </div>
         <div>
-          <ReplyTextarea id={id} visible={visible} />
+          <ReplyTextarea id={id} visible={modalVisible} />
         </div>
       </div>
       <div>
