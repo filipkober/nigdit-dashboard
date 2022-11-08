@@ -6,7 +6,7 @@ type Props = {};
 
 export default function DashboardHeader() {
   return (
-    <div>
+    <div className="font-['Roboto']">
       <div className="relative h-[25vh] bg-red-500 pointer-events-none">
         <Image src={banner} alt={'Subnigdit Banner'} layout="fill" className='drop-shadow-walter'/>
         {/* <img className="object-cover h-[20vh] w-[80vw]" src='https://source.unsplash.com/random/1920x1080' alt='></img> */}

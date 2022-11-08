@@ -24,7 +24,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 export default function SubnigditDashboard() {
   const [selected, setSelected] = useState<number>(0);
   const content = (
-    <div className="ls:w-[50vw] flex flex-col">
+    <div className="ls:w-[50vw] flex flex-col font-['Roboto']">
       <div className="mb-[1vh]">
         <FilteringBar
           clicked={function (cc: number): void {
