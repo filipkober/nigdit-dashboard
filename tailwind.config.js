@@ -1,3 +1,4 @@
+const plugin = require('tailwindcss/plugin')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -57,6 +58,7 @@ module.exports = {
         deleteH: '#5A0000',
       },
       animation: {
+        'troll': 'flashing 5s linear infinite',
         'droplet1': 'drop 1.4s cubic-bezier(.57,0,.75,.07)',
         'droplet2': 'drop 1.5s cubic-bezier(.65,0,.71,.3)',
         'droplet3': 'drop 1.6s cubic-bezier(.57,0,.75,.07)',
@@ -71,6 +73,23 @@ module.exports = {
         'wiggle': 'wiggle 3s linear infinite',
       },
       keyframes: {
+        flashing: {
+          '0%': {opacity: 0, filter: 'invert(0%) brightness(2) hue-rotate(120deg) contrast(2) saturate(0.5)'},    
+          '1%': {opacity: 1, filter: 'invert(0%) brightness(2) hue-rotate(210deg) contrast(2) saturate(0.5)'},
+          '2%': {opacity: 0, filter: 'invert(0%) brightness(0.6) hue-rotate(320deg) contrast(2) saturate(1)'},    
+          '3%': {opacity: 1, filter: 'invert(0%) brightness(0.6) hue-rotate(320deg) contrast(2) saturate(1)'},          
+          '4%': {opacity: 0, filter: 'invert(0%) brightness(1.3) hue-rotate(340deg) contrast(2) saturate(2)'},    
+          '5%': {opacity: 1, filter: 'invert(0%) brightness(1.3) hue-rotate(340deg) contrast(2) saturate(2)'},
+          '6%': {opacity: 0, filter: 'invert(0%) brightness(0.5) hue-rotate(340deg) contrast(2) saturate(2)'},    
+          '7%': {opacity: 1, filter: 'invert(0%) brightness(0.5) hue-rotate(340deg) contrast(2) saturate(2)'},
+          '11%': {opacity: 1, filter: 'invert(0%) brightness(0.5) hue-rotate(340deg) contrast(2) saturate(2)'},
+          '12%': {opacity: 0, filter: 'invert(0%) brightness(0.5) hue-rotate(340deg) contrast(2) saturate(2)'},
+          '76%': {opacity: 0, filter: 'invert(100%) brightness(1) hue-rotate(160deg) contrast(2) saturate(2)'},
+          '77%': {opacity: 1, filter: 'invert(100%) brightness(1) hue-rotate(160deg) contrast(2) saturate(2)'},
+          '80%': {opacity: 0, filter: 'invert(100%) brightness(1.5) hue-rotate(90deg) contrast(2) saturate(2)'},
+          '81%': {opacity: 0, filter: 'invert(0%) brightness(1.5) hue-rotate(90deg) contrast(2) saturate(2)'},
+          '100%': {opacity: 0, filter: 'invert(0%) brightness(2) hue-rotate(120deg) contrast(2) saturate(0.5)'},
+        },
         drip: {
           '0%': { transform: 'translateY(-135px) translateX(-22vw)', opacity: 0 }, //-135
           '1%': { transform: 'translateY(-135px) translateX(-22vw)', opacity: 1},    
@@ -87,14 +106,36 @@ module.exports = {
           '0%, 100%': { transform: 'rotate(-3deg)' },
           '50%': { transform: 'rotate(3deg)' },
         }
-      }
+      },
+      linearGradientColors: theme => theme('colors'),
+      radialGradientColors: theme => theme('colors'),
+      conicGradientColors: theme => theme('colors'),
     },
 
   },
   plugins: [
     require("tailwind-gradient-mask-image"),
-    require('tailwind-scrollbar')
-    
+    require('tailwind-scrollbar'),
+    require('tailwindcss-gradients'),
+    // plugin(function({ addComponents }) {
+    //   const buttons = {
+    //     '.death': {
+    //       backgroundColor: '#3490dc',
+    //     },
+    //     '.fade': {
+    //       //mask-image: radial-gradient(ellipse 90% 80% at 48% 78%, black 40%, transparent 50%)
+    //     },
+    //     '.btn-red': {
+    //       backgroundColor: '#e3342f',
+    //       color: '#fff',
+    //       '&:hover': {
+    //         backgroundColor: '#cc1f1a'
+    //       },
+    //     },
+    //   }
+
+    //   addComponents(buttons)
+    // })
   ],  
   variants: {
         scrollbar: ['rounded']
