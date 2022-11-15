@@ -33,7 +33,7 @@ export default function SubnigditDashboard() {
         />
       </div>
       {/* tu będzie map */}
-      <div className="px-2">
+      <div>
         <PostMedia
           title="gif post"
           media={{
