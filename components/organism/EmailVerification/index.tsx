@@ -71,4 +71,4 @@ export default function EmailVerification({verChange, email} : Props)
 
     );  
 } 
-//gradient-mask-b-0  
+//gradient-mask-b-0  Ω
