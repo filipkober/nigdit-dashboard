@@ -14,14 +14,6 @@ export default function EmailVerification({verChange, email} : Props)
     const [showButton,setShowButton] = useState<boolean>(false);
     const [e2, setE2] = useState<boolean>(false);
     const [e2b, setE2b] = useState<boolean>(false);
-    function trolled()
-    {
-        setE2(!e2);
-    }
-    function trolledb()
-    {
-        setE2b(!e2b);
-    }
     
     useEffect(()=>{
         setTimeout(()=>{
@@ -39,7 +31,7 @@ export default function EmailVerification({verChange, email} : Props)
             <div></div>
         )}  
         <div className='w-[300px] h-[300px] absolute m-0 p-0 b-0 -right-[-10vw] -bottom-[-10vh]'>
-            <Image onClick={trolledb} src={macieknastronke} alt=" " width={1000} height={1000} className='object-contain w-[100%] h-[100%] opacity-0 hover:opacity-100 hover:cursor-pointer'/>
+            <Image onClick={()=>{setE2b(!e2b)}} src={macieknastronke} alt=" " width={1000} height={1000} className='object-contain w-[100%] h-[100%] opacity-0 hover:opacity-100 hover:cursor-pointer'/>
         </div>
         <p className='absolute m-0 p-2 b-0 -left-[-7vw] -top-[-26vh] font-["Consolas"] animation-delay-100 animate-creep opacity-0'>He is coming for you.</p>
         <p className='absolute m-0 p-2 b-0 -right-[-16vw] -top-[-56vh] font-["Consolas"] animation-delay-2000 animate-creep opacity-0'>Sometimes we would have had time to scream.</p>
@@ -60,7 +52,7 @@ export default function EmailVerification({verChange, email} : Props)
             </div>
             {e2b==true?(
             <div className='w-[calc(10vw+150px)] p-2'>
-                <Image onClick={trolled} src={maciej} alt="troll" width={1000} height={1000} className="blur-[3px] hover:cursor-pointer saturate-100 hover:saturate-150 contrast-100 hover:contrast-125 hover:blur-[0px] drop-shadow-midget border-solid border-4 border-experimentB duration-[1000ms] grayscale-[80%] hover:grayscale-[0%] object-contain w-[100%] h-[100%] opacity-[100%]"/>
+                <Image onClick={()=>{setE2(!e2)}} src={maciej} alt="troll" width={1000} height={1000} className="blur-[3px] hover:cursor-pointer saturate-100 hover:saturate-150 contrast-100 hover:contrast-125 hover:blur-[0px] drop-shadow-midget border-solid border-4 border-experimentB duration-[1000ms] grayscale-[80%] hover:grayscale-[0%] object-contain w-[100%] h-[100%] opacity-[100%]"/>
             </div> 
             ):(
                 <div className='h-[100%] w-[calc(10vw+150px)] p-2'></div>
