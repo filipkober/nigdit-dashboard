@@ -97,7 +97,7 @@ export default function SubnigditCreationPanel()
               {({values, handleChange, handleBlur, handleSubmit, setFieldValue}) => (
                 <Form>
                 <div className="border-b-[0px] border-black h-[15vh] w-[100%] bg-red-900 relative hover:cursor-pointer overflow-hidden hover:drop-shadow-bigChungus drop-shadow-walter">
-                  <Image src={values.banner} alt="banner" width={100} height={100} className="w-[100%] h-[100%] object-cover"/>
+                  <Image src={values.banner} alt="banner" width={1000} height={1000} className="w-[100%] h-[100%] object-cover"/>
                   <a onClick={uploadBanner} className="duration-[100ms] text-transparent hover:text-black dark:hover:text-white bg-transparent hover:bg-[rgba(50,50,50,0.4)] absolute w-[100%] h-[15vh] my-[-15vh] flex items-center justify-center text-[1.25rem] ml:text-[1.5rem] ts:text-[2rem] ls:text-[3rem]">
                     Change banner image
                   </a>
@@ -105,7 +105,7 @@ export default function SubnigditCreationPanel()
                 </div>
                 <div className="border-t-[0px] border-black w-[100%] ts:w-[100%] h-[0vh] absolute flex flex-row justify-start rounded-full bg-black z-100">
                   <div className="overflow-hidden ml-[4%] my-[calc(-5%-12px)] w-[calc((10vw+24px)*98/100)] h-[calc((10vw+24px)*98/100)] tl:w-[calc((10vw+24px)*56/100)] tl:h-[calc((10vw+24px)*56/100)] bg-green-600 rounded-full absolute hover:cursor-pointer hover:drop-shadow-bigChungus drop-shadow-walter">
-                    <Image src={values.icon} alt="icon" width={25} height={25} className="scale-100 border-[0px] border-black rounded-full object-cover w-[100%] h-[100%]"/>
+                    <Image src={values.icon} alt="icon" width={1000} height={1000} className="scale-100 border-[0px] border-black rounded-full object-cover w-[100%] h-[100%]"/>
                     <a onClick={uploadIcon} className="duration-[100ms] rounded-full text-transparent hover:text-black dark:hover:text-white bg-transparent hover:bg-[rgba(50,50,50,0.4)] absolute w-[100%] h-[100%] my-[-100%] flex items-center justify-center text-[0.4rem] ml:text-[0.6rem] ts:text-[0.8rem] ls:text-[1rem]">
                       Change icon
                     </a>

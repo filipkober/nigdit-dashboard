@@ -1,12 +1,15 @@
-import React, { InputHTMLAttributes, useState } from 'react';
+import React, {useState, forwardRef, ForwardedRef, useImperativeHandle, useRef} from "react";
 import InputField from '../../atoms/InputField';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 
 interface Values {
     value: string;
-  }
+}
+type Props = {
+    verChange: (val: boolean) => void,
+}
   
-export default function RegisterForm() 
+export default function RegisterForm({verChange}: Props)
 {
     return(       
     <div className="w-[100%] m-0 p-0 h-[100%] flex flex-col justify-center items-center">      
@@ -53,7 +56,7 @@ export default function RegisterForm()
                     </div>            
                     {/* submit button */}
                     <div className='w-[100%] min-h-[3rem] h-[2vw] flex flex-row justify-center px-0 mt-8 items-center'>
-                        <button className='active:translate-y-0.5 duration-[10ms] shrink-1 text-[1.8rem] font-["Roboto"] text-black text-center font-bold drop-shadow-buttonDevil active:drop-shadow-buttonDevilA border-black border-solid border-[1px] rounded-[10px] py-1 px-4 bg-[#FF5C00] hover:bg-[#ff7d31]'>Create account</button>
+                        <button onClick={() => {verChange(true)}} className='active:translate-y-0.5 duration-[10ms] shrink-1 text-[1.8rem] font-["Roboto"] text-black text-center font-bold drop-shadow-buttonDevil active:drop-shadow-buttonDevilA border-black border-solid border-[1px] rounded-[10px] py-1 px-4 bg-[#FF5C00] hover:bg-[#ff7d31]'>Create account</button>
                     </div>  
                 </Form>  
             </Formik>          
