@@ -1,9 +1,20 @@
 import type { NextPage } from 'next'
+import { useDispatch } from 'react-redux'
+import { incrementCounter } from '../store/userSlice'
 
 const Ballin: NextPage = () => {
+
+  const dispatch = useDispatch()
+
+  const onClick = () => {
+    dispatch(incrementCounter())
+  }
+
+
+
   return (
     <div>
-      test 2
+      <button onClick={onClick}>Klik klik</button>
     </div>
   )
 }
