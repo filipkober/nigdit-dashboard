@@ -108,7 +108,7 @@ const Ballin: NextPage = () => {
                   onChange={handleChange}
                   className={'text-black'}
                 />
-                <button onClick={submitForm}>Submit</button>
+                <button type='submit'>Submit</button>
               </Form>
             );
           }}
