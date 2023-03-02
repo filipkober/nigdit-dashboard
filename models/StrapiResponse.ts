@@ -19,12 +19,12 @@ const strapiResponseToData = <T>(strapiResponse: StrapiResponse<T>) => {
     return strapiResponse.data
 }
 
-// const strapiDataTypeToData = <T>(strapiDataType: GenericStrapiData) => {
-//     return {
-//         id: strapiDataType.id,
-//         ...strapiDataType.attributes
-//     }
-// }
+const strapiDataTypeToData = <T>(strapiDataType: GenericStrapiData) => {
+    return {
+        id: strapiDataType.id,
+        ...strapiDataType.attributes
+    }
+}
 
 // const shapeStrapiResponse = <T>(strapiResponse: StrapiResponse<GenericStrapiData>) => {
 //     return strapiResponseToData(s)
