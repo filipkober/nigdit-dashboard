@@ -14,7 +14,7 @@ type ArrowProps = {
 export default function Arrow({className, variant, clicked, setVote, commentId}: ArrowProps) {
   return (
     <div className={className}>
-      <a onClick={() => {setVote(variant)}} className="hover:cursor-pointer"><Image src={true ? (clicked ? TriangleDarkClicked : TriangleDark) : (clicked ? TriangleLightClicked : TriangleLight)} width={25} className={variant === "downvote" ? "rotate-180" : ""}/></a>
+      <a onClick={() => {setVote(variant)}} className="hover:cursor-pointer"><Image src={true ? (clicked ? TriangleDarkClicked : TriangleDark) : (clicked ? TriangleLightClicked : TriangleLight)} width={25} className={variant === "downvote" ? "rotate-180" : ""} alt={''}/></a>
     </div>
   )
 }

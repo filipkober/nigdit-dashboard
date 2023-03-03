@@ -40,7 +40,7 @@ export default function PostMedia({title,media,author,source,votes,date, vote}: 
       {/* GÓRNY PASEK AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
       <div className='flex flex-row min-w-[25vw]'>
       <div className="font-['Roboto'] w-7 h-7 min-w-[25px] mr-1">
-        <Image src={source.image} width={25} height={25} className="overflow-hidden w-[100%] h-[100%] min-w-7 rounded-full"/>
+        <Image src={source.image} width={25} height={25} className="overflow-hidden w-[100%] h-[100%] min-w-7 rounded-full" alt={''}/>
       </div>
       <p className="font-['Roboto'] dark:text-white text-base">
         {source.name}

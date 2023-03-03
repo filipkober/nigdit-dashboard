@@ -1,5 +1,5 @@
 import React, { InputHTMLAttributes, useState, useEffect } from 'react';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import maciej from '../../../assets/easterEgg2/verificationMaciej.jpg';
 import macieknastronke from '../../../assets/easterEgg2/macieknastronke.png';
 import Spinner from '../../atoms/Spinner';

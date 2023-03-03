@@ -1,7 +1,7 @@
 import React, {useState, useRef, useImperativeHandle, forwardRef, useEffect, ChangeEvent } from "react";
 import makpaj from '../../../assets/makpaj.svg';
 import testimage from '../../../assets/testimage.svg'
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { Form, Formik } from "formik";
 import Input from "../../atoms/Input";
 import TextArea from "../../atoms/TextArea";

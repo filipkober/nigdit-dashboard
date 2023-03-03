@@ -18,13 +18,12 @@ export default function SubnigditInfo({ id }: SubnigditInfoProps) {
       <div className="text-left font-normal font-['Roboto'] dark:text-white bg-foregroundL dark:bg-foregroundD border-solid border-black drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2 ">
           <div className="mb-5 flex flex-row">
               <Image
-                src={makpaj}
-                width={25}
-                height={25}
-                layout="fixed"
-                objectFit='cover'
-                className="overflow-hidden rounded-full w-full h-7"
-              />
+            src={makpaj}
+            width={25}
+            height={25}
+            layout="fixed"
+            objectFit='cover'
+            className="overflow-hidden rounded-full w-full h-7" alt={''}              />
             <span className="ml-1 font-['Roboto'] font-semibold dark:text-white text-base">
               {name}
             </span>
@@ -42,7 +41,7 @@ export default function SubnigditInfo({ id }: SubnigditInfoProps) {
 
           <div className="flex flex-row my-5 justify-center">
             <div className="mx-2">
-              <Image src={userIcon} width={40} height={60} />
+              <Image src={userIcon} width={40} height={60} alt={''} />
             </div>
             <div className="flex flex-col">
               <div className="text-3xl text-center">
