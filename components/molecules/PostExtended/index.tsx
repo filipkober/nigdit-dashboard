@@ -1,5 +1,5 @@
 import moment from 'moment';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { useState } from 'react';
 import Arrow from '../../atoms/Arrow';
 import commentIcon from '../../../assets/comment-icon.svg';
@@ -77,8 +77,7 @@ export default function PostExtended({
                   src={source.image}
                   width={25}
                   height={25}
-                  className="overflow-hidden w-[100%] h-[100%] rounded-full object-cover"
-                />
+                  className="overflow-hidden w-[100%] h-[100%] rounded-full object-cover" alt={''}                />
               </div>
               <p className="font-['Roboto'] dark:text-white text-base">
                 {source.name}

@@ -21,7 +21,7 @@ function FilterElement({name, clearHL, initialVal}: Props, ref: ForwardedRef<any
     return(
         <div className="min-h-[2.4rem] h-[10vw] max-h-[100%] w-[20vw] max-w-[5.1rem] px-[1px] py-1">
             <a onClick={() => {clearHL(name)}} className={currentState ? (`bg-white dark:bg-experimentB ${aDefClass}`) : (`bg-white hover:dark:bg-experimentA dark:bg-foregroundD ${aDefClass}`)}>
-                <Image src={nigditIcon} width={26} height={26} className="object-cover overflow-hidden p-0 w-[100%] h-[100%] rounded-full"/>
+                <Image src={nigditIcon} width={26} height={26} className="object-cover overflow-hidden p-0 rounded-full" alt={""}/>
                 <p className="shrink-1 text-[12px] ms:text-[14px] mm:text-[16px] ml:text-[18px] font-['Roboto'] dark:text-white">{name}</p>
                 <div></div>
             </a>

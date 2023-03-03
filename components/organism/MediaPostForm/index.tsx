@@ -1,5 +1,5 @@
 import { Formik } from 'formik';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 import SubnigditRulesType from '../../../models/SubnigditRulesType';
 import Button from '../../atoms/Button';

@@ -10,7 +10,7 @@ import ChangePictureModal from "../../molecules/ChangePictureModal";
 import Switch from "../../Switch";
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Makpaj from '../../../assets/makpaj.svg'
-import Image from "next/future/image";
+import Image from "next/image";
 
 const macias = "https://media.tenor.com/hVm01utkmM8AAAAS/maciek-sze%C5%9Bcia%C5%84czyk-maciasek05.gif"
 export default function MyAccountPanel(){

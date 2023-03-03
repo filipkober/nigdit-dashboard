@@ -48,8 +48,7 @@ export default function Reply({
             width={25}
             height={25}
             objectFit="cover"
-            className="overflow-hidden w-[100%] h-[100%] rounded-full "
-          />
+            className="overflow-hidden w-[100%] h-[100%] rounded-full " alt={''}          />
         </div>
 
         <p className="font-['Roboto'] font-semibold dark:text-white text-base">
