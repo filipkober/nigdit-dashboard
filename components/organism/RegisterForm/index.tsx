@@ -1,21 +1,78 @@
 import React, {useState, forwardRef, ForwardedRef, useImperativeHandle, useRef} from "react";
 import InputField from '../../atoms/InputField';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
+import * as yup from 'yup';
+import UserService from "../../../util/requests/UserService";
+import {StrapiUser} from "../../../models/User";
+import Cookies from "js-cookie";
+import { useRouter } from 'next/router'
 
-interface Values {
-    value: string;
-}
+const userService = new UserService();
+
 type Props = {
     verChange: (val: boolean) => void,
 }
-  
+type FormValues = {
+    login: string,
+    password: string,
+    repeat: string,
+    email: string,
+}
+const initValues: FormValues = {
+    login: "",
+    password: "",
+    repeat: "",
+    email: "",
+}
+const schema = yup.object().shape({ //! dodaj do pliku osobnego 
+    login: yup.string()
+        .min(2,'Login is too short.')
+        .max(30,'Login is too long.')
+        .required('Login field is required.')
+        .trim()
+        .matches(/^(?![_-])(?!-*[_-]{2})[a-zA-Z0-9-_]+(?<![_-])$/, 'Login cannot contain special symbols'),
+    password: yup.string()
+        .min(2, 'Password is too short.')
+        .max(50, 'Password is too long.')
+        .required('Password field is required.'),
+    repeat: yup.string()
+        .required('Password confirmation is required.')
+        .oneOf([yup.ref('password')], 'Passwords must match.'),
+    email: yup.string()
+        .email('Email address is invalid.')
+        .trim()
+        .matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,"Email address is invalid.")
+        .required('Required'),
+  });
+
 export default function RegisterForm({verChange}: Props)
-{
+{       
+    const [au, setAu] = useState("");
     return(       
     <div className="w-[100%] m-0 p-0 h-[100%] flex flex-col justify-center items-center">      
         <div className='selection:bg-[#b8b8b8] selection:text-[#FF5C00] flex flex-wrap flex-col justify-center items-center p-[0.5rem] w-[90vw] min-w-[288px] ms:w-[80w] ms:min-w-[320px] mm:w-[75vw] ml:w-[70vw] ts:w-[60vw] tm:w-[7vw] tl:w-[35vw] ls:w-[20vw]'>
-            <Formik initialValues={{value: ''}} onSubmit={(values: Values) => {}}>
-                <Form>
+            <Formik 
+            initialValues={initValues} 
+            validationSchema={schema}
+            onSubmit={async (values) => {
+                const userData = await userService.register(values.login, values.email, values.password);
+                console.log(userData);
+                try
+                {
+                    if(userData.user.email != null)
+                    {
+                        verChange(true);                        
+                        //Cookies.set("jwt", userData.jwt);
+                    }
+                }
+                catch(e)
+                {
+                    setAu("The username or email is already in use.")   
+                }         
+            }}
+            >
+            {({values, errors, touched, handleSubmit}) => (
+                <Form onSubmit={handleSubmit}>
                     {/* Register title text */}
                     <div className=' w-[100%] min-h-[3rem] h-[7vh] flex flex-wrap flex-col justify-center items-center my-4'>
                         <p className="shrink-1 text-[4.5rem] font-['Roboto'] dark:text-white text-center font-bold">Register</p>
@@ -36,29 +93,54 @@ export default function RegisterForm({verChange}: Props)
                     </div>
                     {/* login */}
                     <div className=' w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center'>
-                        <InputField className='w-[63%] h-[85%]' name={'login'} id={'login'} placeholder={'h0p3less0ul'} type={'text'}/>
-                        <p className="w-[37%] shrink-1 pl-4 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">Login</p>                        
+                        {(errors.login && touched.login) || au != "" ? (
+                            <InputField value={values.login} className="w-[63%] h-[85%]" fieldClassName='ring-pink-500 focus:ring-2 ring-[0.6px] border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500' name={'login'} id={'login'} placeholder={'h0p3less0ul'} type={'text'}/>
+                        ) : (
+                            <InputField value={values.login} className='w-[63%] h-[85%]' name={'login'} id={'login'} placeholder={'h0p3less0ul'} type={'text'}/>
+                        )}                        
+                        <p className="w-[37%] shrink-1 pl-4 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">Username</p>                        
                     </div>
                     {/* password */}
                     <div className='w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center'>
-                        <InputField className='w-[63%] h-[85%]' name={'password'} id={'password'} placeholder={'⠹∞∮⅟∑Ω➫ⅫΘð㊑﷼Æ'} type={'password'}/>
+                        {errors.password && touched.password ? (
+                            <InputField value={values.password} className='w-[63%] h-[85%]' fieldClassName='ring-pink-500 focus:ring-2 ring-[0.6px] border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500' name={'password'} id={'password'} placeholder={'⠹∞∮⅟∑Ω➫ⅫΘð㊑﷼Æ'} type={'password'}/>
+                        ) : (
+                            <InputField value={values.password} className='w-[63%] h-[85%]' name={'password'} id={'password'} placeholder={'⠹∞∮⅟∑Ω➫ⅫΘð㊑﷼Æ'} type={'password'}/>
+                        )}                          
                         <p className="w-[37%] shrink-1 pl-4 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">Password</p>
                     </div>
                     {/* repeat password */}
                     <div className='w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center'>
-                        <InputField className='w-[63%] h-[85%]' name={'passwordRpt'} id={'passwordRpt'} placeholder={'now repeat please'} type={'password'}/>
+                        {errors.repeat && touched.repeat ? (
+                            <InputField value={values.repeat} className='w-[63%] h-[85%]' fieldClassName='ring-pink-500 focus:ring-2 ring-[0.6px] border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500' name={'repeat'} id={'repeat'} placeholder={'now repeat please'} type={'password'}/>
+                        ) : (
+                            <InputField value={values.repeat} className='w-[63%] h-[85%]' name={'repeat'} id={'repeat'} placeholder={'now repeat please'} type={'password'}/>
+                        )}
                         <p className="w-[37%] shrink-1 pl-4 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">Password</p>
                     </div>
                     {/* email */}
                     <div className='w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center'>
-                        <InputField className='w-[63%] h-[85%]' name={'email'} id={'email'} placeholder={'5t3almy@data.com'} type={'email'} peer={true} peerValue={'Email address is invalid.'}/>               
+                        {(errors.email && touched.email) || au != "" ? (
+                            <InputField value={values.email} className='w-[63%] h-[85%]' fieldClassName='ring-pink-500 focus:ring-2 ring-[0.6px] border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500' name={'email'} id={'email'} placeholder={'5t3almy@data.com'} type={'email'}/>
+                        ) : (
+                            <InputField value={values.email} className='w-[63%] h-[85%]' name={'email'} id={'email'} placeholder={'5t3almy@data.com'} type={'email'}/> 
+                        )}
                         <p className="w-[37%] shrink-1 pl-4 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">E-mail</p>
                     </div>            
                     {/* submit button */}
+                    <div>
+                        { errors.login && touched.login ? (<p className="mt-[0.2rem]] text-pink-600 text-sm pl-2 w-[100%]">{errors.login}</p>) : (null)}
+                        { errors.password && touched.password ? (<p className="mt-[0.2rem]] text-pink-600 text-sm pl-2 w-[100%]">{errors.password}</p>) : null}
+                        { errors.repeat && touched.repeat ? (<p className="mt-[0.2rem]] text-pink-600 text-sm pl-2 w-[100%]">{errors.repeat}</p>) : null}
+                        { errors.email && touched.email ? (<p className="mt-[0.2rem]] text-pink-600 text-sm pl-2 w-[100%]">{errors.email}</p>) : null}
+                        { au != "" ? (<p className="mt-[0.2rem]] text-pink-600 text-sm pl-2 w-[100%]">{au}</p>) : null}
+                    </div>
                     <div className='w-[100%] min-h-[3rem] h-[2vw] flex flex-row justify-center px-0 mt-8 items-center'>
-                        <button onClick={() => {verChange(true)}} className='active:translate-y-0.5 duration-[10ms] shrink-1 text-[1.8rem] font-["Roboto"] text-black text-center font-bold drop-shadow-buttonDevil active:drop-shadow-buttonDevilA border-black border-solid border-[1px] rounded-[10px] py-1 px-4 bg-[#FF5C00] hover:bg-[#ff7d31]'>Create account</button>
-                    </div>  
+                        <button type='submit' className='active:translate-y-0.5 duration-[10ms] shrink-1 text-[1.8rem] font-["Roboto"] text-black text-center font-bold drop-shadow-buttonDevil active:drop-shadow-buttonDevilA border-black border-solid border-[1px] rounded-[10px] py-1 px-4 bg-[#FF5C00] hover:bg-[#ff7d31]'>Create account</button>
+                    </div>
+
                 </Form>  
+            )}                
             </Formik>          
         </div>
     </div>
