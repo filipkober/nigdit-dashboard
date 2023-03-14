@@ -1,6 +1,8 @@
 import Arrow from '../Arrow';
 import Image from 'next/image';
 import React, { useState } from 'react';
+import { useModal } from '../../../hooks/useModal';
+import ReportModal from '../../molecules/ReportModal';
 
 type ReplyProps = {
   vote?: 'upvote' | 'downvote';
@@ -39,51 +41,38 @@ export default function Reply({
     }
   };
 
+  const [modalReportVisible, changeModalReportVisible] = useModal();
+
   return (
-    <div>
-      <div className="flex flex-row">
-        <div className="mr-1">
+    <>
+      <div className="gridComment my-5">
+        <div className="justify-self-auto">
           <Image
             src={pfp}
-            width={25}
-            height={25}
-            objectFit="cover"
-            className="overflow-hidden w-[100%] h-[100%] rounded-full " alt={''}          />
+            alt=""
+            className="overflow-hidden rounded-full object-cover w-10 h-10"
+          ></Image>
         </div>
-
-        <p className="font-['Roboto'] font-semibold dark:text-white text-base">
-          {nick}
-        </p>
-      </div>
-      <div className="ml-[30px]">
-        <p className="font-['Roboto'] font-light dark:text-white text-base">
-          {content}
-        </p>
-      </div>
-      <div className="flex flex-row mt-2">
-        <div className="flex flex-row">
-          <Arrow
-            variant="upvote"
-            className=""
-            setVote={voteOnReply}
-            clicked={upvoteClicked}
-          />
-          <p className="font-['Roboto'] dark:text-white text-base">
-            {Intl.NumberFormat('en', { notation: 'compact' }).format(
-              votes
-            )}
-          </p>
-          <Arrow
-            variant="downvote"
-            className=""
-            setVote={voteOnReply}
-            clicked={downvoteClicked}
-          />
+        <div className="justify-self-auto">
+          <p className="font-bold">{nick}</p>
         </div>
-        <div className="flex font-['Roboto'] dark:text-white ml-5">
-          <p>Report</p>
+        <div className="justify-self-auto"></div>
+        <div className="justify-self-auto">
+          <p>{content}</p>
         </div>
+        <div className="justify-self-auto col-span-2">
+            <p>
+              <a className="cursor-pointer" onClick={changeModalReportVisible}>
+                Report
+              </a>
+            </p>
+          </div>
       </div>
-    </div>
+      <ReportModal
+        isOpen={modalReportVisible}
+        contentType={'post'}
+        onClose={changeModalReportVisible}
+      />
+    </>
   );
 }
