@@ -1,5 +1,26 @@
 type User = {
-    username: string;
-    email: string;
+    id?: number,
+    username?: string,
+    email?: string,
 }
-export default User;
+type StrapiUser = {
+    id: number,
+    attributes: {
+        username: string,
+        email: string,
+    },
+}
+type LoginUser = {
+    jwt: string,
+    user: {
+        id: string,
+        username: string,
+        email: string,
+        provider: string,
+        confirmed: boolean,
+        blocked: boolean,
+    }
+}
+
+export default User
+export type {StrapiUser, LoginUser};

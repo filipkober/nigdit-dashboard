@@ -26,7 +26,8 @@
     "tailwind-gradient-mask-image": "^1.0.0",
     "tailwindcss-animation-delay": "^1.0.7",
     "tailwindcss-gradients": "^3.0.0",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.19",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@types/node": "18.14.0",
