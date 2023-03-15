@@ -4,6 +4,7 @@ import { useModal } from '../../../hooks/useModal';
 import Arrow from '../Arrow';
 import ReplyTextarea from '../ReplyTextarea';
 import ShowReplies from '../ShowReplies';
+import ReportModal from '../../molecules/ReportModal';
 
 type CommentProps = {
   vote?: 'upvote' | 'downvote';
@@ -30,7 +31,7 @@ export default function Comment({
     vote === 'upvote'
   );
 
-  const [ modalVisible, changeModalVisible ] = useModal();
+  const [modalVisible, changeModalVisible] = useModal();
 
   const voteOnComment = (vote: 'upvote' | 'downvote') => {
     if (vote === 'downvote' && !downvoteClicked) {
@@ -42,64 +43,52 @@ export default function Comment({
     }
   };
 
+  const [modalReportVisible, changeModalReportVisible] = useModal();
+
   return (
-    <div>
-      <div className="">
-        <div className="flex flex-row">
-          <div className="font-['Roboto'] mr-1">
+    <>
+      <div>
+        <div className="gridComment my-5">
+          <div className="justify-self-auto">
             <Image
               src={pfp}
-              width={25}
-              height={25}
-              objectFit="cover"
-              className="overflow-hidden w-[100%] h-[100%] rounded-full" alt={''}            />
+              alt=""
+              className="overflow-hidden rounded-full object-cover w-10 h-10"
+            ></Image>
           </div>
-          <p className="font-['Roboto'] font-semibold dark:text-white text-base">
-            {nick}
-          </p>
-        </div>
-        <div className="ml-[30px]">
-          <p className="font-['Roboto'] font-light dark:text-white text-base">
-            {content}
-          </p>
-        </div>
-        <div className="flex flex-row mt-2">
-          <div className="flex flex-row">
-            <Arrow
-              variant="upvote"
-              className=""
-              setVote={voteOnComment}
-              clicked={upvoteClicked}
-            />
-            <p className="font-['Roboto'] dark:text-white text-base">
-              {Intl.NumberFormat('en', { notation: 'compact' }).format(votes)}
+          <div className="justify-self-auto">
+            <p className="font-bold">{nick}</p>
+          </div>
+          <div className="justify-self-auto"></div>
+          <div className="justify-self-auto">
+            <p>{content}</p>
+          </div>
+          <div className="justify-self-auto col-span-2">
+            <p>
+              <a className="cursor-pointer" onClick={changeModalReportVisible}>
+                Report
+              </a>
+              <button
+                onClick={changeModalVisible}
+                className="font-['Roboto'] dark:text-white ml-5"
+              >
+                Reply
+              </button>
             </p>
-            <Arrow
-              variant="downvote"
-              className=""
-              setVote={voteOnComment}
-              clicked={downvoteClicked}
-            />
-          </div>
-          <div className="flex ml-5 font-['Roboto'] dark:text-white">
-            <p>Report</p>
-          </div>
-          <div className="font-['Roboto'] dark:text-white">
-            <button
-              onClick={changeModalVisible}
-              className="font-['Roboto'] dark:text-white ml-5"
-            >
-              Reply
-            </button>
           </div>
         </div>
         <div>
-          <ReplyTextarea id={id} visible={modalVisible} />
+            <ReplyTextarea id={id} visible={modalVisible} />
+          </div>
+        <div>
+          <ShowReplies key={id} id={id} />
         </div>
       </div>
-      <div>
-        <ShowReplies key={id} id={id} />
-      </div>
-    </div>
+      <ReportModal
+        isOpen={modalReportVisible}
+        contentType={'post'}
+        onClose={changeModalReportVisible}
+      />
+    </>
   );
 }

@@ -114,9 +114,9 @@ module.exports = {
       'lg': '40deg',
     },    
     backgroundImage: {
-      'bloodDrip': "url('../../assets/easterEgg1/drippin.svg')",
-      'ocean': "url('../../assets/easterEgg1/seaofblood.png')",  //prawdopodobnie do konwersji na svg
-      'joinedGroups': "url('../../assets/colorful43.svg')",
+      'bloodDrip': "url('/easterEgg1/drippin.svg')",
+      'ocean': "url('/easterEgg1/seaofblood.png')",  //prawdopodobnie do konwersji na svg
+      'joinedGroups': "url('/colorful43.svg')",
     },
     screens: {
       'ms': '320px',  //mobile phone 
