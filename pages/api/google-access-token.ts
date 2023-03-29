@@ -8,7 +8,7 @@ type Data = {
 
 const oAuth2Client = new OAuth2Client(
   process.env.NEXT_PUBLIC_GOOGLE_LOGIN_CLIENT_KEY,
-  process.env.CLIENT_SECRET,
+  process.env.GOOGLE_CLIENT_SECRET,
   'postmessage',
 );
 
