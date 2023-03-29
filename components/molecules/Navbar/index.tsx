@@ -10,34 +10,15 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
         avatar: string,
         profilePage: string,
     }
-    searchbar:
-    {
-        value?: string,
-        onChange: (str: string) => void,
-    }
 }
 
-export default function Navbar({searchbar}: Props) 
+export default function Navbar() //{searchbar}: Props
 {
-    useEffect( ()=> {        
-        return () =>     console.log(`
-        $$\\   $$\\ $$\\           $$$$$$$\\  $$$$$$\\ $$$$$$$$\\ 
-        $$$\\  $$ |\\__|          $$  __$$\\ \\_$$  _|\\__$$  __|
-        $$$$\\ $$ |$$\\  $$$$$$\\  $$ |  $$ |  $$ |     $$ |   
-        $$ $$\\$$ |$$ |$$  __$$\\ $$ |  $$ |  $$ |     $$ |   
-        $$ \\$$$$ |$$ |$$ /  $$ |$$ |  $$ |  $$ |     $$ |   
-        $$ |\\$$$ |$$ |$$ |  $$ |$$ |  $$ |  $$ |     $$ |   
-        $$ | \\$$ |$$ |\\$$$$$$$ |$$$$$$$  |$$$$$$\\    $$ |   
-        \\__|  \\__|\\__| \\____$$ |\\_______/ \\______|   \\__|   
-                      $$\\   $$ |                            
-                      \\$$$$$$  |                            
-                       \\______/`);
-    });
-
-
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("changed navbar content")
+    const searchValChanged = async (cval: string) =>
+    {
+        console.log("current: "+cval);
     }
+
     return(        
         <div className="flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-40 top-0 left-0">
             <div className='min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:w-[13rem] h-[100%] flex flex-row my-2 mx-2'>
@@ -55,7 +36,7 @@ export default function Navbar({searchbar}: Props)
                         <Image src={nigditIcon} width={33} height={33} className="object-cover overflow-hidden min-w-[100%] w-[100%] h-[100%]" alt={''}/>
                     </div>                   
                     <div className='w-[100%] m-[0.2rem]'>
-                        <input className='dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" value={searchbar.value} placeholder={"search..."}onChange={event => searchbar.onChange(event.target.value)} />
+                        <input className='dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."}onChange={event => searchValChanged(event.target.value)} />
                     </div>
                 </div> 
             </div>
@@ -68,7 +49,4 @@ export default function Navbar({searchbar}: Props)
         </div>
     );  
 }
-/*onSubmit={event => searchbar.onSubmit()} */
-//<div className="font-normal  drop-shadow-lg  rounded-[5px] mb-2">
-/* <div><p className="mt-1 ml-2 dark:text-white font-['Roboto'] text-[20px] font-normal">zamiast tego input...</p></div> */
    
