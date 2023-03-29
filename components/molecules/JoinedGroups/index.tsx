@@ -27,7 +27,7 @@ export default function JoindeGroups({}: Props)
     {name: "TotalAnarchy",adress:"",image:nigditIcon},
     {name: "Science",adress:"",image:nigditIcon},
     {name: "12charactersmaxpls",adress:"",image:nigditIcon},
-    {name: "goatgore",adress:"https://kekma.live/",image:nigditIcon}]
+    {name: "goatgore",adress:"https://kekma.net/",image:nigditIcon}]
 
     function expand()
     {

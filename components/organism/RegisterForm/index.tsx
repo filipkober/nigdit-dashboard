@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 const userService = new UserService();
 
 type Props = {
-    verChange: (val: boolean) => void,
+    verChange: (val: boolean, email: string) => void,
 }
 type FormValues = {
     login: string,
@@ -61,7 +61,7 @@ export default function RegisterForm({verChange}: Props)
                 {
                     if(userData.user.email != null)
                     {
-                        verChange(true);                        
+                        verChange(true, userData.user.email);                        
                         //Cookies.set("jwt", userData.jwt);
                     }
                 }

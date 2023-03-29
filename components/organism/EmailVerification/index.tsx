@@ -5,7 +5,7 @@ import macieknastronke from '../../../assets/easterEgg2/macieknastronke.png';
 import Spinner from '../../atoms/Spinner';
 
 type Props = {
-    verChange: (val: boolean) => void,
+    verChange: (val: boolean, email: string) => void,
     email: string
 }
   
@@ -59,7 +59,7 @@ export default function EmailVerification({verChange, email} : Props)
             )} 
                {showButton == true? (
                     <div className='w-[calc(5vw+80px)] h-[calc(1.6vw+20px)] mt-2'>
-                        <button onClick={() => {verChange(false)}} className='rounded-[calc(4px+0.3vw)] text-[calc(1vw+12px)] w-[100%] h-[100%] hover:cursor-pointer active:translate-y-0.5 duration-[10ms] shrink-1 font-["Roboto"] dark:text-white text-black text-center font-bold drop-shadow-buttonImp active:drop-shadow-buttonImpA border-black border-solid border-[1px] py-0 px-4 hover:bg-experimentB bg-experimentA'>Cancel</button>  
+                        <button onClick={() => {verChange(false, "example@em.ail")}} className='rounded-[calc(4px+0.3vw)] text-[calc(1vw+12px)] w-[100%] h-[100%] hover:cursor-pointer active:translate-y-0.5 duration-[10ms] shrink-1 font-["Roboto"] dark:text-white text-black text-center font-bold drop-shadow-buttonImp active:drop-shadow-buttonImpA border-black border-solid border-[1px] py-0 px-4 hover:bg-experimentB bg-experimentA'>Cancel</button>  
                     </div>
                     ):(
                     <div className='mt-4'>
