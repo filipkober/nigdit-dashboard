@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
 import EmailVerification from '../components/organism/EmailVerification';
 import RegisterForm from '../components/organism/RegisterForm';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const Register: NextPage = () => {
 
@@ -20,7 +21,9 @@ const Register: NextPage = () => {
       {verify == true? (
         <EmailVerification verChange={verChange} email={email}/> //prześlij email z register
       ):(
-        <RegisterForm verChange={verChange}/>
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_LOGIN_CLIENT_KEY ?? ""}>
+          <RegisterForm verChange={verChange}/>
+        </GoogleOAuthProvider>   
       )}
     </div>
     
