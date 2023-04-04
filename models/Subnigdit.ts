@@ -60,3 +60,6 @@ const subnigditAdapter = (s: StrapiSubnigdit): SubnigditN => {
 export default Subnigdit;
 export type { StrapiSubnigdit, SubnigditN };
 export { subnigditAdapter };
+
+export default Subnigdit;
+export type { StrapiSubnigdit };

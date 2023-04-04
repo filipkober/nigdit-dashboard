@@ -36,6 +36,8 @@ export default function PostExtended({ post }: PostExtendedProps) {
   let allComNum = comments?.data.length || 0
   comments?.data.map(c => allComNum += c.attributes.replies?.data.attributes.count || 0)
 
+  console.log(subnigdit)
+
   return (
     <>
       <div>

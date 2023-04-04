@@ -22,6 +22,10 @@ type StrapiUser = {
         replies?: Reply[],
         profilePicture?: Media,
     },
+    posts?: Post[],
+    comments?: Comment[],
+    replies?: Reply[],
+    pfp?: Media,
 }
 type LoginUser = {
     jwt: string,
