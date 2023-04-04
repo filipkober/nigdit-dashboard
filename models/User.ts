@@ -1,7 +1,16 @@
+import Post, { StrapiPost } from "./Post"
+import Reply from "./Reply"
+import Comment from "./Comment"
+import Media from "./Media"
+
 type User = {
     id?: number,
     username?: string,
     email?: string,
+    posts?: Post[],
+    comments?: Comment[],
+    replies?: Reply[],
+    pfp?: Media,
 }
 type StrapiUser = {
     id: number,
@@ -9,6 +18,10 @@ type StrapiUser = {
         username: string,
         email: string,
     },
+    posts?: Post[],
+    comments?: Comment[],
+    replies?: Reply[],
+    pfp?: Media,
 }
 type LoginUser = {
     jwt: string,
