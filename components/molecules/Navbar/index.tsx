@@ -48,20 +48,19 @@ export default function Navbar()
                         <input className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."}onChange={event => searchValChanged(event.target.value)} /> 
                     </div>
                 </div> 
-            </div>
+            </div>            
             {(isLogged) ? (
             <a href="http://localhost:3000/my-account" className='hover:cursor-pointer min-w-[2.4rem] tm:min-w-[13rem] h-[100%] flex flex-row-reverse my-2 ml-1 mr-3'>
                 <div className='w-[2.4rem] shrink-0'>
                     <Image draggable="false" src={nigditIcon} width={36} height={36} className="w-[2.4rem] pointer-events-auto select-none hover:cursor-pointer object-cover overflow-hidden rounded-full" alt={''}/>
                 </div> 
                 <div className='select-none overflow-hidden ml-auto shrink-1 hidden tm:block'>
-                    <p className="pointer-events-auto overflow-hidden text-right text-[20px] font-thin dark:text-white pr-2">{useSelector((state: UserState) => state.user.username)}</p>
+                    <p className="pointer-events-auto overflow-hidden text-right text-[20px] font-thin dark:text-white pr-2">{a}</p>
                 </div>                 
             </a>
             ):(
                 
-            <div className='min-w-[2.4rem] tm:min-w-[13rem] flex flex-row-reverse my-[6.5px] ml-1 mr-3'>                
-                {useSelector((state: UserState) => state.user.username)}
+            <div className='min-w-[2.4rem] tm:min-w-[13rem] flex flex-row-reverse my-[6.5px] ml-1 mr-3'>
                 <a href="http://localhost:3000/register" className="pointer-events-auto hover:cursor-pointer mx-1 shrink-0 px-4 py-1 rounded-[666px] bg-[#aaa] text-[#373737] border-[1px] font-bold shadow-md border-[#000000] hover:bg-gray-100 transition-colors duration-300">
                     register
                 </a>     
