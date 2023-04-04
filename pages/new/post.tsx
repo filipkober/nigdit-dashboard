@@ -5,12 +5,7 @@ import NewPostForm from '../../components/organism/NewPostForm'
 const PostPage: NextPage = () => {
   return (
     <>
-    <Navbar searchbar={{
-              value: undefined,
-              onChange: function (str: string): void {
-                  throw new Error('Function not implemented.')
-              }
-          }} />
+    <Navbar/>
     <NewPostForm />
     </>
   )
