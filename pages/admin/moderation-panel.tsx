@@ -5,11 +5,10 @@ import Navbar from '../../components/molecules/Navbar'
 import TabSelector from '../../components/molecules/TabSelector';
 
 const Ballin: NextPage = () => {
-    const [search, setSearch] = useState<string>("");
     const [selected, setSelected] = useState<number>(0);
   return (
     <div className='bg-backgroundL dark:bg-backgroundD h-full'>
-      <Navbar searchbar={{value: search, onChange: setSearch}} />
+      <Navbar/>
       <TabSelector selected={selected} setSelected={setSelected} tabs={['Posts', 'Comments', 'Subnigdits']}/>
       <ModerationPanel tab={selected} className={"h-screen"}/>
     </div>

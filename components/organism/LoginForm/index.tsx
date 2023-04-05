@@ -32,7 +32,7 @@ export default function LoginForm() {
         console.log(codeResponse.code)
         const res = await fetch('/api/google-access-token?code='+codeResponse.code,{method: 'GET'})
         const data = await res.json()
-        console.log(data.tokens.access_toke)
+        console.log(data.tokens.access_token)
         const res2 = await fetch('http://localhost:1338/api/auth/google/callback?access_token='+data.tokens.access_token);
         const userData = await res2.json()
         console.log(userData)
@@ -94,7 +94,6 @@ export default function LoginForm() {
               {/* google login */}
               <div className=" w-[100%] min-h-[3rem] h-[8vh] flex flex-row justify-center items-center mt-3 ">              
                 <GoogleButton onClick={()=>{login()}}/>
-                {/* create custom login with google button component in react using tailwind */}
               </div>
               {/* --- or --- */}
               <div className=" w-[100%] min-h-[2rem] h-[5vh] flex flex-row justify-between px-3 my-3 items-center">

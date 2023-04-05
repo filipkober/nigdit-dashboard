@@ -14,14 +14,7 @@ const PostPage: NextPage = () => {
 
   return (
     <>
-      <Navbar
-        searchbar={{
-          value: undefined,
-          onChange: function (str: string): void {
-            throw new Error('Function not implemented.');
-          },
-        }}
-      />
+      <Navbar/>
       <div className="dark:bg-backgroundD bg-backgroundL m-0 ls:flex">
         <div className="ls:gap-x-[3vw] ls:ml-[5vh] my-[5vh] ">
           <PostExtended
