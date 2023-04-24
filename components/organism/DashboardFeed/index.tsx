@@ -3,7 +3,7 @@ import FilteringBar from "../../molecules/FilteringBar";
 import JoindeGroups from "../../molecules/JoinedGroups";
 import PostMedia from "../../molecules/PostMedia";
 import PostText from "../../molecules/PostText";
-import makpaj from '../../../assets/makpaj.svg'
+import makpaj from '../../../assets/makpaj.svg';
 
 export default function DashboardFeed() 
 {
