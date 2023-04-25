@@ -1,11 +1,11 @@
-import React, { InputHTMLAttributes, useEffect, useState } from 'react';
+import React, { InputHTMLAttributes, useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import nigditIcon from '../../../assets/testimage.svg'
 import Link from 'next/link';
 import { useSelector } from 'react-redux'
 import { UserState } from '../../../store/userSlice'
 import SubnigditSearch from '../SubnigditSearch';
-import StrapiResponse, { strapiResponseToData } from '../../../models/StrapiResponse';
+import {debounce} from 'lodash';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     user?:
@@ -50,6 +50,10 @@ export default function Navbar()
         setSearchValue(cval)
     }
 
+    const debouncedChangeHandler = useCallback(
+        debounce((x) => searchValChanged(x), 100)
+      , []);
+
     return(        
         <div className="pointer-events-none flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-40 top-0 left-0">
             <a href="http://localhost:3000" className='pointer-events-auto min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:max-w-[13rem] h-[100%] flex flex-row my-2 mx-2'>
@@ -69,7 +73,7 @@ export default function Navbar()
                                 <Image draggable="false" src={'/searchIcon.png'} width={33} height={33} className="rounded-none ml-1 p-[6px] select-none object-cover overflow-hidden" alt={''}/>
                             </div>                   
                             <div className='w-[100%] m-[0.2rem]'>
-                                <input className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."}onChange={event => searchValChanged(event.target.value)} /> 
+                                <input className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."} onChange={event => debouncedChangeHandler(event.target.value)} /> 
                             </div>  
                         </div>
                     ):(
@@ -78,7 +82,7 @@ export default function Navbar()
                                 <Image draggable="false" src={'/searchIcon.png'} width={33} height={33} className="rounded-none ml-1 p-[6px] select-none object-cover overflow-hidden" alt={''}/>
                             </div>                   
                             <div className='w-[100%] m-[0.2rem]'>
-                                <input className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."}onChange={event => searchValChanged(event.target.value)} /> 
+                                <input className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."} onChange={event => debouncedChangeHandler(event.target.value)} /> 
                             </div>  
                         </div>
                     )
