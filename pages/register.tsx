@@ -15,8 +15,7 @@ const Register: NextPage = () => {
     setEmail(email)
   }  
 
-  return (    
-    
+  return (        
     <div className="dark:text-white dark:bg-backgroundD bg-backgroundL w-[100%] p-0 m-0 h-screen">
       {verify == true? (
         <EmailVerification verChange={verChange} email={email}/> //prześlij email z register

@@ -27,7 +27,7 @@ export default function JoindeGroups({}: Props)
     {name: "TotalAnarchy",adress:"",image:nigditIcon},
     {name: "Science",adress:"",image:nigditIcon},
     {name: "12charactersmaxpls",adress:"",image:nigditIcon},
-    {name: "goatgore",adress:"https://kekma.net/",image:nigditIcon}]
+    {name: "gorre",adress:"https://kekma.net/",image:nigditIcon}]
 
     function expand()
     {
@@ -46,28 +46,28 @@ export default function JoindeGroups({}: Props)
     }
 
     return(
-        <div className={"object-fill w-[95%] max-w-[320px] min-h-[40vh] bg-foregroundL dark:bg-foregroundD drop-shadow-midget rounded-[10px] border-black border-[2px] border-solid"}>
-            <div className="w-[100%] flex flex-col object-fill justify-between">
-                <div className="flex flex-col justify-between items-center h-[6vh] min-h-[40px] max-h-[56px]">
-                    <div className="w-[100%] h-[98%] flex flex-col justify-end items-start bg-joinedGroups bg-cover bg-left overflow-hidden object-cover rounded-[10px]">
-                        <p className="mx-2 cs:mx-8 shrink-1 text-[15px] ls:text-[18px] cs:text-[20px] cm:text-[22px] font-['Roboto'] dark:text-white">Your Communities</p>
+        <div className={"object-fill w-[100%] ls:w-[80%] min-h-[40vh] bg-foregroundL dark:bg-foregroundD drop-shadow-midget rounded-[10px] border-black border-[2px] border-solid"}>
+            <div className="w-[100%] h-[100%] flex flex-col object-fill justify-between">
+                <div className="flex flex-col justify-between items-center h-[16%]">
+                    <div className="w-[100%] h-[98%] flex flex-col justify-end items-center bg-joinedGroups bg-cover bg-left overflow-hidden object-cover rounded-[10px]">
+                        <p className=" shrink-1 text-[15px] tl:text-[18px] ls:text-[18px] cs:text-[20px] cm:text-[24px] font-['Roboto'] dark:text-white">Your Communities</p>
                     </div>
                     <div className="w-[100%] h-[2%] min-h-[1px]">
                         <hr className="h-[1px] border-solid border-[0px] w-[100%] bg-black drop-shadow-lucifer"></hr>
                     </div>  
                 </div>
-                <div style={{height: h}} className={"w-[100%] min-h-[28vh] overflow-hidden bg-scroll bg-cover scrollbar-thin scrollbar-thumb-[#535353] scrollbar-track-[#2323232a] scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll "}> 
+                <div style={{height: h}} className={"w-[100%] overflow-hidden bg-scroll bg-cover scrollbar-thin scrollbar-thumb-[#535353] scrollbar-track-[#2323232a] scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll "}> 
                     {subnigdits.map((x,index) =>{
                         return(
                             <GroupListElement key={index} num={index+1} name={x.name} link={x.adress} image={x.image}/>
                         )
                     })}
                 </div>
-                <div className="flex flex-col justify-between items-center h-[6vh] min-h-[40px] max-h-[56px]">                    
+                <div className="flex flex-col justify-between items-center h-[16%]">                    
                     <div className="w-[100%] h-[2%] min-h-[1px]">
                         <hr className="h-[1px] border-solid border-[0px] w-[100%] bg-black"></hr>
                     </div>                   
-                    <div className="w-[100%] h-[98%] flex flex-col justify-center items-center p-2">
+                    <div className="w-[100%] h-[98%] flex flex-col justify-center items-center p-[2.5%]">
                         <button onClick={expand} className={`w-[100%] h-[100%] min-h-[30px] hover:cursor-pointer text-[18px] font-["Roboto"] text-white duration-[100ms] text-center font-bold hover:drop-shadow-midget border-black border-solid border-[1px] bg-experimentA hover:bg-experimentB rounded-[10px]`}>{expandButtonText}</button>
                     </div> 
                 </div>
