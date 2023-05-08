@@ -10,18 +10,18 @@ type User = {
     posts?: Post[],
     comments?: Comment[],
     replies?: Reply[],
-    pfp?: Media,
+    profilePicture?: Media,
 }
 type StrapiUser = {
     id: number,
     attributes: {
         username: string,
         email: string,
+        posts?: Post[],
+        comments?: Comment[],
+        replies?: Reply[],
+        profilePicture?: Media,
     },
-    posts?: Post[],
-    comments?: Comment[],
-    replies?: Reply[],
-    pfp?: Media,
 }
 type LoginUser = {
     jwt: string,

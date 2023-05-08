@@ -2,6 +2,7 @@ import { string } from 'yup';
 import Media from './Media';
 import { StrapiSubnigdit } from './Subnigdit';
 import { StrapiUser } from './User';
+import { StrapiComment } from './Comment';
 
 type Post = {
   id?: number;
@@ -13,9 +14,9 @@ type Post = {
   Type?: 'Text' | 'Image' | 'Video' | 'Gif';
   nsfw?: boolean;
   Media?: Media;
-  comments?: Comment[];
+  comments?: StrapiComment[];
   owner?: StrapiUser;
-  subnigdit?: StrapiSubnigdit
+  subnigdit?: StrapiSubnigdit;
 };
 
 type StrapiPost = {
@@ -30,14 +31,14 @@ type StrapiPost = {
     nsfw: boolean;
     Media?: Media;
     comments?: {
-      data: Comment[];
+      data: StrapiComment[];
     };
     owner: {
       data: StrapiUser;
     };
     subnigdit: {
-      data: StrapiSubnigdit
-    }
+      data: StrapiSubnigdit;
+    };
   };
 };
 
@@ -51,18 +52,18 @@ type PostN = {
   nsfw: boolean;
   media?: Media;
   comments?: {
-    data: Comment[];
+    data: StrapiComment[];
   };
   owner: {
     data: StrapiUser;
   };
   subnigdit: {
-    data: StrapiSubnigdit
-  }
-}
+    data: StrapiSubnigdit;
+  };
+};
 
-const postAdapter = (p: StrapiPost):PostN => {
-  return{
+const postAdapter = (p: StrapiPost): PostN => {
+  return {
     title: p.attributes.Title,
     description: p.attributes.Description,
     votes: p.attributes.Votes,
@@ -71,12 +72,12 @@ const postAdapter = (p: StrapiPost):PostN => {
     type: p.attributes.Type,
     nsfw: p.attributes.nsfw,
     media: p.attributes.Media,
-    comments: p.attributes.comments || {data: []},
+    comments: p.attributes.comments || { data: [] },
     owner: p.attributes.owner,
-    subnigdit: p.attributes.subnigdit
-  }
-}
+    subnigdit: p.attributes.subnigdit,
+  };
+};
 
 export default Post;
-export type { StrapiPost, PostN};
-export {postAdapter}
+export type { StrapiPost, PostN };
+export { postAdapter };

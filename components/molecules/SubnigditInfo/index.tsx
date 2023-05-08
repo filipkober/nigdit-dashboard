@@ -2,55 +2,46 @@ import Image from 'next/image';
 import makpaj from '../../../assets/makpaj.svg';
 import userIcon from '../../../assets/user-icon.svg';
 import { JoinButton } from '../../atoms/JoinButton';
+import { SubnigditN } from '../../../models/Subnigdit';
+import * as moment from 'moment';
 
 type SubnigditInfoProps = {
-  id: number;
+  subnigdit: SubnigditN
 };
 
-const name = 'n/jebaniemakpie';
-const description = 'tutaj jebiemy makpaja';
-const createdAt = new Date('2001-09-11');
-const memberCount = 69;
+function formatStrapiDate(dateIn: Date, locale = 'pl-PL'){
+  return new Date(dateIn).toLocaleDateString()
+}
 
-export default function SubnigditInfo({ id }: SubnigditInfoProps) {
+export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
   return (
     <>
       <div className="text-left font-normal font-['Roboto'] dark:text-white bg-foregroundL dark:bg-foregroundD border-solid border-black drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2 ">
         <div className="mb-5 flex flex-row">
           <Image
-            src={makpaj}
+            src={process.env.NEXT_PUBLIC_STRAPI_URL! + subnigdit.iconUrl || ''}
+            width={1}
+            height={1}
             alt={'subnigdit-picture'}
+            loader={() => 
+              process.env.NEXT_PUBLIC_STRAPI_URL! + subnigdit.iconUrl || ''
+            }
             className="rounded-full object-cover w-20 h-20"
           />
           <span className="ml-1 font-['Roboto'] font-semibold dark:text-white text-base self-center">
-            {name}
+            {subnigdit.name}
           </span>
         </div>
 
         <div className="font-['Roboto'] dark:text-white text-base mb-5">
-          <p className="mb-5 ">{description}</p>
+          <p className="mb-5 ">{subnigdit.description}</p>
 
-          <p className="mb-5 ">🍰 Created at {createdAt.toDateString()}</p>
+          <p className="mb-5 ">🍰 Created at {formatStrapiDate(subnigdit.createdAt)}</p>
         </div>
 
         <div>
           <hr className="border-white border-solid border-[1px] w-[100%]"></hr>
         </div>
-
-        {/* <div className="flex flex-row my-5 justify-center">
-          <div className="mx-2 self-center">
-            <Image src={userIcon} width={50} height={60} alt={''} />
-          </div>
-          <div className="flex flex-col content-center">
-            <div className="text-3xl text-center">
-              <p>{memberCount}</p>
-            </div>
-            <div>
-              <p className="text-lg">{'Members'}</p>
-            </div>
-          </div>
-        </div> */}
-
         <div className="flex justify-center align-middle">
           <div className="my-5 h-10 w-40 flex flex-row">
             <div>
@@ -58,7 +49,7 @@ export default function SubnigditInfo({ id }: SubnigditInfoProps) {
             </div>
             <div className="flex flex-col">
               <div>
-                <p>{memberCount}</p>
+                <p>{ subnigdit.subscribers.length }</p>
               </div>
               <div>
                 <p>Members</p>
