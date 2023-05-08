@@ -19,17 +19,29 @@ export default class PostService {
       {
         populate: {
           owner: {
-            populate: '*'
+            populate: '*',
           },
           Media: {
-            populate: '*'
+            populate: '*',
           },
           subnigdit: {
-            populate: '*'
-          }
-        }
+            populate: '*',
+            subscribers: { populate: '*' }
+          },
+          comments: {
+            populate: {
+              populate: '*',
+              replies: { 
+                count: true
+              },
+              owner: {
+                populate: '*',
+              },
+            },
+          },
+        },
       },
-      { encodeValuesOnly: true, }
+      { encodeValuesOnly: true }
     );
 
     const post: StrapiResponse<StrapiPost> = await this.requestService.get(

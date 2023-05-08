@@ -11,7 +11,6 @@ type ReplyProps = {
   pfp: string;
   nick: string;
   content: string;
-  responseTo: number;
 };
 
 export default function Reply({
@@ -21,7 +20,6 @@ export default function Reply({
   nick,
   content,
   vote,
-  responseTo,
 }: ReplyProps) {
   const [downvoteClicked, setDownvoteClicked] = useState<boolean>(
     vote === 'downvote'
@@ -48,8 +46,11 @@ export default function Reply({
       <div className="gridComment my-5">
         <div className="justify-self-auto">
           <Image
-            src={pfp}
+            src={process.env.NEXT_PUBLIC_STRAPI_URL! + pfp}
+            width={50}
+            height={50}
             alt=""
+            loader={() => process.env.NEXT_PUBLIC_STRAPI_URL! + pfp}
             className="overflow-hidden rounded-full object-cover w-10 h-10"
           ></Image>
         </div>
