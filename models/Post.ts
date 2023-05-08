@@ -1,4 +1,4 @@
 
 export default Post;
-export type { StrapiPost, PostN};
-export {postAdapter}
+export type { StrapiPost, PostN };
+export { postAdapter };

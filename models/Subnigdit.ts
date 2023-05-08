@@ -62,4 +62,5 @@ export type { StrapiSubnigdit, SubnigditN };
 export { subnigditAdapter };
 
 export default Subnigdit;
-export type { StrapiSubnigdit };
+export type { StrapiSubnigdit, SubnigditN };
+export { subnigditAdapter };
