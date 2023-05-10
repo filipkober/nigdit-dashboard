@@ -71,14 +71,7 @@ const PostPage: NextPage = () => {
 
   return (
     <>
-      <Navbar
-        searchbar={{
-          value: undefined,
-          onChange: function (str: string): void {
-            throw new Error('Function not implemented.');
-          },
-        }}
-      />
+      <Navbar />
       <div className="">
         <div className="dark:bg-backgroundD bg-backgroundL flex flex-wrap m-10 gap-10 ">
           <div className=' bg-cyan-300 flex-auto ' >1</div>
