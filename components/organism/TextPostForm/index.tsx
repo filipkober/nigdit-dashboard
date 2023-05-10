@@ -1,5 +1,5 @@
 import { Formik, FormikHelpers, FormikValues } from "formik"
-import SubnigditRulesType from "../../../models/SubnigditRulesType";
+import SubnigditRulesType from "../../../models/SubnigditRule";
 import Button from "../../atoms/Button";
 import Input from "../../atoms/Input";
 import TextArea from "../../atoms/TextArea";

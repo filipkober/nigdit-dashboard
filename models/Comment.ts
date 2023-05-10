@@ -128,12 +128,12 @@ const exampleComment: StrapiComment = {
       data: {
         id: 0,
         attributes: {
-          Title: '',
-          Description: '',
-          Votes: 0,
-          Reports: 0,
+          title: '',
+          description: '',
+          votes: 0,
+          reports: 0,
           createdAt: new Date(),
-          Type: 'Text',
+          type: 'Text',
           nsfw: false,
           owner: {
             data: {
@@ -153,7 +153,11 @@ const exampleComment: StrapiComment = {
                 createdAt: new Date(),
                 reports: 0,
                 icon: emptyMedia,
-                subscribers: { data: [] }
+                subscribers: { data: {
+                  attributes: {
+                    count: 0
+                  }
+                } }
               },
             },
           },

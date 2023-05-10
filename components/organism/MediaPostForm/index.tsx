@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
-import SubnigditRulesType from '../../../models/SubnigditRulesType';
+import SubnigditRulesType from '../../../models/SubnigditRule';
 import Button from '../../atoms/Button';
 import Input from '../../atoms/Input';
 import SubnigditRules from '../../molecules/SubnigditRules';
