@@ -4,25 +4,35 @@ import JoindeGroups from "../../molecules/JoinedGroups";
 import PostMedia from "../../molecules/PostMedia";
 import PostText from "../../molecules/PostText";
 import makpaj from '../../../assets/makpaj.svg';
+import PostService from "../../../util/requests/PostService";
+import { StrapiPost } from "../../../models/Post";
 
 export default function DashboardFeed() 
 {
+  const postService = new PostService();
+
   const [counter, setCounter] = useState<number>(0);
   function clicked(cc: number)
   {
     setCounter(cc*2)    
     console.log(counter/2)
   }
-  const desc = `
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat
-        Duis aute irure dolor in reprehenderit in voluptate ...
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat
-        Duis aute irure dolor in reprehenderit in voluptate
-  `;  //temp
+
+  const [posts, setPosts] = useState<StrapiPost[]>([]);
+
+  useEffect( () => {
+    postService.getAll().then((data) => {
+      console.log(data)
+      setPosts(data);
+    });
+    // fetch('http://localhost:1338/api/posts/top')
+    // .then(res => res.json())
+    // .then(data => {
+    //     console.log(data)
+    //     setPosts(data)
+    // })
+  },[]);
+  
 
   return (
     <>
@@ -32,9 +42,18 @@ export default function DashboardFeed()
           <div className="flex flex-col items-center">
             <div className="ls:w-[50vw] tl:w-[56vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px]">
               <FilteringBar clicked={clicked}/>
-              {/* tu będzie map */}
+              {
+                posts.map((post) => {
+                  console.log(post)
+                  return(
+                    <div key={post.id}>
+                      <PostText title={post.attributes.Title} description={post.attributes.Description || ""} author={"null"} date={post.attributes.createdAt || new Date('1939-09-1')} source={{name: 'n/subnigdit', image:makpaj}} votes={1500}/>
+                    </div>                    
+                  )
+                })
+              }
               <PostMedia title="gif post" media={{type: "gif", source: "https://c.tenor.com/hVm01utkmM8AAAAd/maciek-sze%C5%9Bcia%C5%84czyk-maciasek05.gif"}} author="makpaj" date={new Date('2000-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={-1500} />
-              <PostText title="post" description={desc} author="user" date={new Date('2022-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={1500}/>
+              <PostText title="post" description={"niggadesc"} author="user" date={new Date('2022-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={1500}/>
               <PostMedia title="gif post" media={{type: "video", source: "https://www.w3schools.com/html/mov_bbb.mp4"}} author="makpaj" date={new Date('2000-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={-1500} />
             </div>
           </div>       
@@ -51,7 +70,6 @@ export default function DashboardFeed()
         ) : (        
           <div></div>
         )}  
-
     </>
   )
 }
