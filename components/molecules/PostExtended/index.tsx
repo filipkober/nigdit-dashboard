@@ -12,7 +12,7 @@ import ReportModal from '../ReportModal';
 import { useModal } from '../../../hooks/useModal';
 import PostService from '../../../util/requests/PostService';
 import { StrapiPost, PostN } from '../../../models/Post';
-import { commentAdapter } from '../../../models/Comment';
+import { StrapiComment, commentAdapter } from '../../../models/Comment';
 
 type PostExtendedProps = {
   post: PostN;
@@ -31,6 +31,10 @@ export default function PostExtended({ post }: PostExtendedProps) {
   console.log(comments)
 
   const [modalReportVisible, changeModalReportVisible] = useModal();
+  console.log(!!description)
+
+  let allComNum = comments?.data.length || 0
+  comments?.data.map(c => allComNum += c.attributes.replies?.data.attributes.count || 0)
 
   return (
     <>
@@ -115,7 +119,7 @@ export default function PostExtended({ post }: PostExtendedProps) {
           </div>
           <div className="flex font-['Roboto'] dark:text-white text-xl mt-5">
             {/* chujstwo pod contentem */}
-            <p className="mr-5">{comments?.data.length} Comment{(comments?.data.length || 0) > 1 ? 's' : ''}</p>
+            <p className="mr-5">{allComNum} Comment{allComNum> 1 ? 's' : ''}</p>
             <p className="ml-auto">Share</p>
             <p className="ml-5 cursor-pointer">
               <a onClick={changeModalReportVisible}>Report</a>

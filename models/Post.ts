@@ -22,14 +22,14 @@ type Post = {
 type StrapiPost = {
   id: number;
   attributes: {
-    Title: string;
-    Description?: string;
-    Votes: number;
-    Reports: number;
+    title: string;
+    description?: string;
+    votes: number;
+    reports: number;
     createdAt: Date;
-    Type: 'Text' | 'Image' | 'Video' | 'Gif';
+    type: 'Text' | 'Image' | 'Video' | 'Gif';
     nsfw: boolean;
-    Media?: Media;
+    media?: Media;
     comments?: {
       data: StrapiComment[];
     };
@@ -64,14 +64,14 @@ type PostN = {
 
 const postAdapter = (p: StrapiPost): PostN => {
   return {
-    title: p.attributes.Title,
-    description: p.attributes.Description,
-    votes: p.attributes.Votes,
-    reports: p.attributes.Reports,
+    title: p.attributes.title,
+    description: p.attributes.description,
+    votes: p.attributes.votes,
+    reports: p.attributes.reports,
     createdAt: p.attributes.createdAt,
-    type: p.attributes.Type,
+    type: p.attributes.type,
     nsfw: p.attributes.nsfw,
-    media: p.attributes.Media,
+    media: p.attributes.media,
     comments: p.attributes.comments || { data: [] },
     owner: p.attributes.owner,
     subnigdit: p.attributes.subnigdit,
