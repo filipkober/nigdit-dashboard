@@ -1,16 +1,27 @@
 import { count } from 'console';
-import Media from './Media';
+import Media, { StrapiMedia } from './Media';
 import { number } from 'yup';
 import { StrapiUser } from './User';
 import SubnigditRule from './SubnigditRule';
 
-type Subnigdit = {
-  id?: number;
+
+type Subnigdit = { //za zmianę tego również cię zabiję
+  id: number;  
   name: string;
   description: string;
   createdAt: Date;
   reports: number;
+  icon: Media;
+  subscribers: {
+    data: {
+      attributes:{
+        count: number
+      }
+    }
+  },
+  rules?: SubnigditRule[];  
 };
+
 
 type StrapiSubnigdit = {
   id: number;
@@ -19,7 +30,7 @@ type StrapiSubnigdit = {
     description: string;
     createdAt: Date;
     reports: number;
-    icon: Media;
+    icon: StrapiMedia;
     subscribers: {
       data: {
         attributes:{
@@ -37,7 +48,7 @@ type SubnigditN = {
   description: string;
   createdAt: Date;
   reports: number;
-  icon: Media;
+  icon: StrapiMedia;
   iconUrl: string;
   subscribers: number;
   rules: SubnigditRule[];
