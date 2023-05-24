@@ -7,7 +7,7 @@ type PostMediaProps = {
   title: string,
   media: {
     source: string,
-    type: 'video' | 'image' | 'gif',
+    type: 'Video' | 'Image' | 'Gif',
   },
   author: string,
   source: {
@@ -72,9 +72,9 @@ export default function PostMedia({title,media,author,source,votes,date, vote}: 
       </div>
       <div>
         {
-          media.type == 'image' || media.type == 'gif' ? (
-            <Image src={media.source} alt={title + " image or gif"} width={880} height={880} objectFit='none' loader={(img) => media.source} objectPosition={"50% 0"}/>
-          ) : (
+          media.type == 'Image' || media.type == 'Gif' ? (
+            <Image src={media.source} alt={" Title: "+title + " URL:"+media.source} width={880} height={880} objectFit='none' loader={(img) => media.source} objectPosition={"50% 0"}/>
+            ) : (
             <video controls className='w-[92%]'>
               <source src={media.source} />
             </video>

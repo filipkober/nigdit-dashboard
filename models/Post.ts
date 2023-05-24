@@ -1,22 +1,22 @@
 import { string } from 'yup';
-import Media from './Media';
-import { StrapiSubnigdit } from './Subnigdit';
-import { StrapiUser } from './User';
+import Media, { StrapiMedia } from './Media';
+import Subnigdit, { StrapiSubnigdit } from './Subnigdit';
+import User, { StrapiUser } from './User';
 import { StrapiComment } from './Comment';
 
-type Post = {
-  id?: number;
-  Title?: string;
-  Description?: string;
-  Votes?: number;
-  Reports?: number;
-  createdAt?: Date;
-  Type?: 'Text' | 'Image' | 'Video' | 'Gif';
-  nsfw?: boolean;
-  Media?: Media;
-  comments?: StrapiComment[];
-  owner?: StrapiUser;
-  subnigdit?: StrapiSubnigdit;
+type Post = { //zabiję cię olo jeśli zmienisz to bez uzasadnienia
+  id: number;
+  title: string;
+  description?: string;
+  votes: number;
+  reports: number;
+  createdAt: Date;
+  type: 'Text' | 'Image' | 'Video' | 'Gif';
+  nsfw: boolean;
+  media?: Media;
+  comments?: Comment[],
+  owner: User,
+  subnigdit: Subnigdit
 };
 
 type StrapiPost = {
@@ -29,7 +29,7 @@ type StrapiPost = {
     createdAt: Date;
     type: 'Text' | 'Image' | 'Video' | 'Gif';
     nsfw: boolean;
-    media?: Media;
+    media?: StrapiMedia;
     comments?: {
       data: StrapiComment[];
     };
@@ -42,6 +42,7 @@ type StrapiPost = {
   };
 };
 
+//to ma jakieś cel w swoim istnieniu?
 type PostN = {
   title: string;
   description?: string;
@@ -50,7 +51,7 @@ type PostN = {
   createdAt: Date;
   type: 'Text' | 'Image' | 'Video' | 'Gif';
   nsfw: boolean;
-  media?: Media;
+  media?: StrapiMedia;
   comments?: {
     data: StrapiComment[];
   };
