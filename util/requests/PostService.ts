@@ -138,19 +138,19 @@ export default class PostService {
     return posts.data;
   }
   async hotSub() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/hotSub"+ '?' + this.feedQuery);
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/hotSub"+ '?' + this.feedQuery, {auth: true});
     return posts.data;
   }
   async popSub() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/popSub" + '?' + this.feedQuery);
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/popSub" + '?' + this.feedQuery, {auth: true});
     return posts.data;
   }
   async topSub() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/topSub"+ '?' + this.feedQuery);
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/topSub"+ '?' + this.feedQuery, {auth: true});
     return posts.data;
   }
   async newSub() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/newSub"+ '?' + this.feedQuery);
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/newSub"+ '?' + this.feedQuery, {auth: true});
     return posts.data;
   }
 
