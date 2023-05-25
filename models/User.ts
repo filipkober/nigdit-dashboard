@@ -4,13 +4,13 @@ import Comment from "./Comment"
 import Media, { StrapiMedia } from "./Media"
 
 type User = {
-    id: number,
+    id?: number,
     username: string,
-    email: string,
-    posts: Post[],
-    comments: Comment[],
-    replies: Reply[],
-    profilePicture: Media,
+    email?: string,
+    posts?: Post[],
+    comments?: Comment[],
+    replies?: Reply[],
+    profilePicture?: Media,
 }
 type StrapiUser = {
     id: number,
