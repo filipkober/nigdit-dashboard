@@ -8,60 +8,67 @@ import StrapiResponse, { strapiResponseToData } from '../models/StrapiResponse';
 import { incrementCounter } from '../store/userSlice';
 import ReplyService from '../util/requests/ReplyService';
 
-type formValues = {
-  content: string;
-  votes: number;
-};
+// type formValues = {
+//   content: string;
+//   votes: number;
+// };
 
 const Ballin: NextPage = () => {
-  const dispatch = useDispatch();
+    return (
+        <div>
+          zabij sie
+        </div>
+      )
+}
 
-  const onClick = () => {
-    dispatch(incrementCounter());
-  };
+//   const dispatch = useDispatch();
 
-  const replyService = new ReplyService();
+//   const onClick = () => {
+//     dispatch(incrementCounter());
+//   };
 
-  const [replies, setReplies] = useState<StrapiReply[]>([]);
+//   const replyService = new ReplyService();
 
-  const initialValues: formValues = {
-    content: '',
-    votes: 0,
-  };
+//   const [replies, setReplies] = useState<StrapiReply[]>([]);
 
-  useEffect(() => {
-    // fetch('http://localhost:1338/api/replies').then((res) => {
-    //   res.json().then((data: StrapiResponse<StrapiReply[]>) => {
-    //     setReplies(strapiResponseToData(data));
-    //   });
-    // });
-    replyService.getAll().then((data) => {
-      setReplies(data);
-    });
-  }, []);
+//   const initialValues: formValues = {
+//     content: '',
+//     votes: 0,
+//   };
 
-  const deleteReply = (id: number) => {
-    // fetch(`http://localhost:1338/api/replies/${id}`, {
-    //   method: 'DELETE',
-    // }).then((res) => {
-    //   res.json().then((data: StrapiResponse<StrapiReply>) => {
-    //     const newReplies = replies.filter((reply) => reply.id !== data.data.id);
-    //     setReplies(newReplies);
-    //   })
-    // });
-    replyService.delete(id).then((data) => {
-      const newReplies = replies.filter((reply) => reply.id !== data.id);
-      setReplies(newReplies);
-    });
-  };
+//   useEffect(() => {
+//     // fetch('http://localhost:1338/api/replies').then((res) => {
+//     //   res.json().then((data: StrapiResponse<StrapiReply[]>) => {
+//     //     setReplies(strapiResponseToData(data));
+//     //   });
+//     // });
+//     replyService.getAll().then((data) => {
+//       setReplies(data);
+//     });
+//   }, []);
 
-  const updateReply = async (id: number, currentVotes: number) => {
-    const newVotes = prompt("Podaj nową ilość głosów", String(currentVotes));
-    if(newVotes === null) return;
-    if(Number.isNaN(Number(newVotes))) {
-      alert("Podaj liczbę");
-      return;
-    }
+//   const deleteReply = (id: number) => {
+//     // fetch(`http://localhost:1338/api/replies/${id}`, {
+//     //   method: 'DELETE',
+//     // }).then((res) => {
+//     //   res.json().then((data: StrapiResponse<StrapiReply>) => {
+//     //     const newReplies = replies.filter((reply) => reply.id !== data.data.id);
+//     //     setReplies(newReplies);
+//     //   })
+//     // });
+//     replyService.delete(id).then((data) => {
+//       const newReplies = replies.filter((reply) => reply.id !== data.id);
+//       setReplies(newReplies);
+//     });
+//   };
+
+//   const updateReply = async (id: number, currentVotes: number) => {
+//     const newVotes = prompt("Podaj nową ilość głosów", String(currentVotes));
+//     if(newVotes === null) return;
+//     if(Number.isNaN(Number(newVotes))) {
+//       alert("Podaj liczbę");
+//       return;
+//     }
     // const res = await fetch(`http://localhost:1338/api/replies/${id}`, {
     //   method: 'PUT',
     //   headers: {
@@ -82,89 +89,89 @@ const Ballin: NextPage = () => {
     // });
     // setReplies(newReplies);
 
-  const data = await replyService.update(id, {votes: Number(newVotes)});
-  const newReplies = replies.map((reply) => {
-    if(reply.id === data.id) {
-      return data;
-    }
-    return reply;
-  }
-  );
-  setReplies(newReplies);
-  };
+//   const data = await replyService.update(id, {votes: Number(newVotes)});
+//   const newReplies = replies.map((reply) => {
+//     if(reply.id === data.id) {
+//       return data;
+//     }
+//     return reply;
+//   }
+//   );
+//   setReplies(newReplies);
+//   };
 
-  console.log(replies);
+//   console.log(replies);
 
-  return (
-    <div>
-      <button onClick={onClick}>Klik klik</button>
-      <div>
-        {replies.map((reply) => (
-          <div>
-            <Reply
-            key={reply.id}
-            id={reply.id}
-            votes={reply.attributes.votes}
-            pfp={''}
-            nick={''}
-            content={reply.attributes.content}
-            responseTo={0}
-          />
-          <button onClick={() => {deleteReply(reply.id)}} className={"bg-red-600"}>Usuń reply id {reply.id}</button> <br />
-          <button onClick={() => {updateReply(reply.id, reply.attributes.votes)}} className={"bg-blue-600"}>Edytuj głosy reply o id: {reply.id}</button> <br />
-          </div>
-        ))}
-      </div>
-      <br />
-      <div>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={async (values) => {
-            let votes = Math.random() * 100;
-            votes = Math.floor(votes);
+//   return (
+//     <div>
+//       <button onClick={onClick}>Klik klik</button>
+//       <div>
+//         {replies.map((reply) => (
+//           <div>
+//             <Reply
+//             key={reply.id}
+//             id={reply.id}
+//             votes={reply.attributes.votes}
+//             pfp={''}
+//             nick={''}
+//             content={reply.attributes.content}
+//             responseTo={0}
+//           />
+//           <button onClick={() => {deleteReply(reply.id)}} className={"bg-red-600"}>Usuń reply id {reply.id}</button> <br />
+//           <button onClick={() => {updateReply(reply.id, reply.attributes.votes)}} className={"bg-blue-600"}>Edytuj głosy reply o id: {reply.id}</button> <br />
+//           </div>
+//         ))}
+//       </div>
+//       <br />
+//       <div>
+//         <Formik
+//           initialValues={initialValues}
+//           onSubmit={async (values) => {
+//             let votes = Math.random() * 100;
+//             votes = Math.floor(votes);
 
-            const body = JSON.stringify({
-              data: {
-                content: values.content,
-                votes: votes,
-              },
-            });
+//             const body = JSON.stringify({
+//               data: {
+//                 content: values.content,
+//                 votes: votes,
+//               },
+//             });
 
-            console.log(body);
+//             console.log(body);
 
-            const res = await fetch('http://localhost:1338/api/replies', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: body,
-            });
-            const data: StrapiResponse<StrapiReply> = await res.json();
+//             const res = await fetch('http://localhost:1338/api/replies', {
+//               method: 'POST',
+//               headers: {
+//                 'Content-Type': 'application/json',
+//               },
+//               body: body,
+//             });
+//             const data: StrapiResponse<StrapiReply> = await res.json();
 
-            console.log("data", data);
+//             console.log("data", data);
             
-            setReplies([...replies, data.data]);
-          }}
-          validationSchema={null}
-        >
-          {({ values, errors, touched, handleSubmit, handleChange, submitForm }) => {
-            return (
-              <Form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="content"
-                  value={values.content}
-                  onChange={handleChange}
-                  className={'text-black'}
-                />
-                <button type='submit'>Submit</button>
-              </Form>
-            );
-          }}
-        </Formik>
-      </div>
-    </div>
-  );
-};
+//             setReplies([...replies, data.data]);
+//           }}
+//           validationSchema={null}
+//         >
+//           {({ values, errors, touched, handleSubmit, handleChange, submitForm }) => {
+//             return (
+//               <Form onSubmit={handleSubmit}>
+//                 <input
+//                   type="text"
+//                   name="content"
+//                   value={values.content}
+//                   onChange={handleChange}
+//                   className={'text-black'}
+//                 />
+//                 <button type='submit'>Submit</button>
+//               </Form>
+//             );
+//           }}
+//         </Formik>
+//       </div>
+//     </div>
+//   );
+// };
 
 export default Ballin;

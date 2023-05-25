@@ -46,11 +46,11 @@ export default function JoindeGroups({}: Props)
     }
 
     return(
-        <div className={"object-fill w-[100%] ls:w-[80%] min-h-[40vh] bg-foregroundL dark:bg-foregroundD drop-shadow-midget rounded-[10px] border-black border-[2px] border-solid"}>
+        <div className={"object-fill w-[100%] ls:w-[80%] bg-foregroundL dark:bg-foregroundD drop-shadow-midget rounded-[10px] border-black border-[2px] border-solid"}>
             <div className="w-[100%] h-[100%] flex flex-col object-fill justify-between">
-                <div className="flex flex-col justify-between items-center h-[16%]">
+                <div className="flex flex-col justify-between items-center h-[3vw]">
                     <div className="w-[100%] h-[98%] flex flex-col justify-end items-center bg-joinedGroups bg-cover bg-left overflow-hidden object-cover rounded-[10px]">
-                        <p className=" shrink-1 text-[15px] tl:text-[18px] ls:text-[18px] cs:text-[20px] cm:text-[24px] font-['Roboto'] dark:text-white">Your Communities</p>
+                        <p className=" shrink-1 text-[1.3vw] font-['Roboto'] dark:text-white">Your Communities</p>
                     </div>
                     <div className="w-[100%] h-[2%] min-h-[1px]">
                         <hr className="h-[1px] border-solid border-[0px] w-[100%] bg-black drop-shadow-lucifer"></hr>
@@ -63,12 +63,12 @@ export default function JoindeGroups({}: Props)
                         )
                     })}
                 </div>
-                <div className="flex flex-col justify-between items-center h-[16%]">                    
+                <div className="flex flex-col justify-between items-center h-[3vw]">                    
                     <div className="w-[100%] h-[2%] min-h-[1px]">
                         <hr className="h-[1px] border-solid border-[0px] w-[100%] bg-black"></hr>
                     </div>                   
                     <div className="w-[100%] h-[98%] flex flex-col justify-center items-center p-[2.5%]">
-                        <button onClick={expand} className={`w-[100%] h-[100%] min-h-[30px] hover:cursor-pointer text-[18px] font-["Roboto"] text-white duration-[100ms] text-center font-bold hover:drop-shadow-midget border-black border-solid border-[1px] bg-experimentA hover:bg-experimentB rounded-[10px]`}>{expandButtonText}</button>
+                        <button onClick={expand} className={`w-[100%] h-[100%] hover:cursor-pointer text-[1.2vw] font-["Roboto"] text-white duration-[100ms] text-center hover:drop-shadow-midget border-black border-solid border-[1px] bg-experimentA hover:bg-experimentB rounded-[10px]`}>{expandButtonText}</button>
                     </div> 
                 </div>
             </div>
