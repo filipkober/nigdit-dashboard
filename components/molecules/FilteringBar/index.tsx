@@ -51,12 +51,12 @@ export default function FilteringBar({clicked, changeAlg}: Props)
     const elementRef1 = useRef() as React.MutableRefObject<RefHandler>; //nie mogłem odwołać wszystkiego do 1 elementu
     const elementRef2 = useRef() as React.MutableRefObject<RefHandler>;
     const elementRef3 = useRef() as React.MutableRefObject<RefHandler>;
-    const elementRef4 = useRef() as React.MutableRefObject<RefHandler>;
+    // const elementRef4 = useRef() as React.MutableRefObject<RefHandler>;
     const callClearHL = (val: string) => {
         elementRef1.current.childFunction(val);
         elementRef2.current.childFunction(val);
         elementRef3.current.childFunction(val);
-        elementRef4.current.childFunction(val);
+        // elementRef4.current.childFunction(val);
     }
 
     return(
@@ -68,7 +68,7 @@ export default function FilteringBar({clicked, changeAlg}: Props)
                         <FilterElement name={"Hot"} clearHL={callClearHL} changeAlg={changeAlg} initialVal={true} ref={elementRef1}/>
                         <FilterElement name={"New"} clearHL={callClearHL} changeAlg={changeAlg} ref={elementRef2}/>
                         <FilterElement name={"Top"} clearHL={callClearHL} changeAlg={changeAlg} ref={elementRef3}/>
-                        <FilterElement name={"Pop"} clearHL={callClearHL} changeAlg={changeAlg} ref={elementRef4}/>
+                        {/* <FilterElement name={"Pop"} clearHL={callClearHL} changeAlg={changeAlg} ref={elementRef4}/> */}
                     </div>
                     <div className="h-[100%] ml:mr-1 pt-[3px] px-[2px]">
                         <div className="flex justify-between flex-row items-center h-[80%]">  {/* specjalny przycisk: "użytkownik powinien wiedzieć, że może go kliknąć" */}

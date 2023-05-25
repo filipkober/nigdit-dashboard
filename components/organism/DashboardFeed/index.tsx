@@ -30,7 +30,7 @@ export default function DashboardFeed()
   }
 
   //feed algorithms
-  const [curAlg, setCurAlg] = useState<string>("Pop");
+  const [curAlg, setCurAlg] = useState<string>("Hot");
   useEffect( () => {
     fetchPosts() 
   },[curAlg]);
@@ -128,7 +128,7 @@ export default function DashboardFeed()
               <PostText title="post" description={"niggadesc"} author="user" date={new Date('2022-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={1500}/>
               <PostMedia title="gif post" media={{type: "Video", source: "https://www.w3schools.com/html/mov_bbb.mp4"}} author="makpaj" date={new Date('2000-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={-1500} />
                */}
-              {
+              { !!posts ? 
                 posts.map((post) => {
                   let owner = "";
                   let mediaImage = "";
@@ -175,6 +175,8 @@ export default function DashboardFeed()
                     )
                   }
                 })
+                :
+                <p className="h-[10rem] w-[100%] text-2xl text-center font-normal flex flex-col py-2 px-2 overflow-hidden min-w-[25vw] max-h-[50vh] my-2">No posts found</p>
               }              
             </div>
           </div>       
