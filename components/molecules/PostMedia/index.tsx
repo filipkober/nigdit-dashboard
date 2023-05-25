@@ -73,7 +73,7 @@ export default function PostMedia({title,media,author,source,votes,date, vote}: 
       <div>
         {
           media.type == 'Image' || media.type == 'Gif' ? (
-            <Image src={media.source} alt={" Title: "+title + " URL:"+media.source} width={880} height={880} objectFit='none' loader={(img) => media.source} objectPosition={"50% 0"}/>
+            <Image src={media.source} alt={title} width={880} height={880} objectFit='none' loader={(img) => media.source} objectPosition={"50% 0"}/>
             ) : (
             <video controls className='w-[92%]'>
               <source src={media.source} />
