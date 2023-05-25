@@ -22,12 +22,12 @@ const PostPage: NextPage = () => {
   const [post, setPost] = useState<StrapiPost>({
     id: 0,
     attributes: {
-      Title: '',
-      Description: '',
-      Votes: 0,
-      Reports: 0,
+      title: '',
+      description: '',
+      votes: 0,
+      reports: 0,
       createdAt: new Date(),
-      Type: 'Text',
+      type: 'Text',
       nsfw: false,
       owner: {
         data: {
@@ -51,7 +51,11 @@ const PostPage: NextPage = () => {
             reports: 0,
             icon: emptyMedia,
             subscribers: {
-              data: [],
+              data: {
+                attributes:{
+                  count: 0
+                }
+              }
             },
           },
         },
@@ -69,8 +73,10 @@ const PostPage: NextPage = () => {
     f();
   }, [pid]);
 
+  const adaptedSubnigdit = subnigditAdapter(post.attributes.subnigdit.data);
+
   return (
-  <>
+    <>
     <Navbar />
     <div className='flex items-center justify-center'>
       <div className="flex flex-nowrap m-10 gap-10 w-2/3">
@@ -79,16 +85,16 @@ const PostPage: NextPage = () => {
         </div>
         <div className='flex-col flex gap-x-5'>          
           <div className='w-64' >
-            <SubnigditInfo  subnigdit={subnigditAdapter(post.attributes.subnigdit.data)} />
+          <SubnigditInfo  subnigdit={adaptedSubnigdit} />
           </div>
           <div className=''>
-            <SubnigditRules />
+          <SubnigditRules subnigdit={adaptedSubnigdit} />
           </div>
         </div>
       </div>
     </div>
   </>
-);
+  );
 };
 
 export default PostPage;

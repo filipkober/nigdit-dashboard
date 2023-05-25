@@ -2,6 +2,7 @@ import { count } from 'console';
 import Media from './Media';
 import { number } from 'yup';
 import { StrapiUser } from './User';
+import SubnigditRule from './SubnigditRule';
 
 type Subnigdit = {
   id?: number;
@@ -20,8 +21,13 @@ type StrapiSubnigdit = {
     reports: number;
     icon: Media;
     subscribers: {
-      data: StrapiUser[]
-    }
+      data: {
+        attributes:{
+          count: number
+        }
+      }
+    },
+    rules?: SubnigditRule[];
   };
 };
 
@@ -33,7 +39,8 @@ type SubnigditN = {
   reports: number;
   icon: Media;
   iconUrl: string;
-  subscribers: StrapiUser[];
+  subscribers: number;
+  rules: SubnigditRule[];
 };
 
 const subnigditAdapter = (s: StrapiSubnigdit): SubnigditN => {
@@ -45,7 +52,8 @@ const subnigditAdapter = (s: StrapiSubnigdit): SubnigditN => {
     reports: s.attributes.reports,
     icon: s.attributes.icon,
     iconUrl: s.attributes.icon.data.attributes.url,
-    subscribers: s.attributes.subscribers.data || []
+    subscribers: s.attributes.subscribers.data.attributes.count || 0,
+    rules: s.attributes.rules || []
   };
 };
 
