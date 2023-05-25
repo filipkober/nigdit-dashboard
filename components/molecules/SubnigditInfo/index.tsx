@@ -1,33 +1,36 @@
 import Image from 'next/image';
-import makpaj from '../../../assets/makpaj.svg';
 import userIcon from '../../../assets/user-icon.svg';
 import { JoinButton } from '../../atoms/JoinButton';
 import { SubnigditN } from '../../../models/Subnigdit';
-import * as moment from 'moment';
+import moment from 'moment';
 
 type SubnigditInfoProps = {
-  subnigdit: SubnigditN
+  subnigdit: SubnigditN;
 };
 
-function formatStrapiDate(dateIn: Date, locale = 'pl-PL'){
-  return new Date(dateIn).toLocaleDateString()
+function formatStrapiDate(dateIn: Date, locale = 'pl-PL') {
+  return new Date(dateIn).toLocaleDateString();
 }
 
 export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
+
+  console.log(subnigdit.iconUrl)
+
   return (
     <>
       <div className="text-left font-normal font-['Roboto'] dark:text-white bg-foregroundL dark:bg-foregroundD border-solid border-black drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2 ">
         <div className="mb-5 flex flex-row">
-          <Image
-            src={process.env.NEXT_PUBLIC_STRAPI_URL! + subnigdit.iconUrl || ''}
-            width={1}
-            height={1}
-            alt={'subnigdit-picture'}
-            loader={() => 
-              process.env.NEXT_PUBLIC_STRAPI_URL! + subnigdit.iconUrl || ''
-            }
-            className="rounded-full object-cover w-20 h-20"
-          />
+          <div className="h-10 w-10">
+            <Image
+              src={process.env.NEXT_PUBLIC_STRAPI_URL! + subnigdit.iconUrl}  
+              width={25}
+              height={25}
+              className="h-10 rounded-full"
+              alt={''}
+              loader={() => process.env.NEXT_PUBLIC_STRAPI_URL! + subnigdit.iconUrl}
+            ></Image>
+          </div>
+{}
           <span className="ml-1 font-['Roboto'] font-semibold dark:text-white text-base self-center">
             {subnigdit.name}
           </span>
@@ -36,7 +39,9 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
         <div className="font-['Roboto'] dark:text-white text-base mb-5">
           <p className="mb-5 ">{subnigdit.description}</p>
 
-          <p className="mb-5 ">🍰 Created at {formatStrapiDate(subnigdit.createdAt)}</p>
+          <p className="mb-5 ">
+            🍰 Created at {formatStrapiDate(subnigdit.createdAt)}
+          </p>
         </div>
 
         <div>
@@ -49,7 +54,7 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
             </div>
             <div className="flex flex-col">
               <div>
-                <p>{ subnigdit.subscribers.length }</p>
+                <p>{subnigdit.subscribers.length}</p>
               </div>
               <div>
                 <p>Members</p>

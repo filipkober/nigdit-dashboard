@@ -71,10 +71,8 @@ export default function SubnigditDashboard() {
 
   return (
     <>
-      <div className="h-full">
-        <div className="">
+      <div>
           <DashboardHeader />
-        </div>
 
         {/*Mobile View*/}
         <div className="ls:hidden inline">

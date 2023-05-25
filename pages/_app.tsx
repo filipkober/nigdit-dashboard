@@ -37,7 +37,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
           <darkModeContext.Provider value={[darkMode, setDarkMode]}>
-            <Component {...pageProps} />
+            <div className="min-h-screen">
+              <Component {...pageProps} />
+            </div>
           </darkModeContext.Provider>
         </PersistGate>
       </Provider>

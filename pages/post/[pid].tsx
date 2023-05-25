@@ -70,19 +70,25 @@ const PostPage: NextPage = () => {
   }, [pid]);
 
   return (
-    <>
-      <Navbar />
-      <div className="">
-        <div className="dark:bg-backgroundD bg-backgroundL flex flex-wrap m-10 gap-10 ">
-          <div className=' bg-cyan-300 flex-auto ' >1</div>
-          <div className='flex-col flex-auto flex gap-5'>          
-            <div className=' bg-red-600 flex-auto' >2</div>
-            <div className=' bg-lime-400 flex-auto' >3</div>
+  <>
+    <Navbar />
+    <div className='flex items-center justify-center'>
+      <div className="flex flex-nowrap m-10 gap-10 w-2/3">
+        <div className='flex-initial grow' >
+          <PostExtended post={postAdapter(post)}/>
+        </div>
+        <div className='flex-col flex gap-x-5'>          
+          <div className='w-64' >
+            <SubnigditInfo  subnigdit={subnigditAdapter(post.attributes.subnigdit.data)} />
+          </div>
+          <div className=''>
+            <SubnigditRules />
           </div>
         </div>
       </div>
-    </>
-  );
+    </div>
+  </>
+);
 };
 
 export default PostPage;
