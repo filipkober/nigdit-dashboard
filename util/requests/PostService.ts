@@ -25,8 +25,15 @@ export default class PostService {
             populate: '*',
           },
           subnigdit: {
-            populate: '*',
-            subscribers: { populate: '*' }
+            populate: {
+              subscribers: { count: true },
+              icon: {
+                populate: "*"
+              },
+              rules: {
+                populate: "*"
+              }
+            }
           },
           comments: {
             populate: {

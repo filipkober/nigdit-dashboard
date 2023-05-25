@@ -22,12 +22,12 @@ const PostPage: NextPage = () => {
   const [post, setPost] = useState<StrapiPost>({
     id: 0,
     attributes: {
-      Title: '',
-      Description: '',
-      Votes: 0,
-      Reports: 0,
+      title: '',
+      description: '',
+      votes: 0,
+      reports: 0,
       createdAt: new Date(),
-      Type: 'Text',
+      type: 'Text',
       nsfw: false,
       owner: {
         data: {
@@ -51,7 +51,11 @@ const PostPage: NextPage = () => {
             reports: 0,
             icon: emptyMedia,
             subscribers: {
-              data: [],
+              data: {
+                attributes:{
+                  count: 0
+                }
+              }
             },
           },
         },
@@ -69,18 +73,14 @@ const PostPage: NextPage = () => {
     f();
   }, [pid]);
 
+  const adaptedSubnigdit = subnigditAdapter(post.attributes.subnigdit.data);
+
   return (
     <>
       <Navbar />
-      <div className="">
-        <div className="dark:bg-backgroundD bg-backgroundL flex flex-wrap m-10 gap-10 ">
-          <div className=' bg-cyan-300 flex-auto ' >1</div>
-          <div className='flex-col flex-auto flex gap-5'>          
-            <div className=' bg-red-600 flex-auto' >2</div>
-            <div className=' bg-lime-400 flex-auto' >3</div>
-          </div>
-        </div>
-      </div>
+      <PostExtended post={postAdapter(post)} />
+<SubnigditInfo  subnigdit={adaptedSubnigdit} />
+<SubnigditRules subnigdit={adaptedSubnigdit} />
     </>
   );
 };

@@ -49,7 +49,7 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
             </div>
             <div className="flex flex-col">
               <div>
-                <p>{ subnigdit.subscribers.length }</p>
+                <p>{ subnigdit.subscribers }</p>
               </div>
               <div>
                 <p>Members</p>

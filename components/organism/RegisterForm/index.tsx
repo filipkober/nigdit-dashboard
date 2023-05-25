@@ -6,6 +6,10 @@ import UserService from "../../../util/requests/UserService";
 import {StrapiUser} from "../../../models/User";
 import Cookies from "js-cookie";
 import { useRouter } from 'next/router'
+import GoogleButton from '../../atoms/GoogleButton'
+import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../store/userSlice';
 
 const userService = new UserService();
 
@@ -48,6 +52,33 @@ const schema = yup.object().shape({ //! dodaj do pliku osobnego
 export default function RegisterForm({verChange}: Props)
 {       
     const [au, setAu] = useState("");
+
+    const dispatch = useDispatch();    
+    const router = useRouter(); 
+    
+    const login = useGoogleLogin({
+        onSuccess: async codeResponse => {
+          const res = await fetch('/api/google-access-token?code='+codeResponse.code,{method: 'GET'})
+          const data = await res.json()
+          const res2 = await fetch('http://localhost:1338/api/auth/google/callback?access_token='+data.tokens.access_token);
+          const userData = await res2.json()
+          try
+          {
+            if(userData.user.username != null)
+            {
+              Cookies.set("jwt", userData.jwt);
+              dispatch(setUser(userData.user))
+              router.push("/")
+            }
+          }
+          catch
+          {
+
+          }
+        },
+        flow: 'auth-code',
+      });
+
     return(       
     <div className="w-[100%] m-0 p-0 h-[100%] flex flex-col justify-center items-center">      
         <div className='selection:bg-[#b8b8b8] selection:text-[#FF5C00] flex flex-wrap flex-col justify-center items-center p-[0.5rem] w-[90vw] min-w-[288px] ms:w-[80w] ms:min-w-[320px] mm:w-[75vw] ml:w-[70vw] ts:w-[60vw] tm:w-[7vw] tl:w-[35vw] ls:w-[20vw]'>
@@ -82,8 +113,8 @@ export default function RegisterForm({verChange}: Props)
                         <p className="shrink-1 text-[1rem] font-['Roboto'] dark:text-white font-bold italic">By continuing you agree to Privacy Policy</p>
                     </div>
                     {/* missing google stuff */}
-                    <div className=' w-[100%] min-h-[3rem] h-[8vh] flex flex-row justify-center items-center mt-3 '>
-                        <p className='border-black border-solid border-[1px] rounded-[10px] px-2 py-1'>Continue with google</p>
+                    <div className=" w-[100%] min-h-[3rem] h-[8vh] flex flex-row justify-center items-center mt-3 ">              
+                        <GoogleButton isRegister onClick={()=>{login()}}/>
                     </div>
                     {/* --- or --- */}
                     <div className=' w-[100%] min-h-[2rem] h-[5vh] flex flex-row justify-between px-3 my-3 items-center'>
@@ -138,7 +169,6 @@ export default function RegisterForm({verChange}: Props)
                     <div className='w-[100%] min-h-[3rem] h-[2vw] flex flex-row justify-center px-0 mt-8 items-center'>
                         <button type='submit' className='active:translate-y-0.5 duration-[10ms] shrink-1 text-[1.8rem] font-["Roboto"] text-black text-center font-bold drop-shadow-buttonDevil active:drop-shadow-buttonDevilA border-black border-solid border-[1px] rounded-[10px] py-1 px-4 bg-[#FF5C00] hover:bg-[#ff7d31]'>Create account</button>
                     </div>
-
                 </Form>  
             )}                
             </Formik>          

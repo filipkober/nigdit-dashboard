@@ -30,7 +30,9 @@ export default function FilteringBar({clicked}: Props)
         {
             collection === "Everything" ? setCollection("Subscribed") : setCollection("Everything");
         }
-        if (clickCount.current >= 16) bftbg.current.blood(Math.round(Math.random()*Math.min(clickCount.current-16,19))); 
+        if (clickCount.current >= 16) 
+        console.log("blood spawning")
+            bftbg.current.blood(Math.round(Math.random()*Math.min(clickCount.current-16,19))); 
         clicked(clickCount.current)
     }
 
