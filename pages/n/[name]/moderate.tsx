@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
-import ModerationPanel from '../../components/organism/ModerationPanel';
-import Navbar from '../../components/molecules/Navbar'
-import TabSelector from '../../components/molecules/TabSelector';
-import ReportService from '../../util/requests/ReportService';
-import Report from '../../models/Report';
+import ReportService from '../../../util/requests/ReportService';
+import Report from '../../../models/Report';
+import Navbar from '../../../components/molecules/Navbar';
+import TabSelector from '../../../components/molecules/TabSelector';
+import ModerationPanel from '../../../components/organism/ModerationPanel';
 
-const ModerationPanelPage: NextPage = () => {
+const SubnigditModerationPanelPage: NextPage = () => {
     const [selected, setSelected] = useState<number>(0);
     const type = ['post', 'comment', 'reply']
     const reportService = new ReportService();
@@ -15,7 +15,7 @@ const ModerationPanelPage: NextPage = () => {
 
     // TODO change first argument to subnigdit id
     useEffect(() => {
-        reportService.getAll({type: type[selected], toNigdit: true}).then((res) => {
+        reportService.getAll({type: type[selected], subnigditId: 1 }).then((res) => {
             setReports(res ? res : []);
         })
     }, [selected])
@@ -46,4 +46,4 @@ const ModerationPanelPage: NextPage = () => {
   )
 }
 
-export default ModerationPanelPage
+export default SubnigditModerationPanelPage

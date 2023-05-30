@@ -1,4 +1,4 @@
-import Comment, { StrapiComment, StrapiCommentExtended } from '../../models/Comment';
+import Comment, { StrapiComment, StrapiCommentExtended, StrapiCommentShallow } from '../../models/Comment';
 import StrapiResponse from '../../models/StrapiResponse';
 import RequestService from './RequestService';
 import qs from 'qs';
@@ -39,4 +39,12 @@ export default class CommentService {
     return comment.data
 
   }
+
+  async getOneShallow(id: number) {
+    const comment: StrapiResponse<StrapiCommentShallow> = await this.requestService.get(
+      this.endpoint + '/' + id
+    );
+    return comment.data
+  }
+
 }
