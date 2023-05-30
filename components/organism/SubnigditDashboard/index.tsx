@@ -29,6 +29,8 @@ export default function SubnigditDashboard() {
         <FilteringBar
           clicked={function (cc: number): void {
             throw new Error('Function not implemented.');
+          }} changeAlg={function (cc: string): void {
+            throw new Error('Function not implemented.');
           }}
         />
       </div>
@@ -37,7 +39,7 @@ export default function SubnigditDashboard() {
         <PostMedia
           title="gif post"
           media={{
-            type: 'gif',
+            type: 'Gif',
             source:
               'https://c.tenor.com/hVm01utkmM8AAAAd/maciek-sze%C5%9Bcia%C5%84czyk-maciasek05.gif',
           }}
@@ -57,7 +59,7 @@ export default function SubnigditDashboard() {
         <PostMedia
           title="gif post"
           media={{
-            type: 'video',
+            type: 'Video',
             source: 'https://www.w3schools.com/html/mov_bbb.mp4',
           }}
           author="makpaj"

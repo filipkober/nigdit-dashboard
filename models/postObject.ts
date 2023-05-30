@@ -7,7 +7,12 @@ const examplePostObject: StrapiPost = {
       description: '',
       votes: 0,
       reports: 0,
+      title: '',
+      description: '',
+      votes: 0,
+      reports: 0,
       createdAt: new Date(),
+      type: 'Text',
       type: 'Text',
       nsfw: false,
       owner: {

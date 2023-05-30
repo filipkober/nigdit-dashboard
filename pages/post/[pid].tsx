@@ -9,7 +9,7 @@ import Navbar from '../../components/molecules/Navbar';
 import PostService from '../../util/requests/PostService';
 import { useEffect, useState } from 'react';
 import { StrapiPost, postAdapter } from '../../models/Post';
-import Media, { emptyMedia } from '../../models/Media';
+import Media, { emptyMedia, emptyStrapiMedia } from '../../models/Media';
 import { subnigditAdapter } from '../../models/Subnigdit';
 import { exampleComment } from '../../models/Comment';
 
@@ -49,7 +49,7 @@ const PostPage: NextPage = () => {
             description: '',
             createdAt: new Date(),
             reports: 0,
-            icon: emptyMedia,
+            icon: emptyStrapiMedia,
             subscribers: {
               data: {
                 attributes:{

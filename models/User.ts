@@ -1,11 +1,11 @@
 import Post, { StrapiPost } from "./Post"
 import Reply from "./Reply"
 import Comment from "./Comment"
-import Media from "./Media"
+import Media, { StrapiMedia } from "./Media"
 
 type User = {
     id?: number,
-    username?: string,
+    username: string,
     email?: string,
     posts?: Post[],
     comments?: Comment[],
@@ -20,7 +20,7 @@ type StrapiUser = {
         posts?: Post[],
         comments?: Comment[],
         replies?: Reply[],
-        profilePicture?: Media,
+        profilePicture?: StrapiMedia,
     },
 }
 type LoginUser = {

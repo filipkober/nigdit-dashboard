@@ -2,7 +2,7 @@ import { SubnigditN } from "../../../models/Subnigdit";
 import SubnigditRule from "../../../models/SubnigditRule";
 
 type SubnigditRulesProps = {
-  subnigdit: SubnigditN;
+  subnigdit?: SubnigditN;
 };
 
 const name = 'n/jebaniemakpie';

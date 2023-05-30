@@ -2,7 +2,7 @@ import { count } from 'console';
 import { StrapiPost } from './Post';
 import Reply, { StrapiReply } from './Reply';
 import { StrapiUser } from './User';
-import { emptyMedia } from './Media';
+import { emptyMedia, emptyStrapiMedia } from './Media';
 
 type Comment = {
   id?: number;
@@ -162,7 +162,7 @@ const exampleComment: StrapiComment = {
                 description: '',
                 createdAt: new Date(),
                 reports: 0,
-                icon: emptyMedia,
+                icon: emptyStrapiMedia,
                 subscribers: { data: {
                   attributes: {
                     count: 0

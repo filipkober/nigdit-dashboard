@@ -4,16 +4,17 @@ import Button from "../../atoms/Button";
 import Input from "../../atoms/Input";
 import TextArea from "../../atoms/TextArea";
 import SubnigditRules from "../../molecules/SubnigditRules";
+import { SubnigditN } from "../../../models/Subnigdit";
 
 type textPostFormProps = {
     className?: string,
-    subnigdit?: SubnigditRulesType
+    subnigdit?: SubnigditN
 }
 const initialValues: FormikValues = {
     title: "",
     text: "",
 }
-export default function TextPostForm({className = "", subnigdit = {name: 'n/subnigdit', rules: ['rule']}}: textPostFormProps) {
+export default function TextPostForm({className = "", subnigdit}: textPostFormProps) {
     
     return (
         <div className={className}>
@@ -24,7 +25,7 @@ export default function TextPostForm({className = "", subnigdit = {name: 'n/subn
                     <form onSubmit={handleSubmit} className={"mx-2 ts:flex flex-row-reverse"}>
                         {subnigdit && <div className="mt-2 ts:ml-2 ts:w-1/2 ts:flex align-middle">
                             <div className="ml-auto ts:w-1/2 mx-auto">
-                            <SubnigditRules rules={subnigdit}/>
+                            <SubnigditRules subnigdit={subnigdit}/>
                             </div>
                         </div>}
                         <div className={"w-full " + (subnigdit ? "ts:w-1/2" : '')} >

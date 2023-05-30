@@ -5,16 +5,17 @@ import SubnigditRulesType from '../../../models/SubnigditRule';
 import Button from '../../atoms/Button';
 import Input from '../../atoms/Input';
 import SubnigditRules from '../../molecules/SubnigditRules';
+import { SubnigditN } from '../../../models/Subnigdit';
 
 type mediaPostFormProps = {
   className?: string;
-  subnigdit?: SubnigditRulesType;
+  subnigdit?: SubnigditN;
 };
 const initialValues = {
   title: '',
   media: undefined,
 };
-export default function MediaPostForm({ className, subnigdit={name:'n/subnigdit', rules:['no rules']} }: mediaPostFormProps) {
+export default function MediaPostForm({ className, subnigdit }: mediaPostFormProps) {
 
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [mediaType,setMediaType] = useState("")
@@ -40,7 +41,7 @@ export default function MediaPostForm({ className, subnigdit={name:'n/subnigdit'
           <div className='ts:flex flex-row-reverse'>
             {subnigdit && <div className="mt-2 ts:ml-2 ts:w-1/2 ts:flex align-middle">
               <div className="ml-auto ts:w-1/2 mx-auto">
-                <SubnigditRules rules={subnigdit}/>
+                <SubnigditRules subnigdit={subnigdit}/>
               </div>
             </div>}
           <form onSubmit={handleSubmit} className={subnigdit ? 'ts:w-1/2' : 'w-full'}>
