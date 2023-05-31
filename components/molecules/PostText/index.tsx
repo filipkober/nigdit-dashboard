@@ -43,7 +43,7 @@ export default function PostTekstowy({title,description,author,source,votes,date
         {source.name}
       </p>
       <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base">
-        autor:
+        author:
       </p>
       <p className="font-['Roboto'] dark:text-white ml-2 text-base">
         {author}

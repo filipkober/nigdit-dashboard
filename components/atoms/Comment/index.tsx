@@ -13,6 +13,8 @@ import { StrapiPost } from '../../../models/Post';
 import Media, { emptyMedia } from '../../../models/Media';
 import { replyAdapter } from '../../../models/Reply';
 import { ReplyN } from '../../../models/Reply';
+import { useSelector } from 'react-redux';
+import { UserState } from '../../../store/userSlice';
 
 type CommentProps = {
   comment: CommentN
@@ -23,6 +25,7 @@ export default function Comment({ comment }: CommentProps) {
 
   const [modalReportVisible, changeModalReportVisible] = useModal();
 
+  const isLogged = !!useSelector((state: UserState) => state.user.username)
   const id = comment.id
   const votes = comment.votes;
   const content = comment.content;
@@ -55,7 +58,7 @@ export default function Comment({ comment }: CommentProps) {
             </div>
             <div className="justify-self-auto col-span-2">
               <p>
-                <a
+                {isLogged && <><a
                   className="cursor-pointer"
                   onClick={changeModalReportVisible}
                 >
@@ -66,7 +69,7 @@ export default function Comment({ comment }: CommentProps) {
                   className="font-['Roboto'] dark:text-white ml-5"
                 >
                   Reply
-                </button>
+                </button></>}
               </p>
             </div>
           </div>
@@ -81,6 +84,7 @@ export default function Comment({ comment }: CommentProps) {
           isOpen={modalReportVisible}
           contentType={'post'}
           onClose={changeModalReportVisible}
+          id={id}
         />
       </>
     )

@@ -24,25 +24,23 @@ const initValues: FormValues = {
 export default function LoginForm() {
     const dispatch = useDispatch();    
     const router = useRouter(); 
+    const redirect = router.query.redirect as string;
 
     const [failed, setFailed] = useState(false);
 
     const login = useGoogleLogin({
       onSuccess: async codeResponse => {
-        console.log(codeResponse.code)
         const res = await fetch('/api/google-access-token?code='+codeResponse.code,{method: 'GET'})
         const data = await res.json()
-        console.log(data.tokens.access_token)
         const res2 = await fetch('http://localhost:1338/api/auth/google/callback?access_token='+data.tokens.access_token);
         const userData = await res2.json()
-        console.log(userData)
         try
         {
           if(userData.user.username != null)
           {
             Cookies.set("jwt", userData.jwt);
             dispatch(setUser(userData.user))
-            router.push("/")
+            router.push(!!redirect? redirect : "/")
           }
         }
         catch
@@ -68,7 +66,7 @@ export default function LoginForm() {
               {
                 Cookies.set("jwt", userData.jwt);
                 dispatch(setUser(userData.user))
-                router.push("/")
+                router.push(!!redirect? redirect : "/")
               }
             }
             catch

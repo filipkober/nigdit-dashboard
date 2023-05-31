@@ -56,7 +56,7 @@ export default class PostService {
           owner: {
             populate: '*',
           },
-          Media: {
+          media: {
             populate: '*',
           },
           subnigdit: {

@@ -49,11 +49,11 @@ const examplePostObject: StrapiPost = {
             },
             subscribers: {
               data: {
-                attributes:{
+                attributes: {
                   count: 0
                 }
               }
-            },
+            }
           }
         }
       }

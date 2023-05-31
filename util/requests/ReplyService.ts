@@ -1,7 +1,6 @@
-import Reply, { StrapiReply } from "../../models/Reply";
+import Reply, { StrapiReply, StrapiReplyExtended } from "../../models/Reply";
 import StrapiResponse from "../../models/StrapiResponse";
 import RequestService from "./RequestService";
-
 export default class ReplyService {
     
     private endpoint = 'replies';
@@ -12,8 +11,9 @@ export default class ReplyService {
         return replies.data;
     }
 
-    async getOne(id: number) {
-        const reply: StrapiResponse<StrapiReply> = await this.requestService.get(this.endpoint + '/' + id);
+    
+    async getOne(id: number, populate?: boolean) {
+        const reply: StrapiResponse<StrapiReplyExtended | StrapiReply> = await this.requestService.get(this.endpoint + '/' + id + (populate ? '?populate=*' : ''));
         return reply.data;
     }
 

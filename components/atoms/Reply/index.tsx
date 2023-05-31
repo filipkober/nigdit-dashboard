@@ -3,6 +3,8 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { useModal } from '../../../hooks/useModal';
 import ReportModal from '../../molecules/ReportModal';
+import { useSelector } from 'react-redux';
+import { UserState } from '../../../store/userSlice';
 
 type ReplyProps = {
   vote?: 'upvote' | 'downvote';
@@ -28,6 +30,8 @@ export default function Reply({
   const [upvoteClicked, setUpvoteClicked] = useState<boolean>(
     vote === 'upvote'
   );
+
+  const isLogged = !!useSelector((state: UserState) => state.user.username)
 
   const voteOnReply = (vote: 'upvote' | 'downvote') => {
     if (vote === 'downvote' && !downvoteClicked) {
@@ -63,13 +67,16 @@ export default function Reply({
         </div>
         <div className="justify-self-auto col-span-2">
             <p>
+              {isLogged && 
               <a className="cursor-pointer" onClick={changeModalReportVisible}>
                 Report
               </a>
+}
             </p>
           </div>
       </div>
       <ReportModal
+      id={id}
         isOpen={modalReportVisible}
         contentType={'post'}
         onClose={changeModalReportVisible}

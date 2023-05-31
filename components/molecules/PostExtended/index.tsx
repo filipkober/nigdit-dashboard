@@ -13,12 +13,15 @@ import { useModal } from '../../../hooks/useModal';
 import PostService from '../../../util/requests/PostService';
 import { StrapiPost, PostN } from '../../../models/Post';
 import { StrapiComment, commentAdapter } from '../../../models/Comment';
+import { GenericComponentProps } from '../../../models/GenericComponentProps';
+import { useSelector } from 'react-redux';
+import { UserState } from '../../../store/userSlice';
 
 type PostExtendedProps = {
   post: PostN;
 };
 
-export default function PostExtended({ post }: PostExtendedProps) {
+export default function PostExtended({ post, className }: PostExtendedProps & GenericComponentProps) {
   const title = post.title;
   const description = post.description;
   const media = post.media;
@@ -28,17 +31,18 @@ export default function PostExtended({ post }: PostExtendedProps) {
   const votes = post.votes;
   const createdAt = post.createdAt;
   const type = post.type;
-  console.log(comments)
+  const id = post.id;
 
   const [modalReportVisible, changeModalReportVisible] = useModal();
-  console.log(!!description)
+
+  const isLogged = !!useSelector((state: UserState) => state.user.username)
 
   let allComNum = comments?.data.length || 0
   comments?.data.map(c => allComNum += c.attributes.replies?.data.attributes.count || 0)
 
   return (
     <>
-      <div>
+      <div className={className}>
         <div className="text-left font-normal border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2">
           <div className="flex ls:flex-row flex-col">
             <div className="flex ">
@@ -82,37 +86,36 @@ export default function PostExtended({ post }: PostExtendedProps) {
               </p>
             </div>
             <div className="flex">
-              {description ? (
+              {type === "Text" ? (
                 <div>
                   <p className="font-['Roboto'] dark:text-white text-xl">
                     {description}
                   </p>
                 </div>
               ) : media &&
-                media.data.attributes.formats.large.url &&
+                media.data.attributes &&
                 (type == 'Image' || type == 'Gif') ? (
-                <div className="text-center mr-10 w-[92%] max-h-[100vh]">
+                <div className={`text-center mr-10 w-[92%] h-${media.data.attributes.height}px`}>
                   <Image
                     src={
                       process.env.NEXT_PUBLIC_STRAPI_URL! +
                       media.data.attributes.url
                     }
                     alt={title + ' image or gif'}
-                    width="100"
-                    height="100"
+                    width={media.data.attributes.width!}
+                    height={media.data.attributes.height!}
                     loader={(img) =>
                       process.env.NEXT_PUBLIC_STRAPI_URL! +
                       media.data.attributes.url!
                     }
-                    unoptimized
-                    className="w-[100%] h-[100%] object-cover"
+                    className={`w-[100%] h-[${media.data.attributes.height}px] object-cover`}
                   />
                 </div>
               ) : media &&
-                media.data.attributes.formats.large.url &&
+                media.data.attributes &&
                 type == 'Video' ? (
                 <video controls className="w-[92%] max-h-[100vh]">
-                  <source src={media!.data.attributes.formats.large.url} />
+                  <source src={media!.data.attributes.url} />
                 </video>
               ) : null}
             </div>
@@ -121,9 +124,10 @@ export default function PostExtended({ post }: PostExtendedProps) {
             {/* chujstwo pod contentem */}
             <p className="mr-5">{allComNum} Comment{allComNum> 1 ? 's' : ''}</p>
             <p className="ml-auto">Share</p>
+            {isLogged &&
             <p className="ml-5 cursor-pointer">
               <a onClick={changeModalReportVisible}>Report</a>
-            </p>
+            </p>}
           </div>
           <div>
             {/* KOMETNARZE */}
@@ -146,10 +150,11 @@ export default function PostExtended({ post }: PostExtendedProps) {
           </div>
         </div>
       </div>
-      <ReportModal
+       <ReportModal
         isOpen={modalReportVisible}
         contentType={'post'}
         onClose={changeModalReportVisible}
+        id={id}
       />
     </>
   );

@@ -34,6 +34,16 @@ type StrapiComment = {
   };
 };
 
+type StrapiCommentShallow = {
+  id: number;
+  attributes: {
+    votes: number;
+    content: string;
+    reports: number;
+    createdAt: string;
+  };
+};
+
 type StrapiCommentExtended = {
   id: number;
   attributes: {
@@ -168,5 +178,5 @@ const exampleComment: StrapiComment = {
 };
 
 export default Comment;
-export type { StrapiComment, CommentN, StrapiCommentExtended, CommentExtended };
+export type { StrapiComment, CommentN, StrapiCommentExtended, CommentExtended, StrapiCommentShallow };
 export { commentAdapter, exampleComment, extendedCommentAdapter };
