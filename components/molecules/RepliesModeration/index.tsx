@@ -9,18 +9,21 @@ import ReplyService from "../../../util/requests/ReplyService";
 import { StrapiReply, StrapiReplyExtended } from "../../../models/Reply";
 
 export default function RepliesModeration({ className, report, onBanUser, onDeleteContent, onDismissReport }: GenericModerationPanelProps) {
+  const [comment, setComment] = useState<StrapiCommentShallow>();
+
+  useEffect(() => {
+    if(report === undefined) return;
+    replyService.getOne(report.contentId, true).then((res: any) => {
+      setComment(res.attributes.comment.data);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [report])
+
   if (report === undefined) {
     return <div className={className}>no reports</div>;
   }
 
   const replyService = new ReplyService();
-  const [comment, setComment] = useState<StrapiCommentShallow>();
-
-  useEffect(() => {
-    replyService.getOne(report.contentId, true).then((res: any) => {
-      setComment(res.attributes.comment.data);
-    });
-  }, [report])
   
 
   return (
