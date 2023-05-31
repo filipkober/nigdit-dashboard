@@ -15,7 +15,7 @@ export default function PostsModeration({className, report, onBanUser, onDeleteC
     if(!!report?.contents){
         postType = "text";
     } else if(!!report?.media){
-        if(report.media.data.attributes.ext === "mp4"){
+        if(report.media.ext === "mp4"){
             postType = "video";
         } else {
             postType = "image";
@@ -31,9 +31,9 @@ export default function PostsModeration({className, report, onBanUser, onDeleteC
     if(postType === "text"){
         postContent = <p className="col-start-2 row-start-3 col-span-full row-span-3 ts:text-3xl overflow-scroll border-black border-2 p-1 dark:border-white">{report?.contents}</p>
     } else if(postType === "image"){
-        postContent = <Image src={process.env.NEXT_PUBLIC_STRAPI_URL! + report?.media?.data.attributes.url} alt="makpaj" width={800} height={200} className="col-start-2 row-start-3 col-span-full row-span-3 max-h-[40vh] object-cover w-auto" loader={() => process.env.NEXT_PUBLIC_STRAPI_URL! + report?.media?.data.attributes.url} unoptimized/>
+        postContent = <Image src={process.env.NEXT_PUBLIC_STRAPI_URL! + report?.media?.url} alt="makpaj" width={800} height={200} className="col-start-2 row-start-3 col-span-full row-span-3 max-h-[40vh] object-cover w-auto" loader={() => process.env.NEXT_PUBLIC_STRAPI_URL! + report?.media?.url} unoptimized/>
     } else if(postType === "video"){
-        postContent = <video className="col-start-2 row-start-3 col-span-full row-span-3 max-h-[40vh] object-cover h-[40vh]" controls src={process.env.NEXT_PUBLIC_STRAPI_URL! + report?.media?.data.attributes.url}/>
+        postContent = <video className="col-start-2 row-start-3 col-span-full row-span-3 max-h-[40vh] object-cover h-[40vh]" controls src={process.env.NEXT_PUBLIC_STRAPI_URL! + report?.media?.url}/>
     }
     return (
         <div className={"grid gap-4 grid-cols-4 tl:grid-cols-6 grid-rows-6 p-4 " + className}>

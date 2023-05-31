@@ -1,41 +1,70 @@
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Button from "../../atoms/Button";
+import { GenericComponentProps } from '../../../models/GenericComponentProps';
+import { useEffect, useRef } from 'react';
+import ReportService from '../../../util/requests/ReportService';
 
 type ReportModalProps = {
-    isOpen: boolean;
-    contentType: 'post' | 'comment' | 'subnigdit';
-    id?: number;
-    onClose: () => void;
-};
+  isOpen: boolean;
+  contentType: 'post' | 'comment' | 'reply';
+  id: number;
+  onClose: () => void;
+} & GenericComponentProps;
 
 const ReportModal = ({ isOpen, onClose, contentType, id }: ReportModalProps) => {
 
-    const reportToSubnigdit = () => {
-        if(id)
-        console.log(`Reported ${contentType} with id ${id} to subnigdit`);
-        onClose();
-    };
-    const reportToNigdit = () => {
-        if(id)
-        console.log(`Reported ${contentType} with id ${id} to nigdit`);
-        onClose();
-    };
+  const reportService = new ReportService();
 
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
-    return (
-        <div className={(isOpen ? "block" : "hidden") + " fixed z-10 top-1/3 ls:top-[50vh] left-0 ls:left-[30vw] w-[calc(100vw-2rem)] mx-4 ls:w-[30vw] h-[150px] bg-backgroundL dark:bg-backgroundD rounded-lg border-2 border-foregroundL dark:border-black"}>
-            <div className="w-screen h-screen z-[-2] bg-[rgba(20,20,20,0.2)] fixed inset-0" />
-            <div className="z-[501]">
-            <div className="flex mx-2 mt-2 text-xl">
+  useEffect(() => {
+    if (isOpen && !dialogRef.current?.open) {
+      dialogRef.current?.showModal();
+    } else {
+        dialogRef.current?.open && dialogRef.current?.close();
+    }
+  }, [isOpen]);
+
+  return (
+    <dialog id='report-modal' className='fixed inset-0 items-center justify-center dark:bg-backgroundD border-white border-2 rounded-md' ref={dialogRef}>
+      <Formik
+        initialValues={{ reason: '', platform: 'subnigdit' }}
+        validate={values => {
+          const errors: any = {};
+          if (!values.reason) {
+            errors.reason = 'Reason is required';
+          }
+          return errors;
+        }}
+        onSubmit={async (values, { setSubmitting }) => {
+          await reportService.create(contentType, values.reason, id, values.platform === "subnigdit")
+          setSubmitting(false);
+          onClose();
+        }}
+      >
+        <Form>
+          <div className="flex mx-2 mt-2 text-xl dark:text-white">
             <p>Report</p>
             <p className="ml-auto cursor-pointer"><a onClick={onClose}>X</a></p>
+          </div>
+          <div className="mt-4 flex flex-col ls:flex-row justify-around ls:justify-self-auto h-[70%] w-full">
+            <div className="mx-2 ls:w-[15rem]">
+              <Field as="textarea" name="reason" placeholder="Reason" className="p-2 border" />
+              <ErrorMessage name="reason" component="div" className="text-red-500" />
             </div>
-            <div className="mt-4 flex flex-col ls:flex-row justify-around ls:justify-self-auto h-[70%] w-full">
-            <Button variant={"button"} content={"To subnigdit"} className={"mx-2 ls:w-[15rem]"} onClick={reportToSubnigdit} />
-            <Button variant={"button"} content={"To nigdit"} className={"mx-2 ls:w-[15rem]"} onClick={reportToNigdit} />
+            <div className="mx-2 ls:w-[15rem] flex flex-col-reverse ls:my-0 my-2 justify-end">
+              <Field as="select" name="place" className="p-2 border ls:mb-0 mb-2">
+                <option value="subnigdit">Subnigdit</option>
+                <option value="nigdit">Nigdit</option>
+              </Field>
+              <label htmlFor="place" className={"dark:text-white ls:mb-0 mb-2"}>This post violates the rules of: </label>
             </div>
-            </div>
-        </div>
-    );
+            <Button variant={"submit"} content={"Submit"} className={"mx-2 ls:w-[15rem]"} />
+          </div>
+        </Form>
+      </Formik>
+    </dialog>
+  );
 };
 
 export default ReportModal;

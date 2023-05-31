@@ -44,6 +44,7 @@ type StrapiPost = {
 
 //to ma jakieś cel w swoim istnieniu?
 type PostN = {
+  id: number;
   title: string;
   description?: string;
   votes: number;
@@ -76,6 +77,7 @@ const postAdapter = (p: StrapiPost): PostN => {
     comments: p.attributes.comments || { data: [] },
     owner: p.attributes.owner,
     subnigdit: p.attributes.subnigdit,
+    id: p.id,
   };
 };
 

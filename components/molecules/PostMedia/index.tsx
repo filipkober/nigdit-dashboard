@@ -46,7 +46,7 @@ export default function PostMedia({title,media,author,source,votes,date, vote}: 
         {source.name}
       </p>
       <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base">
-        autor:
+        author:
       </p>
       <p className="font-['Roboto'] dark:text-white ml-2 text-base">
         {author}

@@ -12,7 +12,7 @@ type StrapiReport = {
             reportMessage?: string,
             reporter: StrapiUser | {data: null},
             media: Media | {data: null},
-            contentOwner: StrapiUser | {data: null}
+            contentOwner: User | {data: null}
         }
     }
 }
@@ -38,8 +38,8 @@ const reportAdapter = (r: StrapiReport): Report => {
         toSubnigdit: r.data.attributes.toSubnigdit,
         reportMessage: r.data.attributes.reportMessage || "",
         reporter: r.data.attributes.reporter.hasOwnProperty("data") ? null : r.data.attributes.reporter as StrapiUser,
-        media: r.data.attributes.media.data?.hasOwnProperty("id") ? r.data.attributes.media as Media : null,
-        contentOwner: r.data.attributes.contentOwner.hasOwnProperty("data") ? null : r.data.attributes.contentOwner as StrapiUser
+        media: r.data.attributes.media?.hasOwnProperty("id") ? r.data.attributes.media as Media : null,
+        contentOwner: r.data.attributes.contentOwner.hasOwnProperty("data") ? null : r.data.attributes.contentOwner as User
     }
 }
 

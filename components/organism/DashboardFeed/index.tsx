@@ -144,7 +144,7 @@ export default function DashboardFeed()
                     owner = post.owner.username;
                   }
                   catch {
-                    owner = "no owner"
+                    owner = "[removed]"
                   }
                   if(post.type == 'Text')
                   {

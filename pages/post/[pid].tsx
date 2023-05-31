@@ -78,9 +78,15 @@ const PostPage: NextPage = () => {
   return (
     <>
       <Navbar />
-      <PostExtended post={postAdapter(post)} />
-<SubnigditInfo  subnigdit={adaptedSubnigdit} />
-<SubnigditRules subnigdit={adaptedSubnigdit} />
+      <div className='ls:grid grid-cols-[0.5fr_1.5fr_0.5fr] grid-rows-1 row-start-1 gap-8 p-4'>
+      <div className='ls:col-start-2'>
+      <PostExtended post={postAdapter(post)}/>
+      </div>
+      <div className='hidden ls:col-start-3 ls:flex flex-col row-start-1'>
+        <SubnigditInfo  subnigdit={adaptedSubnigdit} />
+        <SubnigditRules subnigdit={adaptedSubnigdit} />
+      </div>
+      </div>
     </>
   );
 };

@@ -43,4 +43,14 @@ export default class ReportService {
         return null
     }
 
+    async create(type: "post" | "comment" | "reply", reason: string, contentId: string | number, toSubnigdit : boolean) {
+        const response = await this.requestService.post(this.endpoint, {auth: true, data: {
+            type,
+            reason,
+            contentId,
+            toSubnigdit
+        }});
+        return null
+    }
+
 }

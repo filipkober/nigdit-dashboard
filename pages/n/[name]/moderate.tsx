@@ -5,20 +5,31 @@ import Report from '../../../models/Report';
 import Navbar from '../../../components/molecules/Navbar';
 import TabSelector from '../../../components/molecules/TabSelector';
 import ModerationPanel from '../../../components/organism/ModerationPanel';
+import SubnigditService from '../../../util/requests/SubnigditService';
+import { useRouter } from 'next/router';
 
 const SubnigditModerationPanelPage: NextPage = () => {
     const [selected, setSelected] = useState<number>(0);
     const type = ['post', 'comment', 'reply']
     const reportService = new ReportService();
     const [reports, setReports] = useState<Report[]>([]);
+    const subnigditService = new SubnigditService();
 
+    const router = useRouter();
+    const name = router.query.name as string;
 
     // TODO change first argument to subnigdit id
     useEffect(() => {
-        reportService.getAll({type: type[selected], subnigditId: 1 }).then((res) => {
+        const f = async () => {
+          if(!name) return;
+          const subId = await subnigditService.getBySlug(name).then(res => res[0]?.id)
+          if(!subId) return;
+          await reportService.getAll({type: type[selected], subnigditId: subId }).then((res) => {
             setReports(res ? res : []);
         })
-    }, [selected])
+        }
+        f();
+    }, [selected, name])
 
     const newReports = async () => {
         const res = await reportService.getAll({type: type[selected], toNigdit: true});
