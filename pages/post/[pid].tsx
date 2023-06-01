@@ -57,6 +57,7 @@ const PostPage: NextPage = () => {
                 }
               }
             },
+            name_uid: '',
           },
         },
       },
@@ -76,7 +77,7 @@ const PostPage: NextPage = () => {
   const adaptedSubnigdit = subnigditAdapter(post.attributes.subnigdit.data);
 
   return (
-    <>
+    <div className='flex-grow dark:bg-backgroundD bg-backgroundL'>
       <Navbar />
       <div className='ls:grid grid-cols-[0.5fr_1.5fr_0.5fr] grid-rows-1 row-start-1 gap-8 p-4'>
       <div className='ls:col-start-2'>
@@ -87,7 +88,7 @@ const PostPage: NextPage = () => {
         <SubnigditRules subnigdit={adaptedSubnigdit} />
       </div>
       </div>
-    </>
+    </div>
   );
 };
 

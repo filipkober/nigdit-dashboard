@@ -167,7 +167,8 @@ const exampleComment: StrapiComment = {
                   attributes: {
                     count: 0
                   }
-                } }
+                } },
+                name_uid: '',
               },
             },
           },

@@ -38,6 +38,7 @@ type StrapiSubnigdit = {
         }
       }
     },
+    name_uid: string;
     rules?: SubnigditRule[];
   };
 };
@@ -52,6 +53,7 @@ type SubnigditN = {
   iconUrl: string;
   subscribers: number;
   rules: SubnigditRule[];
+  name_uid: string;
 };
 
 const subnigditAdapter = (s: StrapiSubnigdit): SubnigditN => {
@@ -64,7 +66,8 @@ const subnigditAdapter = (s: StrapiSubnigdit): SubnigditN => {
     icon: s.attributes.icon,
     iconUrl: s.attributes.icon.data.attributes.url,
     subscribers: s.attributes.subscribers.data.attributes.count || 0,
-    rules: s.attributes.rules || []
+    rules: s.attributes.rules || [],
+    name_uid: s.attributes.name_uid
   };
 };
 

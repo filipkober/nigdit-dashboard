@@ -13,6 +13,7 @@ type ReplyProps = {
   pfp: string;
   nick: string;
   content: string;
+  subId: number;
 };
 
 export default function Reply({
@@ -22,6 +23,7 @@ export default function Reply({
   nick,
   content,
   vote,
+  subId,
 }: ReplyProps) {
   const [downvoteClicked, setDownvoteClicked] = useState<boolean>(
     vote === 'downvote'
@@ -76,10 +78,11 @@ export default function Reply({
           </div>
       </div>
       <ReportModal
-      id={id}
+        id={id}
         isOpen={modalReportVisible}
-        contentType={'post'}
+        contentType={'reply'}
         onClose={changeModalReportVisible}
+        subnigditId={subId}
       />
     </>
   );

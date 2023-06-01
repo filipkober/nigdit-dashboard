@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Arrow from '../../atoms/Arrow';
 import Image from 'next/image';
 import moment from 'moment';
+import Link from 'next/link';
 
 type PostMediaProps = {
   title: string,
@@ -17,9 +18,10 @@ type PostMediaProps = {
   votes: number,
   date: Date,
   vote?: "upvote" | "downvote",
+  id: number,
 }
 
-export default function PostMedia({title,media,author,source,votes,date, vote}: PostMediaProps) {
+export default function PostMedia({title,media,author,source,votes,date, vote,id}: PostMediaProps) {
 
   const [upvoteClicked, setUpvoteClicked] = useState<boolean>(vote === "upvote");
   const [downvoteClicked, setDownvoteClicked] = useState<boolean>(vote === "downvote");
@@ -43,7 +45,7 @@ export default function PostMedia({title,media,author,source,votes,date, vote}: 
         <Image src={source.image} width={25} height={25} className="overflow-hidden w-[100%] h-[100%] min-w-7 rounded-full" alt={''}/>
       </div>
       <p className="font-['Roboto'] dark:text-white text-base">
-        {source.name}
+        <Link href={"/"+source.name}>{source.name}</Link>
       </p>
       <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base">
         author:
@@ -67,7 +69,7 @@ export default function PostMedia({title,media,author,source,votes,date, vote}: 
       <div>
       <div>
       <p className="h-11 w-[179px] font-['IBM_Plex_Sans'] text-[170%] dark:text-white">
-        {title}
+        <Link href={`/post/${id}`}>{title}</Link>
       </p>
       </div>
       <div>

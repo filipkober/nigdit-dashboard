@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { UserState } from '../../../store/userSlice'
 import SubnigditSearch from '../SubnigditSearch';
 import {debounce} from 'lodash';
+import { useRouter } from 'next/router';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     user?:
@@ -30,6 +31,7 @@ export default function Navbar()
         setLogged(!!username) //Cookies.get("jwt") !! - zamienia wartości takie jak null/undefined na false, reszta jest true
     },[]);
 
+    const router = useRouter();
 
     const searchValChanged = async (cval: string) =>
     {
@@ -90,22 +92,22 @@ export default function Navbar()
 
             </div>        
             {(isLogged) ? (
-            <a href="http://localhost:3000/my-account" className='hover:cursor-pointer min-w-[2.4rem] tm:min-w-[13rem] h-[100%] flex flex-row-reverse my-2 ml-1 mr-3'>
+            <Link href="/my-account" className='hover:cursor-pointer min-w-[2.4rem] tm:min-w-[13rem] h-[100%] flex flex-row-reverse my-2 ml-1 mr-3'>
                 <div className='w-[2.4rem] shrink-0'>
                     <Image draggable="false" src={nigditIcon} width={36} height={36} className="w-[2.4rem] pointer-events-auto select-none hover:cursor-pointer object-cover overflow-hidden rounded-full" alt={''}/>
                 </div> 
                 <div className='select-none overflow-hidden ml-auto shrink-1 hidden tm:block'>
                     <p className="pointer-events-auto overflow-hidden text-right text-[20px] font-thin dark:text-white pr-2">{username}</p>
                 </div>                 
-            </a>
+            </Link>
             ):(                
             <div className='min-w-[2.4rem] tm:min-w-[13rem] flex flex-row-reverse my-[6.5px] ml-1 mr-3'>
-                <a href="http://localhost:3000/register" className="pointer-events-auto hover:cursor-pointer mx-1 shrink-0 px-4 py-1 rounded-[666px] bg-[#aaa] text-[#373737] border-[1px] font-bold shadow-md border-[#000000] hover:bg-gray-100 transition-colors duration-300">
+                <Link href="/register" className="pointer-events-auto hover:cursor-pointer mx-1 shrink-0 px-4 py-1 rounded-[666px] bg-[#aaa] text-[#373737] border-[1px] font-bold shadow-md border-[#000000] hover:bg-gray-100 transition-colors duration-300">
                     register
-                </a>     
-                <a href="http://localhost:3000/login" className="pointer-events-auto hover:cursor-pointer shrink-0 px-4 py-1 rounded-[666px] bg-[#aaa] text-[#373737] border-[1px] font-bold shadow-md border-[#000000] hover:bg-gray-200 transition-colors duration-300">
+                </Link>     
+                <Link href={"/login?redirect=" + router.asPath} className="pointer-events-auto hover:cursor-pointer shrink-0 px-4 py-1 rounded-[666px] bg-[#aaa] text-[#373737] border-[1px] font-bold shadow-md border-[#000000] hover:bg-gray-200 transition-colors duration-300">
                     login
-                </a>    
+                </Link>    
             </div>
             )}
             {

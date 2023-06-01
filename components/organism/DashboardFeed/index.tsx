@@ -156,6 +156,7 @@ export default function DashboardFeed()
                           author={owner} date={post.createdAt || new Date('1939-09-1')} 
                           source={{name: subnigditName, image: subnigditIcon}} 
                           votes={post.votes}
+                          id={post.id}
                         />                      
                       </div>                    
                     )
@@ -170,6 +171,7 @@ export default function DashboardFeed()
                           author={owner} date={post.createdAt || new Date('1939-09-1')} 
                           source={{name: subnigditName, image: subnigditIcon}} 
                           votes={post.votes}
+                          id={post.id}
                         />                      
                       </div>                    
                     )

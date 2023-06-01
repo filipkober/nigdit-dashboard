@@ -8,10 +8,11 @@ type ReportModalProps = {
   isOpen: boolean;
   contentType: 'post' | 'comment' | 'reply';
   id: number;
+  subnigditId?: number;
   onClose: () => void;
 } & GenericComponentProps;
 
-const ReportModal = ({ isOpen, onClose, contentType, id }: ReportModalProps) => {
+const ReportModal = ({ isOpen, onClose, contentType, id, subnigditId }: ReportModalProps) => {
 
   const reportService = new ReportService();
 
@@ -37,9 +38,14 @@ const ReportModal = ({ isOpen, onClose, contentType, id }: ReportModalProps) => 
           return errors;
         }}
         onSubmit={async (values, { setSubmitting }) => {
-          await reportService.create(contentType, values.reason, id, values.platform === "subnigdit")
+          try{
+          await reportService.create(contentType, values.reason, id, values.platform === "subnigdit", values.platform === "subnigdit" ? subnigditId : undefined)
           setSubmitting(false);
           onClose();
+          } catch (e) {
+            console.log(e);
+            onClose();
+          }
         }}
       >
         <Form>

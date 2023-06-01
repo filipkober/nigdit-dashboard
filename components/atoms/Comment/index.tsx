@@ -17,10 +17,11 @@ import { useSelector } from 'react-redux';
 import { UserState } from '../../../store/userSlice';
 
 type CommentProps = {
-  comment: CommentN
+  comment: CommentN;
+  subId: number;
 };
 
-export default function Comment({ comment }: CommentProps) {
+export default function Comment({ comment, subId }: CommentProps) {
   const [modalVisible, changeModalVisible] = useModal();
 
   const [modalReportVisible, changeModalReportVisible] = useModal();
@@ -77,14 +78,15 @@ export default function Comment({ comment }: CommentProps) {
             <ReplyTextarea id={1} visible={modalVisible} />
           </div>
           <div>
-          {replyCount > 0 ? <RepliesContainer commentId={comment.id} repliesNumber={replyCount}/> : ''}
+          {replyCount > 0 ? <RepliesContainer commentId={comment.id} repliesNumber={replyCount} subId={subId}/> : ''}
           </div>
         </div>
         <ReportModal
           isOpen={modalReportVisible}
-          contentType={'post'}
+          contentType={'comment'}
           onClose={changeModalReportVisible}
           id={id}
+          subnigditId={subId}
         />
       </>
     )

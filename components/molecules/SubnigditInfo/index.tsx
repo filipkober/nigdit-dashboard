@@ -4,6 +4,7 @@ import userIcon from '../../../assets/user-icon.svg';
 import { JoinButton } from '../../atoms/JoinButton';
 import { SubnigditN } from '../../../models/Subnigdit';
 import * as moment from 'moment';
+import Link from 'next/link';
 
 type SubnigditInfoProps = {
   subnigdit: SubnigditN
@@ -28,9 +29,9 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
             }
             className="rounded-full object-cover w-20 h-20"
           />
-          <span className="ml-1 font-['Roboto'] font-semibold dark:text-white text-base self-center">
-            {subnigdit.name}
-          </span>
+          <Link className="ml-1 font-['Roboto'] font-semibold dark:text-white text-base self-center" href={`/n/${subnigdit.name_uid}`}>
+            n/{subnigdit.name}
+          </Link>
         </div>
 
         <div className="font-['Roboto'] dark:text-white text-base mb-5">

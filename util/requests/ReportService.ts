@@ -43,12 +43,13 @@ export default class ReportService {
         return null
     }
 
-    async create(type: "post" | "comment" | "reply", reason: string, contentId: string | number, toSubnigdit : boolean) {
+    async create(type: "post" | "comment" | "reply", reason: string, contentId: string | number, toSubnigdit : boolean, subnigditId?: number) {
         const response = await this.requestService.post(this.endpoint, {auth: true, data: {
             type,
             reason,
             contentId,
-            toSubnigdit
+            toSubnigdit,
+            subnigditId,
         }});
         return null
     }

@@ -14,8 +14,8 @@ import PostService from '../../../util/requests/PostService';
 import { StrapiPost, PostN } from '../../../models/Post';
 import { StrapiComment, commentAdapter } from '../../../models/Comment';
 import { GenericComponentProps } from '../../../models/GenericComponentProps';
-import { useSelector } from 'react-redux';
-import { UserState } from '../../../store/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserState, setCurrentSubnigdit } from '../../../store/userSlice';
 
 type PostExtendedProps = {
   post: PostN;
@@ -144,7 +144,7 @@ export default function PostExtended({ post, className }: PostExtendedProps & Ge
 
             <div>
               {comments?.data.map((comment) => {
-                return <Comment key={comment.id} comment={commentAdapter(comment)} />;
+                return <Comment key={comment.id} comment={commentAdapter(comment)} subId={subnigdit.data.id} />;
               })}
             </div>
           </div>
@@ -155,6 +155,7 @@ export default function PostExtended({ post, className }: PostExtendedProps & Ge
         contentType={'post'}
         onClose={changeModalReportVisible}
         id={id}
+        subnigditId={subnigdit?.data.id!}
       />
     </>
   );

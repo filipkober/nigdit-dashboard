@@ -8,9 +8,10 @@ import ModerationPanel from '../../../components/organism/ModerationPanel';
 import SubnigditService from '../../../util/requests/SubnigditService';
 import { useRouter } from 'next/router';
 
+const type = ['post', 'comment', 'reply']
+
 const SubnigditModerationPanelPage: NextPage = () => {
     const [selected, setSelected] = useState<number>(0);
-    const type = ['post', 'comment', 'reply']
     const reportService = new ReportService();
     const [reports, setReports] = useState<Report[]>([]);
     const subnigditService = new SubnigditService();
@@ -29,6 +30,7 @@ const SubnigditModerationPanelPage: NextPage = () => {
         })
         }
         f();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selected, name])
 
     const newReports = async () => {

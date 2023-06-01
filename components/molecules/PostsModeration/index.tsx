@@ -29,7 +29,7 @@ export default function PostsModeration({className, report, onBanUser, onDeleteC
 
     let postContent: JSX.Element = <></>;
     if(postType === "text"){
-        postContent = <p className="col-start-2 row-start-3 col-span-full row-span-3 ts:text-3xl overflow-scroll border-black border-2 p-1 dark:border-white">{report?.contents}</p>
+        postContent = <span className="col-start-2 row-start-3 col-span-full row-span-3 ts:text-3xl overflow-scroll border-black border-2 p-1 dark:border-white whitespace-pre-line">{report?.contents}</span>
     } else if(postType === "image"){
         postContent = <Image src={process.env.NEXT_PUBLIC_STRAPI_URL! + report?.media?.url} alt="makpaj" width={800} height={200} className="col-start-2 row-start-3 col-span-full row-span-3 max-h-[40vh] object-cover w-auto" loader={() => process.env.NEXT_PUBLIC_STRAPI_URL! + report?.media?.url} unoptimized/>
     } else if(postType === "video"){

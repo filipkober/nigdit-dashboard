@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Arrow from '../../atoms/Arrow';
 import Image from 'next/image';
 import moment from 'moment';
+import Link from 'next/link';
 
-type PostTekstowyProps = {
+type PostTextProps = {
   title: string,
   description: string,
   author: string,
@@ -14,9 +15,10 @@ type PostTekstowyProps = {
   votes: number,
   date: Date,
   vote?: "upvote" | "downvote",
+  id: number
 }
 
-export default function PostTekstowy({title,description,author,source,votes,date, vote}: PostTekstowyProps) {
+export default function PostText({title,description,author,source,votes,date,vote,id}: PostTextProps) {
 
   const [upvoteClicked, setUpvoteClicked] = useState<boolean>(vote === "upvote");
   const [downvoteClicked, setDownvoteClicked] = useState<boolean>(vote === "downvote");
@@ -40,7 +42,7 @@ export default function PostTekstowy({title,description,author,source,votes,date
         <Image src={source.image} width={25} height={25} className="overflow-hidden w-[100%] h-[100%] min-w-7 rounded-full" alt={''}/>
       </div>
       <p className="font-['Roboto'] dark:text-white text-base">
-        {source.name}
+        <Link href={"/"+source.name}>{source.name}</Link>
       </p>
       <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base">
         author:
@@ -64,7 +66,7 @@ export default function PostTekstowy({title,description,author,source,votes,date
       <div>
       <div>
       <p className="h-11 w-[179px] font-['IBM_Plex_Sans'] text-[170%] dark:text-white">
-        {title}
+        <Link href={`/post/${id}`}>{title}</Link>
       </p>
       </div>
       <div>

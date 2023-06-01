@@ -1,11 +1,13 @@
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import User from '../models/User';
+import { SubnigditN } from '../models/Subnigdit';
 
 // typ danych
 export interface UserState {
   user: User;
   count: number;
+  currentSubnigdit?: SubnigditN;
 }
 
 // Initial state
@@ -27,6 +29,9 @@ export const userSlice = createSlice({
     },
     incrementCounter(state) {
         state.count += 1;
+    },
+    setCurrentSubnigdit(state, action) {
+      state.currentSubnigdit = action.payload;
     }
   },
 });
@@ -34,7 +39,8 @@ export const userSlice = createSlice({
 // eksporty
 export const {
   setUser,
-  incrementCounter
+  incrementCounter,
+  setCurrentSubnigdit
 } = userSlice.actions;
 
 export default userSlice.reducer;
