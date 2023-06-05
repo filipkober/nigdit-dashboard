@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Arrow from '../../atoms/Arrow';
+import Arrow from '../../atoms/Vote';
 import Image from 'next/image';
 import moment from 'moment';
 

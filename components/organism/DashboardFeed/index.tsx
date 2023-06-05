@@ -124,10 +124,6 @@ export default function DashboardFeed()
           <div className="flex flex-col items-center">
             <div className="ls:w-[50vw] tl:w-[56vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px]">
               <FilteringBar clicked={clicked} changeAlg={changeAlg}/>
-              {/* <PostMedia title="gif post" media={{type: "Gif", source: "https://c.tenor.com/hVm01utkmM8AAAAd/maciek-sze%C5%9Bcia%C5%84czyk-maciasek05.gif"}} author="makpaj" date={new Date('2000-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={-1500} />
-              <PostText title="post" description={"niggadesc"} author="user" date={new Date('2022-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={1500}/>
-              <PostMedia title="gif post" media={{type: "Video", source: "https://www.w3schools.com/html/mov_bbb.mp4"}} author="makpaj" date={new Date('2000-09-23')} source={{name: 'n/subnigdit', image:makpaj}} votes={-1500} />
-               */}
               { !!posts ? 
                 posts.map((post) => {
                   let owner = "";
