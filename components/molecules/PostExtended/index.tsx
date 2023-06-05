@@ -20,6 +20,7 @@ import Toast, { toastDisplay } from '../../atoms/Toast';
 import { ToastContainer, toast } from 'react-toastify';
 import ToastType from '../../../models/ToastType';
 import 'react-toastify/dist/ReactToastify.css';
+import Share from '../../atoms/Share';
 
 type PostExtendedProps = {
   post: PostN;
@@ -135,15 +136,7 @@ export default function PostExtended({
               {allComNum} Comment{allComNum > 1 ? 's' : ''}
             </p>
 
-            <p className="ml-auto cursor-pointer select-none">
-              <a
-                onClick={() =>
-                  toastDisplay(ToastType.Success, 'Copied to clipboard')
-                }
-              >
-                Share
-              </a>
-            </p>
+            <Share />
 
             {isLogged && (
               <p className="ml-5 cursor-pointer">
@@ -178,7 +171,6 @@ export default function PostExtended({
           </div>
         </div>
       </div>
-      <Toast style={ToastType.Success} message="success" />
       <ReportModal
         isOpen={modalReportVisible}
         contentType={'post'}
