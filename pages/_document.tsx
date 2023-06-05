@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import Toast from '../components/atoms/Toast'
 
 export default function Document() { 
   return (
@@ -7,6 +8,7 @@ export default function Document() {
       <body className='flex flex-col h-screen'>
         <div className='bg-backgroundL dark:bg-backgroundD text-black dark:text-white w-screen flex-grow'>
         <Main/>
+        <Toast />
         <NextScript />
         </div>
       </body>

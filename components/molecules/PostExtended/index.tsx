@@ -16,13 +16,21 @@ import { StrapiComment, commentAdapter } from '../../../models/Comment';
 import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserState, setCurrentSubnigdit } from '../../../store/userSlice';
+import Toast, { toastDisplay } from '../../atoms/Toast';
+import { ToastContainer, toast } from 'react-toastify';
+import ToastType from '../../../models/ToastType';
+import 'react-toastify/dist/ReactToastify.css';
+import Share from '../../atoms/Share';
 import Vote from '../../atoms/Vote';
 
 type PostExtendedProps = {
   post: PostN;
 };
 
-export default function PostExtended({ post, className }: PostExtendedProps & GenericComponentProps) {
+export default function PostExtended({
+  post,
+  className,
+}: PostExtendedProps & GenericComponentProps) {
   const title = post.title;
   const description = post.description;
   const media = post.media;
@@ -36,10 +44,12 @@ export default function PostExtended({ post, className }: PostExtendedProps & Ge
 
   const [modalReportVisible, changeModalReportVisible] = useModal();
 
-  const isLogged = !!useSelector((state: UserState) => state.user.username)
+  const isLogged = !!useSelector((state: UserState) => state.user.username);
 
-  let allComNum = comments?.data.length || 0
-  comments?.data.map(c => allComNum += c.attributes.replies?.data.attributes.count || 0)
+  let allComNum = comments?.data.length || 0;
+  comments?.data.map(
+    (c) => (allComNum += c.attributes.replies?.data.attributes.count || 0)
+  );
 
   return (
     <>
@@ -87,7 +97,7 @@ export default function PostExtended({ post, className }: PostExtendedProps & Ge
               </p>
             </div>
             <div className="flex">
-              {type === "Text" ? (
+              {type === 'Text' ? (
                 <div>
                   <p className="font-['Roboto'] dark:text-white text-xl">
                     {description}
@@ -96,7 +106,9 @@ export default function PostExtended({ post, className }: PostExtendedProps & Ge
               ) : media &&
                 media.data.attributes &&
                 (type == 'Image' || type == 'Gif') ? (
-                <div className={`text-center mr-10 w-[92%] h-${media.data.attributes.height}px`}>
+                <div
+                  className={`text-center mr-10 w-[92%] h-${media.data.attributes.height}px`}
+                >
                   <Image
                     src={
                       process.env.NEXT_PUBLIC_STRAPI_URL! +
@@ -112,9 +124,7 @@ export default function PostExtended({ post, className }: PostExtendedProps & Ge
                     className={`w-[100%] h-[${media.data.attributes.height}px] object-cover`}
                   />
                 </div>
-              ) : media &&
-                media.data.attributes &&
-                type == 'Video' ? (
+              ) : media && media.data.attributes && type == 'Video' ? (
                 <video controls className="w-[92%] max-h-[100vh]">
                   <source src={media!.data.attributes.url} />
                 </video>
@@ -128,7 +138,7 @@ export default function PostExtended({ post, className }: PostExtendedProps & Ge
             <Vote votes={votes} contentId={id} contentType='post' variant='horizontal' className='mb-2' arrowSize={30}/>
             </div>
             <div className='flex flex-row content-end w-1/2'>
-            <p className="ml-auto">Share</p>
+            <Share />
             {isLogged &&
             <p className="ml-5 cursor-pointer">
               <a onClick={changeModalReportVisible}>Report</a>
@@ -150,13 +160,19 @@ export default function PostExtended({ post, className }: PostExtendedProps & Ge
 
             <div>
               {comments?.data.map((comment) => {
-                return <Comment key={comment.id} comment={commentAdapter(comment)} subId={subnigdit.data.id} />;
+                return (
+                  <Comment
+                    key={comment.id}
+                    comment={commentAdapter(comment)}
+                    subId={subnigdit.data.id}
+                  />
+                );
               })}
             </div>
           </div>
         </div>
       </div>
-       <ReportModal
+      <ReportModal
         isOpen={modalReportVisible}
         contentType={'post'}
         onClose={changeModalReportVisible}
