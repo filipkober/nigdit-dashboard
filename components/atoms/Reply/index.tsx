@@ -1,10 +1,11 @@
-import Arrow from '../Arrow';
+import Arrow from '../Vote';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { useModal } from '../../../hooks/useModal';
 import ReportModal from '../../molecules/ReportModal';
 import { useSelector } from 'react-redux';
 import { UserState } from '../../../store/userSlice';
+import Vote from '../Vote';
 
 type ReplyProps = {
   vote?: 'upvote' | 'downvote';
@@ -67,7 +68,7 @@ export default function Reply({
         <div className="justify-self-auto">
           <p>{content}</p>
         </div>
-        <div className="justify-self-auto col-span-2">
+        <div className="justify-self-auto col-span-2 flex flex-row gap-2 mt-2">
             <p>
               {isLogged && 
               <a className="cursor-pointer" onClick={changeModalReportVisible}>
@@ -75,6 +76,7 @@ export default function Reply({
               </a>
 }
             </p>
+            <Vote contentId={id} contentType='reply' variant='horizontal' votes={votes} />
           </div>
       </div>
       <ReportModal
