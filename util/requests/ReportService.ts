@@ -1,3 +1,4 @@
+import { ContentType } from "../../models/ContentType";
 import Report, { reportAdapter } from "../../models/Report";
 import StrapiReport from "../../models/Report";
 import StrapiResponse from "../../models/StrapiResponse";
@@ -43,7 +44,7 @@ export default class ReportService {
         return null
     }
 
-    async create(type: "post" | "comment" | "reply", reason: string, contentId: string | number, toSubnigdit : boolean, subnigditId?: number) {
+    async create(type: ContentType, reason: string, contentId: string | number, toSubnigdit : boolean, subnigditId?: number) {
         const response = await this.requestService.post(this.endpoint, {auth: true, data: {
             type,
             reason,

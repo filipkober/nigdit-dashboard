@@ -11,6 +11,7 @@ type User = {
     comments?: Comment[],
     replies?: Reply[],
     profilePicture?: Media,
+    votes: UserVotes
 }
 type StrapiUser = {
     id: number,
@@ -34,6 +35,18 @@ type LoginUser = {
         blocked: boolean,
     }
 }
+type UserVotes = {
+    upvotes: {
+        posts: string[],
+        comments: string[],
+        replies: string[],
+    }
+    downvotes: {
+        posts: string[],
+        comments: string[],
+        replies: string[],
+    }
+}
 
 export default User
-export type {StrapiUser, LoginUser};
+export type {StrapiUser, LoginUser, UserVotes};

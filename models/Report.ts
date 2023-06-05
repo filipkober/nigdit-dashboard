@@ -1,3 +1,4 @@
+import { ContentType } from "./ContentType"
 import Media from "./Media"
 import User, { StrapiUser } from "./User"
 
@@ -7,7 +8,7 @@ type StrapiReport = {
         attributes: {
             contentId: number,
             contents: string,
-            type: "post" | "comment" | "reply",
+            type: ContentType,
             toSubnigdit: boolean,
             reportMessage?: string,
             reporter: StrapiUser | {data: null},
@@ -21,7 +22,7 @@ type Report = {
     id: number,
     contentId: number,
     contents: string,
-    type: "post" | "comment" | "reply",
+    type: ContentType,
     toSubnigdit: boolean,
     reportMessage: string,
     reporter: StrapiUser | null,

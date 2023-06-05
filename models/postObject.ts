@@ -53,7 +53,8 @@ const examplePostObject: StrapiPost = {
                   count: 0
                 }
               }
-            }
+            },
+            name_uid: '',
           }
         }
       }

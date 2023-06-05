@@ -47,6 +47,7 @@ export default function SubnigditDashboard() {
           date={new Date('2000-09-23')}
           source={{ name: 'n/subnigdit', image: makpaj }}
           votes={-1500}
+          id={1}
         />
         <PostText
           title="post"
@@ -55,6 +56,7 @@ export default function SubnigditDashboard() {
           date={new Date('2022-09-23')}
           source={{ name: 'n/subnigdit', image: makpaj }}
           votes={1500}
+          id={2}
         />
         <PostMedia
           title="gif post"
@@ -66,6 +68,7 @@ export default function SubnigditDashboard() {
           date={new Date('2000-09-23')}
           source={{ name: 'n/subnigdit', image: makpaj }}
           votes={-1500}
+          id={3}
         />
       </div>
     </div>
@@ -120,7 +123,8 @@ export default function SubnigditDashboard() {
                       },
                       iconUrl: '',
                       subscribers: 0,
-                      rules: []
+                      rules: [],
+                      name_uid: ''
                     }} />
                 </div>
               </div>
@@ -162,7 +166,8 @@ export default function SubnigditDashboard() {
                 },
                 iconUrl: '',
                 subscribers: 0,
-                rules: []
+                rules: [],
+                name_uid: ''
               }} />
             </div>
           </div>

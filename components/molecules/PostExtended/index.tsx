@@ -1,7 +1,7 @@
 import moment from 'moment';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import Arrow from '../../atoms/Arrow';
+import Arrow from '../../atoms/Vote';
 import commentIcon from '../../../assets/comment-icon.svg';
 import shareIcon from '../../../assets/share-icon.svg';
 import reportIcon from '../../../assets/report-icon.svg';
@@ -16,6 +16,7 @@ import { StrapiComment, commentAdapter } from '../../../models/Comment';
 import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserState, setCurrentSubnigdit } from '../../../store/userSlice';
+import Vote from '../../atoms/Vote';
 
 type PostExtendedProps = {
   post: PostN;
@@ -122,12 +123,17 @@ export default function PostExtended({ post, className }: PostExtendedProps & Ge
           </div>
           <div className="flex font-['Roboto'] dark:text-white text-xl mt-5">
             {/* chujstwo pod contentem */}
+            <div className='flex flex-row content-start w-1/2'>
             <p className="mr-5">{allComNum} Comment{allComNum> 1 ? 's' : ''}</p>
+            <Vote votes={votes} contentId={id} contentType='post' variant='horizontal' className='mb-2' arrowSize={30}/>
+            </div>
+            <div className='flex flex-row content-end w-1/2'>
             <p className="ml-auto">Share</p>
             {isLogged &&
             <p className="ml-5 cursor-pointer">
               <a onClick={changeModalReportVisible}>Report</a>
             </p>}
+            </div>
           </div>
           <div>
             {/* KOMETNARZE */}

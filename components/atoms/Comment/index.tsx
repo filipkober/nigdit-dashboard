@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useModal } from '../../../hooks/useModal';
-import Arrow from '../Arrow';
+import Arrow from '../Vote';
 import ReplyTextarea from '../ReplyTextarea';
 import RepliesContainer from '../RepliesContainer';
 import ReportModal from '../../molecules/ReportModal';
@@ -15,6 +15,7 @@ import { replyAdapter } from '../../../models/Reply';
 import { ReplyN } from '../../../models/Reply';
 import { useSelector } from 'react-redux';
 import { UserState } from '../../../store/userSlice';
+import Vote from '../Vote';
 
 type CommentProps = {
   comment: CommentN;
@@ -57,7 +58,7 @@ export default function Comment({ comment, subId }: CommentProps) {
             <div className="justify-self-auto">
               <p>{content}</p>
             </div>
-            <div className="justify-self-auto col-span-2">
+            <div className="justify-self-auto col-span-2 flex flex-row gap-4 mt-2">
               <p>
                 {isLogged && <><a
                   className="cursor-pointer"
@@ -72,6 +73,7 @@ export default function Comment({ comment, subId }: CommentProps) {
                   Reply
                 </button></>}
               </p>
+              <Vote votes={votes} contentType={'comment'} contentId={id} variant='horizontal'/>
             </div>
           </div>
           <div>

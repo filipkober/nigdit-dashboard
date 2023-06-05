@@ -1,6 +1,6 @@
 import { createSlice, Dispatch } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import User from '../models/User';
+import User, { UserVotes } from '../models/User';
 import { SubnigditN } from '../models/Subnigdit';
 
 // typ danych
@@ -15,6 +15,18 @@ const initialState: UserState = {
   user: {
     username: '',
     email: '',
+    votes: {
+      upvotes: {
+        posts: [],
+        comments: [],
+        replies: [],
+      },
+      downvotes: {
+        posts: [],
+        comments: [],
+        replies: [],
+      },
+    }
   },
   count: 0,
 };
@@ -32,7 +44,10 @@ export const userSlice = createSlice({
     },
     setCurrentSubnigdit(state, action) {
       state.currentSubnigdit = action.payload;
-    }
+    },
+    setUserVotes(state, action: {payload: UserVotes}) {
+      state.user.votes = action.payload;
+    },
   },
 });
 
@@ -40,7 +55,8 @@ export const userSlice = createSlice({
 export const {
   setUser,
   incrementCounter,
-  setCurrentSubnigdit
+  setCurrentSubnigdit,
+  setUserVotes,
 } = userSlice.actions;
 
 export default userSlice.reducer;
