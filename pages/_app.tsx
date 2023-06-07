@@ -9,6 +9,8 @@ import { store, persistor } from '../store/store';
 import { Provider } from 'react-redux';
 import { NextPage } from 'next';
 import '../styles/globals.css';
+import Navbar from '../components/molecules/Navbar';
+import Layout from '../components/layouts/MainLayout';
 
 export const darkModeContext = React.createContext<
   [boolean, (any: any) => void]
@@ -37,7 +39,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
           <darkModeContext.Provider value={[darkMode, setDarkMode]}>
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </darkModeContext.Provider>
         </PersistGate>
       </Provider>
