@@ -16,6 +16,19 @@ const examplePostObject: StrapiPost = {
           attributes: {
             username: '',
             email: '',
+            provider: '',
+            votes: {
+              upvotes: {
+                posts: [],
+                comments: [],
+                replies: [],
+              },
+              downvotes: {
+                posts: [],
+                comments: [],
+                replies: [],
+              },
+            },
           },
         },
       },
@@ -60,3 +73,5 @@ const examplePostObject: StrapiPost = {
       }
     },
 }
+
+export default examplePostObject;

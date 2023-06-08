@@ -12,6 +12,7 @@ import { StrapiPost, postAdapter } from '../../models/Post';
 import Media, { emptyMedia, emptyStrapiMedia } from '../../models/Media';
 import { subnigditAdapter } from '../../models/Subnigdit';
 import { exampleComment } from '../../models/Comment';
+import examplePostObject from '../../models/postObject';
 
 const PostPage: NextPage = () => {
   const router = useRouter();
@@ -19,50 +20,7 @@ const PostPage: NextPage = () => {
 
   const postService = new PostService();
 
-  const [post, setPost] = useState<StrapiPost>({
-    id: 0,
-    attributes: {
-      title: '',
-      description: '',
-      votes: 0,
-      reports: 0,
-      createdAt: new Date(),
-      type: 'Text',
-      nsfw: false,
-      owner: {
-        data: {
-          id: 0,
-          attributes: {
-            username: '',
-            email: '',
-          },
-        },
-      },
-      comments: {
-        data: [],
-      },
-      subnigdit: {
-        data: {
-          id: 0,
-          attributes: {
-            name: '',
-            description: '',
-            createdAt: new Date(),
-            reports: 0,
-            icon: emptyStrapiMedia,
-            subscribers: {
-              data: {
-                attributes:{
-                  count: 0
-                }
-              }
-            },
-            name_uid: '',
-          },
-        },
-      },
-    },
-  });
+  const [post, setPost] = useState<StrapiPost>(examplePostObject);
 
   useEffect(() => {
     const f = async () => {

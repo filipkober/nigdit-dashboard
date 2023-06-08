@@ -11,19 +11,32 @@ import Switch from "../../Switch";
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Makpaj from '../../../assets/makpaj.svg'
 import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
+import { UserState, setUser } from "../../../store/userSlice";
+import emptypfp from '../../../assets/emptypfp.jpg'
+import { useRouter } from "next/router";
+import UserService from "../../../util/requests/UserService";
+import { toastDisplay } from "../../atoms/Toast";
+import ToastType from "../../../models/ToastType";
+import { userAdapter } from "../../../models/User";
 
-const macias = "https://media.tenor.com/hVm01utkmM8AAAAS/maciek-sze%C5%9Bcia%C5%84czyk-maciasek05.gif"
 export default function MyAccountPanel(){
     const [visible, changeVisible] = useModal();
     const [changePassVisible, setChangePassVisible] = useState<boolean>(false);
     const [darkMode, setDarkMode] = useContext(darkModeContext);
     const [parent] = useAutoAnimate<HTMLDivElement>({duration: 100, easing: 'ease-in-out'});
 
+    const dispatch = useDispatch();
+
+    const user = useSelector((state: UserState) => state.user);
+    const {username, email, profilePicture, aboutMe, provider} = user;
+
+    const userService = new UserService();
 
     const initialValuesAbout = {
-        username: "",
-        email: "",
-        aboutMe: "",
+        username: username,
+        email: email,
+        aboutMe: aboutMe,
     }
     const initialValuesPass = {
         oldPassword: "",
@@ -31,6 +44,7 @@ export default function MyAccountPanel(){
         newPasswordConfirm: "",
     }
 
+    const router = useRouter();
 
     return (
         <div className="flex justify-center flex-col py-4">
@@ -39,10 +53,12 @@ export default function MyAccountPanel(){
             <p className="mt-1 ml-2 text-md">My account</p>
             <div className="text-center mt-8 justify-center flex flex-col">
             <div className="rounded-full bg-white mt-2 mx-auto aspect-square w-[100px]">
-                <Image src={Makpaj} alt="profile picture" className="rounded-full object-cover aspect-square" width={100} height={100}/>
+                <Image src={profilePicture ? process.env.NEXT_PUBLIC_STRAPI_URL + profilePicture.url : emptypfp} alt="profile picture" className="rounded-full object-cover aspect-square" width={100} height={100}
+                loader={({src}) => {return src}}
+                />
             </div>
-            <Button variant="button" content="Change" onClick={changeVisible} className="mt-6"/>
-            <ChangePictureModal open={visible} changeVisible={changeVisible} initialImage={macias}/>
+            <Button variant="button" content="Change" onClick={changeVisible} className="mt-6 mr-4 ls:mx-auto cs:w-4/5"/>
+            <ChangePictureModal isOpen={visible} onClose={changeVisible} initialImage={profilePicture ? (process.env.NEXT_PUBLIC_STRAPI_URL + profilePicture.url) : emptypfp.src}/>
             </div>
             </div>
             <div className="h-full justify-center items-center ml-8 hidden ls:flex">
@@ -52,8 +68,12 @@ export default function MyAccountPanel(){
             <div className="flex mx-auto ls:mx-0">
                 <Formik
                 initialValues={initialValuesAbout}
-                onSubmit={(values) => {
-                    console.log(values)
+                onSubmit={async (values) => {
+                    const newUser = await userService.update({username: values.username, email: values.email, aboutMe: values.aboutMe});
+                    if(newUser){
+                        toastDisplay(ToastType.Success, "Successfully updated");
+                        dispatch(setUser(userAdapter(newUser)))
+                    }
                 }}
 
                 >
@@ -83,10 +103,10 @@ export default function MyAccountPanel(){
                         <Button variant="button" content="Change password" className="mx-auto ls:ml-8 mt-8" onClick={() => {setChangePassVisible(!changePassVisible)}}/>
                     </div>
             <div ref={parent}>
-                {changePassVisible && <Formik
+                {changePassVisible && (provider === 'local' ? (<Formik
                 initialValues={initialValuesPass}
-                onSubmit={(values) => {
-                    console.log(values)
+                onSubmit={async (values) => {
+                    const loginUser = await userService.changePassword(values.oldPassword, values.newPassword, values.newPasswordConfirm);
                 }}
 
                 >
@@ -103,7 +123,11 @@ export default function MyAccountPanel(){
                 </form>
                 )}
                 
-                </Formik>}
+                </Formik>) : (
+                    <div className="flex flex-col">
+                        <p className="text-center mt-8 max-w-md">You can only change your password through {provider}</p>
+                    </div>
+                ))}
                 </div>
             </div>
             </div>
