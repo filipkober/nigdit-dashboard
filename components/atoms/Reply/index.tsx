@@ -6,12 +6,13 @@ import ReportModal from '../../molecules/ReportModal';
 import { useSelector } from 'react-redux';
 import { UserState } from '../../../store/userSlice';
 import Vote from '../Vote';
+import emptypfp from '../../../assets/emptypfp.jpg';
 
 type ReplyProps = {
   vote?: 'upvote' | 'downvote';
   id: number;
   votes: number;
-  pfp: string;
+  pfp?: string;
   nick: string;
   content: string;
   subId: number;
@@ -53,11 +54,11 @@ export default function Reply({
       <div className="gridComment my-5">
         <div className="justify-self-auto">
           <Image
-            src={process.env.NEXT_PUBLIC_STRAPI_URL! + pfp}
+            src={pfp ? (process.env.NEXT_PUBLIC_STRAPI_URL! + pfp) : emptypfp}
             width={50}
             height={50}
             alt=""
-            loader={() => process.env.NEXT_PUBLIC_STRAPI_URL! + pfp}
+            loader={({src}) => src}
             className="overflow-hidden rounded-full object-cover w-10 h-10"
           ></Image>
         </div>

@@ -1,4 +1,4 @@
-import { createSlice, Dispatch } from '@reduxjs/toolkit';
+import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import User, { UserVotes } from '../models/User';
 import { SubnigditN } from '../models/Subnigdit';
@@ -26,7 +26,8 @@ const initialState: UserState = {
         comments: [],
         replies: [],
       },
-    }
+    },
+    provider: '',
   },
   count: 0,
 };
@@ -42,7 +43,7 @@ export const userSlice = createSlice({
     incrementCounter(state) {
         state.count += 1;
     },
-    setCurrentSubnigdit(state, action) {
+    setCurrentSubnigdit(state, action: PayloadAction<SubnigditN>) {
       state.currentSubnigdit = action.payload;
     },
     setUserVotes(state, action: {payload: UserVotes}) {

@@ -16,6 +16,7 @@ import { ReplyN } from '../../../models/Reply';
 import { useSelector } from 'react-redux';
 import { UserState } from '../../../store/userSlice';
 import Vote from '../Vote';
+import emptypfp from '../../../assets/emptypfp.jpg';
 
 type CommentProps = {
   comment: CommentN;
@@ -43,12 +44,12 @@ export default function Comment({ comment, subId }: CommentProps) {
           <div className="gridComment my-5">
             <div className="justify-self-auto">
               <Image
-                src={process.env.NEXT_PUBLIC_STRAPI_URL! + owner.data.attributes.profilePicture?.data.attributes.url || ''}
+                src={owner.data.attributes.profilePicture?.data ? (process.env.NEXT_PUBLIC_STRAPI_URL! + owner.data.attributes.profilePicture?.data?.attributes.url) : emptypfp}
                 alt=""
                 className="overflow-hidden rounded-full object-cover w-10 h-10"
                 width={100}
                 height={100}
-                loader={() => process.env.NEXT_PUBLIC_STRAPI_URL! + owner.data.attributes.profilePicture?.data.attributes.url || ''}
+                loader={({src}) => src}
               ></Image>
             </div>
             <div className="justify-self-auto">
