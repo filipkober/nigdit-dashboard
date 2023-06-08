@@ -131,6 +131,19 @@ const exampleComment: StrapiComment = {
         attributes: {
           username: '',
           email: '',
+          provider: '',
+          votes: {
+            upvotes: {
+              posts: [],
+              comments: [],
+              replies: [],
+            },
+            downvotes: {
+              posts: [],
+              comments: [],
+              replies: [],
+            },
+          }
         },
       },
     },
@@ -151,6 +164,19 @@ const exampleComment: StrapiComment = {
               attributes: {
                 username: '',
                 email: '',
+                provider: '',
+                votes: {
+                  upvotes: {
+                    posts: [],
+                    comments: [],
+                    replies: [],
+                  },
+                  downvotes: {
+                    posts: [],
+                    comments: [],
+                    replies: [],
+                  },
+                },
               },
             },
           },

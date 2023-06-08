@@ -38,7 +38,7 @@ export default class UserService {
         return createdUser.data;
     }
 
-    async update({aboutMe, email, username, id}: {aboutMe?: string, email?: string, username?: string, id: number}) {
+    async update({aboutMe, email, username}: {aboutMe?: string, email?: string, username?: string}) {
         const updatedUser: StrapiResponse<StrapiUser> = await this.requestService.put(`${this.endpoint}/me`, {data: {aboutMe, email, username}, auth: true});
         return updatedUser.data;
     }
