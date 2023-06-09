@@ -27,7 +27,9 @@ const PostPage: NextPage = () => {
       const id = pid ? Number(pid) : 0;
       if (!id) return;
       const res = await postService.getOne(id);
-      setPost(res);
+      if(res){
+        setPost(res);
+      }
     };
     f();
   }, [pid]);

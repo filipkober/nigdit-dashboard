@@ -99,6 +99,7 @@ export default class PostService {
         }
       }
     }
+    return null;
   }
 
   //post feed display
