@@ -1,4 +1,4 @@
-import React, {useState,useCallback, useRef, useEffect } from "react";
+import React, {useState,useCallback, useRef, useEffect, SetStateAction } from "react";
 import FilteringBar from "../../molecules/FilteringBar";
 import JoindeGroups from "../../molecules/JoinedGroups";
 import PostMedia from "../../molecules/PostMedia";
@@ -8,6 +8,7 @@ import Post from "../../../models/Post";
 import { useSelector } from "react-redux";
 import { UserState } from "../../../store/userSlice";
 
+const postsPerScroll = 3;
 
 export default function DashboardFeed() 
 {
@@ -15,8 +16,8 @@ export default function DashboardFeed()
   const username = useSelector((state: UserState) => state.user.username)
   const [isLogged, setLogged] = useState(false);  
   const [curAlg, setCurAlg] = useState<string>("Hot");
-  const [counter, setCounter] = useState<number>(0);    
-  const postsPerScroll = 3;
+  const [counter, setCounter] = useState<number>(0);   
+  const [viewSubscribed, setViewSubscribed] = useState<boolean>(false); //true = subscribed, false = everything
   const [page, setPage] = useState<number>(0);
   const [posts, setPosts] = useState<Post[]>([]);
   
@@ -31,18 +32,22 @@ export default function DashboardFeed()
     setCurAlg(n);  
   }
   
-  useEffect( () => {    
+  useEffect( () => {   
+    const f = async () => { 
     setLogged(!!username);
-    setPosts([]);  
-    setPage(0);
-    fetchPosts(false);    
+    setPage(0); 
+    };
+    f();
   },[counter, curAlg]);
 
-  async function fetchPosts(more: boolean)
+  useEffect(() => {
+  async function fetchPosts()
   {
-    console.log("FEED FETCH: counter: "+counter+", subbed: "+counter%2+ ", algorithm: "+curAlg+ ", logged: "+isLogged)
+    // console.log("FEED FETCH: counter: "+counter+", subbed: "+counter%2+ ", algorithm: "+curAlg+ ", logged: "+isLogged)
     let p : Post[] = []
-    if(counter%2 != 0 && isLogged == true)
+    console.log(page)
+    // console.log("current starting index: ", page)   
+    if(viewSubscribed && isLogged == true)
     {
       switch (curAlg)
       {
@@ -78,31 +83,31 @@ export default function DashboardFeed()
           break;
       }
     }    
-    if(more)
-    {
+    if(page === 0){
+      setPosts(p);
+    } else {
       setPosts((prevPosts) => [...prevPosts, ...p]);
     }
-    else
-    {
-      setPosts(p);
-    }    
-    setPage(page+postsPerScroll);
   }
+  fetchPosts();
+}, [page, isLogged]);
+useEffect(() => {
+  setPage(0);
+}, [viewSubscribed, curAlg]);
 
   //lvl 10 black magic  
   const observer: any = useRef();
-  const lastPostRef = useCallback((node: any) => {     
+  const lastPostRef = useCallback(async (node: any) => {     
     if (!node) 
     {
       return;
     }
-    console.log(node)
     if(observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver(entries =>{
+    observer.current = new IntersectionObserver(async entries =>{
       if(entries[0].isIntersecting)
       {
-        console.log("object is visible")        
-        fetchPosts(true);   
+        console.log("object is visible")   
+        setPage((prevPage) => prevPage + postsPerScroll);  
       }
     })
     observer.current.observe(node)
@@ -128,18 +133,13 @@ export default function DashboardFeed()
                         if (post.media)
                           mediaImage = "http://localhost:1338"+post.media.url
                       }
-                      try {
-                        owner = post.owner.username;
-                      }
-                      catch {
-                        owner = "no owner"
-                      }
+                      owner = post.owner?.username ? post.owner.username : "[removed]";
                       if(post.type == 'Text')
                       {
                         if(posts.length === index+1)
                         {
                           return(
-                            <div key={post.id} ref={lastPostRef}>
+                            <div key={(post.id)} ref={lastPostRef}>
                               <PostText 
                                 title={post.title} 
                                 description={post.description || ""} 
@@ -153,7 +153,7 @@ export default function DashboardFeed()
                         else
                         {
                           return(
-                            <div key={post.id}>
+                            <div key={(post.id)}>
                               <PostText 
                                 title={post.title} 
                                 description={post.description || ""} 
@@ -170,7 +170,7 @@ export default function DashboardFeed()
                         if(posts.length === index+1)
                         {
                           return(
-                            <div key={post.id} ref={lastPostRef}>
+                            <div key={(post.id)} ref={lastPostRef}>
                               <PostMedia 
                                 title={post.title}
                                 media={{type: post.type, source: mediaImage}}
@@ -184,7 +184,7 @@ export default function DashboardFeed()
                         else
                         {
                           return(
-                            <div key={post.id}>
+                            <div key={(post.id)}>
                               <PostMedia 
                                 title={post.title}
                                 media={{type: post.type, source: mediaImage}}
