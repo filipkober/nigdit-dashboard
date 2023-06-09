@@ -121,36 +121,36 @@ export default class PostService {
     { encodeValuesOnly: true }
   );
 
-  async hot() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/hot"+ '?' + this.feedQuery);
+  async hot(start: number, limit: number) {    
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/hot"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit);
     return posts.data;
   }
-  async pop() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/pop" + '?' + this.feedQuery);
+  async pop(start: number, limit: number) {    
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/pop" + '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit);
     return posts.data;
   }
-  async top() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/top"+ '?' + this.feedQuery);
+  async top(start: number, limit: number) {    
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/top"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit);
     return posts.data;
   }
-  async new() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/new"+ '?' + this.feedQuery);
+  async new(start: number, limit: number) {    
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/new"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit);
     return posts.data;
   }
-  async hotSub() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/hotSub"+ '?' + this.feedQuery, {auth: true});
+  async hotSub(start: number, limit: number) {    
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/hotSub"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit, {auth: true});
     return posts.data;
   }
-  async popSub() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/popSub" + '?' + this.feedQuery, {auth: true});
+  async popSub(start: number, limit: number) {    
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/popSub" + '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit, {auth: true});
     return posts.data;
   }
-  async topSub() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/topSub"+ '?' + this.feedQuery, {auth: true});
+  async topSub(start: number, limit: number) {    
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/topSub"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit, {auth: true});
     return posts.data;
   }
-  async newSub() {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/newSub"+ '?' + this.feedQuery, {auth: true});
+  async newSub(start: number, limit: number) {    
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/newSub"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit, {auth: true});
     return posts.data;
   }
 
