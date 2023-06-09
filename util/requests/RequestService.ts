@@ -20,6 +20,13 @@ type RequestOptions = {
 
 const inProduction = process.env.NODE_ENV === 'production';
 
+function constructHeaders(contentType: string, auth: boolean) {
+  let headers: HeadersInit = {};
+  if (contentType === 'application/json') headers['Content-Type'] = 'application/json';
+  if (auth) headers['Authorization'] = 'Bearer ' + Cookies.get('jwt');
+  return headers;
+}
+
 function genericErrorHandler(e: NetworkError) {
   if (inProduction) {
     switch (e.status) {
@@ -76,11 +83,7 @@ export default class RequestService {
   ) {
     const response = await fetch(this.url + endpoint, {
       method: 'GET',
-      headers: auth
-        ? {
-            Authorization: 'Bearer ' + Cookies.get('jwt'),
-          }
-        : undefined,
+      headers: constructHeaders(contentType, auth),
     });
     if(!response.ok) handleError(new NetworkError(response.status, response.statusText)); 
     return await response.json();
@@ -97,15 +100,8 @@ export default class RequestService {
   ) {
     const response = await fetch(this.url + endpoint, {
       method: 'POST',
-      body: data ? JSON.stringify(data) : undefined,
-      headers: auth
-        ? {
-            'Content-Type': contentType,
-            Authorization: 'Bearer ' + Cookies.get('jwt'),
-          }
-        : {
-            'Content-Type': 'application/json',
-          },
+      body: data ? (contentType === 'application/json' ? JSON.stringify(data) : data) : undefined,
+      headers: constructHeaders(contentType, auth),
     });
     if(!response.ok) handleError(new NetworkError(response.status, response.statusText)); 
     return await response.json();
@@ -121,15 +117,8 @@ export default class RequestService {
   ) {
     const response = await fetch(this.url + endpoint, {
       method: 'PUT',
-      body: data ? JSON.stringify(data) : undefined,
-      headers: auth
-        ? {
-            'Content-Type': contentType,
-            Authorization: 'Bearer ' + Cookies.get('jwt'),
-          }
-        : {
-            'Content-Type': 'application/json',
-          },
+      body: data ? (contentType === 'application/json' ? JSON.stringify(data) : data) : undefined,
+      headers: constructHeaders(contentType, auth),
     });
     if(!response.ok) handleError(new NetworkError(response.status, response.statusText)); 
     return await response.json();
@@ -141,14 +130,7 @@ export default class RequestService {
   ) {
     const response = await fetch(this.url + endpoint, {
       method: 'DELETE',
-      headers: auth
-        ? {
-            'Content-Type': contentType,
-            Authorization: 'Bearer ' + Cookies.get('jwt'),
-          }
-        : {
-            'Content-Type': 'application/json',
-          },
+      headers: constructHeaders(contentType, auth),
     });
     if(!response.ok) handleError(new NetworkError(response.status, response.statusText)); 
     return await response.json();
