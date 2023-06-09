@@ -52,7 +52,6 @@ const SubnigditModerationPanelPage: NextPage = () => {
 
   return (
     <div className='bg-backgroundL dark:bg-backgroundD h-full'>
-      <Navbar/>
       <TabSelector selected={selected} setSelected={setSelected} tabs={['Posts', 'Comments', 'Replies']}/>
       <ModerationPanel tab={selected} className={"h-screen"} reports={reports} onBanUser={onBanUser} onDeleteContent={onDeleteContent} onDismissReport={onDismissReport}/>
     </div>

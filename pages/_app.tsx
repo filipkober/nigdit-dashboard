@@ -9,6 +9,8 @@ import { store, persistor } from '../store/store';
 import { Provider } from 'react-redux';
 import { NextPage } from 'next';
 import '../styles/globals.css';
+import Navbar from '../components/molecules/Navbar';
+import Layout from '../components/layouts/MainLayout';
 import UserService from '../util/requests/UserService';
 import { setUser } from '../store/userSlice';
 import { userAdapter } from '../models/User';
@@ -56,7 +58,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
           <darkModeContext.Provider value={[darkMode, setDarkMode]}>
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </darkModeContext.Provider>
         </PersistGate>
       </Provider>

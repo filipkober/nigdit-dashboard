@@ -8,7 +8,6 @@ const SubnigditPage: NextPage = () => {
   const router = useRouter();
   const { name } = router.query;
   return <>
-  <Navbar/>
 
       <SubnigditDashboard />
   </>;
