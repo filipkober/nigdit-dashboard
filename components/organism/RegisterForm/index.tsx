@@ -1,84 +1,102 @@
-import React, {useState, forwardRef, ForwardedRef, useImperativeHandle, useRef} from "react";
+import React, {
+  useState,
+  forwardRef,
+  ForwardedRef,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import InputField from '../../atoms/InputField';
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup"
-import UserService from "../../../util/requests/UserService";
-import {StrapiUser} from "../../../models/User";
-import Cookies from "js-cookie";
-import { useRouter } from 'next/router'
-import GoogleButton from '../../atoms/GoogleButton'
+import UserService from '../../../util/requests/UserService';
+import { StrapiUser } from '../../../models/User';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+import GoogleButton from '../../atoms/GoogleButton';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../../store/userSlice';
 import { SubmitHandler, useForm } from "react-hook-form";
+import Link from 'next/link';
 
 const userService = new UserService();
 
 type Props = {
-    verChange: (val: boolean, email: string) => void,
-}
+  verChange: (val: boolean, email: string) => void;
+};
 type FormValues = {
-    login: string,
-    password: string,
-    repeat: string,
-    email: string,
-}
+  login: string;
+  password: string;
+  repeat: string;
+  email: string;
+};
 const initValues: FormValues = {
-    login: "",
-    password: "",
-    repeat: "",
-    email: "",
-}
-const schema = yup.object().shape({ //! dodaj do pliku osobnego 
-    login: yup.string()
-        .min(2,'Login is too short.')
-        .max(30,'Login is too long.')
-        .required('Login field is required.')
-        .trim()
-        .matches(/^(?![_-])(?!-*[_-]{2})[a-zA-Z0-9-_]+(?<![_-])$/, 'Login cannot contain special symbols'),
-    password: yup.string()
-        .min(2, 'Password is too short.')
-        .max(50, 'Password is too long.')
-        .required('Password field is required.'),
-    repeat: yup.string()
-        .required('Password confirmation is required.')
-        .oneOf([yup.ref('password')], 'Passwords must match.'),
-    email: yup.string()
-        .email('Email address is invalid.')
-        .trim()
-        .matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,"Email address is invalid.")
-        .required('Required'),
+  login: '',
+  password: '',
+  repeat: '',
+  email: '',
+};
+const schema = yup.object().shape({
+  //! dodaj do pliku osobnego
+  login: yup
+    .string()
+    .min(2, 'Username is too short.')
+    .max(20, 'Username is too long.')
+    .required('Username field is required.')
+    .trim()
+    .matches(
+      /^(?![_-])(?!-*[_-]{2})[a-zA-Z0-9-_]+(?<![_-])$/,
+      'Your username can only contain letters, numbers, underscores, dashes and dots.'
+    ),
+  password: yup
+    .string()
+    .min(2, 'Password is too short.')
+    .max(30, 'Password is too long.')
+    .required('Password field is required.'),
+  repeat: yup
+    .string()
+    .required('Password confirmation is required.')
+    .oneOf([yup.ref('password')], 'Passwords must match.'),
+  email: yup
+    .string()
+    .email('Email address is invalid.')
+    .trim()
+    .matches(
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      'Email address is invalid.'
+    )
+    .required('Required'),
+});
+//NAPRAW niech errory beda dynamiczne
+
+export default function RegisterForm({ verChange }: Props) {
+  const [au, setAu] = useState('');
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const login = useGoogleLogin({
+    onSuccess: async (codeResponse) => {
+      const res = await fetch(
+        '/api/google-access-token?code=' + codeResponse.code,
+        { method: 'GET' }
+      );
+      const data = await res.json();
+      const res2 = await fetch(
+        'http://localhost:1338/api/auth/google/callback?access_token=' +
+          data.tokens.access_token
+      );
+      const userData = await res2.json();
+      try {
+        if (userData.user.username != null) {
+          Cookies.set('jwt', userData.jwt);
+          dispatch(setUser(userData.user));
+          router.push('/');
+        }
+      } catch {}
+    },
+    flow: 'auth-code',
   });
-
-export default function RegisterForm({verChange}: Props)
-{       
-    const [au, setAu] = useState("");
-
-    const dispatch = useDispatch();    
-    const router = useRouter(); 
-    
-    const login = useGoogleLogin({
-        onSuccess: async codeResponse => {
-          const res = await fetch('/api/google-access-token?code='+codeResponse.code,{method: 'GET'})
-          const data = await res.json()
-          const res2 = await fetch('http://localhost:1338/api/auth/google/callback?access_token='+data.tokens.access_token);
-          const userData = await res2.json()
-          try
-          {
-            if(userData.user.username != null)
-            {
-              Cookies.set("jwt", userData.jwt);
-              dispatch(setUser(userData.user))
-              router.push("/")
-            }
-          }
-          catch
-          {
-
-          }
-        },
-        flow: 'auth-code',
-      });
 
       const {
         register,
@@ -173,7 +191,15 @@ export default function RegisterForm({verChange}: Props)
                         <button type='submit' className='active:translate-y-0.5 duration-[10ms] shrink-1 text-[1.8rem] font-["Roboto"] text-black text-center font-bold drop-shadow-buttonDevil active:drop-shadow-buttonDevilA border-black border-solid border-[1px] rounded-[10px] py-1 px-4 bg-[#FF5C00] hover:bg-[#ff7d31]'>Create account</button>
                     </div>
                 </form>         
+                <div className="mt-5">
+          <span className="text-[1rem] font-['Roboto'] dark:text-white font-bold">
+            Already on Nigdit? &nbsp;
+            <Link className="text-blue-500 hover:underline" href="/login">
+              Sign in
+            </Link>
+          </span>
+        </div>
         </div>
     </div>
-    );  
-} 
+  );
+}
