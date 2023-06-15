@@ -47,6 +47,7 @@ export default function LoginForm() {
           dispatch(setUser(userData.user));
           router.push(!!redirect ? redirect : '/');
         }
+      }
         catch
         {
           setFailed(true);
