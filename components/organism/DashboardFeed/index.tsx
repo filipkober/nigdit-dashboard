@@ -10,6 +10,7 @@ import { UserState } from "../../../store/userSlice";
 
 const postsPerScroll = 3;
 
+//Nitroglycerin
 export default function DashboardFeed() 
 {
   const postService = new PostService();
@@ -26,12 +27,13 @@ export default function DashboardFeed()
   {
     setCounter(cc)    
   }
+
   //activated when toggled top-new-hot
   function changeAlg(n: string)
   {
     setCurAlg(n);  
   }
-  
+
   useEffect( () => {   
     const f = async () => { 
     setLogged(!!username);
@@ -41,59 +43,64 @@ export default function DashboardFeed()
   },[counter, curAlg]);
 
   useEffect(() => {
-  async function fetchPosts()
-  {
-    // console.log("FEED FETCH: counter: "+counter+", subbed: "+counter%2+ ", algorithm: "+curAlg+ ", logged: "+isLogged)
-    let p : Post[] = []
-    console.log(page)
-    // console.log("current starting index: ", page)   
-    if(viewSubscribed && isLogged == true)
-    {
-      switch (curAlg)
+    async function fetchPosts()
+    {      
+      let p : Post[] = []
+      if(viewSubscribed && isLogged == true)
       {
-        case "New":
-          p = await postService.newSub(page, postsPerScroll)
-          break;
-        case "Top":
-          p = await postService.topSub(page, postsPerScroll)
-          break;
-        case "Hot":
-          p = await postService.hotSub(page, postsPerScroll)
-          break;
-        default:
-          p = await postService.popSub(page, postsPerScroll)
-          break;
+        switch (curAlg)
+        {
+          case "New":
+            p = await postService.newSub(page, postsPerScroll)
+            break;
+          case "Top":
+            p = await postService.topSub(page, postsPerScroll)
+            break;
+          case "Hot":
+            p = await postService.hotSub(page, postsPerScroll)
+            break;
+          default:
+            p = await postService.popSub(page, postsPerScroll)
+            break;
+        }
       }
-    }
-    else
-    {
-      switch (curAlg)
+      else
       {
-        case "New":
-          p = await postService.new(page, postsPerScroll)
-          break;
-        case "Top":
-          p = await postService.top(page, postsPerScroll)
-          break;
-        case "Hot":
-          p = await postService.hot(page, postsPerScroll)
-          break;
-        default:
-          p = await postService.pop(page, postsPerScroll)
-          break;
-      }
-    }    
-    if(page === 0){
-      setPosts(p);
-    } else {
-      setPosts((prevPosts) => [...prevPosts, ...p]);
+        switch (curAlg)
+        {
+          case "New":
+            p = await postService.new(page, postsPerScroll)
+            break;
+          case "Top":
+            p = await postService.top(page, postsPerScroll)
+            break;
+          case "Hot":
+            p = await postService.hot(page, postsPerScroll)
+            break;
+          default:
+            p = await postService.pop(page, postsPerScroll)
+            break;
+        }
+      }    
+      if(page === 0 )
+      {
+        setPosts(p);
+      } 
+      else 
+      {
+        if(page + 3 > posts.length)
+        {
+          setPosts([...posts, ...p.slice(0,postsPerScroll)]);
+        }
+      }      
+      console.log("FEED: counter: "+counter+", subbed: "+counter%2+ ", algorithm: "+curAlg+ ", logged: "+isLogged+", page: "+page+", response length: "+p.length)
     }
-  }
-  fetchPosts();
-}, [page, isLogged]);
-useEffect(() => {
-  setPage(0);
-}, [viewSubscribed, curAlg]);
+    fetchPosts();
+  }, [page]);
+
+  useEffect(() => {
+    setPage(0);
+  }, [viewSubscribed, curAlg, counter]);
 
   //lvl 10 black magic  
   const observer: any = useRef();
@@ -106,7 +113,7 @@ useEffect(() => {
     observer.current = new IntersectionObserver(async entries =>{
       if(entries[0].isIntersecting)
       {
-        console.log("object is visible")   
+        console.log("FEED: scrolled to next page")   
         setPage((prevPage) => prevPage + postsPerScroll);  
       }
     })
