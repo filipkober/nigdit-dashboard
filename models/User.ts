@@ -1,7 +1,7 @@
 import Post, { StrapiPost } from "./Post"
 import Reply from "./Reply"
 import Comment from "./Comment"
-import Media, { StrapiMedia } from "./Media"
+import Media, { StrapiMedia, mediaAdapter } from "./Media"
 
 type User = {
     id?: number,
@@ -11,6 +11,9 @@ type User = {
     comments?: Comment[],
     replies?: Reply[],
     profilePicture?: Media,
+    votes: UserVotes,
+    aboutMe?: string,
+    provider: string,
 }
 type StrapiUser = {
     id: number,
@@ -21,6 +24,9 @@ type StrapiUser = {
         comments?: Comment[],
         replies?: Reply[],
         profilePicture?: StrapiMedia,
+        votes: UserVotes,
+        aboutMe?: string,
+        provider: string,
     },
 }
 type LoginUser = {
@@ -32,8 +38,38 @@ type LoginUser = {
         provider: string,
         confirmed: boolean,
         blocked: boolean,
+        votes: UserVotes,
+        aboutMe?: string,
+    }
+}
+type UserVotes = {
+    upvotes: {
+        posts: string[],
+        comments: string[],
+        replies: string[],
+    }
+    downvotes: {
+        posts: string[],
+        comments: string[],
+        replies: string[],
+    }
+}
+
+const userAdapter = (user: StrapiUser): User => {
+    return {
+        id: user.id,
+        username: user.attributes.username,
+        email: user.attributes.email,
+        posts: user.attributes.posts,
+        comments: user.attributes.comments,
+        replies: user.attributes.replies,
+        profilePicture: user.attributes.profilePicture ? mediaAdapter(user.attributes.profilePicture) : undefined,
+        votes: user.attributes.votes,
+        aboutMe: user.attributes.aboutMe,
+        provider: user.attributes.provider,
     }
 }
 
 export default User
-export type {StrapiUser, LoginUser};
+export type {StrapiUser, LoginUser, UserVotes};
+export {userAdapter}

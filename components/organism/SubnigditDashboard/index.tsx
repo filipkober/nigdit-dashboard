@@ -47,6 +47,7 @@ export default function SubnigditDashboard() {
           date={new Date('2000-09-23')}
           source={{ name: 'n/subnigdit', image: makpaj }}
           votes={-1500}
+          id={1}
         />
         <PostText
           title="post"
@@ -55,6 +56,7 @@ export default function SubnigditDashboard() {
           date={new Date('2022-09-23')}
           source={{ name: 'n/subnigdit', image: makpaj }}
           votes={1500}
+          id={2}
         />
         <PostMedia
           title="gif post"
@@ -66,6 +68,7 @@ export default function SubnigditDashboard() {
           date={new Date('2000-09-23')}
           source={{ name: 'n/subnigdit', image: makpaj }}
           votes={-1500}
+          id={3}
         />
       </div>
     </div>
@@ -94,7 +97,35 @@ export default function SubnigditDashboard() {
                   <CreatePostBlock />
                 </div>
                 <div className="w-[40vw] min-w-[300px] my-2 mx-2">
-                  <SubnigditRules />
+                  <SubnigditRules subnigdit={{
+                      id: 0,
+                      name: '',
+                      description: '',
+                      createdAt: new Date(),
+                      reports: 0,
+                      icon: {
+                        data: {
+                          id: 0,
+                          attributes: {
+                            name: '',
+                            alternativeText: '',
+                            width: 0,
+                            height: 0,
+                            ext: '',
+                            url: '',
+                            formats: {
+                              large: {
+                                url: ''
+                              }
+                            }
+                          }
+                        }
+                      },
+                      iconUrl: '',
+                      subscribers: 0,
+                      rules: [],
+                      name_uid: ''
+                    }} />
                 </div>
               </div>
             </div>
@@ -109,7 +140,35 @@ export default function SubnigditDashboard() {
             </div>
             {content}
             <div className="w-[20vw] my-2">
-              <SubnigditRules/>
+              <SubnigditRules subnigdit={{
+                id: 0,
+                name: '',
+                description: '',
+                createdAt: new Date(),
+                reports: 0,
+                icon: {
+                  data: {
+                    id: 0,
+                    attributes: {
+                      name: '',
+                      alternativeText: '',
+                      width: 0,
+                      height: 0,
+                      ext: '',
+                      url: '',
+                      formats: {
+                        large: {
+                          url: ''
+                        }
+                      }
+                    }
+                  }
+                },
+                iconUrl: '',
+                subscribers: 0,
+                rules: [],
+                name_uid: ''
+              }} />
             </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { StrapiComment } from "./Comment";
 import { StrapiUser } from "./User";
 
 type Reply = {
@@ -23,6 +24,12 @@ type StrapiReply = {
   };
 };
 
+type StrapiReplyExtended = StrapiReply & {
+  attributes: {
+    comment: {data: StrapiComment};
+  }
+};
+
 type ReplyN = {
   id: number;
   votes: number;
@@ -46,5 +53,5 @@ const replyAdapter = (r: StrapiReply):ReplyN => {
 };
 
 export default Reply;
-export type {StrapiReply, ReplyN};
+export type {StrapiReply, ReplyN, StrapiReplyExtended};
 export { replyAdapter }

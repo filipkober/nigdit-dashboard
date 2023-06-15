@@ -1,11 +1,13 @@
-import { createSlice, Dispatch } from '@reduxjs/toolkit';
+import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import User from '../models/User';
+import User, { UserVotes } from '../models/User';
+import { SubnigditN } from '../models/Subnigdit';
 
 // typ danych
 export interface UserState {
   user: User;
   count: number;
+  currentSubnigdit?: SubnigditN;
 }
 
 // Initial state
@@ -13,6 +15,19 @@ const initialState: UserState = {
   user: {
     username: '',
     email: '',
+    votes: {
+      upvotes: {
+        posts: [],
+        comments: [],
+        replies: [],
+      },
+      downvotes: {
+        posts: [],
+        comments: [],
+        replies: [],
+      },
+    },
+    provider: '',
   },
   count: 0,
 };
@@ -27,14 +42,22 @@ export const userSlice = createSlice({
     },
     incrementCounter(state) {
         state.count += 1;
-    }
+    },
+    setCurrentSubnigdit(state, action: PayloadAction<SubnigditN>) {
+      state.currentSubnigdit = action.payload;
+    },
+    setUserVotes(state, action: {payload: UserVotes}) {
+      state.user.votes = action.payload;
+    },
   },
 });
 
 // eksporty
 export const {
   setUser,
-  incrementCounter
+  incrementCounter,
+  setCurrentSubnigdit,
+  setUserVotes,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import Arrow from '../../atoms/Arrow';
+import Arrow from '../../atoms/Vote';
 import Image from 'next/image';
 import moment from 'moment';
+import Link from 'next/link';
+import Vote from '../../atoms/Vote';
 
 type PostMediaProps = {
   title: string,
@@ -17,22 +19,10 @@ type PostMediaProps = {
   votes: number,
   date: Date,
   vote?: "upvote" | "downvote",
+  id: number,
 }
 
-export default function PostMedia({title,media,author,source,votes,date, vote}: PostMediaProps) {
-
-  const [upvoteClicked, setUpvoteClicked] = useState<boolean>(vote === "upvote");
-  const [downvoteClicked, setDownvoteClicked] = useState<boolean>(vote === "downvote");
-
-  const voteOnPost = (vote: "upvote" | "downvote") => {
-    if(vote === "downvote" && !downvoteClicked){
-      setDownvoteClicked(true);
-      setUpvoteClicked(false);
-    }else if(vote === "upvote" && !upvoteClicked){
-      setDownvoteClicked(false);
-      setUpvoteClicked(true);
-    }
-  }
+export default function PostMedia({title,media,author,source,votes,date,id}: PostMediaProps) {
 
   return (
     <div className="w-[100%] text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden min-w-[25vw] my-2">
@@ -43,10 +33,10 @@ export default function PostMedia({title,media,author,source,votes,date, vote}: 
         <Image src={source.image} width={25} height={25} className="overflow-hidden w-[100%] h-[100%] min-w-7 rounded-full" alt={''}/>
       </div>
       <p className="font-['Roboto'] dark:text-white text-base">
-        {source.name}
+        <Link href={"/"+source.name}>{source.name}</Link>
       </p>
       <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base">
-        autor:
+        author:
       </p>
       <p className="font-['Roboto'] dark:text-white ml-2 text-base">
         {author}
@@ -56,18 +46,14 @@ export default function PostMedia({title,media,author,source,votes,date, vote}: 
       </p>
       </div>
       <div>
-      <Arrow variant='upvote' className='absolute right-4 top-[calc(40%-1.25rem)]' setVote={voteOnPost} clicked={upvoteClicked}/>
-      <p className="h-5 w-[31px] font-['Roboto'] dark:text-white absolute right-4 top-[40%] text-base">
-        {Intl.NumberFormat('en', {notation: 'compact'}).format(votes)}
-      </p>
-      <Arrow variant='downvote' className='absolute right-4 top-[calc(40%+1.5rem)]' setVote={voteOnPost} clicked={downvoteClicked}/>
+        <Vote variant='vertical' className='absolute right-4 top-[calc(40%-1.25rem)]' votes={votes} contentType='post' contentId={id}/>
       </div>
       
       {/* CONTENT  */}
       <div>
       <div>
       <p className="h-11 w-[179px] font-['IBM_Plex_Sans'] text-[170%] dark:text-white">
-        {title}
+        <Link href={`/post/${id}`}>{title}</Link>
       </p>
       </div>
       <div>

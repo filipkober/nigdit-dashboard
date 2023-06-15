@@ -1,16 +1,21 @@
-import Arrow from '../Arrow';
+import Arrow from '../Vote';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { useModal } from '../../../hooks/useModal';
 import ReportModal from '../../molecules/ReportModal';
+import { useSelector } from 'react-redux';
+import { UserState } from '../../../store/userSlice';
+import Vote from '../Vote';
+import emptypfp from '../../../assets/emptypfp.jpg';
 
 type ReplyProps = {
   vote?: 'upvote' | 'downvote';
   id: number;
   votes: number;
-  pfp: string;
+  pfp?: string;
   nick: string;
   content: string;
+  subId: number;
 };
 
 export default function Reply({
@@ -20,6 +25,7 @@ export default function Reply({
   nick,
   content,
   vote,
+  subId,
 }: ReplyProps) {
   const [downvoteClicked, setDownvoteClicked] = useState<boolean>(
     vote === 'downvote'
@@ -28,6 +34,8 @@ export default function Reply({
   const [upvoteClicked, setUpvoteClicked] = useState<boolean>(
     vote === 'upvote'
   );
+
+  const isLogged = !!useSelector((state: UserState) => state.user.username)
 
   const voteOnReply = (vote: 'upvote' | 'downvote') => {
     if (vote === 'downvote' && !downvoteClicked) {
@@ -46,11 +54,11 @@ export default function Reply({
       <div className="gridComment my-5">
         <div className="justify-self-auto">
           <Image
-            src={process.env.NEXT_PUBLIC_STRAPI_URL! + pfp}
+            src={pfp ? (process.env.NEXT_PUBLIC_STRAPI_URL! + pfp) : emptypfp}
             width={50}
             height={50}
             alt=""
-            loader={() => process.env.NEXT_PUBLIC_STRAPI_URL! + pfp}
+            loader={({src}) => src}
             className="overflow-hidden rounded-full object-cover w-10 h-10"
           ></Image>
         </div>
@@ -61,18 +69,23 @@ export default function Reply({
         <div className="justify-self-auto">
           <p>{content}</p>
         </div>
-        <div className="justify-self-auto col-span-2">
+        <div className="justify-self-auto col-span-2 flex flex-row gap-2 mt-2">
             <p>
+              {isLogged && 
               <a className="cursor-pointer" onClick={changeModalReportVisible}>
                 Report
               </a>
+}
             </p>
+            <Vote contentId={id} contentType='reply' variant='horizontal' votes={votes} />
           </div>
       </div>
       <ReportModal
+        id={id}
         isOpen={modalReportVisible}
-        contentType={'post'}
+        contentType={'reply'}
         onClose={changeModalReportVisible}
+        subnigditId={subId}
       />
     </>
   );

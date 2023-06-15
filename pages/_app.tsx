@@ -9,6 +9,11 @@ import { store, persistor } from '../store/store';
 import { Provider } from 'react-redux';
 import { NextPage } from 'next';
 import '../styles/globals.css';
+import Navbar from '../components/molecules/Navbar';
+import Layout from '../components/layouts/MainLayout';
+import UserService from '../util/requests/UserService';
+import { setUser } from '../store/userSlice';
+import { userAdapter } from '../models/User';
 
 export const darkModeContext = React.createContext<
   [boolean, (any: any) => void]
@@ -31,13 +36,31 @@ function MyApp({ Component, pageProps }: AppProps) {
     } else {
       removeDarkMode(setDarkMode);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [darkMode]);
+
+  const userService = new UserService();
+  const jwtCookie = Cookies.get('jwt');
+
+  useEffect(() => {
+    if(jwtCookie != undefined)
+    {
+      userService.getMe().then((res) => {
+        console.log(res)
+        store.dispatch(setUser(res));
+      })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[jwtCookie]);
+
   return (
     <>
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
           <darkModeContext.Provider value={[darkMode, setDarkMode]}>
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </darkModeContext.Provider>
         </PersistGate>
       </Provider>

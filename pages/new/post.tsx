@@ -5,7 +5,6 @@ import NewPostForm from '../../components/organism/NewPostForm'
 const PostPage: NextPage = () => {
   return (
     <>
-    <Navbar/>
     <NewPostForm />
     </>
   )

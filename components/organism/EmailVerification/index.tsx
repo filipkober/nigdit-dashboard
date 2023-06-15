@@ -47,7 +47,7 @@ export default function EmailVerification({verChange, email} : Props)
         <div className="w-[100%] m-0 p-[10vw] h-[100%] flex flex-col justify-start items-center overflow-hidden">      
             <p className="text-[calc(2vw+17px)] font-['Roboto'] font-bold text-white drop-shadow-midget">Verify your email adress</p>
             <div className='p-2 bg-gradient-black-apply'>
-                <span className="text-[calc(0.5vw+10px)] font-['Roboto'] text-white">We've sent a verification message to your e-mail address: </span>
+                <span className="text-[calc(0.5vw+10px)] font-['Roboto'] text-white">We&apos;ve sent a verification message to your e-mail address: </span>
                 <span className="text-[calc(0.5vw+10px)] font-['Roboto'] font-bold text-white">{email}</span>
             </div>
             {e2b==true?(

@@ -12,6 +12,7 @@ import { StrapiPost, postAdapter } from '../../models/Post';
 import Media, { emptyMedia, emptyStrapiMedia } from '../../models/Media';
 import { subnigditAdapter } from '../../models/Subnigdit';
 import { exampleComment } from '../../models/Comment';
+import examplePostObject from '../../models/postObject';
 
 const PostPage: NextPage = () => {
   const router = useRouter();
@@ -19,56 +20,16 @@ const PostPage: NextPage = () => {
 
   const postService = new PostService();
 
-  const [post, setPost] = useState<StrapiPost>({
-    id: 0,
-    attributes: {
-      title: '',
-      description: '',
-      votes: 0,
-      reports: 0,
-      createdAt: new Date(),
-      type: 'Text',
-      nsfw: false,
-      owner: {
-        data: {
-          id: 0,
-          attributes: {
-            username: '',
-            email: '',
-          },
-        },
-      },
-      comments: {
-        data: [],
-      },
-      subnigdit: {
-        data: {
-          id: 0,
-          attributes: {
-            name: '',
-            description: '',
-            createdAt: new Date(),
-            reports: 0,
-            icon: emptyStrapiMedia,
-            subscribers: {
-              data: {
-                attributes:{
-                  count: 0
-                }
-              }
-            },
-          },
-        },
-      },
-    },
-  });
+  const [post, setPost] = useState<StrapiPost>(examplePostObject);
 
   useEffect(() => {
     const f = async () => {
       const id = pid ? Number(pid) : 0;
       if (!id) return;
       const res = await postService.getOne(id);
-      setPost(res);
+      if(res){
+        setPost(res);
+      }
     };
     f();
   }, [pid]);
@@ -76,12 +37,17 @@ const PostPage: NextPage = () => {
   const adaptedSubnigdit = subnigditAdapter(post.attributes.subnigdit.data);
 
   return (
-    <>
-      <Navbar />
-      <PostExtended post={postAdapter(post)} />
-<SubnigditInfo  subnigdit={adaptedSubnigdit} />
-<SubnigditRules subnigdit={adaptedSubnigdit} />
-    </>
+    <div className='flex-grow dark:bg-backgroundD bg-backgroundL'>
+      <div className='ls:grid grid-cols-[0.5fr_1.5fr_0.5fr] grid-rows-1 row-start-1 gap-8 p-4'>
+      <div className='ls:col-start-2'>
+      <PostExtended post={postAdapter(post)}/>
+      </div>
+      <div className='hidden ls:col-start-3 ls:flex flex-col row-start-1'>
+        <SubnigditInfo  subnigdit={adaptedSubnigdit} />
+        <SubnigditRules subnigdit={adaptedSubnigdit} />
+      </div>
+      </div>
+    </div>
   );
 };
 

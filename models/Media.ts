@@ -65,5 +65,20 @@ export const emptyStrapiMedia: StrapiMedia = {
     }
   }
 }
+
+const mediaAdapter = (media: StrapiMedia): Media => {
+  return {
+    id: media.data.id,
+    name: media.data.attributes.name,
+    alternativeText: media.data.attributes.alternativeText,
+    width: media.data.attributes.width,
+    height: media.data.attributes.height,
+    ext: media.data.attributes.ext,
+    url: media.data.attributes.url,
+    formats: media.data.attributes.formats,
+  }
+};
+
 export default Media;
 export type { StrapiMedia };
+export { mediaAdapter }

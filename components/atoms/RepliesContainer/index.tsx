@@ -14,11 +14,13 @@ import { ReplyN, replyAdapter } from '../../../models/Reply';
 type ShowRepliesProps = {
   commentId: number;
   repliesNumber: number;
+  subId: number;
 };
 
 export default function RepliesContainer({
   commentId,
   repliesNumber,
+  subId,
 }: ShowRepliesProps) {
   const [visible, changeVisible] = useModal();
 
@@ -48,7 +50,7 @@ export default function RepliesContainer({
         >
           {!visible ? 'v Show ' + repliesNumber + (repliesNumber>1 ? ' replies' : ' reply ') : '^ Hide ' + (repliesNumber>1 ? ' replies' : ' reply ')}
         </button>
-        {visible ? <Replies replies={replies} /> : ''}
+        {visible ? <Replies replies={replies} subId={subId} /> : ''}
       </div>
     </>
   );
