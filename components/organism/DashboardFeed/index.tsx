@@ -25,7 +25,8 @@ export default function DashboardFeed()
   //activated when toggled subs-everything
   function clicked(cc: number)
   {
-    setCounter(cc)    
+    setCounter(cc)  //easter egg
+    setViewSubscribed(!viewSubscribed)  
   }
 
   //activated when toggled top-new-hot
@@ -40,7 +41,7 @@ export default function DashboardFeed()
     setPage(0); 
     };
     f();
-  },[counter, curAlg]);
+  },[viewSubscribed, curAlg]);
 
   useEffect(() => {
     async function fetchPosts()
@@ -93,14 +94,14 @@ export default function DashboardFeed()
           setPosts([...posts, ...p.slice(0,postsPerScroll)]);
         }
       }      
-      console.log("FEED: counter: "+counter+", subbed: "+counter%2+ ", algorithm: "+curAlg+ ", logged: "+isLogged+", page: "+page+", response length: "+p.length)
+      //console.log("FEED: counter: "+counter+", subbed: "+counter%2+ ", algorithm: "+curAlg+ ", logged: "+isLogged+", page: "+page+", response length: "+p.length)
     }
     fetchPosts();
   }, [page]);
 
   useEffect(() => {
     setPage(0);
-  }, [viewSubscribed, curAlg, counter]);
+  }, [viewSubscribed, curAlg]);
 
   //lvl 10 black magic  
   const observer: any = useRef();
@@ -113,7 +114,7 @@ export default function DashboardFeed()
     observer.current = new IntersectionObserver(async entries =>{
       if(entries[0].isIntersecting)
       {
-        console.log("FEED: scrolled to next page")   
+        //console.log("FEED: scrolled to next page")   
         setPage((prevPage) => prevPage + postsPerScroll);  
       }
     })
