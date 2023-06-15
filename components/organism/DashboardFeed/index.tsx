@@ -148,12 +148,11 @@ export default function DashboardFeed()
                           return(
                             <div key={(post.id)} ref={lastPostRef}>
                               <PostText 
-                                title={post.title} 
-                                description={post.description || ""} 
-                                author={owner} date={post.createdAt || new Date('1939-09-1')} 
-                                source={{name: subnigditName, image: subnigditIcon}} 
-                                votes={post.votes}
-                              />                      
+                                title={post.title}
+                                description={post.description || ""}
+                                author={owner} date={post.createdAt || new Date('1939-09-1')}
+                                source={{ name: subnigditName, image: subnigditIcon }}
+                                votes={post.votes} id={0}                              />                      
                             </div>                    
                           )
                         }
@@ -162,12 +161,11 @@ export default function DashboardFeed()
                           return(
                             <div key={(post.id)}>
                               <PostText 
-                                title={post.title} 
-                                description={post.description || ""} 
-                                author={owner} date={post.createdAt || new Date('1939-09-1')} 
-                                source={{name: subnigditName, image: subnigditIcon}} 
-                                votes={post.votes}
-                              />                      
+                                title={post.title}
+                                description={post.description || ""}
+                                author={owner} date={post.createdAt || new Date('1939-09-1')}
+                                source={{ name: subnigditName, image: subnigditIcon }}
+                                votes={post.votes} id={0}                              />                      
                             </div>                    
                           )
                         }
@@ -180,11 +178,10 @@ export default function DashboardFeed()
                             <div key={(post.id)} ref={lastPostRef}>
                               <PostMedia 
                                 title={post.title}
-                                media={{type: post.type, source: mediaImage}}
-                                author={owner} date={post.createdAt || new Date('1939-09-1')} 
-                                source={{name: subnigditName, image: subnigditIcon}} 
-                                votes={post.votes}
-                              />                      
+                                media={{ type: post.type, source: mediaImage }}
+                                author={owner} date={post.createdAt || new Date('1939-09-1')}
+                                source={{ name: subnigditName, image: subnigditIcon }}
+                                votes={post.votes} id={0}                              />                      
                             </div>                    
                           )
                         }
@@ -194,11 +191,10 @@ export default function DashboardFeed()
                             <div key={(post.id)}>
                               <PostMedia 
                                 title={post.title}
-                                media={{type: post.type, source: mediaImage}}
-                                author={owner} date={post.createdAt || new Date('1939-09-1')} 
-                                source={{name: subnigditName, image: subnigditIcon}} 
-                                votes={post.votes}
-                              />                      
+                                media={{ type: post.type, source: mediaImage }}
+                                author={owner} date={post.createdAt || new Date('1939-09-1')}
+                                source={{ name: subnigditName, image: subnigditIcon }}
+                                votes={post.votes} id={0}                              />                      
                             </div>                    
                           )
                         }
