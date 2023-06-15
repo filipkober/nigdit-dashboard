@@ -1,11 +1,11 @@
-import { Formik } from 'formik';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SubnigditRulesType from '../../../models/SubnigditRule';
 import Button from '../../atoms/Button';
 import Input from '../../atoms/Input';
 import SubnigditRules from '../../molecules/SubnigditRules';
 import { SubnigditN } from '../../../models/Subnigdit';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 type mediaPostFormProps = {
   className?: string;
@@ -15,48 +15,63 @@ const initialValues = {
   title: '',
   media: undefined,
 };
+
+type Inputs = {
+  title: string;
+  media: FileList;
+}
+
 export default function MediaPostForm({ className, subnigdit }: mediaPostFormProps) {
 
-  const inputFileRef = useRef<HTMLInputElement>(null);
+  const inputFileRef = useRef<HTMLInputElement | null>(null);
   const [mediaType,setMediaType] = useState("")
 
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, setFieldValue: (a:any, b:any) => void) => {;
     e.preventDefault();
     if (e.dataTransfer.files.length && inputFileRef.current) {
       setFieldValue('media', e.dataTransfer.files[0]);
-      setMediaType(e.dataTransfer.files[0].type);
+      setMediaType(e.dataTransfer.files[0].type)
     }
   };
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = async (values) => {}
+
+  const m = watch('media');
+
+  useEffect(() => {
+    if(m && m[0]) setMediaType(m[0].type)
+  }, [m]);
+
+  const {ref, ...rest} = register('media');
 
   return (
     <div className={className}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={() => {
-          return;
-        }}
-      >
-        {({ values, handleChange, handleSubmit, setFieldValue }) => (
           <div className='ts:flex flex-row-reverse'>
             {subnigdit && <div className="mt-2 ts:ml-2 ts:w-1/2 ts:flex align-middle">
               <div className="ml-auto ts:w-1/2 mx-auto">
                 <SubnigditRules subnigdit={subnigdit}/>
               </div>
             </div>}
-          <form onSubmit={handleSubmit} className={subnigdit ? 'ts:w-1/2' : 'w-full'}>
+          <form onSubmit={handleSubmit(onSubmit)} className={subnigdit ? 'ts:w-1/2' : 'w-full'}>
             <Input
               type="text"
               name="title"
-              onChange={handleChange}
-              initialValue={values.title}
+              initialValue={initialValues.title}
               placeholder={'Title'}
               className="my-2 w-full h-[2rem] text-xl"
+              register={register}
             />
 
-            <div className="flex justify-center items-center w-full relative" onDrop={(e) => dropHandler(e, setFieldValue)} onDragOver={e => e.preventDefault()}>
+            <div className="flex justify-center items-center w-full relative" onDrop={(e) => dropHandler(e, setValue)} onDragOver={e => e.preventDefault()}>
               {
-                !values.media ? (
+                !m ? (
                   <label
                 htmlFor="dropzone-file"
                 className="flex flex-col justify-center items-center w-full h-64 bg-backgroundL dark:bg-backgroundD rounded-lg border-2 border-foregroundL dark:border-foregroundD border-dashed cursor-pointer dark:hover:bg-bray-800 hover:bg-gray-100 dark:hover:border-gray-500 dark:hover:bg-gray-600"
@@ -84,13 +99,16 @@ export default function MediaPostForm({ className, subnigdit }: mediaPostFormPro
                     Image or video formats
                   </p>
                 </div>
-                <input id="dropzone-file" type="file" className="hidden" value={values.media} onChange={(t) => {if(t.target.files){ setFieldValue('media', t.target.files[0]); setMediaType(t.target.files[0].type)}}} ref={inputFileRef} accept="video/*,image/*"/>
+                <input id="dropzone-file" type="file" className="hidden" accept="video/*,image/*" {...rest} ref={e => {
+                  ref(e);
+                  inputFileRef.current = e;
+                }}/>
               </label>
                 ) : (
                   <>
                   {mediaType.includes('image') ? (
                     <Image
-                    src={URL.createObjectURL(values.media)}
+                    src={m && m[0] ? URL.createObjectURL(m[0]) : ""}
                     alt="media"
                     width={800}
                     height={400}
@@ -98,12 +116,12 @@ export default function MediaPostForm({ className, subnigdit }: mediaPostFormPro
                   />
                   ) : (
                     <video
-                    src={URL.createObjectURL(values.media)}
+                    src={m && m[0] ? URL.createObjectURL(m[0]) : ""}
                     className="rounded-lg flex flex-col justify-center items-center w-full h-full"
                     controls
                   />
                   )}
-                <button className='border-0 bg-transparent text-red-600 absolute top-2 right-4 font-bold' type='button' onClick={() => setFieldValue('media', undefined)}>
+                <button className='border-0 bg-transparent text-red-600 absolute top-2 right-4 font-bold' type='button' onClick={() => setValue('media', new FileList())}>
                   X
                 </button></>
                 )
@@ -113,8 +131,6 @@ export default function MediaPostForm({ className, subnigdit }: mediaPostFormPro
             <Button variant="submit" content={'Submit'} className="mt-2 w-full h-12"/>
           </form>
           </div>
-        )}
-      </Formik>
     </div>
   );
 }

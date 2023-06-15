@@ -2,13 +2,22 @@ import React, {useState, useRef, useImperativeHandle, forwardRef, useEffect, Cha
 import makpaj from '../../../assets/makpaj.svg';
 import testimage from '../../../assets/testimage.svg'
 import Image from 'next/image';
-import { Form, Formik } from "formik";
 import Input from "../../atoms/Input";
 import TextArea from "../../atoms/TextArea";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 //regular string does not work for some reason
 interface Stringus {
   text: string
+}
+
+type Inputs = {
+  icon: FileList,
+  banner: FileList,
+  name: string,
+  description: string,
+  rules: string[],
+  mods: number[]
 }
 
 export default function SubnigditCreationPanel() 
@@ -73,6 +82,18 @@ export default function SubnigditCreationPanel()
     setNewMod(event.target.value);
   }
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = async (values) => {console.log(values)}
+
+  const banner = watch('banner');
+  const icon = watch('icon')
+
   return (
     <>
       <div className="flex flex-row justify-between w-[100%]">
@@ -93,23 +114,21 @@ export default function SubnigditCreationPanel()
             <button className={destroy ? (`border-[1px] text-[18px] w-[100%] h-[100%] bg-delete hover:bg-deleteH rounded-[10px] ${btnDefClass}`) :(`border-[1px] text-[18px] w-[100%] h-[100%] bg-apply hover:bg-applyH rounded-[10px] ${btnDefClass}`)}>Submit</button>
           </div>     
           <div className="overflow-hidden w-[100%] tl:w-[50vw] bg-foregroundL dark:bg-foregroundD drop-shadow-midget rounded-[10px] border-black border-[2px] border-solid">
-            <Formik initialValues={{banner: makpaj, icon: testimage, name: ""}} onSubmit={(values) => {console.log(values)}}>
-              {({values, handleChange, handleBlur, handleSubmit, setFieldValue}) => (
-                <Form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="border-b-[0px] border-black h-[15vh] w-[100%] bg-red-900 relative hover:cursor-pointer overflow-hidden hover:drop-shadow-bigChungus drop-shadow-walter">
-                  <Image src={values.banner} alt="banner" width={1000} height={1000} className="w-[100%] h-[100%] object-cover"/>
+                  <Image src={banner && banner[0] ? URL.createObjectURL(banner[0]) : ""} alt="banner" width={1000} height={1000} className="w-[100%] h-[100%] object-cover"/>
                   <a onClick={uploadBanner} className="duration-[100ms] text-transparent hover:text-black dark:hover:text-white bg-transparent hover:bg-[rgba(50,50,50,0.4)] absolute w-[100%] h-[15vh] my-[-15vh] flex items-center justify-center text-[1.25rem] ml:text-[1.5rem] ts:text-[2rem] ls:text-[3rem]">
                     Change banner image
                   </a>
-                  <input hidden type={"file"} id="bannerUpload" accept="image/*" name="picture" onChange={(e) => {setFieldValue("banner",URL.createObjectURL(e.target.files![0]))}}/>
+                  <input hidden type={"file"} id="bannerUpload" accept="image/*" {...register('banner')}/>
                 </div>
                 <div className="border-t-[0px] border-black w-[100%] ts:w-[100%] h-[0vh] absolute flex flex-row justify-start rounded-full bg-black z-100">
                   <div className="overflow-hidden ml-[4%] my-[calc(-5%-12px)] w-[calc((10vw+24px)*98/100)] h-[calc((10vw+24px)*98/100)] tl:w-[calc((10vw+24px)*56/100)] tl:h-[calc((10vw+24px)*56/100)] bg-green-600 rounded-full absolute hover:cursor-pointer hover:drop-shadow-bigChungus drop-shadow-walter">
-                    <Image src={values.icon} alt="icon" width={1000} height={1000} className="scale-100 border-[0px] border-black rounded-full object-cover w-[100%] h-[100%]"/>
+                    <Image src={icon && icon[0] ? URL.createObjectURL(icon[0]) : ""} alt="icon" width={1000} height={1000} className="scale-100 border-[0px] border-black rounded-full object-cover w-[100%] h-[100%]"/>
                     <a onClick={uploadIcon} className="duration-[100ms] rounded-full text-transparent hover:text-black dark:hover:text-white bg-transparent hover:bg-[rgba(50,50,50,0.4)] absolute w-[100%] h-[100%] my-[-100%] flex items-center justify-center text-[0.4rem] ml:text-[0.6rem] ts:text-[0.8rem] ls:text-[1rem]">
                       Change icon
                     </a>
-                    <input hidden type={"file"} id="iconUpload" accept="image/*" name="picture" onChange={(e) => {setFieldValue("icon",URL.createObjectURL(e.target.files![0]))}}/>
+                    <input hidden type={"file"} id="iconUpload" accept="image/*" {...register('icon')}/>
                   </div>
                 </div>
                 <div className="flex flex-wrap justify-between w-[100%]">
@@ -117,7 +136,7 @@ export default function SubnigditCreationPanel()
                     <div className="flex justify-start w-[calc((14vw+24px)*3*98/100+2vw)] tl:w-[calc((13vw+37px)*3*56/100+1vw)]">
                       <div className="basis-1/3"></div>
                       <div className="basis-2/3 p-[1vw] tl:p-[0.5vw]">
-                        <Input name="name" type="text" className="w-[100%] h-[100%] text-[calc(2vw+5px)] tl:text-[calc(1vw+5px)]" placeholder="n/subnigditName..." initialValue={values.name} onChange={handleChange}/>
+                        <Input name="name" type="text" className="w-[100%] h-[100%] text-[calc(2vw+5px)] tl:text-[calc(1vw+5px)]" placeholder="n/subnigditName..." register={register}/>
                       </div>
                     </div> 
                     <div className="w-[20%] p-[1vw] tl:p-[0.5vw]">
@@ -132,7 +151,7 @@ export default function SubnigditCreationPanel()
                   </div>
                   <div className="w-[100%] h-[150px] p-[1vw] tl:p-[0.5vw]">
                     <div className="w-[100%] h-[100%]">
-                      <TextArea name="description" placeholder="The description of your subnigdit..." className="w-full h-full"/>
+                      <TextArea name="description" placeholder="The description of your subnigdit..." className="w-full h-full" register={register}/>
                     </div>
                   </div>   
                   <div className="w-[100%] cs:w-[50%] h-[200px] tl:h-[300px] p-[1vw] tl:p-[0.5vw]">
@@ -180,9 +199,7 @@ export default function SubnigditCreationPanel()
                     </div>   
                   </div>            
                 </div>
-            </Form>
-            )}
-            </Formik>
+            </form>
           </div>  
         </div>
         <div className='tl:w-[22%] w-[0%] bg-[rgba(255,0,255,0)] tl:block hidden p-2'></div>

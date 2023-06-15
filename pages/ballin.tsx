@@ -1,4 +1,3 @@
-import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -124,7 +123,7 @@ const Ballin: NextPage = () => {
 //       </div>
 //       <br />
 //       <div>
-//         <Formik
+//         <FORMIK IS ILLEGAL NOW>
 //           initialValues={initialValues}
 //           onSubmit={async (values) => {
 //             let votes = Math.random() * 100;
@@ -156,7 +155,7 @@ const Ballin: NextPage = () => {
 //         >
 //           {({ values, errors, touched, handleSubmit, handleChange, submitForm }) => {
 //             return (
-//               <Form onSubmit={handleSubmit}>
+//               <form onSubmit={handleSubmit}>
 //                 <input
 //                   type="text"
 //                   name="content"
@@ -165,10 +164,10 @@ const Ballin: NextPage = () => {
 //                   className={'text-black'}
 //                 />
 //                 <button type='submit'>Submit</button>
-//               </Form>
+//               </form>
 //             );
 //           }}
-//         </Formik>
+//         </FORMIK IS ILLEGAL NOW>
 //       </div>
 //     </div>
 //   );
