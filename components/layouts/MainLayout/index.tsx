@@ -12,7 +12,7 @@ export default function Layout({ children }: LayoutProps) {
     <div>
       <Navbar />
     </div>
-    <main>
+    <main className='h-[calc(100vh - 5.5vh)]'>
       {children}
     </main>
     <Toast />
