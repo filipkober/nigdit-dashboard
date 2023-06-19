@@ -71,14 +71,19 @@ export default function Navbar()
             </a>            
             <div className='min-w-[12rem] w-[25vw] max-w-[30rem] h-[100%] grow flex flex-row my-2 mx-2'>
                 {
-                    (searchValue != "")?(
+                    (searchValue != "")
+                    ?(
                         <div className={'h-[70%] w-[100%] flex flex-row justify-between bg-backgroundL dark:bg-backgroundD  border-solid border-accentD border-[1px] border-b-[1px] z-50 rounded-t-[10px]'}>
                             <div className='w-[2.1rem] min-w-[2.1rem]'>
                                 <Image draggable="false" src={'/searchIcon.png'} width={33} height={33} className="rounded-none ml-1 p-[6px] select-none object-cover overflow-hidden" alt={''}/>
                             </div>                   
                             <div className='w-[100%] m-[0.2rem]'>
-                                <input className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."} onChange={event => debouncedChangeHandler(event.target.value)} /> 
-                            </div>  
+                                <input value={searchValue} className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."} onChange={event => debouncedChangeHandler(event.target.value)} /> 
+                            </div> 
+                            {/* temp  */}
+                            <button onClick={() =>{setSearchValue("")}} className='w-[2.1rem] min-w-[2.1rem] mr-1 p-[6px] hover:cursor-pointer pointer-events-auto'>
+                                <Image draggable="false" src={'/searchx.png'} width={33} height={33} className="" alt={''}/>
+                            </button> 
                         </div>
                     ):(
                         <div className={'h-[70%] w-[100%] flex flex-row justify-between bg-backgroundL dark:bg-backgroundD  border-solid border-accentD border-[1px] border-b-[1px] z-50 rounded-[10px]'}>
@@ -86,7 +91,7 @@ export default function Navbar()
                                 <Image draggable="false" src={'/searchIcon.png'} width={33} height={33} className="rounded-none ml-1 p-[6px] select-none object-cover overflow-hidden" alt={''}/>
                             </div>                   
                             <div className='w-[100%] m-[0.2rem]'>
-                                <input className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."} onChange={event => debouncedChangeHandler(event.target.value)} /> 
+                                <input value={searchValue} className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."} onChange={event => debouncedChangeHandler(event.target.value)} /> 
                             </div>  
                         </div>
                     )
