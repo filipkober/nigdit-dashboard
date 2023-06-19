@@ -1,181 +1,207 @@
-import React, {useState, useRef, useImperativeHandle, forwardRef, useEffect } from "react";
+import React, {useState,useCallback, useRef, useEffect, SetStateAction } from "react";
 import FilteringBar from "../../molecules/FilteringBar";
 import JoindeGroups from "../../molecules/JoinedGroups";
 import PostMedia from "../../molecules/PostMedia";
 import PostText from "../../molecules/PostText";
-import makpaj from '../../../assets/makpaj.svg';
 import PostService from "../../../util/requests/PostService";
 import Post from "../../../models/Post";
-import Image from 'next/image';
-import Media from "../../../models/Media";
 import { useSelector } from "react-redux";
 import { UserState } from "../../../store/userSlice";
 
+const postsPerScroll = 3;
+
+//Nitroglycerin
 export default function DashboardFeed() 
 {
-  const [isLogged, setLogged] = useState(false);
-  const username = useSelector((state: UserState) => state.user.username)
-
   const postService = new PostService();
-
-  //click counter
-  const [counter, setCounter] = useState<number>(0);
-  useEffect( () => {    
-    fetchPosts() 
-  },[counter]);
+  const username = useSelector((state: UserState) => state.user.username)
+  const [isLogged, setLogged] = useState(false);  
+  const [curAlg, setCurAlg] = useState<string>("Hot");
+  const [counter, setCounter] = useState<number>(0);   
+  const [viewSubscribed, setViewSubscribed] = useState<boolean>(false); //true = subscribed, false = everything
+  const [page, setPage] = useState<number>(0);
+  const [posts, setPosts] = useState<Post[]>([]);
   
+  //activated when toggled subs-everything
   function clicked(cc: number)
   {
-    setCounter(cc)    
+    setCounter(cc)  //easter egg
+    setViewSubscribed(!viewSubscribed)  
   }
 
-  //feed algorithms
-  const [curAlg, setCurAlg] = useState<string>("Hot");
-  useEffect( () => {
-    fetchPosts() 
-  },[curAlg]);
-
-  const changeAlg = (n: string) => {
+  //activated when toggled top-new-hot
+  function changeAlg(n: string)
+  {
     setCurAlg(n);  
   }
 
-  //posts
-  const [posts, setPosts] = useState<Post[]>([]);
-  useEffect( () => {
-    setLogged(!!username)
-    fetchPosts()
-  },[]);
+  useEffect( () => {   
+    const f = async () => { 
+    setLogged(!!username);
+    setPage(0); 
+    };
+    f();
+  },[viewSubscribed, curAlg]);
 
-  function fetchPosts() 
-  {        
-    console.log("click counter: "+counter+" "+counter%2)
-    console.log("algorithm: "+curAlg)
-    console.log("logged: "+isLogged)
-    if(counter%2 != 0 && isLogged)
-    {
-      console.log("displaying: subscribed")
-      switch (curAlg)
+  useEffect(() => {
+    async function fetchPosts()
+    {      
+      let p : Post[] = []
+      if(viewSubscribed && isLogged == true)
       {
-        case "New":
-          postService.newSub().then((data) => {
-            console.log(data)
-            setPosts(data);
-          });
-          break;
-        case "Top":
-          postService.topSub().then((data) => {
-            console.log(data)
-            setPosts(data);
-          });
-          break;
-        case "Hot":
-          postService.hotSub().then((data) => {
-            console.log(data)
-            setPosts(data);
-          });
-          break;
-        default:
-          postService.popSub().then((data) => {
-            console.log(data)
-            setPosts(data);
-          });
-          break;
+        switch (curAlg)
+        {
+          case "New":
+            p = await postService.newSub(page, postsPerScroll)
+            break;
+          case "Top":
+            p = await postService.topSub(page, postsPerScroll)
+            break;
+          case "Hot":
+            p = await postService.hotSub(page, postsPerScroll)
+            break;
+          default:
+            p = await postService.popSub(page, postsPerScroll)
+            break;
+        }
       }
-    }
-    else
-    {
-      console.log("displaying: everything")
-      switch (curAlg)
+      else
       {
-        case "New":
-          postService.new().then((data) => {
-            console.log(data)
-            setPosts(data);
-          });
-          break;
-        case "Top":
-          postService.top().then((data) => {
-            console.log(data)
-            setPosts(data);
-          });
-          break;
-        case "Hot":
-          postService.hot().then((data) => {
-            console.log(data)
-            setPosts(data);
-          });
-          break;
-        default:
-          postService.pop().then((data) => {
-            console.log(data)
-            setPosts(data);
-          });
-          break;
-      }
+        switch (curAlg)
+        {
+          case "New":
+            p = await postService.new(page, postsPerScroll)
+            break;
+          case "Top":
+            p = await postService.top(page, postsPerScroll)
+            break;
+          case "Hot":
+            p = await postService.hot(page, postsPerScroll)
+            break;
+          default:
+            p = await postService.pop(page, postsPerScroll)
+            break;
+        }
+      }    
+      if(page === 0 )
+      {
+        setPosts(p);
+      } 
+      else 
+      {
+        if(page + 3 > posts.length)
+        {
+          setPosts([...posts, ...p.slice(0,postsPerScroll)]);
+        }
+      }      
+      //console.log("FEED: counter: "+counter+", subbed: "+counter%2+ ", algorithm: "+curAlg+ ", logged: "+isLogged+", page: "+page+", response length: "+p.length)
     }
-  }
-  
+    fetchPosts();
+  }, [page]);
+
+  useEffect(() => {
+    setPage(0);
+  }, [viewSubscribed, curAlg]);
+
+  //lvl 10 black magic  
+  const observer: any = useRef();
+  const lastPostRef = useCallback(async (node: any) => {     
+    if (!node) 
+    {
+      return;
+    }
+    if(observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(async entries =>{
+      if(entries[0].isIntersecting)
+      {
+        //console.log("FEED: scrolled to next page")   
+        setPage((prevPage) => prevPage + postsPerScroll);  
+      }
+    })
+    observer.current.observe(node)
+  },[])
 
   return (
     <>
-      <div className="flex flex-row justify-between w-[100%]">
+      <div className="flex flex-row justify-between w-[100%]" >
         <div className='tl:w-[22%] w-[0%] h-[6.3vh] min-h-[56px] max-h-[4rem] bg-[rgba(255,0,0,0)] tl:block hidden'></div>
         <div className='tl:w-[56%] w-[100%] h-[6.3vh] min-h-[56px] max-h-[4rem] bg-[rgba(255,255,0,0)]'>
           <div className="flex flex-col items-center">
-            <div className="ls:w-[50vw] tl:w-[56vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px]">
-              <FilteringBar clicked={clicked} changeAlg={changeAlg}/>
-              { !!posts ? 
-                posts.map((post) => {
-                  let owner = "";
-                  let mediaImage = "";
-                  let subnigditName = "n/"+post.subnigdit.name;                  
-                  let subnigditIcon = "http://localhost:1338"+post.subnigdit.icon.url;
-     
-                  if(post.type != "Text")
-                  {
-                    if (post.media)
-                      mediaImage = "http://localhost:1338"+post.media.url
-                  }
-                  try {
-                    owner = post.owner.username;
-                  }
-                  catch {
-                    owner = "[removed]"
-                  }
-                  if(post.type == 'Text')
-                  {
-                    return(
-                      <div key={post.id}>
-                        <PostText 
-                          title={post.title} 
-                          description={post.description || ""} 
-                          author={owner} date={post.createdAt || new Date('1939-09-1')} 
-                          source={{name: subnigditName, image: subnigditIcon}} 
-                          votes={post.votes}
-                          id={post.id}
-                        />                      
-                      </div>                    
-                    )
-                  }
-                  else
-                  {
-                    return(
-                      <div key={post.id}>
-                        <PostMedia 
-                          title={post.title}
-                          media={{type: post.type, source: mediaImage}}
-                          author={owner} date={post.createdAt || new Date('1939-09-1')} 
-                          source={{name: subnigditName, image: subnigditIcon}} 
-                          votes={post.votes}
-                          id={post.id}
-                        />                      
-                      </div>                    
-                    )
-                  }
-                })
-                :
-                <p className="h-[10rem] w-[100%] text-2xl text-center font-normal flex flex-col py-2 px-2 overflow-hidden min-w-[25vw] max-h-[50vh] my-2">No posts found</p>
-              }              
+            <div id="scrollableDiv" className="h-full ls:w-[50vw] tl:w-[56vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px]">
+              <FilteringBar clicked={clicked} changeAlg={changeAlg}/> 
+                {
+                    posts.map((post, index) => {
+                      let owner = "";
+                      let mediaImage = "";
+                      let subnigditName = "n/"+post.subnigdit.name;                  
+                      let subnigditIcon = "http://localhost:1338"+post.subnigdit.icon.url;
+        
+                      if(post.type != "Text")
+                      {
+                        if (post.media)
+                          mediaImage = "http://localhost:1338"+post.media.url
+                      }
+                      owner = post.owner?.username ? post.owner.username : "[removed]";
+                      if(post.type == 'Text')
+                      {
+                        if(posts.length === index+1)
+                        {
+                          return(
+                            <div key={(post.id)} ref={lastPostRef}>
+                              <PostText 
+                                title={post.title}
+                                description={post.description || ""}
+                                author={owner} date={post.createdAt || new Date('1939-09-1')}
+                                source={{ name: subnigditName, image: subnigditIcon }}
+                                votes={post.votes} id={0}                              />                      
+                            </div>                    
+                          )
+                        }
+                        else
+                        {
+                          return(
+                            <div key={(post.id)}>
+                              <PostText 
+                                title={post.title}
+                                description={post.description || ""}
+                                author={owner} date={post.createdAt || new Date('1939-09-1')}
+                                source={{ name: subnigditName, image: subnigditIcon }}
+                                votes={post.votes} id={0}                              />                      
+                            </div>                    
+                          )
+                        }
+                      }
+                      else
+                      {
+                        if(posts.length === index+1)
+                        {
+                          return(
+                            <div key={(post.id)} ref={lastPostRef}>
+                              <PostMedia 
+                                title={post.title}
+                                media={{ type: post.type, source: mediaImage }}
+                                author={owner} date={post.createdAt || new Date('1939-09-1')}
+                                source={{ name: subnigditName, image: subnigditIcon }}
+                                votes={post.votes} id={0}                              />                      
+                            </div>                    
+                          )
+                        }
+                        else
+                        {
+                          return(
+                            <div key={(post.id)}>
+                              <PostMedia 
+                                title={post.title}
+                                media={{ type: post.type, source: mediaImage }}
+                                author={owner} date={post.createdAt || new Date('1939-09-1')}
+                                source={{ name: subnigditName, image: subnigditIcon }}
+                                votes={post.votes} id={0}                              />                      
+                            </div>                    
+                          )
+                        }
+                      }
+                    })                  
+                }
             </div>
           </div>       
         </div>
