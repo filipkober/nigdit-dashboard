@@ -1,10 +1,10 @@
-import React, { InputHTMLAttributes, useState } from 'react';
+import React, { InputHTMLAttributes, useEffect, useState } from 'react';
 import InputField from '../../atoms/InputField';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 import UserService from '../../../util/requests/UserService';
 import Cookies from 'js-cookie';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../../store/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserState, setUser } from '../../../store/userSlice';
 import { useRouter } from 'next/router';
 import { GoogleLogin } from '@react-oauth/google';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
@@ -53,6 +53,17 @@ export default function LoginForm() {
     },
     flow: 'auth-code', //implicit
   });
+
+  //redirect if logged
+  const user = useSelector((state: UserState) => state.user)
+  const {username, profilePicture} = user;
+  useEffect(()=>{
+    if(!!username)
+    {
+      window.location.href = '/my-account'
+    }
+  },[])
+
   return (
     <div className="w-[100%] m-0 p-0 h-[100%] flex flex-col justify-center items-center">
       <div className="selection:bg-[#b8b8b8] selection:text-[#FF5C00] flex flex-wrap flex-col justify-center items-center p-[0.5rem] w-[22vw] min-w-[288px] max-w-[380px]">

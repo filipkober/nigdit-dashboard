@@ -4,6 +4,7 @@ import React, {
   ForwardedRef,
   useImperativeHandle,
   useRef,
+  useEffect,
 } from 'react';
 import InputField from '../../atoms/InputField';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
@@ -14,8 +15,8 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import GoogleButton from '../../atoms/GoogleButton';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../../store/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserState, setUser } from '../../../store/userSlice';
 import Link from 'next/link';
 
 const userService = new UserService();
@@ -96,6 +97,16 @@ export default function RegisterForm({ verChange }: Props) {
     },
     flow: 'auth-code',
   });
+
+  //redirect if logged
+  const user = useSelector((state: UserState) => state.user)
+  const {username, profilePicture} = user;
+  useEffect(()=>{
+    if(!!username)
+    {
+      window.location.href = '/my-account'
+    }
+  },[])
 
   return (
     <div className="w-[100%] m-0 p-0 h-[100%] flex flex-col justify-center items-center">

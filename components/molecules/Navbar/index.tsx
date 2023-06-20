@@ -98,7 +98,7 @@ export default function Navbar()
                 }
 
             </div>        
-            {(isLogged) ? (
+            {(!!username) ? (
             <Link href="/my-account" className='hover:cursor-pointer min-w-[2.4rem] tm:min-w-[13rem] h-[100%] flex flex-row-reverse my-2 ml-1 mr-3'>
                 <div className='w-[2.4rem] shrink-0'>
                     <Image draggable="false" src={profilePicture ? (process.env.NEXT_PUBLIC_STRAPI_URL + profilePicture.url) : emptypfp.src} width={36} height={36} className="w-[2.4rem] pointer-events-auto select-none hover:cursor-pointer object-cover overflow-hidden rounded-full" alt={'Your profile picture'} loader={({src}) => src}/>
