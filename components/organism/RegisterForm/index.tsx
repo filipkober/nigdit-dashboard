@@ -83,7 +83,7 @@ export default function RegisterForm({ verChange }: Props) {
       );
       const data = await res.json();
       const res2 = await fetch(
-        'http://localhost:1338/api/auth/google/callback?access_token=' +
+        process.env.NEXT_PUBLIC_STRAPI_URL+'/api/auth/google/callback?access_token=' +
           data.tokens.access_token
       );
       const userData = await res2.json();

@@ -37,7 +37,7 @@ export default function LoginForm() {
       );
       const data = await res.json();
       const res2 = await fetch(
-        'http://localhost:1338/api/auth/google/callback?access_token=' +
+        process.env.NEXT_PUBLIC_STRAPI_URL+'/api/auth/google/callback?access_token=' +
           data.tokens.access_token
       );
       const userData = await res2.json();
@@ -180,7 +180,7 @@ export default function LoginForm() {
               <div className="w-[100%] min-h-[2rem] h-[1vw] flex flex-row justify-center px-0 py-0 items-center">
                 {failed ? (
                   <a
-                    href="http://localhost:3000/register"
+                    href="/register"
                     rel="noreferrer"
                     target="_blank"
                     className="pt-2 pl-2.5 text-[1rem] font-['Roboto'] dark:text-white flex hover:underline"

@@ -8,6 +8,7 @@ import SubnigditSearch from '../SubnigditSearch';
 import {debounce} from 'lodash';
 import { useRouter } from 'next/router';
 import emptypfp from '../../../assets/emptypfp.jpg';
+import Media from '../../../models/Media';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     user?:
@@ -20,6 +21,8 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 type searchSubnigdit = {
     name: string,
     id: number,
+    icon: Media,
+    subscribers: number,
 }
 
 export default function Navbar()
@@ -40,7 +43,7 @@ export default function Navbar()
         console.log("Search Value: "+cval);
         if(!!cval)
         {
-            fetch('http://localhost:1338/api/search?search='+cval)
+            fetch(process.env.NEXT_PUBLIC_STRAPI_URL+'/api/search?search='+cval)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -60,7 +63,7 @@ export default function Navbar()
 
     return(        
         <div className="pointer-events-none flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-40 top-0 left-0">
-            <a href="http://localhost:3000" className='pointer-events-auto min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:max-w-[13rem] h-[100%] flex flex-row my-2 mx-2'>
+            <a href="/" className='pointer-events-auto min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:max-w-[13rem] h-[100%] flex flex-row my-2 mx-2'>
                 <div className='shrink-0'>
                     <Image draggable="false" src={nigditIcon} width={36} height={36} className="select-none hover:cursor-pointer object-cover overflow-hidden p-0 w-[2.4rem] h-[2.4rem] rounded-full" alt={'Nigdit icon'} loader={({src}) => src}/>
                 </div> 
@@ -128,7 +131,7 @@ export default function Navbar()
                                 searched.map((x,i)=>{
                                     return (
                                         <div key={x.id}>
-                                            <SubnigditSearch name={x.name} image={nigditIcon} members={'564'} number={i}/>
+                                            <SubnigditSearch name={x.name} image={process.env.NEXT_PUBLIC_STRAPI_URL+x.icon.url} members={x.subscribers.toString()} number={i}/>
                                         </div>
                                     )
                                 })
