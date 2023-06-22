@@ -131,7 +131,7 @@ export default function Navbar()
                                 searched.map((x,i)=>{
                                     return (
                                         <div key={x.id}>
-                                            <SubnigditSearch name={x.name} image={process.env.NEXT_PUBLIC_STRAPI_URL+x.icon.url} members={x.subscribers.toString()} number={i}/>
+                                            <SubnigditSearch id={x.id} name={x.name} image={process.env.NEXT_PUBLIC_STRAPI_URL+x.icon.url} members={x.subscribers.toString()} number={i}/>
                                         </div>
                                     )
                                 })
