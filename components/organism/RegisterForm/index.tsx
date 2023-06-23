@@ -171,6 +171,12 @@ export default function RegisterForm({ verChange }: Props) {
               </div>
               {/* login */}
               <div className=" w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center">
+                {/* info:
+                  jeżeli zdecydujemy się na dynamiczne errory od samego początku wpisywania danych w formularz,
+                  (tak jak sugerował olo) to wystarczy usunąć wszędzie segment " && touched.login" z inputów,
+                  ale wtedy od razu po wpisaniu pierwszej literki użytkownik dostanie errora,
+                  więc zostawiam na ten moment tak jak było
+                 */}
                 {(errors.login && touched.login) || au != '' ? (
                   <InputField
                     value={values.login}
