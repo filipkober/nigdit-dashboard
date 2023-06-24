@@ -9,6 +9,7 @@ import {debounce} from 'lodash';
 import { useRouter } from 'next/router';
 import emptypfp from '../../../assets/emptypfp.jpg';
 import Media from '../../../models/Media';
+import SubnigditService from '../../../util/requests/SubnigditService';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     user?:
@@ -27,6 +28,7 @@ type searchSubnigdit = {
 
 export default function Navbar()
 {
+    const subnigditService = new SubnigditService();
     const [searchValue, setSearchValue] = useState("");
     const [searched, setSearched] = useState<searchSubnigdit[]>([]);
     const [isLogged, setLogged] = useState(false);
@@ -43,8 +45,9 @@ export default function Navbar()
         console.log("Search Value: "+cval);
         if(!!cval)
         {
-            fetch(process.env.NEXT_PUBLIC_STRAPI_URL+'/api/search?search='+cval)
-            .then(res => res.json())
+            //fetch(process.env.NEXT_PUBLIC_STRAPI_URL+'/api/search?search='+cval)
+            //.then(res => res.json())
+            subnigditService.searchSubnigdits(cval)
             .then(data => {
                 console.log(data)
                 setSearched(data)
