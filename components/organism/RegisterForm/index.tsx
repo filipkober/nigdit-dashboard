@@ -4,6 +4,7 @@ import React, {
   ForwardedRef,
   useImperativeHandle,
   useRef,
+  useEffect,
 } from 'react';
 import InputField from '../../atoms/InputField';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
@@ -14,8 +15,8 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import GoogleButton from '../../atoms/GoogleButton';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../../store/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserState, setUser } from '../../../store/userSlice';
 import Link from 'next/link';
 
 const userService = new UserService();
@@ -82,7 +83,7 @@ export default function RegisterForm({ verChange }: Props) {
       );
       const data = await res.json();
       const res2 = await fetch(
-        'http://localhost:1338/api/auth/google/callback?access_token=' +
+        process.env.NEXT_PUBLIC_STRAPI_URL+'/api/auth/google/callback?access_token=' +
           data.tokens.access_token
       );
       const userData = await res2.json();
@@ -96,6 +97,16 @@ export default function RegisterForm({ verChange }: Props) {
     },
     flow: 'auth-code',
   });
+
+  //redirect if logged
+  const user = useSelector((state: UserState) => state.user)
+  const {username, profilePicture} = user;
+  useEffect(()=>{
+    if(!!username)
+    {
+      window.location.href = '/my-account'
+    }
+  },[])
 
   return (
     <div className="w-[100%] m-0 p-0 h-[100%] flex flex-col justify-center items-center">
@@ -160,6 +171,12 @@ export default function RegisterForm({ verChange }: Props) {
               </div>
               {/* login */}
               <div className=" w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center">
+                {/* info:
+                  jeżeli zdecydujemy się na dynamiczne errory od samego początku wpisywania danych w formularz,
+                  (tak jak sugerował olo) to wystarczy usunąć wszędzie segment " && touched.login" z inputów,
+                  ale wtedy od razu po wpisaniu pierwszej literki użytkownik dostanie errora,
+                  więc zostawiam na ten moment tak jak było
+                 */}
                 {(errors.login && touched.login) || au != '' ? (
                   <InputField
                     value={values.login}

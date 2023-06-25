@@ -24,8 +24,8 @@ export default function MyAccountPanel(){
     const [visible, changeVisible] = useModal();
     const [changePassVisible, setChangePassVisible] = useState<boolean>(false);
     const [darkMode, setDarkMode] = useContext(darkModeContext);
-    const [parent] = useAutoAnimate<HTMLDivElement>({duration: 100, easing: 'ease-in-out'});
-
+    //const [parent] = useAutoAnimate<HTMLDivElement>({duration: 100, easing: 'ease-in-out'});
+    //przestarzały kod którego nie umiem naprawić
     const dispatch = useDispatch();
 
     const user = useSelector((state: UserState) => state.user);
@@ -102,7 +102,7 @@ export default function MyAccountPanel(){
             <div className="flex flex-col ml-2 self-center ls:self-start">
                         <Button variant="button" content="Change password" className="mx-auto ls:ml-8 mt-8" onClick={() => {setChangePassVisible(!changePassVisible)}}/>
                     </div>
-            <div ref={parent}>
+            <div > {/*ref={parent}  nie działa*/}
                 {changePassVisible && (provider === 'local' ? (<Formik
                 initialValues={initialValuesPass}
                 onSubmit={async (values) => {

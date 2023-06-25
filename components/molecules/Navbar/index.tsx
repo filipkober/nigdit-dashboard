@@ -8,6 +8,8 @@ import SubnigditSearch from '../SubnigditSearch';
 import {debounce} from 'lodash';
 import { useRouter } from 'next/router';
 import emptypfp from '../../../assets/emptypfp.jpg';
+import Media from '../../../models/Media';
+import SubnigditService from '../../../util/requests/SubnigditService';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     user?:
@@ -20,10 +22,13 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 type searchSubnigdit = {
     name: string,
     id: number,
+    icon: Media,
+    subscribers: number,
 }
 
 export default function Navbar()
 {
+    const subnigditService = new SubnigditService();
     const [searchValue, setSearchValue] = useState("");
     const [searched, setSearched] = useState<searchSubnigdit[]>([]);
     const [isLogged, setLogged] = useState(false);
@@ -40,8 +45,9 @@ export default function Navbar()
         console.log("Search Value: "+cval);
         if(!!cval)
         {
-            fetch('http://localhost:1338/api/search?search='+cval)
-            .then(res => res.json())
+            //fetch(process.env.NEXT_PUBLIC_STRAPI_URL+'/api/search?search='+cval)
+            //.then(res => res.json())
+            subnigditService.searchSubnigdits(cval)
             .then(data => {
                 console.log(data)
                 setSearched(data)
@@ -60,7 +66,7 @@ export default function Navbar()
 
     return(        
         <div className="pointer-events-none flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-40 top-0 left-0">
-            <a href="http://localhost:3000" className='pointer-events-auto min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:max-w-[13rem] h-[100%] flex flex-row my-2 mx-2'>
+            <Link href="/" className='pointer-events-auto min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:max-w-[13rem] h-[100%] flex flex-row my-2 mx-2'>
                 <div className='shrink-0'>
                     <Image draggable="false" src={nigditIcon} width={36} height={36} className="select-none hover:cursor-pointer object-cover overflow-hidden p-0 w-[2.4rem] h-[2.4rem] rounded-full" alt={'Nigdit icon'} loader={({src}) => src}/>
                 </div> 
@@ -68,17 +74,22 @@ export default function Navbar()
                     <p className="select-none shrink-1 text-[24px] font-['Roboto'] dark:text-white pl-2"><Link href={'/'}>NigDIT</Link></p>
                 </div>                
                 <div className='w-[5.6rem] overflow-hidden shrink-1 hidden tl:flex'></div>
-            </a>            
+            </Link>            
             <div className='min-w-[12rem] w-[25vw] max-w-[30rem] h-[100%] grow flex flex-row my-2 mx-2'>
                 {
-                    (searchValue != "")?(
+                    (searchValue != "")
+                    ?(
                         <div className={'h-[70%] w-[100%] flex flex-row justify-between bg-backgroundL dark:bg-backgroundD  border-solid border-accentD border-[1px] border-b-[1px] z-50 rounded-t-[10px]'}>
                             <div className='w-[2.1rem] min-w-[2.1rem]'>
                                 <Image draggable="false" src={'/searchIcon.png'} width={33} height={33} className="rounded-none ml-1 p-[6px] select-none object-cover overflow-hidden" alt={''}/>
                             </div>                   
                             <div className='w-[100%] m-[0.2rem]'>
-                                <input className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."} onChange={event => debouncedChangeHandler(event.target.value)} /> 
-                            </div>  
+                                <input value={searchValue} className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."} onChange={event => debouncedChangeHandler(event.target.value)} /> 
+                            </div> 
+                            {/* temp  */}
+                            <button onClick={() =>{setSearchValue("")}} className='w-[2.1rem] min-w-[2.1rem] mr-1 p-[6px] hover:cursor-pointer pointer-events-auto'>
+                                <Image draggable="false" src={'/searchx.png'} width={33} height={33} className="" alt={''}/>
+                            </button> 
                         </div>
                     ):(
                         <div className={'h-[70%] w-[100%] flex flex-row justify-between bg-backgroundL dark:bg-backgroundD  border-solid border-accentD border-[1px] border-b-[1px] z-50 rounded-[10px]'}>
@@ -86,14 +97,14 @@ export default function Navbar()
                                 <Image draggable="false" src={'/searchIcon.png'} width={33} height={33} className="rounded-none ml-1 p-[6px] select-none object-cover overflow-hidden" alt={''}/>
                             </div>                   
                             <div className='w-[100%] m-[0.2rem]'>
-                                <input className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."} onChange={event => debouncedChangeHandler(event.target.value)} /> 
+                                <input value={searchValue} className='pointer-events-auto dark:text-white text-[1.2rem] bg-[rgba(0,0,0,0)] dark:bg-[rgba(0,0,0,0)] border-none outline-none w-[100%]' type="text" placeholder={"search..."} onChange={event => debouncedChangeHandler(event.target.value)} /> 
                             </div>  
                         </div>
                     )
                 }
 
             </div>        
-            {(isLogged) ? (
+            {(!!username) ? (
             <Link href="/my-account" className='hover:cursor-pointer min-w-[2.4rem] tm:min-w-[13rem] h-[100%] flex flex-row-reverse my-2 ml-1 mr-3'>
                 <div className='w-[2.4rem] shrink-0'>
                     <Image draggable="false" src={profilePicture ? (process.env.NEXT_PUBLIC_STRAPI_URL + profilePicture.url) : emptypfp.src} width={36} height={36} className="w-[2.4rem] pointer-events-auto select-none hover:cursor-pointer object-cover overflow-hidden rounded-full" alt={'Your profile picture'} loader={({src}) => src}/>
@@ -123,7 +134,7 @@ export default function Navbar()
                                 searched.map((x,i)=>{
                                     return (
                                         <div key={x.id}>
-                                            <SubnigditSearch name={x.name} image={nigditIcon} members={'564'} number={i}/>
+                                            <SubnigditSearch id={x.id} name={x.name} image={process.env.NEXT_PUBLIC_STRAPI_URL+x.icon.url} members={x.subscribers.toString()} number={i}/>
                                         </div>
                                     )
                                 })

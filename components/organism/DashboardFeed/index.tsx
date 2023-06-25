@@ -134,12 +134,12 @@ export default function DashboardFeed()
                       let owner = "";
                       let mediaImage = "";
                       let subnigditName = "n/"+post.subnigdit.name;                  
-                      let subnigditIcon = "http://localhost:1338"+post.subnigdit.icon.url;
+                      let subnigditIcon = process.env.NEXT_PUBLIC_STRAPI_URL+post.subnigdit.icon.url;
         
                       if(post.type != "Text")
                       {
                         if (post.media)
-                          mediaImage = "http://localhost:1338"+post.media.url
+                          mediaImage = process.env.NEXT_PUBLIC_STRAPI_URL+post.media.url
                       }
                       owner = post.owner?.username ? post.owner.username : "[removed]";
                       if(post.type == 'Text')
