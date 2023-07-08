@@ -4,6 +4,7 @@ import React, {
   ForwardedRef,
   useImperativeHandle,
   useRef,
+  useEffect,
 } from 'react';
 import InputField from '../../atoms/InputField';
 import * as yup from 'yup';
@@ -14,8 +15,8 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import GoogleButton from '../../atoms/GoogleButton';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../../store/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserState, setUser } from '../../../store/userSlice';
 import { SubmitHandler, useForm } from "react-hook-form";
 import Link from 'next/link';
 
@@ -83,7 +84,7 @@ export default function RegisterForm({ verChange }: Props) {
       );
       const data = await res.json();
       const res2 = await fetch(
-        'http://localhost:1338/api/auth/google/callback?access_token=' +
+        process.env.NEXT_PUBLIC_STRAPI_URL+'/api/auth/google/callback?access_token=' +
           data.tokens.access_token
       );
       const userData = await res2.json();
@@ -97,6 +98,15 @@ export default function RegisterForm({ verChange }: Props) {
     },
     flow: 'auth-code',
   });
+    //redirect if logged
+    const user = useSelector((state: UserState) => state.user)
+    const {username, profilePicture} = user;
+    useEffect(()=>{
+      if(!!username)
+      {
+        window.location.href = '/my-account'
+      }
+    },[])
 
       const {
         register,
