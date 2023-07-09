@@ -1,23 +1,23 @@
-import React, {useState,useCallback, useRef, useEffect, SetStateAction } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import Post from "../../../models/Post";
+import { UserState } from "../../../store/userSlice";
+import PostService from "../../../util/requests/PostService";
 import FilteringBar from "../../molecules/FilteringBar";
 import JoindeGroups from "../../molecules/JoinedGroups";
 import PostMedia from "../../molecules/PostMedia";
 import PostText from "../../molecules/PostText";
-import PostService from "../../../util/requests/PostService";
-import Post from "../../../models/Post";
-import { useSelector } from "react-redux";
-import { UserState } from "../../../store/userSlice";
 
 const postsPerScroll = 3;
 
 //Nitroglycerin
-export default function DashboardFeed() 
+export default function DashboardFeed()
 {
   const postService = new PostService();
   const username = useSelector((state: UserState) => state.user.username)
-  const [isLogged, setLogged] = useState(false);  
+  const [isLogged, setLogged] = useState(false);
   const [curAlg, setCurAlg] = useState<string>("Hot");
-  const [counter, setCounter] = useState<number>(0);   
+  const [counter, setCounter] = useState<number>(0);
   const [viewSubscribed, setViewSubscribed] = useState<boolean>(false); //true = subscribed, false = everything
   const [page, setPage] = useState<number>(0);
   const [posts, setPosts] = useState<Post[]>([]);
@@ -26,26 +26,26 @@ export default function DashboardFeed()
   function clicked(cc: number)
   {
     setCounter(cc)  //easter egg
-    setViewSubscribed(!viewSubscribed)  
+    setViewSubscribed(!viewSubscribed)
   }
 
   //activated when toggled top-new-hot
   function changeAlg(n: string)
   {
-    setCurAlg(n);  
+    setCurAlg(n);
   }
 
-  useEffect( () => {   
-    const f = async () => { 
+  useEffect( () => {
+    const f = async () => {
     setLogged(!!username);
-    setPage(0); 
+    setPage(0);
     };
     f();
   },[viewSubscribed, curAlg]);
 
   useEffect(() => {
     async function fetchPosts()
-    {      
+    {
       let p : Post[] = []
       if(viewSubscribed && isLogged == true)
       {
@@ -82,18 +82,18 @@ export default function DashboardFeed()
             p = await postService.pop(page, postsPerScroll)
             break;
         }
-      }    
+      }
       if(page === 0 )
       {
         setPosts(p);
-      } 
-      else 
+      }
+      else
       {
         if(page + 3 > posts.length)
         {
           setPosts([...posts, ...p.slice(0,postsPerScroll)]);
         }
-      }      
+      }
       //console.log("FEED: counter: "+counter+", subbed: "+counter%2+ ", algorithm: "+curAlg+ ", logged: "+isLogged+", page: "+page+", response length: "+p.length)
     }
     fetchPosts();
@@ -103,10 +103,10 @@ export default function DashboardFeed()
     setPage(0);
   }, [viewSubscribed, curAlg]);
 
-  //lvl 10 black magic  
+  //lvl 10 black magic
   const observer: any = useRef();
-  const lastPostRef = useCallback(async (node: any) => {     
-    if (!node) 
+  const lastPostRef = useCallback(async (node: any) => {
+    if (!node)
     {
       return;
     }
@@ -114,8 +114,8 @@ export default function DashboardFeed()
     observer.current = new IntersectionObserver(async entries =>{
       if(entries[0].isIntersecting)
       {
-        //console.log("FEED: scrolled to next page")   
-        setPage((prevPage) => prevPage + postsPerScroll);  
+        //console.log("FEED: scrolled to next page")
+        setPage((prevPage) => prevPage + postsPerScroll);
       }
     })
     observer.current.observe(node)
@@ -128,12 +128,12 @@ export default function DashboardFeed()
         <div className='tl:w-[56%] w-[100%] h-[6.3vh] min-h-[56px] max-h-[4rem] bg-[rgba(255,255,0,0)]'>
           <div className="flex flex-col items-center">
             <div id="scrollableDiv" className="h-full ls:w-[50vw] tl:w-[56vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px]">
-              <FilteringBar clicked={clicked} changeAlg={changeAlg}/> 
+              <FilteringBar clicked={clicked} changeAlg={changeAlg}/>
                 {
                     posts.map((post, index) => {
                       let owner = "";
                       let mediaImage = "";
-                      let subnigditName = "n/"+post.subnigdit.name;                  
+                      let subnigditName = "n/"+post.subnigdit.name;
                       let subnigditIcon = process.env.NEXT_PUBLIC_STRAPI_URL+post.subnigdit.icon.url;
         
                       if(post.type != "Text")
@@ -148,26 +148,26 @@ export default function DashboardFeed()
                         {
                           return(
                             <div key={(post.id)} ref={lastPostRef}>
-                              <PostText 
+                              <PostText
                                 title={post.title}
                                 description={post.description || ""}
                                 author={owner} date={post.createdAt || new Date('1939-09-1')}
                                 source={{ name: subnigditName, image: subnigditIcon }}
-                                votes={post.votes} id={0}                              />                      
-                            </div>                    
+                                votes={post.votes} id={0}                              />
+                            </div>
                           )
                         }
                         else
                         {
                           return(
                             <div key={(post.id)}>
-                              <PostText 
+                              <PostText
                                 title={post.title}
                                 description={post.description || ""}
                                 author={owner} date={post.createdAt || new Date('1939-09-1')}
                                 source={{ name: subnigditName, image: subnigditIcon }}
-                                votes={post.votes} id={0}                              />                      
-                            </div>                    
+                                votes={post.votes} id={0}                              />
+                            </div>
                           )
                         }
                       }
@@ -177,46 +177,46 @@ export default function DashboardFeed()
                         {
                           return(
                             <div key={(post.id)} ref={lastPostRef}>
-                              <PostMedia 
+                              <PostMedia
                                 title={post.title}
                                 media={{ type: post.type, source: mediaImage }}
                                 author={owner} date={post.createdAt || new Date('1939-09-1')}
                                 source={{ name: subnigditName, image: subnigditIcon }}
-                                votes={post.votes} id={0}                              />                      
-                            </div>                    
+                                votes={post.votes} id={0}                              />
+                            </div>
                           )
                         }
                         else
                         {
                           return(
                             <div key={(post.id)}>
-                              <PostMedia 
+                              <PostMedia
                                 title={post.title}
                                 media={{ type: post.type, source: mediaImage }}
                                 author={owner} date={post.createdAt || new Date('1939-09-1')}
                                 source={{ name: subnigditName, image: subnigditIcon }}
-                                votes={post.votes} id={0}                              />                      
-                            </div>                    
+                                votes={post.votes} id={0}                              />
+                            </div>
                           )
                         }
                       }
-                    })                  
+                    })
                 }
             </div>
-          </div>       
+          </div>
         </div>
         <div className='tl:w-[22%] w-[0%] bg-[rgba(255,0,255,0)] tl:block hidden'>
           <div className="w-[100%] h-[100%] flex flex-row justify-start tl:p-2">
-            <JoindeGroups/>            
+            <JoindeGroups/>
           </div>
         </div>
       </div>
-      {counter > 16 ? (        
+      {counter > 16 ? (
           <div style={{bottom: counter+"px"}} className={"fixed w-[100%] h-[100%] bg-ocean bg-repeat-x bg-cover cursor-no-drop translate-y-[90%]"}>
           </div>
-        ) : (        
+        ) : (
           <div></div>
-        )}  
+        )}
     </>
   )
 }

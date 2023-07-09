@@ -1,12 +1,12 @@
-import type { NextPage } from 'next'
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import ReportService from '../../../util/requests/ReportService';
-import Report from '../../../models/Report';
-import Navbar from '../../../components/molecules/Navbar';
 import TabSelector from '../../../components/molecules/TabSelector';
 import ModerationPanel from '../../../components/organism/ModerationPanel';
+import Report from '../../../models/Report';
+import ReportService from '../../../util/requests/ReportService';
 import SubnigditService from '../../../util/requests/SubnigditService';
-import { useRouter } from 'next/router';
 
 const type = ['post', 'comment', 'reply']
 
@@ -52,6 +52,11 @@ const SubnigditModerationPanelPage: NextPage = () => {
 
   return (
     <div className='bg-backgroundL dark:bg-backgroundD h-full'>
+      <Head>
+        <title>Subnigdit moderation page</title>
+        <link rel="icon" href={'/easterEgg1/blooddrop.svg'}/>
+        <meta name="description" content="Subnigdit moderation page."/>
+      </Head>
       <TabSelector selected={selected} setSelected={setSelected} tabs={['Posts', 'Comments', 'Replies']}/>
       <ModerationPanel tab={selected} className={"h-screen"} reports={reports} onBanUser={onBanUser} onDeleteContent={onDeleteContent} onDismissReport={onDismissReport}/>
     </div>
