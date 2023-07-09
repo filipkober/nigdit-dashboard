@@ -7,10 +7,13 @@ type Media = {
   ext: string;
   url: string;
   formats: {
-    large: {
+    large?: {
+      url: string;
+    },
+    thumbnail?: {
       url: string;
     }
-  }
+  },
 };
 
 //Olo, ty gruby geju, zachowuj spójność - atrybuty tylko do typów z napisem strapi

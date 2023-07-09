@@ -3,6 +3,8 @@ import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import { useEffect, useRef } from 'react';
 import ReportService from '../../../util/requests/ReportService';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toastDisplay } from "../../atoms/Toast";
+import ToastType from "../../../models/ToastType";
 
 type ReportModalProps = {
   isOpen: boolean;
@@ -40,9 +42,11 @@ const ReportModal = ({ isOpen, onClose, contentType, id, subnigditId }: ReportMo
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
     try{
     await reportService.create(contentType, values.reason, id, values.platform === "subnigdit", values.platform === "subnigdit" ? subnigditId : undefined)
+    toastDisplay(ToastType.Success, 'Report created')
     onClose();
     } catch (e) {
       console.log(e);
+      toastDisplay(ToastType.Error, 'Error creating report')
       onClose();
     }
   }

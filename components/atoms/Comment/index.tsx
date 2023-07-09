@@ -36,7 +36,16 @@ export default function Comment({ comment, subId }: CommentProps) {
   const createdAt = comment.createdAt;
   const owner = comment.owner;
   const post = comment.post;
-  const replyCount = comment.replies.data.count
+  const [replyCount, setReplyCount] = useState<number>(0); 
+
+  useEffect(() => {
+    setReplyCount(comment.replies.data.count);
+  }, [comment.replies.data.count])
+
+  const addReply = () => {
+    setReplyCount(replyCount + 1);
+    changeModalVisible();
+  }
 
   return (
       <>
@@ -78,10 +87,10 @@ export default function Comment({ comment, subId }: CommentProps) {
             </div>
           </div>
           <div>
-            <ReplyTextarea id={1} visible={modalVisible} />
+            <ReplyTextarea commentId={id} visible={modalVisible} addReply={addReply} />
           </div>
           <div>
-          {replyCount > 0 ? <RepliesContainer commentId={comment.id} repliesNumber={replyCount} subId={subId}/> : ''}
+          {replyCount > 0 ? <RepliesContainer commentId={comment.id} replyNumber={replyCount} subId={subId}/> : ''}
           </div>
         </div>
         <ReportModal

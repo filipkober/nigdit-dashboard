@@ -3,25 +3,45 @@ import Button from "../../atoms/Button";
 import Input from "../../atoms/Input";
 import TextArea from "../../atoms/TextArea";
 import SubnigditRules from "../../molecules/SubnigditRules";
-import { SubnigditN } from "../../../models/Subnigdit";
+import { SubnigditN, subnigditAdapter, subnigditLimitedAdapter } from "../../../models/Subnigdit";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import SubnigditService from "../../../util/requests/SubnigditService";
+import PostService from "../../../util/requests/PostService";
+import { toastDisplay } from "../../atoms/Toast";
+import ToastType from "../../../models/ToastType";
+import { useRouter } from "next/router";
 
 type textPostFormProps = {
     className?: string,
-    subnigdit?: SubnigditN
+    subnigditId?: number
 }
 const initialValues: Inputs = {
     title: "",
-    text: "",
+    description: "",
 }
 
 type Inputs = {
     title: string,
-    text: string,
+    description: string,
 }
 
-export default function TextPostForm({className = "", subnigdit}: textPostFormProps) {
+export default function TextPostForm({className = "", subnigditId}: textPostFormProps) {
     
+    const [subnigdit, setSubnigdit] = useState<SubnigditN | null>(null)
+    const subnigditService = new SubnigditService();
+    const postService = new PostService();
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if(subnigditId) {
+            subnigditService.getOne(subnigditId).then((res) => {
+                setSubnigdit(subnigditLimitedAdapter(res))
+            })
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [subnigditId])
 
     const {
         register,
@@ -29,7 +49,15 @@ export default function TextPostForm({className = "", subnigdit}: textPostFormPr
         watch,
         formState: { errors },
       } = useForm<Inputs>()
-      const onSubmit: SubmitHandler<Inputs> = async (values) => {}
+      const onSubmit: SubmitHandler<Inputs> = async (values) => {
+        if(subnigditId) {
+            const post = await postService.createText({subnigdit: subnigditId, title: values.title, description: values.description});
+            toastDisplay(ToastType.Success, "Post created, redirecting...")
+            setTimeout(() => {
+                router.push(`/post/${post.id}`)
+            }, 1500)
+        }
+      }
 
     return (
         <div className={className}>

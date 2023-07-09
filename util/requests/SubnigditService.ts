@@ -1,5 +1,6 @@
+import qs from "qs";
 import StrapiResponse from "../../models/StrapiResponse";
-import Subnigdit, { StrapiSubnigdit } from "../../models/Subnigdit";
+import Subnigdit, { StrapiSubnigdit, SubnigditSearchResult } from "../../models/Subnigdit";
 import { StrapiUser } from "../../models/User";
 import RequestService from "./RequestService";
 export default class SubnigditService {
@@ -26,7 +27,23 @@ export default class SubnigditService {
 
     async searchSubnigdits(key: string)
     {
-        return await this.requestService.get('search?search='+key); 
+        const searchResults: SubnigditSearchResult[] = await this.requestService.get('search?search='+key); 
+        return searchResults;
+    }
+
+    /** 
+     * DOES NOT RETURN FULL TYPE
+     * @returns {Promise<StrapiSubnigdit>}
+     */
+    async getOne(id: string | number){
+
+        const query = qs.stringify({
+            populate: ['rules', 'icon'],
+            fields: ['id', 'name', 'description', 'createdAt', 'name_uid']
+        });
+
+        const subnigdit: StrapiResponse<StrapiSubnigdit> = await this.requestService.get(this.endpoint + '/' + id + '?' + query);
+        return subnigdit.data;
     }
 
 }

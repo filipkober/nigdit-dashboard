@@ -1,5 +1,7 @@
+import { toastDisplay } from "../../components/atoms/Toast";
 import Reply, { StrapiReply, StrapiReplyExtended } from "../../models/Reply";
 import StrapiResponse from "../../models/StrapiResponse";
+import ToastType from "../../models/ToastType";
 import RequestService from "./RequestService";
 export default class ReplyService {
     
@@ -17,8 +19,10 @@ export default class ReplyService {
         return reply.data;
     }
 
-    async createNew(reply: Reply) {
-        const createdReply: StrapiResponse<StrapiReply> = await this.requestService.post(this.endpoint, {data: {data: reply}});
+    async create({content, comment}: {content: string, comment: number}) {
+        const createdReply: StrapiResponse<StrapiReply> = await this.requestService.post(this.endpoint, {data: {data: {content, comment}}, auth: true, handleError: () => {
+            toastDisplay(ToastType.Error, 'Error creating comment');
+        }});
         return createdReply.data;
     }
 

@@ -43,6 +43,18 @@ type StrapiSubnigdit = {
   };
 };
 
+type StrapiSubnigditLimited = {
+  id: number;
+  attributes: {
+    name: string;
+    description: string;
+    createdAt: Date;
+    icon: StrapiMedia;
+    name_uid: string;
+    rules?: SubnigditRule[];
+  };
+}
+
 type SubnigditN = {
   id: number;
   name: string;
@@ -71,6 +83,27 @@ const subnigditAdapter = (s: StrapiSubnigdit): SubnigditN => {
   };
 };
 
+const subnigditLimitedAdapter = (s: StrapiSubnigditLimited): SubnigditN => {
+  return {
+    id: s.id,
+    name: s.attributes.name,
+    description: s.attributes.description,
+    createdAt: s.attributes.createdAt,
+    reports: 0,
+    icon: s.attributes.icon,
+    iconUrl: s.attributes.icon.data.attributes.url,
+    subscribers: 0,
+    rules: s.attributes.rules || [],
+    name_uid: s.attributes.name_uid
+  };
+};
+
+type SubnigditSearchResult = {
+  id: number;
+  name: string;
+  icon: Media;
+}
+
 export default Subnigdit;
-export type { StrapiSubnigdit, SubnigditN };
-export { subnigditAdapter };
+export type { StrapiSubnigdit, SubnigditN, SubnigditSearchResult };
+export { subnigditAdapter, subnigditLimitedAdapter };
