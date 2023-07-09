@@ -1,10 +1,15 @@
 import type { NextPage } from 'next'
-import Navbar from '../../components/molecules/Navbar'
+import Head from 'next/head'
 import NewPostForm from '../../components/organism/NewPostForm'
 
 const PostPage: NextPage = () => {
   return (
     <>
+      <Head>
+        <title>Create new post</title>
+        <link rel="icon" href={'/easterEgg1/blooddrop.svg'}/>
+        <meta name="description" content="Create new post."/>
+      </Head>
     <NewPostForm />
     </>
   )

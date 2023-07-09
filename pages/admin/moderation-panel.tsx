@@ -1,10 +1,10 @@
-import type { NextPage } from 'next'
+import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import ModerationPanel from '../../components/organism/ModerationPanel';
-import Navbar from '../../components/molecules/Navbar'
 import TabSelector from '../../components/molecules/TabSelector';
-import ReportService from '../../util/requests/ReportService';
+import ModerationPanel from '../../components/organism/ModerationPanel';
 import Report from '../../models/Report';
+import ReportService from '../../util/requests/ReportService';
 
 const ModerationPanelPage: NextPage = () => {
     const [selected, setSelected] = useState<number>(0);
@@ -39,6 +39,11 @@ const ModerationPanelPage: NextPage = () => {
 
   return (
     <div className='bg-backgroundL dark:bg-backgroundD h-full'>
+      <Head>
+        <title>Nigdit - Moderation panel</title>
+        <link rel="icon" href={'/easterEgg1/blooddrop.svg'}/>
+        <meta name="description" content="Nigdit moderation panel."/>
+      </Head>
       <TabSelector selected={selected} setSelected={setSelected} tabs={['Posts', 'Comments', 'Replies']}/>
       <ModerationPanel tab={selected} className={"h-screen"} reports={reports} onBanUser={onBanUser} onDeleteContent={onDeleteContent} onDismissReport={onDismissReport}/>
     </div>
