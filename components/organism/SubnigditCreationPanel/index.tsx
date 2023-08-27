@@ -5,11 +5,15 @@ import Image from 'next/image';
 import Input from "../../atoms/Input";
 import TextArea from "../../atoms/TextArea";
 import { SubmitHandler, useForm } from "react-hook-form";
+import AsyncSelect from "react-select";
+import UserService from "../../../util/requests/UserService";
+import SubnigditService from "../../../util/requests/SubnigditService";
+import { SearchUser } from "../../../models/User";
+import { debounce } from "lodash";
+import ImageCropModal from "../../molecules/ImageCropModal";
+import ImageInput from "../../molecules/ImageInput";
 
 //regular string does not work for some reason
-interface Stringus {
-  text: string
-}
 
 type Inputs = {
   icon: FileList,
@@ -30,6 +34,28 @@ export default function SubnigditCreationPanel()
     document.getElementById("bannerUpload")?.click();
   }
 
+  const [cropModalOpen, setCropModalOpen] = useState(false);
+  const [croppedIconImage, setCroppedIconImage] = useState<Blob>();
+  const [croppedBannerImage, setCroppedBannerImage] = useState<Blob>();
+  const [cropType, setCropType] = useState<"icon" | "banner">("icon");
+
+  const [unCroppedImage, setUnCroppedImage] = useState("");
+
+  const onCloseCropModal = () => {
+    setCropModalOpen(false);
+  }
+
+  const setCroppedImage = (croppedImage: Blob, type: "icon" | "banner") => {
+    if(type === "icon") {
+      setCroppedIconImage(croppedImage);
+    } else {
+      setCroppedBannerImage(croppedImage);
+    }
+  }
+
+  const userService = new UserService();
+  const subnigditService = new SubnigditService();
+
   //deletion of subnigdit
   const [destroy,setDestroy] = useState<boolean>(false);
   const btnDefClass = 'text-white duration-[100ms] text-center font-bold hover:drop-shadow-midget border-black border-solid hover:cursor-pointer font-["Roboto"]';
@@ -40,15 +66,14 @@ export default function SubnigditCreationPanel()
   }
 
   //adding rules
-  const [rules,setRules] = useState<Stringus[]>([{text:"murder"},{text:"commit adultery"},{text:"steal"}]);
+  const [rules,setRules] = useState<string[]>([]);
   const [newRule,setNewRule] = useState<string>("");
-  function addRule()
+  const addRule = () =>
   {
-    setRules([...rules,{text: newRule}])
-    console.log("added rule: "+newRule);
+    setRules([...rules, newRule])
     setNewRule("");
   }
-  function removeRule(ruleToDelete: number)
+  const removeRule = (ruleToDelete: number) =>
   {
     //this is probably not the best way to do it, but it seems to work fine
     setRules(rules.filter((rule,index) => {
@@ -62,24 +87,34 @@ export default function SubnigditCreationPanel()
   }
 
   //adding moderation
-  const [mods,setMods] = useState<Stringus[]>([{text:"Obama"},{text:"Führer"},{text:"palpatine"},{text:"Stealin"}]);
-  const [newMod,setNewMod] = useState<string>("");
-  function addMod()
+  const [mods,setMods] = useState<SearchUser[]>([]);
+  const [userOptions, setUserOptions] = useState<SearchUser[]>([]);
+  const [selectedUser, setSelectedUser] = useState<SearchUser>();
+  const [loadingUsers, setLoadingUsers] = useState<boolean>(false);
+
+  const addMod = () =>
   {
-    setMods([...mods,{text: newMod}])
-    console.log("added moderator: "+newMod);
-    setNewMod("");
+    if(!selectedUser) return
+    setMods([...mods, selectedUser])
   }
-  function removeMod(modToDelete: number)
+  
+  const removeMod = (modToDelete: number) =>
   {
     setMods(mods.filter((mod,index) => {
       return index != modToDelete ? (mod):(null);
     }))
     mods.splice(modToDelete,1);
   }
-  const handleNewModChange = (event: ChangeEvent<HTMLInputElement>): void =>
-  {
-    setNewMod(event.target.value);
+
+  const searchUsers = debounce(async (input: string) => {
+    const response = await userService.searchUsers(input)
+    setUserOptions(response);
+    setLoadingUsers(false);
+  }, 500)
+
+  const onPickImage = (image: File) => {
+    setUnCroppedImage(URL.createObjectURL(image));
+    setCropModalOpen(true);
   }
 
   const {
@@ -93,6 +128,35 @@ export default function SubnigditCreationPanel()
 
   const banner = watch('banner');
   const icon = watch('icon')
+
+  const [iconFile, setIconFile] = useState<File>();
+  const [bannerFile, setBannerFile] = useState<File>();
+
+  useEffect(() => {
+    if(croppedIconImage) {
+      const file = new File([croppedIconImage], "icon.png", {type: croppedIconImage.type})
+      setIconFile(file);
+    }
+  }, [croppedIconImage])
+
+  useEffect(() => {
+    if(croppedBannerImage) {
+      const file = new File([croppedBannerImage], "banner.png", {type: croppedBannerImage.type})
+      setBannerFile(file);
+    }
+  }, [croppedBannerImage])
+
+  const handleBannerImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setCropType('banner')
+      onPickImage(e.target.files[0]);
+    }
+  };
+
+  const handleIconImageChange = (image: File) => {
+    setCropType('icon')
+    onPickImage(image);
+  }
 
   return (
     <>
@@ -116,27 +180,19 @@ export default function SubnigditCreationPanel()
           <div className="overflow-hidden w-[100%] tl:w-[50vw] bg-foregroundL dark:bg-foregroundD drop-shadow-midget rounded-[10px] border-black border-[2px] border-solid">
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="border-b-[0px] border-black h-[15vh] w-[100%] bg-red-900 relative hover:cursor-pointer overflow-hidden hover:drop-shadow-bigChungus drop-shadow-walter">
-                  <Image src={banner && banner[0] ? URL.createObjectURL(banner[0]) : ""} alt="banner" width={1000} height={1000} className="w-[100%] h-[100%] object-cover"/>
+                  <Image src={bannerFile ? URL.createObjectURL(bannerFile) : (banner && banner[0] ? URL.createObjectURL(banner[0]) : "")} alt="banner" width={1000} height={1000} className="w-[100%] h-[100%] object-cover"/>
                   <a onClick={uploadBanner} className="duration-[100ms] text-transparent hover:text-black dark:hover:text-white bg-transparent hover:bg-[rgba(50,50,50,0.4)] absolute w-[100%] h-[15vh] my-[-15vh] flex items-center justify-center text-[1.25rem] ml:text-[1.5rem] ts:text-[2rem] ls:text-[3rem]">
                     Change banner image
                   </a>
-                  <input hidden type={"file"} id="bannerUpload" accept="image/*" {...register('banner')}/>
+                  <input hidden type={"file"} id="bannerUpload" accept="image/*" {...{...register('banner'), onChange: handleBannerImageChange}}/>
                 </div>
-                <div className="border-t-[0px] border-black w-[100%] ts:w-[100%] h-[0vh] absolute flex flex-row justify-start rounded-full bg-black z-100">
-                  <div className="overflow-hidden ml-[4%] my-[calc(-5%-12px)] w-[calc((10vw+24px)*98/100)] h-[calc((10vw+24px)*98/100)] tl:w-[calc((10vw+24px)*56/100)] tl:h-[calc((10vw+24px)*56/100)] bg-green-600 rounded-full absolute hover:cursor-pointer hover:drop-shadow-bigChungus drop-shadow-walter">
-                    <Image src={icon && icon[0] ? URL.createObjectURL(icon[0]) : ""} alt="icon" width={1000} height={1000} className="scale-100 border-[0px] border-black rounded-full object-cover w-[100%] h-[100%]"/>
-                    <a onClick={uploadIcon} className="duration-[100ms] rounded-full text-transparent hover:text-black dark:hover:text-white bg-transparent hover:bg-[rgba(50,50,50,0.4)] absolute w-[100%] h-[100%] my-[-100%] flex items-center justify-center text-[0.4rem] ml:text-[0.6rem] ts:text-[0.8rem] ls:text-[1rem]">
-                      Change icon
-                    </a>
-                    <input hidden type={"file"} id="iconUpload" accept="image/*" {...register('icon')}/>
-                  </div>
-                </div>
+                <ImageInput name="icon" register={register} customOnChange={handleIconImageChange} img={iconFile}/>
                 <div className="flex flex-wrap justify-between w-[100%]">
                   <div className="flex justify-between w-[100%] tl:h-[calc((5vw+12px)*60/100)] h-[calc((5vw+12px)*98/100)]">
                     <div className="flex justify-start w-[calc((14vw+24px)*3*98/100+2vw)] tl:w-[calc((13vw+37px)*3*56/100+1vw)]">
                       <div className="basis-1/3"></div>
                       <div className="basis-2/3 p-[1vw] tl:p-[0.5vw]">
-                        <Input name="name" type="text" className="w-[100%] h-[100%] text-[calc(2vw+5px)] tl:text-[calc(1vw+5px)]" placeholder="n/subnigditName..." register={register}/>
+                        <Input name="name" type="text" className="w-[100%] h-[100%] text-[calc(2vw+5px)] tl:text-[calc(1vw+5px)]" placeholder="awesomesubnigdit" register={register}/>
                       </div>
                     </div> 
                     <div className="w-[20%] p-[1vw] tl:p-[0.5vw]">
@@ -163,7 +219,7 @@ export default function SubnigditCreationPanel()
                       {rules.map((x,index) =>{
                           return(
                               <div key={index} className="w-full p-[3px] overflow-hidden flex space-x-1">
-                                <span className="w-[calc(100%-30px)] bg-foregroundD rounded-[5px] px-2">{index+1}. {x.text}</span>                                
+                                <span className="w-[calc(100%-30px)] bg-foregroundD rounded-[5px] px-2">{index+1}. {x}</span>                                
                                 <button type="button" onClick={() => {removeRule(index)}} className="bg-delete hover:bg-deleteH h-[25px] w-[25px] rounded-[5px]">X</button>                                 
                                 <div className="h-[25px] w-[5px]"></div> 
                               </div>
@@ -185,16 +241,67 @@ export default function SubnigditCreationPanel()
                       {mods.map((x,index) =>{
                           return(
                               <div key={index} className="w-full p-[3px] overflow-hidden flex space-x-1">
-                                <span className="w-[calc(100%-30px)] bg-foregroundD rounded-[5px] px-2">u/{x.text}</span>                                
+                                <span className="w-[calc(100%-30px)] bg-foregroundD rounded-[5px] px-2">u/{x.username}</span>                                
                                 <button type="button" onClick={() => {removeMod(index)}} className="bg-delete hover:bg-deleteH h-[25px] w-[25px] rounded-[5px]">X</button>                                 
                                 <div className="h-[25px] w-[5px]"></div> 
                               </div>
                           )
                       })}
                       </div>
-                      <div className="bg-experimentA border-black border-t-[2px] w-[100%] h-[40px] flex p-[0.5vw] tl:p-[0.25vw]">
-                        <input value={newMod} placeholder="some trusted person..." name="newRule" type="text" onChange={handleNewModChange} className="w-[83%] h-[100%] mr-[2%] outline-none bg-backgroundL dark:bg-backgroundD border-black border-2 hover:bg-foregroundL dark:hover:bg-highlightD rounded-md p-1"/>
-                        <button type="button" onClick={addMod} className={`w-[15%] h-[90%] text-[95%] tl:text-[100%] hover:cursor-pointer shrink-1 font-["Roboto"] dark:text-white active:translate-y-0.5 duration-[10ms] shrink-1 text-center font-bold drop-shadow-buttonImp active:drop-shadow-buttonImpA border-black border-solid border-[1px] hover:bg-experimentB bg-experimentA px-2 rounded-[5px]`}>Add</button>     
+                      <div className="bg-experimentA border-black border-t-[2px] w-[100%] h-[40px] flex">
+                        <div className="w-[83%] max-h-[28px]">
+                        <AsyncSelect placeholder="some trusted person..." name="newRule" styles={{
+                         control: (provided, state) => ({
+                          ...provided,
+                          backgroundColor: '#1A1A1B',
+                          borderColor: '#000000',
+                          maxHeight: '28px !important',
+                          outline: 'none',
+                          border: '0',
+                          "&:hover": {
+                            borderColor: '#000000'
+                          },
+                        }),
+                        menu: (provided, state) => ({
+                          ...provided,
+                          backgroundColor: '#1A1A1B',
+                          color: '#FFFFFF',
+                        }),
+                        option: (provided, state) => ({
+                          ...provided,
+                          backgroundColor: '#1A1A1B',
+                          "&:hover": {
+                            backgroundColor: '#2C2C2D'
+                          },
+                          color: '#FFFFFF',
+                        }), 
+                        singleValue: (provided, state) => ({
+                          ...provided,
+                          color: '#FFFFFF',
+                        }),
+                        }}
+                        onKeyDown={(e: any) => {
+                          if(e.target.value.length < 3) return
+                          setLoadingUsers(true);
+                          searchUsers(e.target.value)
+                        }}
+                        onChange={(e: any) => {
+                          setSelectedUser(userOptions?.find(x => x.id === e.value))
+                        }}
+                        options={userOptions?.map(opt => {
+                          return {value: opt.id, label: opt.username, icon: opt.profilePicture}
+                        }) || []}
+                        menuPortalTarget={document.body}
+                        className="color-white"
+                        noOptionsMessage={obj => {
+                          if(obj.inputValue.length < 3) return "Type at least 3 characters to search users"
+                          return loadingUsers ? "Loading..." : "No users found"
+                        }}
+                        />
+                        </div>
+                        <div className="h-full p-[0.5vw] tl:p-[0.25vw] w-[17%]">
+                        <button type="button" onClick={addMod} className={`w-full h-[90%] text-[95%] tl:text-[100%] hover:cursor-pointer shrink-1 font-["Roboto"] dark:text-white active:translate-y-0.5 duration-[10ms] shrink-1 text-center font-bold drop-shadow-buttonImp active:drop-shadow-buttonImpA border-black border-solid border-[1px] hover:bg-experimentB bg-experimentA px-2 rounded-[5px]`}>Add</button>     
+                        </div>
                       </div>  
                     </div>   
                   </div>            
@@ -204,6 +311,17 @@ export default function SubnigditCreationPanel()
         </div>
         <div className='tl:w-[22%] w-[0%] bg-[rgba(255,0,255,0)] tl:block hidden p-2'></div>
       </div>
+      <ImageCropModal isOpen={cropModalOpen} onClose={onCloseCropModal} onCrop={(croppedImage) => {
+        if(cropType === "icon") {
+          setCroppedIconImage(croppedImage);
+        } else if(cropType === "banner") {
+          setCroppedBannerImage(croppedImage);
+        }
+        setCropModalOpen(false);
+      }} 
+      image={unCroppedImage}
+      aspect={cropType === "icon" ? 1 : 10/3}
+      />
     </>
   )
 }

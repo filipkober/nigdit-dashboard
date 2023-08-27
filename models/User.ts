@@ -55,6 +55,12 @@ type UserVotes = {
     }
 }
 
+type SearchUser = {
+    id: number,
+    username: string,
+    profilePicture?: Media,
+}
+
 const userAdapter = (user: StrapiUser): User => {
     return {
         id: user.id,
@@ -71,5 +77,5 @@ const userAdapter = (user: StrapiUser): User => {
 }
 
 export default User
-export type {StrapiUser, LoginUser, UserVotes};
+export type {StrapiUser, LoginUser, UserVotes, SearchUser};
 export {userAdapter}
