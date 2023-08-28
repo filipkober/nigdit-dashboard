@@ -1,7 +1,7 @@
 import { GenericComponentProps } from '../../../models/GenericComponentProps';
-import { Crop, ReactCrop, centerCrop, makeAspectCrop } from 'react-image-crop';
+import { Crop, ReactCrop, centerCrop, convertToPixelCrop, makeAspectCrop } from 'react-image-crop';
 import Modal from '../../atoms/Modal';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import 'react-image-crop/dist/ReactCrop.css';
 
@@ -22,17 +22,15 @@ export default function ImageCropModal({
   aspect = 1,
 }: ImageCropModalProps) {
 
-  // TODO: fix bug where initial crop is not what is shown
-
   const [crop, setCrop] = useState<Crop>();
 
   const imgRef = useRef<HTMLImageElement>(null);
 
   const onImageLoad = (e: any) => {
-    const { naturalWidth: width, naturalHeight: height } = e.currentTarget;
+    const { width, height } = e.target;
 
     const crop = centerCrop(
-      makeAspectCrop(
+      convertToPixelCrop(makeAspectCrop(
         {
           unit: '%',
           width: 90,
@@ -43,8 +41,7 @@ export default function ImageCropModal({
       ),
       width,
       height
-    );
-
+    ), width, height);
     setCrop(crop);
   };
 
@@ -100,6 +97,7 @@ export default function ImageCropModal({
         const croppedImage = await getCroppedImg(imgRef.current, crop);
         onCrop(croppedImage);
       }}
+      key={'confirm'}
     >
       Confirm
     </button>
@@ -112,14 +110,18 @@ export default function ImageCropModal({
       onClose={onClose}
       buttons={[confirmButton]}
     >
+      { image &&
       <ReactCrop
         crop={crop}
-        onChange={(c) => setCrop(c)}
+        onChange={(c, pC) => {
+          setCrop(c)
+        }}
         aspect={aspect}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={image} alt="image crop preview" ref={imgRef} onLoad={onImageLoad}/>
       </ReactCrop>
+    }
     </Modal>
   );
 }

@@ -1,10 +1,11 @@
+import React from 'react';
 import { GenericComponentProps } from '../../../models/GenericComponentProps';
 
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  buttons?: JSX.Element[];
+  buttons?: JSX.Element[] & { props: { key: React.Key}}[]
 } & GenericComponentProps;
 
 export default function Modal({

@@ -12,6 +12,7 @@ type Subnigdit = { //za zmianę tego również cię zabiję
   createdAt: Date;
   reports: number;
   icon: Media;
+  banner: Media;
   subscribers: {
     data: {
       attributes:{
@@ -20,6 +21,7 @@ type Subnigdit = { //za zmianę tego również cię zabiję
     }
   },
   rules?: SubnigditRule[];  
+  moderators: StrapiUser[];
 };
 
 
@@ -31,6 +33,7 @@ type StrapiSubnigdit = {
     createdAt: Date;
     reports: number;
     icon: StrapiMedia;
+    banner: StrapiMedia;
     subscribers: {
       data: {
         attributes:{
@@ -79,7 +82,7 @@ const subnigditAdapter = (s: StrapiSubnigdit): SubnigditN => {
     iconUrl: s.attributes.icon.data.attributes.url,
     subscribers: s.attributes.subscribers.data.attributes.count || 0,
     rules: s.attributes.rules || [],
-    name_uid: s.attributes.name_uid
+    name_uid: s.attributes.name_uid,
   };
 };
 
@@ -94,7 +97,7 @@ const subnigditLimitedAdapter = (s: StrapiSubnigditLimited): SubnigditN => {
     iconUrl: s.attributes.icon.data.attributes.url,
     subscribers: 0,
     rules: s.attributes.rules || [],
-    name_uid: s.attributes.name_uid
+    name_uid: s.attributes.name_uid,
   };
 };
 
