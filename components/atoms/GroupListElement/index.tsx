@@ -1,20 +1,28 @@
 import React, {useState} from "react";
 import Image from 'next/image';
 import nigditIcon from '../../../assets/testimage.svg'
+import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
 type Props = {
     num: number,
     name: string,
     link: string,
     image: string,
+    last?: boolean,
 }
 
 
-export default function GroupListElement({num, name, link, image}: Props)
+export default function GroupListElement({num, name, link, image, last = false}: Props)
 {    
+    const classes = twMerge(
+        "hover:cursor-pointer overflow-hidden w-[100%] h-[3vw] flex flex-row hover:bg-experimentB bg-foregroundD",
+        num % 2 == 1 ? "bg-experimentC" : "bg-foregroundD",
+        last ? "rounded-b-[10px]" : ""
+    )
 
     return(
-        <a href={link} className={num%2 ==1 ? ("hover:cursor-pointer overflow-hidden w-[100%] h-[3vw] flex flex-row hover:bg-experimentB bg-foregroundD") : ("overflow-hidden w-[100%] h-[3vw] flex flex-row hover:bg-experimentB bg-experimentC")}>
+        <Link href={link} className={classes}>
             <div className="flex flex-row justify-center items-center w-[15%] overflow-hidden">
                 <p className="text-[16px] ls:text-[18px] cs:text-[20px] cm:text-[22px]">{num}.</p>
             </div>
@@ -24,6 +32,6 @@ export default function GroupListElement({num, name, link, image}: Props)
             <div className="flex flex-row justify-start items-center p-1 overflow-hidden">
                 <p className="font-bold text-[12px] ls:text-[14px] cs:text-[16px] cm:text-[20px] overflow-hidden">r/{name}</p>
             </div>
-        </a>
+        </Link>
     )
 }

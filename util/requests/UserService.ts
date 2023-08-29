@@ -31,8 +31,23 @@ export default class UserService {
   }
 
   async getMe() {
+
+    const query = qs.stringify({
+      populate: {
+        posts: true,
+        subnigdits: {
+          populate: ['icon']
+        },
+        owned_subnigdit: true,
+        moderates: true,
+        comments: true,
+        replies: true,
+        profilePicture: true
+      }
+    });
+
     const user: User = await this.requestService.get(
-      this.endpoint + '/me?populate=*',
+      this.endpoint + '/me?'+query,
       { auth: true }
     );
     return user;
