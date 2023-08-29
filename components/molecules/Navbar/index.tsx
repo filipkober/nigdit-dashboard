@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import emptypfp from '../../../assets/emptypfp.jpg';
 import Media from '../../../models/Media';
 import SubnigditService from '../../../util/requests/SubnigditService';
+import { SubnigditSearchResult } from '../../../models/Subnigdit';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     user?:
@@ -19,18 +20,12 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
         profilePage: string,
     }
 }
-type searchSubnigdit = {
-    name: string,
-    id: number,
-    icon: Media,
-    subscribers: number,
-}
 
 export default function Navbar()
 {
     const subnigditService = new SubnigditService();
     const [searchValue, setSearchValue] = useState("");
-    const [searched, setSearched] = useState<searchSubnigdit[]>([]);
+    const [searched, setSearched] = useState<SubnigditSearchResult[]>([]);
     const [isLogged, setLogged] = useState(false);
     const user = useSelector((state: UserState) => state.user)
     const {username, profilePicture} = user;

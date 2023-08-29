@@ -47,17 +47,15 @@ const examplePostObject: StrapiPost = {
                   name: '',
                   alternativeText: '',
                   width: 0,
-                  height:0,
+                  height: 0,
                   ext: '',
                   url: '',
                   formats: {
                     large: {
- 
                       url: '',
-
+                    }
                   }
                 }
-              }
               }
             },
             subscribers: {
@@ -68,6 +66,54 @@ const examplePostObject: StrapiPost = {
               }
             },
             name_uid: '',
+            banner: {
+              data: {
+                id: 0,
+                attributes: {
+                  name: "",
+                  alternativeText: "",
+                  width: 0,
+                  height: 0,
+                  ext: "",
+                  url: "",
+                  formats: {
+                    large: {
+                      url: ""
+                    }
+                  }
+                }
+              }
+            },
+            moderators: {
+              data: []
+            },
+            owner: {
+              data: {
+                id: 0,
+                attributes: {
+                  username: "",
+                  email: "",
+                  posts: undefined,
+                  comments: undefined,
+                  replies: undefined,
+                  profilePicture: undefined,
+                  votes: {
+                    upvotes: {
+                      posts: [],
+                      comments: [],
+                      replies: []
+                    },
+                    downvotes: {
+                      posts: [],
+                      comments: [],
+                      replies: []
+                    }
+                  },
+                  aboutMe: undefined,
+                  provider: ""
+                }
+              }
+            }
           }
         }
       }

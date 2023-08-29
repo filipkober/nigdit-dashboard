@@ -130,6 +130,7 @@ type SubnigditSearchResult = {
   id: number;
   name: string;
   icon: Media;
+  subscribers: number;
 }
 
 export default Subnigdit;

@@ -48,12 +48,6 @@ export default class SubnigditService {
         return joined;
     }
 
-    async checkSubscription(id: string)
-    {
-        const joined: boolean = await this.requestService.get(this.endpoint + '/check/' + id, {auth: true});
-        return joined;
-    }
-
     async searchSubnigdits(key: string)
     {
         const searchResults: SubnigditSearchResult[] = await this.requestService.get('search?search='+key); 
