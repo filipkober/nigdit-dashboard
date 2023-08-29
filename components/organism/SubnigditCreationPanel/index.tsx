@@ -67,14 +67,6 @@ export default function SubnigditCreationPanel({
     setCropModalOpen(false);
   };
 
-  const setCroppedImage = (croppedImage: Blob, type: 'icon' | 'banner') => {
-    if (type === 'icon') {
-      setCroppedIconImage(croppedImage);
-    } else {
-      setCroppedBannerImage(croppedImage);
-    }
-  };
-
   const userService = new UserService();
   const subnigditService = new SubnigditService();
 
@@ -88,7 +80,9 @@ export default function SubnigditCreationPanel({
   }
 
   //adding rules
-  const [rules, setRules] = useState<string[]>(editing ? (subnigdit.rules ? subnigdit.rules?.map(r => r.rule) : []) : []);
+  const [rules, setRules] = useState<string[]>(
+    editing ? (subnigdit.rules ? subnigdit.rules?.map((r) => r.rule) : []) : []
+  );
   const [newRule, setNewRule] = useState<string>('');
   const addRule = () => {
     setRules([...rules, newRule]);
@@ -108,13 +102,21 @@ export default function SubnigditCreationPanel({
   };
 
   //adding moderation
-  const [mods, setMods] = useState<SearchUser[]>(editing ? subnigdit.moderators.map(m => ({ id: m.id, username: m.attributes.username, avatar: m.attributes.profilePicture })) : []);
+  const [mods, setMods] = useState<SearchUser[]>(
+    editing
+      ? subnigdit.moderators.map((m) => ({
+          id: m.id,
+          username: m.attributes.username,
+          avatar: m.attributes.profilePicture,
+        }))
+      : []
+  );
   const [userOptions, setUserOptions] = useState<SearchUser[]>([]);
   const [selectedUser, setSelectedUser] = useState<SearchUser>();
   const [loadingUsers, setLoadingUsers] = useState<boolean>(false);
 
   const addMod = () => {
-    if (!selectedUser || mods.includes(selectedUser)) return;
+    if (!selectedUser || mods.find((u) => u.id === selectedUser.id)) return;
     setMods([...mods, selectedUser]);
   };
 
@@ -144,12 +146,16 @@ export default function SubnigditCreationPanel({
     watch,
     setError,
     formState: { errors },
-  } = useForm<Inputs>({defaultValues: editing ? {
-    name: subnigdit.name,
-    description: subnigdit.description,
-    icon: subnigdit.icon.url,
-    banner: subnigdit.banner.url,
-  } : undefined});
+  } = useForm<Inputs>({
+    defaultValues: editing
+      ? {
+          name: subnigdit.name,
+          description: subnigdit.description,
+          icon: process.env.NEXT_PUBLIC_STRAPI_URL + subnigdit.icon.url,
+          banner: process.env.NEXT_PUBLIC_STRAPI_URL + subnigdit.banner.url,
+        }
+      : undefined,
+  });
 
   const banner = watch('banner');
   const icon = watch('icon');
@@ -202,7 +208,7 @@ export default function SubnigditCreationPanel({
   }, 500);
 
   useEffect(() => {
-    if (name) {
+    if (name && !editing) {
       debouncedChackName(name);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -211,28 +217,62 @@ export default function SubnigditCreationPanel({
   const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
-    if (!bannerFile || !iconFile) return;
-    if(!editing){
-      try{
-    const sub = await subnigditService.createSubnigdit({
-      name: values.name,
-      description: values.description,
-      icon: iconFile,
-      banner: bannerFile,
-      rules: rules.map((rule) => rule),
-      moderators: mods.map((mod) => mod.id),
-    });
-    if (sub) {
-      console.log('here hehe')
-      router.push(`/n/${sub.name_uid}`);
+    if (!editing) {
+      if (!bannerFile || !iconFile) return;
+      try {
+        const sub = await subnigditService.createSubnigdit({
+          name: values.name,
+          description: values.description,
+          icon: iconFile,
+          banner: bannerFile,
+          rules: rules.map((rule) => rule),
+          moderators: mods.map((mod) => mod.id),
+        });
+        if (sub) {
+          toastDisplay(
+            ToastType.Success,
+            'Subnigdit created successfully, redirecting...'
+          );
+          setTimeout(() => {
+            router.push(`/n/${sub.name_uid}`);
+          }, 1500);
+        }
+      } catch (e) {
+        toastDisplay(ToastType.Error, 'Something went wrong');
+      }
+    } else {
+      if (!destroy) {
+        try {
+          const sub = await subnigditService.editSubnigdit(
+            {
+              description: values.description,
+              icon: iconFile,
+              banner: bannerFile,
+              rules: rules.map((rule) => rule),
+              moderators: mods.map((mod) => mod.id),
+            },
+            subnigdit.id
+          );
+          if (sub)
+            toastDisplay(ToastType.Success, 'Subnigdit edited successfully');
+        } catch (e) {
+          toastDisplay(ToastType.Error, 'Something went wrong');
+        }
+      } else {
+        try {
+          const response = await subnigditService.deleteSubnigdit(subnigdit.id);
+          toastDisplay(
+            ToastType.Success,
+            'Subnigdit deleted successfully, redirecting...'
+          );
+          setTimeout(() => {
+            router.push(`/`);
+          }, 1500);
+        } catch (e) {
+          toastDisplay(ToastType.Error, 'Something went wrong');
+        }
+      }
     }
-  }
-  catch(e){
-    toastDisplay(ToastType.Error, "Something went wrong")
-  }
-  } else {
-    // TODO: update subnigdit
-  }
   };
 
   return (
@@ -308,12 +348,14 @@ export default function SubnigditCreationPanel({
           </div>
           <div className="overflow-hidden w-[100%] tl:w-[50vw] bg-foregroundL dark:bg-foregroundD drop-shadow-midget rounded-[10px] border-black border-[2px] border-solid">
             <form id="subnigditForm" onSubmit={handleSubmit(onSubmit)}>
-              <div className="border-b-[0px] border-black h-[15vh] w-[100%] bg-red-900 relative hover:cursor-pointer overflow-hidden hover:drop-shadow-bigChungus drop-shadow-walter">
+              <div className="border-b-[0px] border-black h-[15vh] w-[100%] relative hover:cursor-pointer overflow-hidden hover:drop-shadow-bigChungus drop-shadow-walter">
                 <Image
                   src={
                     bannerFile
                       ? URL.createObjectURL(bannerFile)
-                      : ((banner && banner.length > 0) ? banner : emptyBanner)
+                      : banner && banner.length > 0
+                      ? banner
+                      : emptyBanner
                   }
                   alt="banner"
                   width={1000}
@@ -341,7 +383,13 @@ export default function SubnigditCreationPanel({
                 name="icon"
                 register={register}
                 customOnChange={handleIconImageChange}
-                img={iconFile ? URL.createObjectURL(iconFile) : ""}
+                img={
+                  iconFile
+                    ? URL.createObjectURL(iconFile)
+                    : icon && icon.length > 0
+                    ? icon
+                    : ''
+                }
               />
               <div className="flex flex-wrap justify-between w-[100%]">
                 <div className="flex justify-between w-[100%] tl:h-[calc((5vw+12px)*60/100)] h-[calc((5vw+12px)*98/100)]">
@@ -357,6 +405,7 @@ export default function SubnigditCreationPanel({
                         className="w-[100%] h-[100%] text-[calc(2vw+5px)] tl:text-[calc(1vw+5px)]"
                         placeholder="awesomesubnigdit (max 20)"
                         register={register}
+                        disabled={editing}
                       />
                       {errors.name && (
                         <ErrorMessage>{errors.name.message}</ErrorMessage>

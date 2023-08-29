@@ -14,6 +14,7 @@ type User = {
     votes: UserVotes,
     aboutMe?: string,
     provider: string,
+    subnigdits?: {id: number, name: string}[],
 }
 type StrapiUser = {
     id: number,

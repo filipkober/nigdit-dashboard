@@ -12,6 +12,7 @@ type Props = {
 };
 
 const ImageInput: React.FC<Props> = ({ name, register, customOnChange, img, emptyImg = emptyIcon }) => {
+
   const [image, setImage] = useState<File | null>();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +24,7 @@ const ImageInput: React.FC<Props> = ({ name, register, customOnChange, img, empt
 
   return (
     <div className="border-t-[0px] border-black w-[100%] ts:w-[100%] h-[0vh] absolute flex flex-row justify-start rounded-full bg-black z-100">
-      <div className="overflow-hidden ml-[4%] my-[calc(-5%-12px)] w-[calc((10vw+24px)*98/100)] h-[calc((10vw+24px)*98/100)] tl:w-[calc((10vw+24px)*56/100)] tl:h-[calc((10vw+24px)*56/100)] bg-green-600 rounded-full absolute hover:drop-shadow-bigChungus drop-shadow-walter">
+      <div className="overflow-hidden ml-[4%] my-[calc(-5%-12px)] w-[calc((10vw+24px)*98/100)] h-[calc((10vw+24px)*98/100)] tl:w-[calc((10vw+24px)*56/100)] tl:h-[calc((10vw+24px)*56/100)] rounded-full absolute hover:drop-shadow-bigChungus drop-shadow-walter">
         <Image
           src={img ? img : (image ? URL.createObjectURL(image) : emptyImg)}
           alt="icon"

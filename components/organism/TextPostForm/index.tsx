@@ -5,12 +5,13 @@ import TextArea from "../../atoms/TextArea";
 import SubnigditRules from "../../molecules/SubnigditRules";
 import { SubnigditN, subnigditAdapter, subnigditLimitedAdapter } from "../../../models/Subnigdit";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SubnigditService from "../../../util/requests/SubnigditService";
 import PostService from "../../../util/requests/PostService";
 import { toastDisplay } from "../../atoms/Toast";
 import ToastType from "../../../models/ToastType";
 import { useRouter } from "next/router";
+import autoAnimate from "@formkit/auto-animate";
 
 type textPostFormProps = {
     className?: string,
@@ -59,9 +60,15 @@ export default function TextPostForm({className = "", subnigditId}: textPostForm
         }
       }
 
+      const formRef = useRef<HTMLFormElement>(null);
+
+      useEffect(() => {
+        formRef.current && autoAnimate(formRef.current);
+      }, [formRef])
+
     return (
         <div className={className}>
-                    <form onSubmit={handleSubmit(onSubmit)} className={"mx-2 ts:flex flex-row-reverse"}>
+                    <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className={"mx-2 ts:flex flex-row-reverse"}>
                         {subnigdit && <div className="mt-2 ts:ml-2 ts:w-1/2 ts:flex align-middle">
                             <div className="ml-auto ts:w-1/2 mx-auto">
                             <SubnigditRules subnigdit={subnigdit}/>

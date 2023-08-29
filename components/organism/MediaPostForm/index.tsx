@@ -11,6 +11,7 @@ import PostService from '../../../util/requests/PostService';
 import { toastDisplay } from '../../atoms/Toast';
 import ToastType from '../../../models/ToastType';
 import { useRouter } from 'next/router';
+import autoAnimate from '@formkit/auto-animate';
 
 type mediaPostFormProps = {
   className?: string;
@@ -84,11 +85,29 @@ export default function MediaPostForm({ className, subnigditId }: mediaPostFormP
     if(m && m[0]) setMediaType(m[0].type)
   }, [m]);
 
-  const {ref, ...rest} = register('media');
+  const {ref, onChange: onMediaChange, ...rest} = register('media');
+  const [image, setImage] = useState<HTMLImageElement>();
+
+  const mediaInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(e.target.files && e.target.files[0]) {
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(e.target.files[0]);
+      img.onload = () => {
+        setImage(img);
+      }
+    }
+    onMediaChange(e);
+  };
+
+  const divRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    divRef.current && autoAnimate(divRef.current);
+  }, [divRef])
 
   return (
     <div className={className}>
-          <div className='ts:flex flex-row-reverse'>
+          <div className='ts:flex flex-row-reverse' ref={divRef}>
             {subnigdit && <div className="mt-2 ts:ml-2 ts:w-1/2 ts:flex align-middle">
               <div className="ml-auto ts:w-1/2 mx-auto">
                 <SubnigditRules subnigdit={subnigdit}/>
@@ -104,9 +123,9 @@ export default function MediaPostForm({ className, subnigditId }: mediaPostFormP
               register={register}
             />
 
-            <div className="flex justify-center items-center w-full relative" onDrop={(e) => dropHandler(e, setValue)} onDragOver={e => e.preventDefault()}>
+            <div className="flex justify-center items-center w-full relative bg-experimentC rounded-lg" onDrop={(e) => dropHandler(e, setValue)} onDragOver={e => e.preventDefault()}>
               {
-                !m ? (
+                (!m || (!!m && !m[0])) ? (
                   <label
                 htmlFor="dropzone-file"
                 className="flex flex-col justify-center items-center w-full h-64 bg-backgroundL dark:bg-backgroundD rounded-lg border-2 border-foregroundL dark:border-foregroundD border-dashed cursor-pointer dark:hover:bg-bray-800 hover:bg-gray-100 dark:hover:border-gray-500 dark:hover:bg-gray-600 duration-75"
@@ -137,7 +156,9 @@ export default function MediaPostForm({ className, subnigditId }: mediaPostFormP
                 <input id="dropzone-file" type="file" className="hidden" accept="video/*,image/*" {...rest} ref={e => {
                   ref(e);
                   inputFileRef.current = e;
-                }}/>
+                }}
+                onChange={mediaInputOnChange}
+                />
               </label>
                 ) : (
                   <>
@@ -145,8 +166,10 @@ export default function MediaPostForm({ className, subnigditId }: mediaPostFormP
                     <Image
                     src={m && m[0] ? URL.createObjectURL(m[0]) : ""}
                     alt="media"
-                    width={800}
-                    height={400}
+                    height={0}
+                    width={0}
+                    sizes='100vw'
+                    style={{ width: 'auto', height: 'auto', maxWidth: "100%"}}
                     className="rounded-lg flex flex-col justify-center items-center w-full h-[50vh]"
                   />
                   ) : (
