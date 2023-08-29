@@ -3,6 +3,9 @@ import StrapiResponse from '../../models/StrapiResponse';
 import RequestService, { NetworkError } from './RequestService';
 import qs from 'qs';
 
+type createTextPostParams = {title: string, description: string, subnigdit: number, nsfw?: boolean}
+type createMediaPostParams = {title: string, subnigdit: number, nsfw?: boolean, media: File, type: "Image" | "Video" | "Gif"}
+
 export default class PostService {
   private endpoint = 'posts';
   private requestService = new RequestService();
@@ -164,9 +167,27 @@ export default class PostService {
     return posts.data;
   }
 
-  async createNew(post: Post) {
-    const createdPost: StrapiResponse<StrapiPost> =
-      await this.requestService.post(this.endpoint, { data: { data: post } });
+  async createText({ title, description, subnigdit, nsfw}: createTextPostParams) {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('subnigdit', subnigdit.toString());
+    formData.append('type', 'Text')
+    nsfw && formData.append('nsfw', nsfw.toString());
+    const createdPost: {data: Post} =
+      await this.requestService.post(this.endpoint, { data: formData, auth: true, contentType: 'multipart/form-data' });
+    return createdPost.data;
+  }
+
+  async createMedia({ title, subnigdit, nsfw, media, type}: createMediaPostParams) {
+    const formData = new FormData();
+    formData.append('files.media', media);
+    formData.append('title', title);
+    formData.append('subnigdit', subnigdit.toString());
+    formData.append('type', type)
+    nsfw && formData.append('nsfw', nsfw.toString());
+    const createdPost: {data: Post} =
+      await this.requestService.post(this.endpoint, { data: formData, auth: true, contentType: 'multipart/form-data' });
     return createdPost.data;
   }
 

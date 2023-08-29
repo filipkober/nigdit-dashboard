@@ -1,8 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import NewPostForm from '../../components/organism/NewPostForm'
+import { useRouter } from 'next/router';
 
 const PostPage: NextPage = () => {
+
   return (
     <>
       <Head>

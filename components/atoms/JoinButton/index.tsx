@@ -1,7 +1,12 @@
 import { useState } from 'react';
+import { GenericComponentProps } from '../../../models/GenericComponentProps';
 
-export function JoinButton() {
-  const [joined, setJoined] = useState<Boolean>(false);
+type JoinButtonProps = {
+  joinedAlready?: Boolean;
+} & GenericComponentProps;
+
+export function JoinButton({ className, joinedAlready = false }: JoinButtonProps) {
+  const [joined, setJoined] = useState<Boolean>(joinedAlready);
 
   return (
     <>

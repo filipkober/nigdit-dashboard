@@ -22,9 +22,15 @@ import ToastType from '../../../models/ToastType';
 import 'react-toastify/dist/ReactToastify.css';
 import Share from '../../atoms/Share';
 import Vote from '../../atoms/Vote';
+import CommentService from '../../../util/requests/CommentService';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 type PostExtendedProps = {
   post: PostN;
+};
+
+type FormValues = {
+  content: string;
 };
 
 export default function PostExtended({
@@ -50,6 +56,25 @@ export default function PostExtended({
   comments?.data.map(
     (c) => (allComNum += c.attributes.replies?.data.attributes.count || 0)
   );
+
+  const commentService = new CommentService();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>()
+  const onSubmit: SubmitHandler<FormValues> = async (values) => {
+    const comment = await commentService.create({content: values.content, post: post.id});
+    if (comment) {
+      toastDisplay(ToastType.Success, 'Comment created');
+      post.comments ? post.comments.data.push(comment) : post.comments = {data: [comment]};
+      reset();
+    } else {
+      toastDisplay(ToastType.Error, 'Error creating comment');
+    }
+  };
 
   return (
     <>
@@ -147,17 +172,21 @@ export default function PostExtended({
           </div>
           <div>
             {/* KOMETNARZE */}
+            {isLogged && (
+            <form onSubmit={handleSubmit(onSubmit)}>
             <textarea
               className="px-1 w-[100%] resize-none bg-accentL dark:bg-accentD text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:italic"
               cols={50}
               rows={5}
               placeholder="Put your racist opinion here..."
+              {...register("content", { required: true })}
             ></textarea>
 
             <button className="p-1 rounded ml-auto flex bg-accentL dark:bg-accentD border-solid border-black dark:border-white text-black dark:text-white">
               Comment
             </button>
-
+            </form>
+            )}
             <div>
               {comments?.data.map((comment) => {
                 return (

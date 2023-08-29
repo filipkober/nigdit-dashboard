@@ -1,6 +1,5 @@
 import React, { InputHTMLAttributes, useEffect, useState } from 'react';
 import InputField from '../../atoms/InputField';
-import { Formik, Field, Form, FormikHelpers } from 'formik';
 import UserService from '../../../util/requests/UserService';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +9,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import GoogleButton from '../../atoms/GoogleButton';
 import Link from 'next/link';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 const userService = new UserService();
 
@@ -47,12 +47,14 @@ export default function LoginForm() {
           dispatch(setUser(userData.user));
           router.push(!!redirect ? redirect : '/');
         }
-      } catch {
-        setFailed(true);
       }
-    },
-    flow: 'auth-code', //implicit
-  });
+        catch
+        {
+          setFailed(true);
+        }
+      },
+      flow: 'auth-code', //implicit
+    });
 
   //redirect if logged
   const user = useSelector((state: UserState) => state.user)
@@ -64,14 +66,15 @@ export default function LoginForm() {
     }
   },[])
 
-  return (
-    <div className="w-[100%] m-0 p-0 h-[100%] flex flex-col justify-center items-center">
-      <div className="selection:bg-[#b8b8b8] selection:text-[#FF5C00] flex flex-wrap flex-col justify-center items-center p-[0.5rem] w-[22vw] min-w-[288px] max-w-[380px]">
-        <Formik
-          initialValues={initValues}
-          onSubmit={async (values) => {
-            const userData = await userService.login(
-              //dodaj try catch
+
+    const {
+      register,
+      handleSubmit,
+      watch,
+      formState: { errors },
+    } = useForm<FormValues>()
+    const onSubmit: SubmitHandler<FormValues> = async (values) => {
+      const userData = await userService.login( //dodaj try catch
               values.login,
               values.password
             );
@@ -84,10 +87,14 @@ export default function LoginForm() {
             } catch {
               setFailed(true);
             }
-          }}
-        >
-          {({ handleSubmit }) => (
-            <Form onSubmit={handleSubmit}>
+    }
+
+    console.log(register('login'))
+
+  return (
+    <div className="w-[100%] m-0 p-0 h-[100%] flex flex-col justify-center items-center">
+      <div className="selection:bg-[#b8b8b8] selection:text-[#FF5C00] flex flex-wrap flex-col justify-center items-center p-[0.5rem] w-[22vw] min-w-[288px] max-w-[380px]">
+            <form onSubmit={handleSubmit(onSubmit)}>
               {/* Login title text */}
               <div className=" w-[100%] min-h-[3rem] h-[7vh] flex flex-wrap flex-col justify-center items-center my-4">
                 <p className="shrink-1 text-[4.5rem] font-['Roboto'] dark:text-white text-center font-bold">
@@ -125,51 +132,25 @@ export default function LoginForm() {
               </div>
               {/* login */}
               <div className=" w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center">
-                {failed ? (
-                  <InputField
-                    className="w-[63%] h-[85%]"
-                    name={'login'}
-                    id={'login'}
-                    fieldClassName="ring-pink-500 focus:ring-2 ring-[0.6px] border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500"
-                    placeholder={'lnos ǝɥʇ ɟo ɹǝuʍo ɹǝɯɹoɟ'}
-                    type={'text'}
-                  />
-                ) : (
-                  <InputField
-                    className="w-[63%] h-[85%]"
-                    name={'login'}
-                    id={'login'}
-                    placeholder={'lnos ǝɥʇ ɟo ɹǝuʍo ɹǝɯɹoɟ'}
-                    type={'text'}
-                  />
-                )}
                 <p className="w-[37%] shrink-1 pl-4 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">
                   Username
                 </p>
+                {(failed) ? (
+                  <InputField className="w-[63%] h-[85%]" id={'login'} fieldClassName='ring-pink-500 focus:ring-2 ring-[0.6px] border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500' placeholder={'lnos ǝɥʇ ɟo ɹǝuʍo ɹǝɯɹoɟ'} type={'text'} register={register} name='login'/>
+                  ) : (
+                  <InputField className="w-[63%] h-[85%]" id={'login'} placeholder={'lnos ǝɥʇ ɟo ɹǝuʍo ɹǝɯɹoɟ'} type={'text'} register={register} name='login'/>
+                )}   
               </div>
               {/* password */}
               <div className="w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center">
-                {failed ? (
-                  <InputField
-                    className="w-[63%] h-[85%]"
-                    name={'password'}
-                    id={'password'}
-                    fieldClassName="ring-pink-500 focus:ring-2 ring-[0.6px] border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500"
-                    placeholder={'pǝʞɐǝl ʎpɐǝɹlɐ ʎlqɐqoɹd'}
-                    type={'password'}
-                  />
-                ) : (
-                  <InputField
-                    className="w-[63%] h-[85%]"
-                    name={'password'}
-                    id={'password'}
-                    placeholder={'pǝʞɐǝl ʎpɐǝɹlɐ ʎlqɐqoɹd'}
-                    type={'password'}
-                  />
-                )}
                 <p className="w-[37%] shrink-1 pl-4 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">
                   Password
                 </p>
+                {(failed) ? (
+                  <InputField className="w-[63%] h-[85%]" id={'password'} fieldClassName='ring-pink-500 focus:ring-2 ring-[0.6px] border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500' placeholder={'pǝʞɐǝl ʎpɐǝɹlɐ ʎlqɐqoɹd'} type={'password'} register={register} name='password'/>
+                  ) : (
+                  <InputField className="w-[63%] h-[85%]" id={'password'} placeholder={'pǝʞɐǝl ʎpɐǝɹlɐ ʎlqɐqoɹd'} type={'password'} register={register} name='password'/>
+                )}                
               </div>
               {/* forgot password */}
               {failed ? (
@@ -198,9 +179,7 @@ export default function LoginForm() {
                   Log In
                 </button>
               </div>
-            </Form>
-          )}
-        </Formik>
+            </form>
         <div className="mt-5">
           <span className="text-[1rem] font-['Roboto'] dark:text-white font-bold">
             New to Nigdit? &nbsp;

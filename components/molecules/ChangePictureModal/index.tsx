@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Button from '../../atoms/Button';
-import { Formik } from 'formik';
 import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import { useEffect, useRef } from 'react';
 import emptyPfp from '../../../assets/emptypfp.jpg';
@@ -8,12 +7,17 @@ import UserService from '../../../util/requests/UserService';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../../store/userSlice';
 import { userAdapter } from '../../../models/User';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 type ChangePictureModalProps = {
   isOpen: boolean;
   onClose: () => void;
   initialImage?: string;
 } & GenericComponentProps;
+
+type Inputs = {
+  picture: FileList
+}
 
 export default function ChangePictureModal({
   isOpen,
@@ -33,6 +37,19 @@ export default function ChangePictureModal({
     }
   }, [isOpen]);
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    if(!values.picture) return onClose();
+    const user = await userService.setProfilePicture(values.picture[0]);
+    onClose();
+    dispatch(setUser(user))
+  }
+
   const userService = new UserService();
 
   const dispatch = useDispatch();
@@ -43,18 +60,9 @@ export default function ChangePictureModal({
     picture: null,
   }
 
+  const pic = watch("picture")
   return (
-    <Formik
-      initialValues={{ picture: null }}
-      onSubmit={async (values) => {
-        if(!values.picture) return onClose();
-        const user = await userService.setProfilePicture(values.picture);
-        onClose();
-        dispatch(setUser(user))
-      }}
-    >
-      {({ values, handleChange, handleBlur, handleSubmit, setFieldValue }) => (
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <dialog
             className={`w-screen h-screen z-1 absolute top-0 left-0 bg-transparent`}
             ref={dialogRef}
@@ -70,7 +78,7 @@ export default function ChangePictureModal({
 
               <div className="rounded-full bg-white aspect-square w-[100px] h-[100px] ml-10 my-auto hover:cursor-pointer relative">
                 <Image
-                  src={values.picture ? URL.createObjectURL(values.picture) : initialImage}
+                  src={pic && pic[0] ? URL.createObjectURL(pic[0]) : initialImage}
                   alt="profile picture"
                   width={100}
                   height={100}
@@ -90,13 +98,7 @@ export default function ChangePictureModal({
                   type={'file'}
                   id="imgUpload"
                   accept="image/*"
-                  name="picture"
-                  onChange={(e) => {
-                    setFieldValue(
-                      'picture',
-                      e.currentTarget.files?.[0] || null
-                    );
-                  }}
+                  {...register("picture")}
                 />
               </div>
               <div className="my-auto mr-4 ml-auto">
@@ -109,7 +111,5 @@ export default function ChangePictureModal({
             </div>
           </dialog>
         </form>
-      )}
-    </Formik>
   );
 }

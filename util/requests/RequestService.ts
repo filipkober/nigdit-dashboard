@@ -58,7 +58,7 @@ function genericErrorHandler(e: NetworkError) {
         break;
       case 403:
         console.error(
-          'Pewnie zapomniałeś włączyć endpoint w strapim, lub po prostu nie podałeś jwt'
+          'Pewnie zapomniałeś włączyć endpoint w strapim, lub po prostu nie podałeś jwt albo policy'
         );
         break;
       case 404:

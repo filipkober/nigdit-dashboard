@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useModal } from '../../../hooks/useModal';
 import Replies from '../../molecules/Replies';
 import CommentService from '../../../util/requests/CommentService';
@@ -13,13 +13,13 @@ import { ReplyN, replyAdapter } from '../../../models/Reply';
 
 type ShowRepliesProps = {
   commentId: number;
-  repliesNumber: number;
+  replyNumber: number;
   subId: number;
 };
 
 export default function RepliesContainer({
   commentId,
-  repliesNumber,
+  replyNumber,
   subId,
 }: ShowRepliesProps) {
   const [visible, changeVisible] = useModal();
@@ -41,6 +41,11 @@ export default function RepliesContainer({
     if (replies.length == 0) getReplies();
   };
 
+  useEffect(() => {
+    if (visible) getReplies();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [replyNumber, visible]);
+
   return (
     <>
       <div className="m-2">
@@ -48,7 +53,7 @@ export default function RepliesContainer({
           onClick={onClick}
           className="font-bold hover:cursor-pointer "
         >
-          {!visible ? 'v Show ' + repliesNumber + (repliesNumber>1 ? ' replies' : ' reply ') : '^ Hide ' + (repliesNumber>1 ? ' replies' : ' reply ')}
+          {!visible ? 'v Show ' + replyNumber + (replyNumber>1 ? ' replies' : ' reply ') : '^ Hide ' + (replyNumber>1 ? ' replies' : ' reply ')}
         </button>
         {visible ? <Replies replies={replies} subId={subId} /> : ''}
       </div>

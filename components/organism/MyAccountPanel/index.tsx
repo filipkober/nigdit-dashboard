@@ -1,4 +1,3 @@
-import { Formik } from "formik";
 import { useContext, useState } from "react";
 import { useModal } from "../../../hooks/useModal";
 import { darkModeContext } from "../../../pages/_app";
@@ -19,6 +18,19 @@ import UserService from "../../../util/requests/UserService";
 import { toastDisplay } from "../../atoms/Toast";
 import ToastType from "../../../models/ToastType";
 import { userAdapter } from "../../../models/User";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+
+type InputsAbout = {
+    username: string,
+    email: string,
+    aboutMe: string,
+}
+type InputsNewPass = {
+    oldPassword: string,
+    newPassword: string,
+    newPasswordConfirm: string,
+}
 
 export default function MyAccountPanel(){
     const [visible, changeVisible] = useModal();
@@ -46,6 +58,30 @@ export default function MyAccountPanel(){
 
     const router = useRouter();
 
+    const {
+        register: registerAbout,
+        handleSubmit: handleSubmitAbout,
+        watch: watchAbout,
+        formState: { errors: errorsAbout },
+      } = useForm<InputsAbout>()
+      const onSubmitAbout: SubmitHandler<InputsAbout> = async (values) => {
+        const newUser = await userService.update({username: values.username, email: values.email, aboutMe: values.aboutMe});
+        if(newUser){
+            toastDisplay(ToastType.Success, "Successfully updated");
+            dispatch(setUser(userAdapter(newUser)))
+        }
+    }
+
+    const {
+        register: registerPass,
+        handleSubmit: handleSubmitPass,
+        watch: watchPass,
+        formState: { errors: errorsPass },
+      } = useForm<InputsNewPass>()
+      const onSubmitPass: SubmitHandler<InputsNewPass> = async (values) => {
+        const loginUser = await userService.changePassword(values.oldPassword, values.newPassword, values.newPasswordConfirm);
+    }
+
     return (
         <div className="flex justify-center flex-col py-4">
         <div className="bg-foregroundL dark:bg-foregroundD w-full ls:w-[98%] cs:h-[60vh] font-[IBM_Plex_Sans] text-3xl flex-col ls:flex-row flex ls:mx-5 pb-4">
@@ -66,34 +102,19 @@ export default function MyAccountPanel(){
             </div>
             <div className="flex flex-col cs:flex-row">
             <div className="flex mx-auto ls:mx-0">
-                <Formik
-                initialValues={initialValuesAbout}
-                onSubmit={async (values) => {
-                    const newUser = await userService.update({username: values.username, email: values.email, aboutMe: values.aboutMe});
-                    if(newUser){
-                        toastDisplay(ToastType.Success, "Successfully updated");
-                        dispatch(setUser(userAdapter(newUser)))
-                    }
-                }}
-
-                >
-                {({values, handleChange, handleBlur, handleSubmit}) => (
-                <form onSubmit={handleSubmit} className="flex flex-col ts:ml-2 cs:ml-8">
+                <form onSubmit={handleSubmitAbout(onSubmitAbout)} className="flex flex-col ts:ml-2 cs:ml-8">
                     <div className="flex flex-col ls:flex-row">
                     <div className="flex flex-col">
-                    <Input type="text" className="mt-8 ls:ml-8" name="username" placeholder="Username" initialValue={values.username} onChange={handleChange}/>
-                    <Input type="email" className="mt-8 ls:ml-8 mx-auto" name="email" placeholder="Email" initialValue={values.email} onChange={handleChange}/>
+                    <Input type="text" className="mt-8 ls:ml-8" name="username" placeholder="Username" initialValue={initialValuesAbout.username} register={registerAbout}/>
+                    <Input type="email" className="mt-8 ls:ml-8 mx-auto" name="email" placeholder="Email" initialValue={initialValuesAbout.email} register={registerAbout}/>
                     <Button variant="submit" content="Save" className="ls:ml-8 mt-8 ls:top-1/4 ls:self-auto self-center w-full ls:w-auto"/>
 
                     </div>
                     <div className="flex flex-col ls:ml-2 mt-8">
-                    <TextArea name={"aboutMe"} placeholder={"About me"} initialValue={values.aboutMe} onChange={handleChange} className="ls:self-auto self-center mx-auto ls:mx-0 h-[20vh] ls:h-full"/>
+                    <TextArea name={"aboutMe"} placeholder={"About me"} initialValue={initialValuesAbout.aboutMe} className="ls:self-auto self-center mx-auto ls:mx-0 h-[20vh] ls:h-full" register={registerAbout}/>
                     </div>
                     </div>
                 </form>
-                )}
-                
-                </Formik>
             </div>
             <div className="h-full justify-center items-center ml-8 hidden ls:flex">
             <VerticalDivider height="80%"/>
@@ -102,28 +123,19 @@ export default function MyAccountPanel(){
             <div className="flex flex-col ml-2 self-center ls:self-start">
                         <Button variant="button" content="Change password" className="mx-auto ls:ml-8 mt-8" onClick={() => {setChangePassVisible(!changePassVisible)}}/>
                     </div>
-            <div > {/*ref={parent}  nie działa*/}
-                {changePassVisible && (provider === 'local' ? (<Formik
-                initialValues={initialValuesPass}
-                onSubmit={async (values) => {
-                    const loginUser = await userService.changePassword(values.oldPassword, values.newPassword, values.newPasswordConfirm);
-                }}
-
-                >
-                {({values, handleChange, handleBlur, handleSubmit}) => (
-                <form onSubmit={handleSubmit} className="flex flex-col">
+            <div> 
+                {/* ref={parent} */}
+                {changePassVisible && (provider === 'local' ? (
+                <form onSubmit={handleSubmitPass(onSubmitPass)} className="flex flex-col">
                     <div className="flex flex-col cs:flex-row">
                     <div className="flex flex-col ml-2 cs:ml-2">
-                    <Input type="password" className="mt-8 ls:ml-8 mx-auto" name="oldPassword" placeholder="Old password" initialValue={values.oldPassword} onChange={handleChange}/>
-                    <Input type="password" className="mt-8 ls:ml-8 mx-auto" name="newPassword" placeholder="New password" initialValue={values.newPassword} onChange={handleChange}/>
-                    <Input type="password" className="mt-8 ls:ml-8 mx-auto" name="newPasswordConfirm" placeholder="Confirm new pass" initialValue={values.newPasswordConfirm} onChange={handleChange}/>
+                    <Input type="password" className="mt-8 ls:ml-8 mx-auto" name="oldPassword" placeholder="Old password" initialValue={initialValuesPass.oldPassword} register={registerPass}/>
+                    <Input type="password" className="mt-8 ls:ml-8 mx-auto" name="newPassword" placeholder="New password" initialValue={initialValuesPass.newPassword} register={registerPass}/>
+                    <Input type="password" className="mt-8 ls:ml-8 mx-auto" name="newPasswordConfirm" placeholder="Confirm new pass" initialValue={initialValuesPass.newPasswordConfirm} register={registerPass}/>
                     <Button variant="submit" content="Submit" className="ls:ml-8 mt-8 mx-auto"/>
                     </div>
                     </div>
-                </form>
-                )}
-                
-                </Formik>) : (
+                </form>) : (
                     <div className="flex flex-col">
                         <p className="text-center mt-8 max-w-md">You can only change your password through {provider}</p>
                     </div>

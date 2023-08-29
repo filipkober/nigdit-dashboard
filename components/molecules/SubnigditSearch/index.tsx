@@ -19,17 +19,7 @@ export default function SubnigditSearch({id,name,image,members,number}: Subnigdi
   const subnigditService = new SubnigditService();
   const user = useSelector((state: UserState) => state.user)
   const {username, profilePicture} = user;
-  const [joined,setJoined] = useState<boolean>(false);
-
-  useEffect(() => {
-    if(!!username)
-    {
-      subnigditService.checkSubscription(id.toString())
-      .then((j: boolean) => {
-        setJoined(j);
-      });
-    }
-  },[])
+  const [joined,setJoined] = useState<boolean>(!!user.subnigdits?.find(s => s.id === id));
   
   async function joinSubNigdit() {
     let j = await subnigditService.joinSubnigdit(id.toString());

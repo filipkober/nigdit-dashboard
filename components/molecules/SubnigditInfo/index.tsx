@@ -5,6 +5,8 @@ import { JoinButton } from '../../atoms/JoinButton';
 import { SubnigditN } from '../../../models/Subnigdit';
 import * as moment from 'moment';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { UserState } from '../../../store/userSlice';
 
 type SubnigditInfoProps = {
   subnigdit: SubnigditN
@@ -15,6 +17,9 @@ function formatStrapiDate(dateIn: Date, locale = 'pl-PL'){
 }
 
 export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
+
+  const { user } = useSelector((state: UserState) => state)
+
   return (
     <>
       <div className="text-left font-normal font-['Roboto'] dark:text-white bg-foregroundL dark:bg-foregroundD border-solid border-black drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2 ">
@@ -53,7 +58,7 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
                 <p>{ subnigdit.subscribers }</p>
               </div>
               <div>
-                <p>Members</p>
+                <p>{subnigdit.subscribers > 1 ? "Members" : "Member"}</p>
               </div>
             </div>
           </div>
@@ -64,7 +69,7 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
         </div>
 
         <div className="my-5 flex justify-center align-middle">
-          <JoinButton />
+          <JoinButton joinedAlready={!!user.subnigdits?.find(s => s.id === subnigdit.id)} />
         </div>
       </div>
     </>
