@@ -5,6 +5,7 @@ import { UserState, setUserVotes } from '../../../store/userSlice'
 import { ContentType } from '../../../models/ContentType'
 import VoteService from '../../../util/requests/VoteService'
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 
 type VoteProps = {
   contentId: number,
@@ -18,6 +19,8 @@ export default function Vote({className, variant, contentId, votes, contentType,
   const dispatch = useDispatch();
 
   const user = useSelector((state: UserState) => state.user)
+
+  const router = useRouter();
 
   const [mutableVotes, setMutableVotes] = useState<number>(Number(votes));
 
@@ -42,6 +45,7 @@ export default function Vote({className, variant, contentId, votes, contentType,
   const voteService = new VoteService();
 
   const upvote = async () => {
+    if(!user.email) return router.push("/login");
     const newVotes = await voteService.upvote(contentType, contentId);
     if(newVotes){
       if(userVote === 1) setMutableVotes(mutableVotes - 1);
@@ -51,6 +55,7 @@ export default function Vote({className, variant, contentId, votes, contentType,
     }
   }
   const downvote = async () => {
+    if(!user.email) return router.push("/login");
     const newVotes = await voteService.downvote(contentType, contentId);
     if(newVotes){
       if(userVote === 1) setMutableVotes(mutableVotes - 2);
