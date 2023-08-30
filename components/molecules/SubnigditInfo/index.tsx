@@ -58,7 +58,7 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
                 <p>{ subnigdit.subscribers }</p>
               </div>
               <div>
-                <p>{subnigdit.subscribers > 1 ? "Members" : "Member"}</p>
+                <p>{(subnigdit.subscribers > 1 || subnigdit.subscribers === 0) ? "Members" : "Member"}</p>
               </div>
             </div>
           </div>
