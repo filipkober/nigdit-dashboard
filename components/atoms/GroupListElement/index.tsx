@@ -30,7 +30,7 @@ export default function GroupListElement({num, name, link, image, last = false}:
                 <Image src={image} width={25} height={25} className="rounded-full overflow-hidden object-cover w-[100%] h-[100%] p-[4px] ls:p-[4px] cs:p-[6px] cm:p-[10px]" alt={""}/>
             </div>
             <div className="flex flex-row justify-start items-center p-1 overflow-hidden">
-                <p className="font-bold text-[12px] ls:text-[14px] cs:text-[16px] cm:text-[20px] overflow-hidden">r/{name}</p>
+                <p className="font-bold text-[12px] ls:text-[14px] cs:text-[16px] cm:text-[20px] overflow-hidden">n/{name}</p>
             </div>
         </Link>
     )
