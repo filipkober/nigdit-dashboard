@@ -36,40 +36,114 @@ export default function SubnigditDashboard() {
       </div>
       {/* tu będzie map */}
       <div className="px-2">
-        <PostMedia
-          title="gif post"
-          media={{
-            type: 'Gif',
-            source:
-              'https://c.tenor.com/hVm01utkmM8AAAAd/maciek-sze%C5%9Bcia%C5%84czyk-maciasek05.gif',
-          }}
-          author="makpaj"
-          date={new Date('2000-09-23')}
-          source={{ name: 'n/subnigdit', image: makpaj }}
-          votes={-1500}
-          id={1}
-        />
-        <PostText
-          title="post"
-          description={desc}
-          author="user"
-          date={new Date('2022-09-23')}
-          source={{ name: 'n/subnigdit', image: makpaj }}
-          votes={1500}
-          id={2}
-        />
-        <PostMedia
-          title="gif post"
-          media={{
-            type: 'Video',
-            source: 'https://www.w3schools.com/html/mov_bbb.mp4',
-          }}
-          author="makpaj"
-          date={new Date('2000-09-23')}
-          source={{ name: 'n/subnigdit', image: makpaj }}
-          votes={-1500}
-          id={3}
-        />
+        <PostText post={{
+          id: 0,
+          title: '',
+          description: undefined,
+          votes: 0,
+          reports: 0,
+          createdAt: new Date(),
+          type: 'Text',
+          nsfw: false,
+          media: undefined,
+          comments: undefined,
+          owner: {
+            id: undefined,
+            username: '',
+            email: undefined,
+            posts: undefined,
+            comments: undefined,
+            replies: undefined,
+            profilePicture: undefined,
+            votes: {
+              upvotes: {
+                posts: [],
+                comments: [],
+                replies: []
+              },
+              downvotes: {
+                posts: [],
+                comments: [],
+                replies: []
+              }
+            },
+            aboutMe: undefined,
+            provider: '',
+            subnigdits: undefined,
+            moderates: undefined,
+            admin: undefined
+          },
+          subnigdit: {
+            id: 0,
+            name: '',
+            description: '',
+            createdAt: new Date(),
+            reports: 0,
+            icon: {
+              id: 0,
+              name: '',
+              alternativeText: '',
+              width: 0,
+              height: 0,
+              ext: '',
+              url: '',
+              formats: {
+                large: undefined,
+                thumbnail: undefined
+              }
+            },
+            banner: {
+              id: 0,
+              name: '',
+              alternativeText: '',
+              width: 0,
+              height: 0,
+              ext: '',
+              url: '',
+              formats: {
+                large: undefined,
+                thumbnail: undefined
+              }
+            },
+            subscribers: {
+              data: {
+                attributes: {
+                  count: 0
+                }
+              }
+            },
+            rules: undefined,
+            moderators: [],
+            owner: {
+              id: 0,
+              attributes: {
+                username: '',
+                email: '',
+                posts: undefined,
+                comments: undefined,
+                replies: undefined,
+                profilePicture: undefined,
+                votes: {
+                  upvotes: {
+                    posts: [],
+                    comments: [],
+                    replies: []
+                  },
+                  downvotes: {
+                    posts: [],
+                    comments: [],
+                    replies: []
+                  }
+                },
+                aboutMe: undefined,
+                provider: ''
+              }
+            },
+            name_uid: ''
+          }
+        }} showReportModal={function (id: number): void {
+          throw new Error('Function not implemented.');
+        } }     />   
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ import PostText from '../components/molecules/PostText';
 const Ballin: NextPage = () => {
   return (
     <>
-      <div className="flex flex-row">
+      {/* <div className="flex flex-row">
         hello
         <PostMenu />
       </div>
@@ -164,7 +164,8 @@ const Ballin: NextPage = () => {
         modi quod nam. Corrupti necessitatibus quidem ex at obcaecati, dolores
         reiciendis vel non consequatur amet incidunt deleniti, praesentium
         cupiditate temporibus eius repudiandae dolore? Dolorum, eius saepe?
-      </div>
+      </div> */}
+      what was above was breaking the build
     </>
   );
 };
