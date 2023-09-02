@@ -87,7 +87,7 @@ export default function PostText({
       </div>
       </div>
       <div className='flex flex-row gap-2 border-t-[1px] border-experimentA px-2 h-9'>
-          <div className="hover:bg-experimentB flex items-center">
+          <div className="hover:bg-backgroundL dark:hover:bg-experimentB flex items-center">
             <Share floatRight={false} className='align-middle'/>
           </div>
           <PostMenu className='my-auto' postId={post.id} showReportModal={showReportModal} isAdmin={isAdmin} />

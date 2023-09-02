@@ -16,8 +16,8 @@ type Props = {
 export default function GroupListElement({num, name, link, image, last = false}: Props)
 {    
     const classes = twMerge(
-        "hover:cursor-pointer overflow-hidden w-[100%] h-[3vw] flex flex-row hover:bg-experimentB bg-foregroundD",
-        num % 2 == 1 ? "bg-experimentC" : "bg-foregroundD",
+        "hover:cursor-pointer overflow-hidden w-[100%] h-[3vw] flex flex-row dark:hover:bg-experimentB dark:bg-foregroundD hover:bg-backgroundL",
+        num % 2 == 1 ? "dark:bg-experimentC bg-[#F47FFA]" : "dark:bg-foregroundD bg-[#DB73E0]",
         last ? "rounded-b-[10px]" : ""
     )
 

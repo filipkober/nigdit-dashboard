@@ -27,13 +27,13 @@ export default function ExpandableMenu ({ buttons, className }: ExpandableMenuPr
 
     return (
         <Menu ref={menuRef} as={'div'} className={twMerge('relative', className)}>
-      <Menu.Button className="px-1 py-2 hover:bg-experimentB rounded-lg"><FiMoreVertical /></Menu.Button>
-      <Menu.Items className="flex flex-col absolute z-20 dark:bg-experimentB rounded-lg mt-1">
+      <Menu.Button className="px-1 py-2 hover:bg-backgroundL dark:hover:bg-experimentB rounded-lg"><FiMoreVertical /></Menu.Button>
+      <Menu.Items className="flex flex-col absolute z-20 bg-backgroundL dark:bg-experimentB rounded-lg mt-1">
         {
             buttons.map((button, index) => {
 
                 const buttonClasses = twMerge(
-                    "flex flex-row items-center justify-start p-2 hover:bg-gray-500 transition duration-100 ease-in-out",
+                    "flex flex-row items-center justify-start p-2 hover:bg-foregroundL dark:hover:bg-gray-500 transition duration-100 ease-in-out",
                     button.disasbled ? "cursor-not-allowed" : "hover:cursor-pointer",
                     buttons.length === 1 ? "rounded-lg" : (index === 0 ? "rounded-t-lg" : (index === buttons.length - 1 ? "rounded-b-lg" : ""))
                 )
