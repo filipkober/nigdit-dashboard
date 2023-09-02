@@ -64,7 +64,7 @@ export default function PostMedia({
           />
         </div>
         <p className="font-['Roboto'] dark:text-white text-base">
-          <Link href={'/' + post.subnigdit.name_uid}>n/{post.subnigdit.name}</Link>
+          <Link href={'/n/' + post.subnigdit.name_uid}>n/{post.subnigdit.name}</Link>
         </p>
         <div className='flex flex-row'>
         <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base">
