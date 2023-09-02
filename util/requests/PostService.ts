@@ -201,7 +201,13 @@ export default class PostService {
 
   async delete(id: number) {
     const deletedPost: StrapiResponse<StrapiPost> =
-      await this.requestService.delete(this.endpoint + '/' + id);
+      await this.requestService.delete(this.endpoint + '/' + id, {auth: true});
     return deletedPost.data;
+  }
+
+  async banAuthor(id: number) {
+    const bannedAuthor: StrapiResponse<StrapiPost> =
+      await this.requestService.put(this.endpoint + '/' + id + '/ban-author', {auth: true});
+    return bannedAuthor.data;
   }
 }

@@ -4,29 +4,21 @@ import moment from 'moment';
 import Link from 'next/link';
 import Vote from '../../atoms/Vote';
 import Media from '../../../models/Media';
+import PostMenu from '../PostMenu';
+import Share from '../../atoms/Share';
+import Post from '../../../models/Post';
 
-type PostTextProps = {
-  title: string;
-  description: string;
-  author: string;
-  source: {
-    image: string;
-    name: string;
-  };
-  votes: number;
-  date: Date;
-  id: number;
+export type PostProps = {
+  post: Post;
+  showReportModal: (id: number) => void;
+  isAdmin?: boolean;
 };
 
 export default function PostText({
-  title,
-  description,
-  author,
-  source,
-  votes,
-  date,
-  id,
-}: PostTextProps) {
+  post,
+  showReportModal,
+  isAdmin = false
+}: PostProps) {
 
   const componentRef = useRef<HTMLDivElement>(null);
   const [textLines, setTextLines] = useState(0);
@@ -41,53 +33,65 @@ export default function PostText({
   }, []);
 
   return (
-    <div className="min-h-[4rem] w-[100%] text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden min-w-[25vw] max-h-[50vh] my-2">
+    <div className="min-h-[4rem] w-[100%] text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] pt-2 min-w-[25vw] max-h-[50vh] my-2">
       {/* GÓRNY PASEK AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
-      <div className="flex flex-row min-w-[25vw] max-h-[1.5rem]">
-        <div className="relative aspect-square mr-1">
+      <div className="flex flex-row min-w-[25vw] mx-2 flex-wrap">
+        <div className="relative aspect-square mr-1 min-w-[24px] max-h-[1.5rem]">
           <Image
-            src={source.image}
+            src={process.env.NEXT_PUBLIC_STRAPI_URL + post.subnigdit.icon.url}
             className="rounded-[50%] object-cover"
             alt={''}
             fill
           />
         </div>
         <p className="font-['Roboto'] dark:text-white text-base">
-          <Link href={'/' + source.name}>{source.name}</Link>
+          <Link href={'/' + post.subnigdit.name_uid}>n/{post.subnigdit.name}</Link>
         </p>
+        <div className='flex flex-row'>
         <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base">
           author:
         </p>
         <p className="font-['Roboto'] dark:text-white ml-2 text-base truncate max-w-[20em]">
-          {author}
+          {post.owner.username}
         </p>
-        <p className="font-['Roboto'] dark:text-white ml-auto text-base">
-          posted {moment(date).fromNow()}
+        </div>
+        <p className="font-['Roboto'] dark:text-white ls:ml-auto text-base">
+          <span className='text-foregroundD dark:text-[rgba(197,197,197,1)]'>posted</span> {moment(post.createdAt).fromNow()}
         </p>
-      </div>
-      <div>
-        <Vote
-          variant="vertical"
-          className="absolute right-4 top-[calc(40%-1.25rem)]"
-          votes={votes}
-          contentType="post"
-          contentId={id}
-        />
       </div>
 
       {/* CONTENT  */}
-      <div className='pb-3'>
-        <div>
+      <div className='flex flex-row'>
+        <div className='flex-1'>
+        <div className='mx-2'>
           <p className="h-11 max-w-[80%] font-['IBM_Plex_Sans'] text-[170%] dark:text-white">
-            <Link href={`/post/${id}`}>{title}</Link>
+            <Link href={`/post/${post.id}`}>{post.title}</Link>
           </p>
         </div>
-        <div ref={componentRef}>
-          <p className={`font-['Roboto'] dark:text-white text-xl max-h-[4rem] w-[92%] overflow-hidden ${textLines > 2 ? 'gradient-mask-b-0' : '' }`}>
-            {description}
+        <div className='flex flex-row'>
+        <div ref={componentRef} className='px-2 flex-1 flex pb-2'>
+          <p className={`font-['Roboto'] dark:text-white text-xl max-h-[5.5rem] w-[92%] overflow-hidden ${textLines > 2 ? 'gradient-mask-b-0' : '' }`}>
+            {post.description}
           </p>
         </div>
       </div>
+      </div>
+      <div className='content-center flex w-auto justify-center my-1'>
+        <Vote
+          variant="vertical"
+          className="my-auto"
+          votes={post.votes}
+          contentType="post"
+          contentId={post.id}
+        />
+      </div>
+      </div>
+      <div className='flex flex-row gap-2 border-t-[1px] border-experimentA px-2 h-9'>
+          <div className="hover:bg-experimentB flex items-center">
+            <Share floatRight={false} className='align-middle'/>
+          </div>
+          <PostMenu className='my-auto' postId={post.id} showReportModal={showReportModal} isAdmin={isAdmin} />
+        </div>
     </div>
   );
 }

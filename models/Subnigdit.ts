@@ -23,6 +23,7 @@ type Subnigdit = { //za zmianę tego również cię zabiję
   rules?: SubnigditRule[];  
   moderators: StrapiUser[];
   owner: StrapiUser;
+  name_uid: string;
 };
 
 
@@ -123,7 +124,8 @@ const strapiSubnigditToSubnigdit = (s: StrapiSubnigdit): Subnigdit => {
   subscribers: s.attributes.subscribers,
   rules: s.attributes.rules || [],
   moderators: s.attributes.moderators.data,
-  owner: s.attributes.owner.data
+  owner: s.attributes.owner.data,
+  name_uid: s.attributes.name_uid,
 })};
 
 type SubnigditSearchResult = {

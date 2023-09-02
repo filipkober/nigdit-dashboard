@@ -1,3 +1,5 @@
+import { twMerge } from "tailwind-merge";
+import { GenericComponentProps } from "../../../models/GenericComponentProps";
 import ToastType from "../../../models/ToastType";
 import { toastDisplay } from "../Toast";
 import { useRouter } from 'next/router';
@@ -10,12 +12,16 @@ function copyLinkToClipboard(url: string) {
   });
 }
 
-export default function Share({}: any) {
+type ShareProps = {
+  floatRight?: boolean;
+} & GenericComponentProps;
+
+export default function Share({floatRight = true, className}: ShareProps) {
   const router = useRouter();
   const url = `${window.location.origin}${router.asPath}`;
 
   return (
-    <p className="ml-auto cursor-pointer select-none">
+    <p className={twMerge('cursor-pointer select-none',floatRight ? 'ml-auto ' : '', className)}>
       <a onClick={() => {
         copyLinkToClipboard(url);
         toastDisplay(ToastType.Success, 'Copied to clipboard');

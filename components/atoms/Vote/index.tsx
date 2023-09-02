@@ -68,11 +68,11 @@ export default function Vote({className, variant, contentId, votes, contentType,
   const [charNum] = useState<number>(mutableVotes.toString().length);
   const voteDivRef = useRef<HTMLDivElement>(null);
 
-  voteDivRef.current?.style.setProperty("width", (charNum + 1).toString() + "ch");
+  // voteDivRef.current?.style.setProperty("width", (charNum + 1).toString() + "ch");
 
   return (
     <div className={className}>
-      <div className={`flex ` + (variant === "vertical" ? "flex-col items-center " : "flex-row items-start gap-2 flex-shrink-0")}>
+      <div className={`flex ` + (variant === "vertical" ? "flex-col items-center w-[4ch] " : "flex-row items-start gap-2 flex-shrink-0")}>
           <ImArrowUp className={`cursor-pointer ` + (userVote === 1 ? "text-orange-500" : "text-gray-400")} size={arrowSize} onClick={upvote}/>
           <div ref={voteDivRef}>
           <p className={`font-['Roboto'] text-center`}>{Intl.NumberFormat('en', {notation: 'compact'}).format(mutableVotes)}</p>

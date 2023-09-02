@@ -9,10 +9,8 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
-    <div>
+    <main className='min-h-screen'>
       <Navbar />
-    </div>
-    <main className='h-[calc(100vh - 5.5vh)]'>
       {children}
     </main>
     <Toast />

@@ -39,7 +39,9 @@ export default class UserService {
           populate: ['icon']
         },
         owned_subnigdit: true,
-        moderates: true,
+        moderates: {
+          fields: ['id']
+        },
         comments: true,
         replies: true,
         profilePicture: true

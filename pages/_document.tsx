@@ -3,10 +3,10 @@ import Toast from '../components/atoms/Toast'
 
 export default function Document() { 
   return (
-    <Html className='h-full w-full'>
+    <Html style={{minHeight: '100vh'}}>
       <Head />
-      <body className='flex flex-col h-screen'>
-        <div className='bg-backgroundL dark:bg-backgroundD text-black dark:text-white w-screen flex-grow'>
+      <body style={{minHeight: '100vh'}} >
+        <div className='bg-backgroundL dark:bg-backgroundD text-black dark:text-white w-screen min-h-screen'>
         <Main/>
         <NextScript />
         </div>

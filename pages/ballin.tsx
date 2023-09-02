@@ -6,6 +6,8 @@ import { StrapiReply } from '../models/Reply';
 import StrapiResponse, { strapiResponseToData } from '../models/StrapiResponse';
 import { incrementCounter } from '../store/userSlice';
 import ReplyService from '../util/requests/ReplyService';
+import PostMenu from '../components/molecules/PostMenu';
+import PostText from '../components/molecules/PostText';
 
 // type formValues = {
 //   content: string;
@@ -13,12 +15,159 @@ import ReplyService from '../util/requests/ReplyService';
 // };
 
 const Ballin: NextPage = () => {
-    return (
-        <div>
-          zabij sie
-        </div>
-      )
-}
+  return (
+    <>
+      <div className="flex flex-row">
+        hello
+        <PostMenu />
+      </div>
+      <div className="relative z-10">
+        <PostText
+          title={'title'}
+          description={'asdf'}
+          author={''}
+          source={{
+            image: '',
+            name: '',
+          }}
+          votes={0}
+          date={new Date()}
+          id={0}
+        />
+        <PostText
+          title={'title'}
+          description={'asdf'}
+          author={''}
+          source={{
+            image: '',
+            name: '',
+          }}
+          votes={0}
+          date={new Date()}
+          id={0}
+        />
+        <PostText
+          title={'title'}
+          description={'asdf'}
+          author={''}
+          source={{
+            image: '',
+            name: '',
+          }}
+          votes={0}
+          date={new Date()}
+          id={0}
+        />
+        <PostText
+          title={'title'}
+          description={'asdf'}
+          author={''}
+          source={{
+            image: '',
+            name: '',
+          }}
+          votes={0}
+          date={new Date()}
+          id={0}
+        />
+        <PostText
+          title={'title'}
+          description={'asdf'}
+          author={''}
+          source={{
+            image: '',
+            name: '',
+          }}
+          votes={0}
+          date={new Date()}
+          id={0}
+        />
+        <PostText
+          title={'title'}
+          description={'asdf'}
+          author={''}
+          source={{
+            image: '',
+            name: '',
+          }}
+          votes={0}
+          date={new Date()}
+          id={0}
+        />
+        <PostText
+          title={'title'}
+          description={'asdf'}
+          author={''}
+          source={{
+            image: '',
+            name: '',
+          }}
+          votes={0}
+          date={new Date()}
+          id={0}
+        />
+        <PostText
+          title={'title'}
+          description={'asdf'}
+          author={''}
+          source={{
+            image: '',
+            name: '',
+          }}
+          votes={0}
+          date={new Date()}
+          id={0}
+        />
+        <PostText
+          title={'title'}
+          description={'asdf'}
+          author={''}
+          source={{
+            image: '',
+            name: '',
+          }}
+          votes={0}
+          date={new Date()}
+          id={0}
+        />
+      </div>
+      <div className="h-[40vh] bg-red-200 w-[20vw] overflow-hidden">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta porro
+        cum in ab doloribus officiis velit itaque voluptatibus et nihil nesciunt
+        maxime, labore fuga suscipit, at veniam cumque minima error est aperiam
+        impedit? Suscipit laborum fuga exercitationem non repudiandae rerum
+        corporis nihil at inventore quam? Culpa eligendi quod quo. Sunt nihil
+        fugit ea inventore facere quod minus nemo repellendus sint dicta
+        nesciunt, corrupti repudiandae dolorum, possimus consectetur asperiores
+        explicabo blanditiis exercitationem? Amet quae eligendi quo rerum
+        placeat, molestias aperiam quasi commodi earum veniam iusto, dolorem ex
+        perferendis. Hic iusto velit tempore aut eos quae beatae, modi sed quia
+        porro explicabo expedita nihil numquam blanditiis fugiat culpa
+        reprehenderit ullam veniam quis maiores autem a commodi saepe! Sint
+        laudantium molestias facilis iste in, tempora aperiam, ipsa error
+        ratione labore enim sed exercitationem adipisci dignissimos mollitia
+        similique eos cupiditate ab dolor voluptatem! Ex quidem facere eum
+        nesciunt tempore voluptatibus nemo excepturi debitis assumenda omnis,
+        incidunt tempora numquam temporibus iure odit aperiam? Ea deleniti
+        laborum hic asperiores? In facere est ipsum et repellat doloremque nobis
+        ullam fugit porro reiciendis cum odit voluptas excepturi exercitationem,
+        saepe autem quo vitae consequatur mollitia sunt beatae provident libero
+        similique? Repellendus optio cumque deserunt labore nulla ea neque
+        accusantium quasi minus, placeat ratione distinctio recusandae non
+        quisquam nemo dolor nostrum assumenda reiciendis hic doloribus! Esse
+        nostrum enim magnam eveniet, perferendis quam officiis optio quidem
+        alias facilis repellat provident dolores voluptatem fugit ea quo beatae
+        incidunt, non, ad officia mollitia similique soluta. Quis nisi enim,
+        inventore sed error consequuntur mollitia commodi, maiores nesciunt vel,
+        voluptatum ipsum fugit modi reiciendis at porro similique delectus earum
+        nihil veritatis! Odit aliquam velit cum sunt nulla laboriosam ratione
+        modi quod nam. Corrupti necessitatibus quidem ex at obcaecati, dolores
+        reiciendis vel non consequatur amet incidunt deleniti, praesentium
+        cupiditate temporibus eius repudiandae dolore? Dolorum, eius saepe?
+      </div>
+    </>
+  );
+};
 
 //   const dispatch = useDispatch();
 
@@ -68,25 +217,25 @@ const Ballin: NextPage = () => {
 //       alert("Podaj liczbę");
 //       return;
 //     }
-    // const res = await fetch(`http://localhost:1338/api/replies/${id}`, {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     data: {
-    //       votes: Number(newVotes),
-    //     },
-    //   }),
-    // });
-    // const data: StrapiResponse<StrapiReply> = await res.json();
-    // const newReplies = replies.map((reply) => {
-    //   if(reply.id === data.data.id) {
-    //     return data.data;
-    //   }
-    //   return reply;
-    // });
-    // setReplies(newReplies);
+// const res = await fetch(`http://localhost:1338/api/replies/${id}`, {
+//   method: 'PUT',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify({
+//     data: {
+//       votes: Number(newVotes),
+//     },
+//   }),
+// });
+// const data: StrapiResponse<StrapiReply> = await res.json();
+// const newReplies = replies.map((reply) => {
+//   if(reply.id === data.data.id) {
+//     return data.data;
+//   }
+//   return reply;
+// });
+// setReplies(newReplies);
 
 //   const data = await replyService.update(id, {votes: Number(newVotes)});
 //   const newReplies = replies.map((reply) => {
@@ -148,7 +297,7 @@ const Ballin: NextPage = () => {
 //             const data: StrapiResponse<StrapiReply> = await res.json();
 
 //             console.log("data", data);
-            
+
 //             setReplies([...replies, data.data]);
 //           }}
 //           validationSchema={null}

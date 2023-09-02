@@ -17,7 +17,7 @@ type GroupListEl = {
 }
 
 
-export default function JoindeGroups({}: Props)
+export default function JoinedGroups({}: Props)
 {    
     const [expanded, setExpanded] = useState<boolean>(true);
     const [h, seth] = useState<string>("28vh");

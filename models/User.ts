@@ -15,6 +15,8 @@ type User = {
     aboutMe?: string,
     provider: string,
     subnigdits?: {id: number, name: string, icon: Media, name_uid: string}[],
+    moderates?: {id: number}[],
+    admin?: boolean,
 }
 type StrapiUser = {
     id: number,
