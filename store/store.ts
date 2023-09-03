@@ -10,27 +10,23 @@ import {
     PURGE,
     REGISTER
 } from "redux-persist";
-import storageSession from "redux-persist/lib/storage/session";
+import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
 
 import userSlice from "./userSlice";
 
 const persistConfig = {
     key: "root",
     version: 1,
-    storage: storageSession,
+    storage
 }
 
 const persistedReducer = persistReducer(persistConfig, userSlice);
 
-const store = configureStore({
+export const store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-        serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-        }
-    })
-});
+    devTools: process.env.NODE_ENV !== 'production',
+    middleware: [thunk]
+  })
 
-let persistor = persistStore(store);
-
-export { store, persistor };
+export const persistor = persistStore(store);

@@ -45,7 +45,7 @@ export default function Vote({className, variant, contentId, votes, contentType,
   const voteService = new VoteService();
 
   const upvote = async () => {
-    if(!user.email) return router.push("/login");
+    if(!user.confirmed) return router.push("/login");
     const newVotes = await voteService.upvote(contentType, contentId);
     if(newVotes){
       if(userVote === 1) setMutableVotes(mutableVotes - 1);
@@ -55,7 +55,7 @@ export default function Vote({className, variant, contentId, votes, contentType,
     }
   }
   const downvote = async () => {
-    if(!user.email) return router.push("/login");
+    if(!user.confirmed) return router.push("/login");
     const newVotes = await voteService.downvote(contentType, contentId);
     if(newVotes){
       if(userVote === 1) setMutableVotes(mutableVotes - 2);

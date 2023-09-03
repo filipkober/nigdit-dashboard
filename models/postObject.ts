@@ -29,6 +29,7 @@ const examplePostObject: StrapiPost = {
                 replies: [],
               },
             },
+            confirmed: false
           },
         },
       },
@@ -110,7 +111,8 @@ const examplePostObject: StrapiPost = {
                     }
                   },
                   aboutMe: undefined,
-                  provider: ""
+                  provider: "",
+                  confirmed: false
                 }
               }
             }

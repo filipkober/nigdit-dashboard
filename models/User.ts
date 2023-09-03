@@ -17,12 +17,13 @@ type User = {
     subnigdits?: {id: number, name: string, icon: Media, name_uid: string}[],
     moderates?: {id: number}[],
     admin?: boolean,
+    confirmed: boolean,
 }
 type StrapiUser = {
     id: number,
     attributes: {
         username: string,
-        email: string,
+        email?: string,
         posts?: Post[],
         comments?: Comment[],
         replies?: Reply[],
@@ -30,6 +31,7 @@ type StrapiUser = {
         votes: UserVotes,
         aboutMe?: string,
         provider: string,
+        confirmed: boolean,
     },
 }
 type LoginUser = {
@@ -37,7 +39,6 @@ type LoginUser = {
     user: {
         id: string,
         username: string,
-        email: string,
         provider: string,
         confirmed: boolean,
         blocked: boolean,
@@ -68,7 +69,6 @@ const userAdapter = (user: StrapiUser): User => {
     return {
         id: user.id,
         username: user.attributes.username,
-        email: user.attributes.email,
         posts: user.attributes.posts,
         comments: user.attributes.comments,
         replies: user.attributes.replies,
@@ -76,6 +76,8 @@ const userAdapter = (user: StrapiUser): User => {
         votes: user.attributes.votes,
         aboutMe: user.attributes.aboutMe,
         provider: user.attributes.provider,
+        confirmed: user.attributes.confirmed,
+        email: user.attributes.email,
     }
 }
 

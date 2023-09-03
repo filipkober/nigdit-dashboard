@@ -14,6 +14,7 @@ export interface UserState {
 const initialState: UserState = {
   user: {
     username: '',
+    confirmed: false,
     email: '',
     votes: {
       upvotes: {

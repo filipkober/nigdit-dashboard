@@ -143,7 +143,8 @@ const exampleComment: StrapiComment = {
               comments: [],
               replies: [],
             },
-          }
+          },
+          confirmed: false
         },
       },
     },
@@ -177,6 +178,7 @@ const exampleComment: StrapiComment = {
                     replies: [],
                   },
                 },
+                confirmed: false
               },
             },
           },
@@ -241,7 +243,8 @@ const exampleComment: StrapiComment = {
                         }
                       },
                       aboutMe: undefined,
-                      provider: ''
+                      provider: '',
+                      confirmed: false
                     }
                   }
                 }

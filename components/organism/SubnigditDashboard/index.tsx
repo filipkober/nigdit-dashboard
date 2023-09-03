@@ -71,7 +71,8 @@ export default function SubnigditDashboard() {
             provider: '',
             subnigdits: undefined,
             moderates: undefined,
-            admin: undefined
+            admin: undefined,
+            confirmed: false,
           },
           subnigdit: {
             id: 0,
@@ -136,7 +137,8 @@ export default function SubnigditDashboard() {
                   }
                 },
                 aboutMe: undefined,
-                provider: ''
+                provider: '',
+                confirmed: false
               }
             },
             name_uid: ''

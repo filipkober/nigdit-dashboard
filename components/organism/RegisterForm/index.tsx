@@ -119,9 +119,9 @@ export default function RegisterForm({ verChange }: Props) {
         console.log(userData);
         try
         {
-            if(userData.user.email != null)
+            if(userData.user.username != null)
             {
-                verChange(true, userData.user.email);                        
+                verChange(true, values.email);                        
                 //Cookies.set("jwt", userData.jwt);
             }
         }
