@@ -99,10 +99,10 @@ export default function PostExtended({
                 />
               </div>
               <p className="font-['Roboto'] dark:text-white text-base">
-                {subnigdit?.data.attributes.name}
+                n/{subnigdit?.data.attributes.name}
               </p>
               <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base truncate">
-                autor:{' '}
+                author:{' '}
                 <span className="dark:text-white">
                   {author.data.attributes.username}
                 </span>
