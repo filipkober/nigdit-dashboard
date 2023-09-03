@@ -17,6 +17,7 @@ type ReplyProps = {
   subId: number;
   authorId?: number;
   opId?: number;
+  modIds?: number[];
 };
 
 export default function Reply({
@@ -26,6 +27,7 @@ export default function Reply({
   content,
   subId,
   opId = 0,
+  modIds = [],
 }: ReplyProps) {
 
   const pfp = owner.attributes.profilePicture?.data?.attributes.url || ''
@@ -35,7 +37,10 @@ export default function Reply({
   const [modalReportVisible, changeModalReportVisible] = useModal();
 
   let nickColor;
-  if (owner.attributes.admin) {
+  if(modIds.includes(owner.id)) {
+    nickColor = '#77F06A'
+  }
+  else if (owner.attributes.admin) {
     nickColor = '#F05447'
   } 
   else if (owner.id === opId) {

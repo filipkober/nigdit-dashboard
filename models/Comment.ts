@@ -251,6 +251,9 @@ const exampleComment: StrapiComment = {
               },
             },
           },
+          moderators: {
+            data: []
+          }
         },
       },
     },

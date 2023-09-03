@@ -16,6 +16,7 @@ type ShowRepliesProps = {
   replyNumber: number;
   subId: number;
   opId?: number;
+  modIds?: number[];
 };
 
 export default function RepliesContainer({
@@ -23,6 +24,7 @@ export default function RepliesContainer({
   replyNumber,
   subId,
   opId = 0,
+  modIds = [],
 }: ShowRepliesProps) {
   const [visible, changeVisible] = useModal();
 
@@ -57,7 +59,7 @@ export default function RepliesContainer({
         >
           {!visible ? 'v Show ' + replyNumber + (replyNumber>1 ? ' replies' : ' reply ') : '^ Hide ' + (replyNumber>1 ? ' replies' : ' reply ')}
         </button>
-        {visible ? <Replies replies={replies} subId={subId} opId={opId} /> : ''}
+        {visible ? <Replies replies={replies} subId={subId} opId={opId} modIds={modIds} /> : ''}
       </div>
     </>
   );

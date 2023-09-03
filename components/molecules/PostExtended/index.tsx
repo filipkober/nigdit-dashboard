@@ -47,6 +47,7 @@ export default function PostExtended({
   const createdAt = post.createdAt;
   const type = post.type;
   const id = post.id;
+  const modIds = subnigdit.data.attributes.moderators.data.map(m => m.id);
 
   const [modalReportVisible, changeModalReportVisible] = useModal();
 
@@ -195,6 +196,7 @@ export default function PostExtended({
                     comment={commentAdapter(comment)}
                     subId={subnigdit.data.id}
                     opId={author.data.id}
+                    modIds={modIds}
                   />
                 );
               })}

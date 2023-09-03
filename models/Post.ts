@@ -39,6 +39,11 @@ type StrapiPost = {
     subnigdit: {
       data: StrapiSubnigdit;
     };
+    moderators: {
+      data: {
+        id: number;
+      }[];
+    }
   };
 };
 

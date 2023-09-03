@@ -118,6 +118,9 @@ const examplePostObject: StrapiPost = {
             }
           }
         }
+      },
+      moderators: {
+        data: []
       }
     },
 }

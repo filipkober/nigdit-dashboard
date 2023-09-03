@@ -71,6 +71,9 @@ export default class PostService {
               rules: {
                 populate: '*',
               },
+              moderators: {
+                fields: ['id']
+              }
             },
           },
           comments: {

@@ -22,9 +22,10 @@ type CommentProps = {
   comment: CommentN;
   subId: number;
   opId?: number;
+  modIds?: number[];
 };
 
-export default function Comment({ comment, subId, opId = 0 }: CommentProps) {
+export default function Comment({ comment, subId, opId = 0, modIds = [] }: CommentProps) {
   const [modalVisible, changeModalVisible] = useModal();
 
   const [modalReportVisible, changeModalReportVisible] = useModal();
@@ -49,7 +50,10 @@ export default function Comment({ comment, subId, opId = 0 }: CommentProps) {
   }
 
   let nickColor;
-  if (owner.data.attributes.admin) {
+  if(modIds.includes(owner.data.id)) {
+    nickColor = '#77F06A'
+  }
+  else if (owner.data.attributes.admin) {
     nickColor = '#F05447'
   } 
   else if (owner.data.id === opId) {
@@ -99,7 +103,7 @@ export default function Comment({ comment, subId, opId = 0 }: CommentProps) {
             <ReplyTextarea commentId={id} visible={modalVisible} addReply={addReply} />
           </div>
           <div>
-          {replyCount > 0 ? <RepliesContainer commentId={comment.id} replyNumber={replyCount} subId={subId} opId={opId}/> : ''}
+          {replyCount > 0 ? <RepliesContainer commentId={comment.id} replyNumber={replyCount} subId={subId} opId={opId} modIds={modIds}/> : ''}
           </div>
         </div>
         <ReportModal
