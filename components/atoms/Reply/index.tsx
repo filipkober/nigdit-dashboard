@@ -7,47 +7,40 @@ import { useSelector } from 'react-redux';
 import { UserState } from '../../../store/userSlice';
 import Vote from '../Vote';
 import emptypfp from '../../../assets/emptypfp.jpg';
+import { StrapiUser } from '../../../models/User';
 
 type ReplyProps = {
-  vote?: 'upvote' | 'downvote';
   id: number;
   votes: number;
-  pfp?: string;
-  nick: string;
+  owner: StrapiUser;
   content: string;
   subId: number;
+  authorId?: number;
+  opId?: number;
 };
 
 export default function Reply({
   id,
   votes,
-  pfp,
-  nick,
+  owner,
   content,
-  vote,
   subId,
+  opId = 0,
 }: ReplyProps) {
-  const [downvoteClicked, setDownvoteClicked] = useState<boolean>(
-    vote === 'downvote'
-  );
 
-  const [upvoteClicked, setUpvoteClicked] = useState<boolean>(
-    vote === 'upvote'
-  );
+  const pfp = owner.attributes.profilePicture?.data?.attributes.url || ''
 
   const isLogged = !!useSelector((state: UserState) => state.user.username)
 
-  const voteOnReply = (vote: 'upvote' | 'downvote') => {
-    if (vote === 'downvote' && !downvoteClicked) {
-      setDownvoteClicked(true);
-      setUpvoteClicked(false);
-    } else if (vote === 'upvote' && !upvoteClicked) {
-      setDownvoteClicked(false);
-      setUpvoteClicked(true);
-    }
-  };
-
   const [modalReportVisible, changeModalReportVisible] = useModal();
+
+  let nickColor;
+  if (owner.attributes.admin) {
+    nickColor = '#F05447'
+  } 
+  else if (owner.id === opId) {
+    nickColor = '#F2A44B'
+  }
 
   return (
     <>
@@ -63,7 +56,9 @@ export default function Reply({
           ></Image>
         </div>
         <div className="justify-self-auto">
-          <p className="font-bold">{nick}</p>
+          <p className="font-bold" style={{
+            color: nickColor
+          }}>{owner.attributes.username}</p>
         </div>
         <div className="justify-self-auto"></div>
         <div className="justify-self-auto">
@@ -87,6 +82,7 @@ export default function Reply({
         onClose={changeModalReportVisible}
         subnigditId={subId}
       />
+      {/* w przyszłości jak nam przyjdzie optymalizować to najlepiej mieć jeden modal na stronę a nie jeden modal na każdy reply */}
     </>
   );
 }

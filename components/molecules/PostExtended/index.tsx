@@ -194,6 +194,7 @@ export default function PostExtended({
                     key={comment.id}
                     comment={commentAdapter(comment)}
                     subId={subnigdit.data.id}
+                    opId={author.data.id}
                   />
                 );
               })}

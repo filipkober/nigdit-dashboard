@@ -32,6 +32,7 @@ type StrapiUser = {
         aboutMe?: string,
         provider: string,
         confirmed: boolean,
+        admin?: boolean,
     },
 }
 type LoginUser = {

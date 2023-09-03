@@ -21,9 +21,10 @@ import emptypfp from '../../../assets/emptypfp.jpg';
 type CommentProps = {
   comment: CommentN;
   subId: number;
+  opId?: number;
 };
 
-export default function Comment({ comment, subId }: CommentProps) {
+export default function Comment({ comment, subId, opId = 0 }: CommentProps) {
   const [modalVisible, changeModalVisible] = useModal();
 
   const [modalReportVisible, changeModalReportVisible] = useModal();
@@ -47,6 +48,14 @@ export default function Comment({ comment, subId }: CommentProps) {
     changeModalVisible();
   }
 
+  let nickColor;
+  if (owner.data.attributes.admin) {
+    nickColor = '#F05447'
+  } 
+  else if (owner.data.id === opId) {
+    nickColor = '#F2A44B'
+  }
+
   return (
       <>
         <div>
@@ -62,7 +71,7 @@ export default function Comment({ comment, subId }: CommentProps) {
               ></Image>
             </div>
             <div className="justify-self-auto">
-              <p className="font-bold">{owner.data.attributes.username}</p>
+              <p className="font-bold" style={{color: nickColor}}>{owner.data.attributes.username}</p>
             </div>
             <div className="justify-self-auto"></div>
             <div className="justify-self-auto">
@@ -90,7 +99,7 @@ export default function Comment({ comment, subId }: CommentProps) {
             <ReplyTextarea commentId={id} visible={modalVisible} addReply={addReply} />
           </div>
           <div>
-          {replyCount > 0 ? <RepliesContainer commentId={comment.id} replyNumber={replyCount} subId={subId}/> : ''}
+          {replyCount > 0 ? <RepliesContainer commentId={comment.id} replyNumber={replyCount} subId={subId} opId={opId}/> : ''}
           </div>
         </div>
         <ReportModal

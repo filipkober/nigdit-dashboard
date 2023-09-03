@@ -9,9 +9,10 @@ type RepliesProps = {
   replies: ReplyN[]
   vote?: 'upvote' | 'downvote';
   subId: number;
+  opId?: number;
 };
 
-export default function Replies({ replies, vote, subId }: RepliesProps) {
+export default function Replies({ replies, vote, subId, opId = 0 }: RepliesProps) {
   const [upvoteClicked, setUpvoteClicked] = useState<boolean>(
     vote === 'upvote'
   );
@@ -33,7 +34,7 @@ export default function Replies({ replies, vote, subId }: RepliesProps) {
     <>
       <div className="ml-[2vw] my-[1vh]">
       {replies.map((rep, index) => (
-      <Reply key={rep.id} id={rep.id} votes={rep.votes} pfp={rep.owner.attributes.profilePicture?.data?.attributes.url || ''} nick={rep.owner.attributes.username} content={rep.content} subId={subId} />
+      <Reply key={rep.id} id={rep.id} votes={rep.votes} owner={rep.owner} content={rep.content} subId={subId} opId={opId} />
   ))}
       </div>
     </>

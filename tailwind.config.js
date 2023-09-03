@@ -162,6 +162,7 @@ module.exports = {
         applyH: '#008F00',
         delete: '#350000',
         deleteH: '#5A0000',
+        opNickname: '#F2A44B',
       },
       animation: {
         'troll': 'flashing 5s linear infinite',
