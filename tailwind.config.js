@@ -236,6 +236,7 @@ module.exports = {
     require('tailwind-scrollbar'),
     require('tailwindcss-gradients'),
     require("tailwindcss-animation-delay"),
+    require('@tailwindcss/line-clamp')
     // plugin(function({ addComponents }) {
     //   const buttons = {
     //     '.death': {

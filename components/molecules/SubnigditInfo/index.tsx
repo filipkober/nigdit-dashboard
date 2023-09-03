@@ -40,7 +40,7 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
         </div>
 
         <div className="font-['Roboto'] dark:text-white text-base mb-5">
-          <p className="mb-5 ">{subnigdit.description}</p>
+          <p className="mb-5 max-w-[20ch] line-clamp-4">{subnigdit.description}</p>
 
           <p className="mb-5 ">🍰 Created at {formatStrapiDate(subnigdit.createdAt)}</p>
         </div>
