@@ -159,7 +159,7 @@ export default function PostExtended({
           <div className="flex font-['Roboto'] dark:text-white text-xl mt-5">
             {/* chujstwo pod contentem */}
             <div className='flex flex-row content-start w-1/2'>
-            <p className="mr-5">{allComNum} Comment{allComNum> 1 ? 's' : ''}</p>
+            <p className="mr-5">{allComNum} Comment{(allComNum === 0 || allComNum > 1) ? 's' : ''}</p>
             <Vote votes={votes} contentId={id} contentType='post' variant='horizontal' className='mb-2' arrowSize={30}/>
             </div>
             <div className='flex flex-row content-end w-1/2'>
