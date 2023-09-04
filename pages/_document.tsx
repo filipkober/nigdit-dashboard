@@ -1,12 +1,11 @@
-import { Html, Head, Main, NextScript } from 'next/document'
-import Toast from '../components/atoms/Toast'
+import { Head, Html, Main, NextScript } from 'next/document'
 
-export default function Document() { 
+export default function Document() {
   return (
     <Html style={{minHeight: '100vh'}}>
       <Head />
       <body style={{minHeight: '100vh'}} >
-        <div className='bg-backgroundL dark:bg-backgroundD text-black dark:text-white w-screen min-h-screen'>
+        <div className='bg-backgroundL dark:bg-backgroundD text-black dark:text-white w-screen h-screen scrollbar-thin scrollbar-thumb-[#535353] scrollbar-track-[#2323232a] scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll'>
         <Main/>
         <NextScript />
         </div>

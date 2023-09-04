@@ -4,9 +4,9 @@ import Post from '../../../models/Post';
 import { UserState } from '../../../store/userSlice';
 import PostService from '../../../util/requests/PostService';
 import FilteringBar from '../../molecules/FilteringBar';
+import JoinedGroups from '../../molecules/JoinedGroups';
 import PostMedia from '../../molecules/PostMedia';
 import PostText from '../../molecules/PostText';
-import JoinedGroups from '../../molecules/JoinedGroups';
 import ReportModal from '../../molecules/ReportModal';
 
 const postsPerScroll = 3;
@@ -118,7 +118,7 @@ export default function DashboardFeed() {
 
   return (
     <>
-      <div className="flex flex-row justify-between w-[100%]">
+      <div className="flex flex-row justify-between w-[100%] m-0 p-0 ">
         <div className="tl:w-[22%] w-[0%] min-h-[56px] bg-[rgba(255,0,0,0)] tl:block hidden"></div>
         <div className="tl:w-[56%] w-[100%] min-h-[56px] bg-[rgba(255,255,0,0)]">
           <div className="flex flex-col items-center">
