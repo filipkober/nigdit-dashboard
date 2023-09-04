@@ -256,7 +256,7 @@ module.exports = {
     //   }
     //   addComponents(buttons)
     // })
-  ],  
+  ],
   variants: {
         scrollbar: ['rounded'],
         backgroundImage: ['responsive'], // this is for the "bg-none" utility
