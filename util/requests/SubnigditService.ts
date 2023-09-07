@@ -1,10 +1,7 @@
 import qs from "qs";
 import StrapiResponse from "../../models/StrapiResponse";
-import Subnigdit, { StrapiSubnigdit, SubnigditSearchResult } from "../../models/Subnigdit";
-import { StrapiUser } from "../../models/User";
+import { StrapiSubnigdit, SubnigditSearchResult } from "../../models/Subnigdit";
 import RequestService from "./RequestService";
-import { toastDisplay } from "../../components/atoms/Toast";
-import ToastType from "../../models/ToastType";
 
 type SubEditionParams = {
     description: string,
@@ -30,7 +27,7 @@ export default class SubnigditService {
     async getBySlug(slug: string, populate?: boolean) {
 
         const query = qs.stringify({
-            populate: populate ? ['rules', 'icon', 'banner', 'moderators', 'owner'] : undefined,
+            populate: populate ? ['rules', 'icon', 'banner', 'moderators', 'owner', 'subscribers'] : undefined,
             filters: {
                 name_uid: {
                     $eq: slug
@@ -47,10 +44,15 @@ export default class SubnigditService {
         const joined: boolean = await this.requestService.post(this.endpoint + '/join/' + id, {auth: true});
         return joined;
     }
+    async checkSubnigdit(id: string) //check if joined - returns true / false
+    {
+        const joined: boolean = await this.requestService.get(this.endpoint + '/check/' + id, {auth: true});
+        return joined;
+    }
 
     async searchSubnigdits(key: string)
     {
-        const searchResults: SubnigditSearchResult[] = await this.requestService.get('search?search='+key); 
+        const searchResults: SubnigditSearchResult[] = await this.requestService.get('search?search='+key);
         return searchResults;
     }
 

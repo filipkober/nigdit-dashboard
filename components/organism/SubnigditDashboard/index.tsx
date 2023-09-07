@@ -1,28 +1,54 @@
-import { JoinButton } from '../../atoms/JoinButton';
+import { useEffect, useState } from 'react';
+import { StrapiSubnigdit } from '../../../models/Subnigdit';
+import SubnigditService from '../../../util/requests/SubnigditService';
+import CreatePostBlock from '../../molecules/CreatePostBlock';
 import DashboardHeader from '../../molecules/DashboardHeader';
 import FilteringBar from '../../molecules/FilteringBar';
-import PostMedia from '../../molecules/PostMedia';
 import PostText from '../../molecules/PostText';
 import SubnigditRules from '../../molecules/SubnigditRules';
-import DashboardFeed from '../DashboardFeed';
-import makpaj from '../../../assets/makpaj.svg';
 import TabSelector from '../../molecules/TabSelector';
-import { useState } from 'react';
-import CreatePostBlock from '../../molecules/CreatePostBlock';
 
-const desc = `
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat
-      Duis aute irure dolor in reprehenderit in voluptate ...
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat
-      Duis aute irure dolor in reprehenderit in voluptate
-`; //temp
+//description must be downloaded in useEffect
+//same as rules
+//filtering without suhbscribed button, replace with create post
+//add options to feed alg
 
-export default function SubnigditDashboard() {
+export default function SubnigditDashboard()
+{
+  const subnigditService = new SubnigditService();
   const [selected, setSelected] = useState<number>(0);
+  const [thisSubnigdit, setThisSubnigdit] = useState<StrapiSubnigdit | null>(null);
+  const [joined, setJoined] = useState<boolean>(false);
+
+  useEffect(() => {
+    let address = window.location.pathname
+    const split = address.split('/');
+    const subnigditName = split[split.length - 1];
+    subnigditService.getBySlug(subnigditName,true)
+    .then(
+      (response) => {
+        console.log(response)
+        subnigditService.checkSubnigdit(response[0].id.toString())
+        .then(
+          (response2) => {
+            setThisSubnigdit(response[0]);
+            setJoined(response2)
+          }
+        )
+      }
+    )
+  }, []);
+
+  function joinThisSub(id: string)
+  {
+    subnigditService.joinSubnigdit(id)
+    .then(
+      (response) => {
+        console.log(response)
+      }
+    )
+  }
+  
   const content = (
     <div className="ls:w-[50vw] flex flex-col font-['Roboto']">
       <div className="mb-[1vh]">
@@ -35,7 +61,7 @@ export default function SubnigditDashboard() {
         />
       </div>
       {/* tu będzie map */}
-      <div className="px-2">
+      <div className="">
         <PostText post={{
           id: 0,
           title: '',
@@ -107,11 +133,7 @@ export default function SubnigditDashboard() {
               }
             },
             subscribers: {
-              data: {
-                attributes: {
-                  count: 0
-                }
-              }
+              data: []
             },
             rules: undefined,
             moderators: [],
@@ -145,7 +167,7 @@ export default function SubnigditDashboard() {
           }
         }} showReportModal={function (id: number): void {
           throw new Error('Function not implemented.');
-        } }     />   
+        } }     />
       </div>
     </div>
   );
@@ -154,7 +176,11 @@ export default function SubnigditDashboard() {
     <>
       <div className="h-full">
         <div className="">
-          <DashboardHeader />
+          {
+            thisSubnigdit === null ? (""):(
+              <DashboardHeader subnigdit={thisSubnigdit} joinSubnigdit={joinThisSub} joinedAlready={joined}/>
+            )
+          }
         </div>
 
         {/*Mobile View*/}
