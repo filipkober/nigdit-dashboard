@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { StrapiSubnigdit } from '../../../models/Subnigdit';
+import { UserState } from '../../../store/userSlice';
 import SubnigditService from '../../../util/requests/SubnigditService';
 import CreatePostBlock from '../../molecules/CreatePostBlock';
 import DashboardHeader from '../../molecules/DashboardHeader';
@@ -15,26 +17,33 @@ import TabSelector from '../../molecules/TabSelector';
 
 export default function SubnigditDashboard()
 {
+  const [isLogged, setLogged] = useState(false);
+  const user = useSelector((state: UserState) => state.user)
+  const {username, profilePicture} = user;
+  
   const subnigditService = new SubnigditService();
   const [selected, setSelected] = useState<number>(0);
   const [thisSubnigdit, setThisSubnigdit] = useState<StrapiSubnigdit | null>(null);
   const [joined, setJoined] = useState<boolean>(false);
 
   useEffect(() => {
+    setLogged(!!username)
     let address = window.location.pathname
     const split = address.split('/');
     const subnigditName = split[split.length - 1];
     subnigditService.getBySlug(subnigditName,true)
     .then(
       (response) => {
-        console.log(response)
-        subnigditService.checkSubnigdit(response[0].id.toString())
-        .then(
-          (response2) => {
-            setThisSubnigdit(response[0]);
-            setJoined(response2)
-          }
-        )
+        setThisSubnigdit(response[0]);
+        if(isLogged)
+        {
+          subnigditService.checkSubnigdit(response[0].id.toString())
+          .then(
+            (response2) => {
+              setJoined(response2)
+            }
+          )
+        }
       }
     )
   }, []);
@@ -178,7 +187,7 @@ export default function SubnigditDashboard()
         <div className="">
           {
             thisSubnigdit === null ? (""):(
-              <DashboardHeader subnigdit={thisSubnigdit} joinSubnigdit={joinThisSub} joinedAlready={joined}/>
+              <DashboardHeader subnigdit={thisSubnigdit} joinSubnigdit={joinThisSub} joinedAlready={joined} isLogged={isLogged}/>
             )
           }
         </div>
