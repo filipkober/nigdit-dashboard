@@ -1,8 +1,7 @@
-import { count } from 'console';
+import { emptyStrapiMedia } from './Media';
 import { StrapiPost } from './Post';
-import Reply, { StrapiReply } from './Reply';
+import { StrapiReply } from './Reply';
 import { StrapiUser } from './User';
-import { emptyMedia, emptyStrapiMedia } from './Media';
 
 type Comment = {
   id?: number;
@@ -192,11 +191,7 @@ const exampleComment: StrapiComment = {
                 reports: 0,
                 icon: emptyStrapiMedia,
                 subscribers: {
-                  data: {
-                    attributes: {
-                      count: 0
-                    }
-                  }
+                  data: []
                 },
                 name_uid: '',
                 banner: {
@@ -261,5 +256,6 @@ const exampleComment: StrapiComment = {
 };
 
 export default Comment;
-export type { StrapiComment, CommentN, StrapiCommentExtended, CommentExtended, StrapiCommentShallow };
 export { commentAdapter, exampleComment, extendedCommentAdapter };
+export type { CommentExtended, CommentN, StrapiComment, StrapiCommentExtended, StrapiCommentShallow };
+

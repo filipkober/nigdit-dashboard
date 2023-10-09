@@ -1,13 +1,14 @@
 import Image from 'next/image';
-import makpaj from '../../../assets/makpaj.svg';
-import userIcon from '../../../assets/user-icon.svg';
-import { JoinButton } from '../../atoms/JoinButton';
-import { SubnigditN } from '../../../models/Subnigdit';
-import * as moment from 'moment';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import userIcon from '../../../assets/user-icon.svg';
+import { StrapiSubnigdit, SubnigditN } from '../../../models/Subnigdit';
 import { UserState } from '../../../store/userSlice';
+import SubnigditService from '../../../util/requests/SubnigditService';
+import { JoinButton } from '../../atoms/JoinButton';
 
+//dziękuję za SubnigditN i jego 10 wersji olo
 type SubnigditInfoProps = {
   subnigdit: SubnigditN
 };
@@ -17,8 +18,16 @@ function formatStrapiDate(dateIn: Date, locale = 'pl-PL'){
 }
 
 export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
-
+  const subnigditService = new SubnigditService();
   const { user } = useSelector((state: UserState) => state)
+  const [betterSubnigdit, setBetterSubnigdit] = useState<StrapiSubnigdit | null>(null);
+
+  useEffect(() => {
+    async function e() {
+      setBetterSubnigdit(await subnigditService.getOne(subnigdit.id));
+    }
+    e();
+  }, []);
 
   return (
     <>
@@ -69,7 +78,10 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
         </div>
 
         <div className="my-5 flex justify-center align-middle">
-          <JoinButton joinedAlready={!!user.subnigdits?.find(s => s.id === subnigdit.id)} />
+        {betterSubnigdit?
+        <JoinButton subnigdit={betterSubnigdit}/> : ""
+        }
+          {/*  joinedAlready={!!user.subnigdits?.find(s => s.id === subnigdit.id)} */}
         </div>
       </div>
     </>
