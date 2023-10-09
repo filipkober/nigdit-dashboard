@@ -1,7 +1,8 @@
+import { isNumber } from 'lodash';
+import qs from 'qs';
 import Post, { StrapiPost } from '../../models/Post';
 import StrapiResponse from '../../models/StrapiResponse';
 import RequestService, { NetworkError } from './RequestService';
-import qs from 'qs';
 
 type createTextPostParams = {title: string, description: string, subnigdit: number, nsfw?: boolean}
 type createMediaPostParams = {title: string, subnigdit: number, nsfw?: boolean, media: File, type: "Image" | "Video" | "Gif"}
@@ -11,7 +12,7 @@ export default class PostService {
   private requestService = new RequestService();
 
   async getAll() {
-    const query = qs.stringify(
+    const query = qs.stringify( //olo, nie wiem do czego ci to, ale ty to usuniesz, bo nie chce mi się bawić z potencjalnymi błędami w twoim 6-miesięcznym kodzie
       {
         populate: {
           owner: {
@@ -136,40 +137,27 @@ export default class PostService {
     },
     { encodeValuesOnly: true }
   );
-
-  async hot(start: number, limit: number) {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/hot"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit);
-    return posts.data;
+  //suffix - ""/"Sub"/"My"
+  //alg - hot/top/new
+  //subnigdit - null/id of subnigdit
+  async getPosts(start: number, limit: number, alg: string, suffix: string, subnigdit: number | null)
+  {
+    let sid = ""
+    if(isNumber(subnigdit))
+    {
+      sid = '&'+"subnigdit="+subnigdit
+    }
+    if(!suffix)
+    {
+      const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/"+alg+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit+sid);
+      return posts.data;
+    }
+    else
+    {
+      const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/"+alg+suffix+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit+sid, {auth: true});
+      return posts.data;
+    }
   }
-  async pop(start: number, limit: number) {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/pop" + '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit);
-    return posts.data;
-  }
-  async top(start: number, limit: number) {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/top"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit);
-    return posts.data;
-  }
-  async new(start: number, limit: number) {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/new"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit);
-    return posts.data;
-  }
-  async hotSub(start: number, limit: number) {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/hotSub"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit, {auth: true});
-    return posts.data;
-  }
-  async popSub(start: number, limit: number) {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/popSub" + '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit, {auth: true});
-    return posts.data;
-  }
-  async topSub(start: number, limit: number) {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/topSub"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit, {auth: true});
-    return posts.data;
-  }
-  async newSub(start: number, limit: number) {    
-    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/newSub"+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit, {auth: true});
-    return posts.data;
-  }
-
   async createText({ title, description, subnigdit, nsfw}: createTextPostParams) {
     const formData = new FormData();
     formData.append('title', title);

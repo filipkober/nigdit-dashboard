@@ -1,9 +1,8 @@
-import React, {useState, useRef, useImperativeHandle, forwardRef, useEffect } from "react";
-import FilterElement from "../../atoms/FilterElement";
-import { useAutoAnimate } from '@formkit/auto-animate/react';
-import Blood from "../../atoms/Blood";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { UserState } from "../../../store/userSlice";
+import Blood from "../../atoms/Blood";
+import FilterElement from "../../atoms/FilterElement";
 
 type RefHandler = {
     childFunction: (val: string) => void
@@ -12,19 +11,19 @@ type RefHandler = {
 type Props = {
     clicked: (cc: number) => void;
     changeAlg: (n: string) => void;
+    feed: boolean;
 }
 
-export default function FilteringBar({clicked, changeAlg}: Props)
-{     
+export default function FilteringBar({clicked, changeAlg, feed}: Props)
+{
     const [isLogged, setLogged] = useState(false);
     const username = useSelector((state: UserState) => state.user.username)
     useEffect( () => {
         setLogged(!!username)
       },[]);
 
-    //const [parent] = useAutoAnimate<HTMLDivElement>({duration: 300, easing: 'ease-in-out'});
     const [collection,setCollection] = useState<string>("Everything");
-    const clickCount = useRef<number>(0);    
+    const clickCount = useRef<number>(0);
     const bftbg = useRef() as React.MutableRefObject<RefHandler>;
 
     function swapCollection()
@@ -38,13 +37,22 @@ export default function FilteringBar({clicked, changeAlg}: Props)
         else
         {
             if(collection === "Everything" && isLogged)
-                setCollection("Subscribed") 
-            else 
+            {
+                if(feed)
+                {
+                    setCollection("Subscribed")
+                }
+                else
+                {
+                    setCollection("My Posts")
+                }
+            }
+            else
                 setCollection("Everything");
         }
-        if (clickCount.current >= 16) 
+        if (clickCount.current >= 16)
         console.log("blood spawning")
-            bftbg.current.blood(Math.round(Math.random()*Math.min(clickCount.current-16,19))); 
+            bftbg.current.blood(Math.round(Math.random()*Math.min(clickCount.current-16,19)));
         clicked(clickCount.current)
     }
 
@@ -60,7 +68,7 @@ export default function FilteringBar({clicked, changeAlg}: Props)
     }
 
     return(
-        <>       
+        <>
         <div className="justify-start flex flex-col items-start w-[100%]">
             <div className="flex justify-center flex-row items-center w-[100%]">
                 <div className="mt-2 p-0 w-[100%] min-w-[320px] h-[4.5vh] min-h-[40px] max-h-[3rem] bg-foregroundL dark:bg-foregroundD border-black border-[2px] border-solid rounded-[5px] drop-shadow-minimalistic flex justify-between flex-row items-center">
@@ -82,13 +90,13 @@ export default function FilteringBar({clicked, changeAlg}: Props)
                 </div>
             </div>
             <Blood ref={bftbg}/>
-            {clickCount.current > 35 ? (        
+            {clickCount.current > 35 ? (
             <div className="z-30 fixed flex translate-y-[-18px] tl:translate-x-[-22vw] animate-drip">
-                <div className="z-30 fixed w-[100vw] h-[85px] bg-bloodDrip bg-repeat-x bg-contain cursor-no-drop"></div> 
-            </div> 
-            ) : (        
+                <div className="z-30 fixed w-[100vw] h-[85px] bg-bloodDrip bg-repeat-x bg-contain cursor-no-drop"></div>
+            </div>
+            ) : (
             <div></div>
-            )}  
+            )}
         </div>
         </>
     )

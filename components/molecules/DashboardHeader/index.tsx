@@ -4,17 +4,11 @@ import { StrapiSubnigdit } from '../../../models/Subnigdit';
 import { JoinButton } from '../../atoms/JoinButton';
 type Props = {
   subnigdit: StrapiSubnigdit;
-  joinSubnigdit: (val: string) => void,
-  joinedAlready?: boolean,
   isLogged?: boolean
 }
 
-export default function DashboardHeader({subnigdit, joinSubnigdit, joinedAlready, isLogged}: Props)
+export default function DashboardHeader({subnigdit, isLogged}: Props)
 {
-  function joinThisSub()
-  {
-    joinSubnigdit(subnigdit.id.toString())
-  }
   return (
     <div className="font-['Roboto']">
       <div className="relative h-[25vh] bg-red-500 pointer-events-none">
@@ -39,7 +33,7 @@ export default function DashboardHeader({subnigdit, joinSubnigdit, joinedAlready
 
         {/* <img className="object-cover h-[20vh] w-[80vw]" src='https://source.unsplash.com/random/1920x1080' alt='></img> */}
       </div>
-      <div className="flex overflow-hidden w-[20vh] h-[20vh] absolute ml-[calc(50vw-10vh)] -my-[10vh] tm:ml-[3vh] drop-shadow-walter rounded-full">
+      <div className="flex overflow-hidden w-[20vh] h-[20vh] ml-[calc(50vw-10vh)] -my-[10vh] tm:ml-[3vh] drop-shadow-walter rounded-full">
         <Image
           src={
             process.env.NEXT_PUBLIC_STRAPI_URL +
@@ -65,8 +59,7 @@ export default function DashboardHeader({subnigdit, joinSubnigdit, joinedAlready
             <div className="scale-75 tm:scale-100 m-2">
               {isLogged ? (
                 <JoinButton
-                  joinedAlready={joinedAlready}
-                  joinSubnigdit={joinThisSub}
+                  subnigdit={subnigdit}
                 />
               ) : (
                 <div className="py-5"></div>
@@ -79,7 +72,7 @@ export default function DashboardHeader({subnigdit, joinSubnigdit, joinedAlready
           {subnigdit.attributes.subscribers.data.length} members
         </p>
 
-        <p className="text-left mt-[8vh] mx-[2vw]">
+        <p className="text-left mt-[5vh] mb-[1vh] mx-[2vw]">
           {subnigdit.attributes.description}
         </p>
       </div>
