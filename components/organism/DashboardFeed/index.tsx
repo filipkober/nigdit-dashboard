@@ -1,3 +1,4 @@
+import { toLower } from 'lodash';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Post from '../../../models/Post';
@@ -11,7 +12,7 @@ import ReportModal from '../../molecules/ReportModal';
 
 const postsPerScroll = 3;
 
-//Nitroglycerin
+//Nigroglycerin
 export default function DashboardFeed() {
   const postService = new PostService();
   const {username, moderates, admin} = useSelector((state: UserState) => state.user);
@@ -30,6 +31,7 @@ export default function DashboardFeed() {
 
   //activated when toggled top-new-hot
   function changeAlg(n: string) {
+    console.log(n)
     setCurAlg(n);
   }
 
@@ -44,36 +46,13 @@ export default function DashboardFeed() {
   useEffect(() => {
     async function fetchPosts() {
       let p: Post[] = [];
-      if (viewSubscribed && isLogged == true) {
-        switch (curAlg) {
-          case 'New':
-            p = await postService.newSub(page, postsPerScroll);
-            break;
-          case 'Top':
-            p = await postService.topSub(page, postsPerScroll);
-            break;
-          case 'Hot':
-            p = await postService.hotSub(page, postsPerScroll);
-            break;
-          default:
-            p = await postService.popSub(page, postsPerScroll);
-            break;
-        }
-      } else {
-        switch (curAlg) {
-          case 'New':
-            p = await postService.new(page, postsPerScroll);
-            break;
-          case 'Top':
-            p = await postService.top(page, postsPerScroll);
-            break;
-          case 'Hot':
-            p = await postService.hot(page, postsPerScroll);
-            break;
-          default:
-            p = await postService.pop(page, postsPerScroll);
-            break;
-        }
+      if (viewSubscribed && isLogged == true)
+      {
+        p = await postService.getPosts(page, postsPerScroll,toLower(curAlg),"Sub",null);
+      }
+      else
+      {
+        p = await postService.getPosts(page, postsPerScroll,toLower(curAlg),"",null);
       }
       if (page === 0) {
         setPosts(p);
@@ -126,7 +105,7 @@ export default function DashboardFeed() {
               id="scrollableDiv"
               className="h-full ls:w-[50vw] tl:w-[56vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px]"
             >
-              <FilteringBar clicked={clicked} changeAlg={changeAlg} />
+              <FilteringBar clicked={clicked} changeAlg={changeAlg} showSubscribed={true}/>
               {posts.map((post, index) => {
 
                 let isAdmin = false;

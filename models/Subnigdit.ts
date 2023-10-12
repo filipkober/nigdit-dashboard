@@ -1,8 +1,6 @@
-import { count } from 'console';
 import Media, { StrapiMedia, mediaAdapter } from './Media';
-import { number } from 'yup';
-import { StrapiUser } from './User';
 import SubnigditRule from './SubnigditRule';
+import { StrapiUser } from './User';
 
 
 type Subnigdit = { //za zmianę tego również cię zabiję
@@ -14,11 +12,7 @@ type Subnigdit = { //za zmianę tego również cię zabiję
   icon: Media;
   banner: Media;
   subscribers: {
-    data: {
-      attributes:{
-        count: number
-      }
-    }
+    data: StrapiUser[]
   },
   rules?: SubnigditRule[];  
   moderators: StrapiUser[];
@@ -37,11 +31,10 @@ type StrapiSubnigdit = {
     icon: StrapiMedia;
     banner: StrapiMedia;
     subscribers: {
-      data: {
-        attributes:{
-          count: number
-        }
-      }
+      data: StrapiUser[]
+      //   attributes:{
+      //     count: number
+      //   }
     },
     name_uid: string;
     rules?: SubnigditRule[];
@@ -88,7 +81,7 @@ const subnigditAdapter = (s: StrapiSubnigdit): SubnigditN => {
     reports: s.attributes.reports,
     icon: s.attributes.icon,
     iconUrl: s.attributes.icon.data.attributes.url,
-    subscribers: s.attributes.subscribers.data.attributes.count || 0,
+    subscribers: s.attributes.subscribers.data.length, //.attributes.count || 0,
     rules: s.attributes.rules || [],
     name_uid: s.attributes.name_uid,
   };
@@ -136,5 +129,6 @@ type SubnigditSearchResult = {
 }
 
 export default Subnigdit;
+export { strapiSubnigditToSubnigdit, subnigditAdapter, subnigditLimitedAdapter };
 export type { StrapiSubnigdit, SubnigditN, SubnigditSearchResult };
-export { subnigditAdapter, subnigditLimitedAdapter, strapiSubnigditToSubnigdit };
+

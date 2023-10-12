@@ -1,151 +1,161 @@
-import { JoinButton } from '../../atoms/JoinButton';
+import { toLower } from 'lodash';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import Post from '../../../models/Post';
+import { StrapiSubnigdit } from '../../../models/Subnigdit';
+import { UserState } from '../../../store/userSlice';
+import PostService from '../../../util/requests/PostService';
+import SubnigditService from '../../../util/requests/SubnigditService';
+import CreatePostBlock from '../../molecules/CreatePostBlock';
 import DashboardHeader from '../../molecules/DashboardHeader';
 import FilteringBar from '../../molecules/FilteringBar';
 import PostMedia from '../../molecules/PostMedia';
 import PostText from '../../molecules/PostText';
 import SubnigditRules from '../../molecules/SubnigditRules';
-import DashboardFeed from '../DashboardFeed';
-import makpaj from '../../../assets/makpaj.svg';
 import TabSelector from '../../molecules/TabSelector';
-import { useState } from 'react';
-import CreatePostBlock from '../../molecules/CreatePostBlock';
 
-const desc = `
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat
-      Duis aute irure dolor in reprehenderit in voluptate ...
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat
-      Duis aute irure dolor in reprehenderit in voluptate
-`; //temp
+//description must be downloaded in useEffect
+//same as rules
+const postsPerScroll = 3;
 
-export default function SubnigditDashboard() {
+export default function SubnigditDashboard()
+{
+  const postService = new PostService();
+  
+  const [isLogged, setLogged] = useState(false);
+  const {username, moderates, admin} = useSelector((state: UserState) => state.user);
+  
+  const subnigditService = new SubnigditService();
   const [selected, setSelected] = useState<number>(0);
+  const [thisSubnigdit, setThisSubnigdit] = useState<StrapiSubnigdit | null>(null);
+  //display
+  const [viewMyPosts, setViewMyPosts] = useState<boolean>(false); //true = my posts, false = everything
+  const [curAlg, setCurAlg] = useState<string>('Hot');
+  const [page, setPage] = useState<number>(0);
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  function clicked(cc: number)
+  {
+    if(isLogged)
+    {
+      setViewMyPosts(!viewMyPosts);
+    }
+    console.log("clicked "+viewMyPosts)
+  }
+
+  function changeAlg(n: string)
+  {
+    setCurAlg(n);
+    console.log("changed alg to "+n)
+  }
+  
+  useEffect(() => {
+    setPage(0);
+  }, [viewMyPosts, curAlg]);
+
+  useEffect(() => {
+    let sn = thisSubnigdit ? thisSubnigdit.id : null;
+    async function fetchPosts()
+    {
+      if(thisSubnigdit == null)
+      {
+        setLogged(!!username)
+        let address = window.location.pathname
+        const split = address.split('/');
+        const subnigditName = split[split.length - 1];
+        const response = await subnigditService.getBySlug(subnigditName,true)
+        setThisSubnigdit(response[0]);
+        sn = response[0].id
+      }
+      let p: Post[] = [];
+      if (viewMyPosts && isLogged == true)
+      {
+        p = await postService.getPosts(page, postsPerScroll,toLower(curAlg),"My",sn); //replace null with id
+      }
+      else
+      {
+        p = await postService.getPosts(page, postsPerScroll,toLower(curAlg),"",sn);
+      }
+      if (page === 0)
+      {
+        setPosts(p);
+      }
+      else
+      {
+        if (page + 3 > posts.length) {
+          setPosts([...posts, ...p.slice(0, postsPerScroll)]);
+        }
+      }
+    }
+    fetchPosts();
+  }, [page,curAlg,viewMyPosts]);
+
+  const observer: any = useRef();
+  const lastPostRef = useCallback(async (node: any) => {
+    if (!node)
+    {
+      return;
+    }
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(async (entries) => {
+      if (entries[0].isIntersecting)
+      {
+        //console.log("FEED: scrolled to next page")
+        setPage((prevPage) => prevPage + postsPerScroll);
+      }
+    });
+    observer.current.observe(node);
+  }, []);
+  
+  const [modalReportOpen, setModalReportOpen] = useState<boolean>(false);
+  const [reportedPostId, setReportedPostId] = useState<number>(0);
+
+  const toggleModalReport = (id: number) => {
+    setModalReportOpen(true);
+    setReportedPostId(id);
+  }
+  
   const content = (
     <div className="ls:w-[50vw] flex flex-col font-['Roboto']">
       <div className="mb-[1vh]">
         <FilteringBar
-          clicked={function (cc: number): void {
-            throw new Error('Function not implemented.');
-          }} changeAlg={function (cc: string): void {
-            throw new Error('Function not implemented.');
-          }}
+          showSubscribed={false}
+          clicked={clicked}
+          changeAlg={changeAlg}
         />
-      </div>
-      {/* tu będzie map */}
-      <div className="px-2">
-        <PostText post={{
-          id: 0,
-          title: '',
-          description: undefined,
-          votes: 0,
-          reports: 0,
-          createdAt: new Date(),
-          type: 'Text',
-          nsfw: false,
-          media: undefined,
-          comments: undefined,
-          owner: {
-            id: undefined,
-            username: '',
-            email: undefined,
-            posts: undefined,
-            comments: undefined,
-            replies: undefined,
-            profilePicture: undefined,
-            votes: {
-              upvotes: {
-                posts: [],
-                comments: [],
-                replies: []
-              },
-              downvotes: {
-                posts: [],
-                comments: [],
-                replies: []
-              }
-            },
-            aboutMe: undefined,
-            provider: '',
-            subnigdits: undefined,
-            moderates: undefined,
-            admin: undefined,
-            confirmed: false,
-          },
-          subnigdit: {
-            id: 0,
-            name: '',
-            description: '',
-            createdAt: new Date(),
-            reports: 0,
-            icon: {
-              id: 0,
-              name: '',
-              alternativeText: '',
-              width: 0,
-              height: 0,
-              ext: '',
-              url: '',
-              formats: {
-                large: undefined,
-                thumbnail: undefined
-              }
-            },
-            banner: {
-              id: 0,
-              name: '',
-              alternativeText: '',
-              width: 0,
-              height: 0,
-              ext: '',
-              url: '',
-              formats: {
-                large: undefined,
-                thumbnail: undefined
-              }
-            },
-            subscribers: {
-              data: {
-                attributes: {
-                  count: 0
-                }
-              }
-            },
-            rules: undefined,
-            moderators: [],
-            owner: {
-              id: 0,
-              attributes: {
-                username: '',
-                email: '',
-                posts: undefined,
-                comments: undefined,
-                replies: undefined,
-                profilePicture: undefined,
-                votes: {
-                  upvotes: {
-                    posts: [],
-                    comments: [],
-                    replies: []
-                  },
-                  downvotes: {
-                    posts: [],
-                    comments: [],
-                    replies: []
-                  }
-                },
-                aboutMe: undefined,
-                provider: '',
-                confirmed: false
-              }
-            },
-            name_uid: ''
-          }
-        }} showReportModal={function (id: number): void {
-          throw new Error('Function not implemented.');
-        } }     />   
+        {posts.map((post, index) => {
+        let isAdmin = false;
+        if(admin) isAdmin = true;
+        else if(moderates?.find(sub => sub.id === post.subnigdit.id)) isAdmin = true;
+
+        if (post.type == 'Text') {
+          return (
+            <div
+              key={post.id}
+              ref={posts.length === index + 1 ? lastPostRef : undefined}
+              style={{
+                zIndex: 5 + (posts.length - index),
+                position: 'relative',
+              }}
+            >
+              <PostText post={post} showReportModal={toggleModalReport} isAdmin={isAdmin} />
+            </div>
+          );
+        } else {
+          return (
+            <div
+              key={post.id}
+              ref={posts.length === index + 1 ? lastPostRef : undefined}
+              style={{
+                zIndex: 5 + (posts.length - index),
+                position: 'relative',
+              }}
+            >
+              <PostMedia post={post} showReportModal={toggleModalReport} isAdmin={isAdmin} />
+            </div>
+          );
+        }
+        })}
       </div>
     </div>
   );
@@ -154,7 +164,11 @@ export default function SubnigditDashboard() {
     <>
       <div className="h-full">
         <div className="">
-          <DashboardHeader />
+          {
+            thisSubnigdit === null ? (""):(
+              <DashboardHeader subnigdit={thisSubnigdit} isLogged={isLogged}/>
+            )
+          }
         </div>
 
         {/*Mobile View*/}
