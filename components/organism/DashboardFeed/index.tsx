@@ -105,7 +105,7 @@ export default function DashboardFeed() {
               id="scrollableDiv"
               className="h-full ls:w-[50vw] tl:w-[56vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px]"
             >
-              <FilteringBar clicked={clicked} changeAlg={changeAlg} feed={true}/>
+              <FilteringBar clicked={clicked} changeAlg={changeAlg} showSubscribed={true}/>
               {posts.map((post, index) => {
 
                 let isAdmin = false;

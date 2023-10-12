@@ -20,11 +20,11 @@ function formatStrapiDate(dateIn: Date, locale = 'pl-PL'){
 export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
   const subnigditService = new SubnigditService();
   const { user } = useSelector((state: UserState) => state)
-  const [betterSubnigdit, setBetterSubnigdit] = useState<StrapiSubnigdit | null>(null);
+  const [subnigditData, setSubnigditData] = useState<StrapiSubnigdit | null>(null);
 
   useEffect(() => {
     async function e() {
-      setBetterSubnigdit(await subnigditService.getOne(subnigdit.id));
+      setSubnigditData(await subnigditService.getOne(subnigdit.id));
     }
     e();
   }, []);
@@ -78,8 +78,8 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
         </div>
 
         <div className="my-5 flex justify-center align-middle">
-        {betterSubnigdit?
-        <JoinButton subnigdit={betterSubnigdit}/> : ""
+        {subnigditData?
+        <JoinButton subnigdit={subnigditData}/> : ""
         }
           {/*  joinedAlready={!!user.subnigdits?.find(s => s.id === subnigdit.id)} */}
         </div>

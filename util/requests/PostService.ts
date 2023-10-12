@@ -137,9 +137,9 @@ export default class PostService {
     },
     { encodeValuesOnly: true }
   );
-  //suffix - ""/"Sub"/"My"
-  //alg - hot/top/new
-  //subnigdit - null/id of subnigdit
+  //suffix - "" | "Sub" | "My"
+  //alg - hot | top | new
+  //subnigdit - null | id of subnigdit
   async getPosts(start: number, limit: number, alg: string, suffix: string, subnigdit: number | null)
   {
     let sid = ""

@@ -119,7 +119,7 @@ export default function SubnigditDashboard()
     <div className="ls:w-[50vw] flex flex-col font-['Roboto']">
       <div className="mb-[1vh]">
         <FilteringBar
-          feed={false}
+          showSubscribed={false}
           clicked={clicked}
           changeAlg={changeAlg}
         />

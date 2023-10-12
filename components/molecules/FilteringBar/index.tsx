@@ -11,10 +11,10 @@ type RefHandler = {
 type Props = {
     clicked: (cc: number) => void;
     changeAlg: (n: string) => void;
-    feed: boolean;
+    showSubscribed: boolean;
 }
 
-export default function FilteringBar({clicked, changeAlg, feed}: Props)
+export default function FilteringBar({clicked, changeAlg, showSubscribed}: Props)
 {
     const [isLogged, setLogged] = useState(false);
     const username = useSelector((state: UserState) => state.user.username)
@@ -38,7 +38,7 @@ export default function FilteringBar({clicked, changeAlg, feed}: Props)
         {
             if(collection === "Everything" && isLogged)
             {
-                if(feed)
+                if(showSubscribed)
                 {
                     setCollection("Subscribed")
                 }
