@@ -62,7 +62,7 @@ export default function Navbar()
     return(
         <div className="pointer-events-none flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-[40] top-0 left-0">
             {/* dashboard icon */}
-            <div className='flex flex-row'>
+            <div className='flex flex-row bg-purple-500'>
                 <Link href="/" className='pointer-events-auto min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:max-w-[13rem] h-[100%] flex flex-row my-2 mx-2'>
                     <div className='shrink-0'>
                         <Image draggable="false" src={nigditIcon} width={36} height={36} className="select-none hover:cursor-pointer object-cover overflow-hidden p-0 w-[2.4rem] h-[2.4rem] rounded-full" alt={'Nigdit icon'} loader={({src}) => src}/>
@@ -71,7 +71,8 @@ export default function Navbar()
                         <p className="select-none shrink-1 text-[24px] font-['Roboto'] dark:text-white pl-2"><Link href={'/'}>NigDIT</Link></p>
                     </div>
                 </Link>
-                <div className='max-w-[7.2rem] hidden tm:flex flex-row-reverse th:w-[7.2rem] tl:w-[4.8rem] w-[2.4rem]'></div>
+                {/* space for extra 3 buttons */}
+                {isLogged ?<div className='max-w-[7.2rem] hidden tm:flex flex-row-reverse th:w-[7.2rem] tl:w-[4.8rem] w-[2.4rem]'></div>:""}
             </div>
             {/* searchbar */}
             <div className='min-w-[12rem] w-[25vw] max-w-[30rem] h-[100%] grow flex flex-row my-2 mx-2'>
@@ -102,16 +103,16 @@ export default function Navbar()
                 }
             </div>
             {/* user account panel */}
-            <div className='flex flex-row-reverse'>
+            <div className='flex flex-row-reverse bg-purple-500'>
                 {/* account info */}
-                <div className='ts:block hidden h-full'>
+                <div className='ts:block hidden h-full bg-orange-300'>
                     {/* login buttons or user icon */}
                     {(!!username) ? (
-                    <Link href="/my-account" className='hover:cursor-pointer w-[2.4rem] h-[100%] flex flex-row-reverse my-2 ml-1 mr-3'>
+                    <Link href="/my-account" className='hover:cursor-pointer min-w-[2.4rem] h-[100%] tm:min-w-[13rem] flex flex-row-reverse my-2 ml-1 mr-3 bg-orange-500'>
                         <div className='w-[2.4rem] shrink-0'>
                             <Image draggable="false" src={profilePicture ? (process.env.NEXT_PUBLIC_STRAPI_URL + profilePicture.url) : emptypfp.src} width={36} height={36} className="w-[2.4rem] pointer-events-auto select-none hover:cursor-pointer object-cover overflow-hidden rounded-full" alt={'Your profile picture'} loader={({src}) => src}/>
                         </div>
-                        <div className='select-none overflow-hidden ml-auto shrink-1 hidden tm:block'>
+                        <div className='select-none overflow-hidden ml-auto shrink-1 hidden tm:block bg-emerald-500'>
                             <p className="pointer-events-auto overflow-hidden text-right text-[20px] font-thin dark:text-white pr-2">{username}</p>
                         </div>
                     </Link>
@@ -134,6 +135,7 @@ export default function Navbar()
                     </div>
                 </div>
                 {/* buttons */}
+                {isLogged ?
                 <div className='max-w-[7.2rem] hidden tm:flex flex-row-reverse'>
                     <div className='w-[2.4rem] tl:flex hidden items-center h-full p-1 '>
                         {/* dostylizuj to olo */}
@@ -146,14 +148,18 @@ export default function Navbar()
                         {/* icon 3 - disappears at the earliest*/}
                     </div>
                 </div>
+                :""}
             </div>
+
+
+
             {/* search results FRAGILE*/}
             {
                 (searchValue != "") ? (
-                    <div className='overflow-hidden flex flex-row fixed w-[100%] justify-between left-0 mt-[25px] '>
-                    <div className='flex flex-row'>
+                <div className='overflow-hidden flex flex-row fixed w-[100%] justify-between left-0 mt-[25px]'>
+                    <div className='flex flex-row bg-red-500'>
                         <div className='min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:max-w-[13rem] h-[100%] flex flex-row my-2 mx-2'></div>
-                        <div className='max-w-[7.2rem] hidden tm:flex flex-row-reverse th:w-[7.2rem] tl:w-[4.8rem] w-[2.4rem]'></div>
+                        {isLogged ?<div className='max-w-[7.2rem] hidden tm:flex flex-row-reverse th:w-[7.2rem] tl:w-[4.8rem] w-[2.4rem]'></div>:""}
                     </div>
                     <div className='min-w-[12rem] w-[25vw] max-w-[30rem] h-[100%] grow flex flex-col my-2 mx-2'>
                         <div className='w-full h-[20px] bg-backgroundD border-accentD border-x-[1px]'></div>
@@ -174,10 +180,10 @@ export default function Navbar()
                         }
                         <div className='w-full h-[10px] bg-backgroundD rounded-b-[10px] border-accentD border-[1px] border-t-[0px]'></div>
                     </div>
-                    <div className='flex flex-row-reverse'>
-                        <div className='ts:block hidden'>
+                    <div className='flex flex-row-reverse bg-red-500'>
+                        <div className='ts:block hidden h-full bg-orange-500'>
                             {(isLogged) ? (
-                            <div className='hover:cursor-pointer min-w-[2.4rem] h-[100%] flex flex-row-reverse my-2 ml-1 mr-3'>
+                            <div className='hover:cursor-pointer min-w-[2.4rem] h-[100%] tm:min-w-[13rem] flex flex-row-reverse my-2 ml-1 mr-3'>
                                 <div className='w-[2.4rem] shrink-0'></div>
                                 <div className='shrink-1 hidden tm:block'>
                                     <p className=" text-[20px] text-transparent font-thin pr-2">{username}</p>
@@ -190,12 +196,11 @@ export default function Navbar()
                             )}
                         </div>
                         <div className='ts:hidden h-full pointer-events-auto w-[2.4rem] ml:w-[3.8rem] flex flex-row-reverse my-2 mx-2'></div>
-                        <div className='max-w-[7.2rem] hidden tm:flex flex-row-reverse th:w-[7.2rem] tl:w-[4.8rem] w-[2.4rem]'></div>
+                        {isLogged ? <div className='max-w-[7.2rem] hidden tm:flex flex-row-reverse th:w-[7.2rem] tl:w-[4.8rem] w-[2.4rem]'></div>:""}
+                        <div className='w-[9px] h-full'></div> {/* scrollbar simulation */}
                     </div>
                 </div>
-                ):(
-                    ""
-                )
+                ):("")
             }
         </div>
     );
