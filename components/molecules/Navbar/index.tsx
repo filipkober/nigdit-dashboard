@@ -136,7 +136,7 @@ export default function Navbar()
                     </div>
                 </div>
                 {/* buttons */}
-                {isLogged ?
+                {!!username ?
                 <div className='max-w-[7.2rem] hidden tm:flex flex-row-reverse'>
                     <div className='w-[2.4rem] tl:flex hidden items-center h-full p-1 '>
                         {/* dostylizuj to olo */}
@@ -197,7 +197,7 @@ export default function Navbar()
                             )}
                         </div>
                         <div className='ts:hidden h-full pointer-events-auto w-[2.4rem] ml:w-[3.8rem] flex flex-row-reverse my-2 mx-2'></div>
-                        {isLogged ? <div className='max-w-[7.2rem] hidden tm:flex flex-row-reverse th:w-[7.2rem] tl:w-[4.8rem] w-[2.4rem]'></div>:""}
+                        {!!username ? <div className='max-w-[7.2rem] hidden tm:flex flex-row-reverse th:w-[7.2rem] tl:w-[4.8rem] w-[2.4rem]'></div>:""}
                     </div>
                 </div>
                 ):("")
