@@ -90,7 +90,9 @@ export default function RegisterForm({ verChange }: Props) {
       const userData = await res2.json();
       try {
         if (userData.user.username != null) {
-          Cookies.set('jwt', userData.jwt);
+          Cookies.set('jwt', userData.jwt, {
+            expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365),
+          });
           dispatch(setUser(userData.user));
           router.push('/');
         }
@@ -100,7 +102,7 @@ export default function RegisterForm({ verChange }: Props) {
   });
     //redirect if logged
     const user = useSelector((state: UserState) => state.user)
-    const {username, profilePicture} = user;
+    const {username} = user;
     useEffect(()=>{
       if(!!username)
       {
@@ -116,7 +118,6 @@ export default function RegisterForm({ verChange }: Props) {
       } = useForm<FormValues>({resolver: yupResolver(schema)})
       const onSubmit: SubmitHandler<FormValues> = async (values) => {
         const userData = await userService.register(values.login, values.email, values.password);
-        console.log(userData);
         try
         {
             if(userData.user.username != null)

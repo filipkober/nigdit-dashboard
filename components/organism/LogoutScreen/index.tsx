@@ -2,10 +2,14 @@ import Spinner from '../../atoms/Spinner';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { MdDone } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import Cookies from 'js-cookie';
+import { resetData } from '../../../store/userSlice';
 
 export default function LogoutScreen() {
   const router = useRouter();
   const [isLoggedOut, setIsLoggedOut] = useState(false);
+  const dispatch = useDispatch();
 
   const notLoggedOut = (
     <div className="flex flex-col justify-center items-center place-content-center h-screen font-['Roboto'] space-y-[5vh]">
@@ -40,6 +44,8 @@ export default function LogoutScreen() {
   return (
     <>
       {useEffect(() => {
+        Cookies.remove('jwt');
+        dispatch(resetData())
         setTimeout(() => {
           setIsLoggedOut(true);
         }, 2000);

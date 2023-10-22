@@ -43,7 +43,9 @@ export default function LoginForm() {
       const userData = await res2.json();
       try {
         if (userData.user.username != null) {
-          Cookies.set('jwt', userData.jwt);
+          Cookies.set('jwt', userData.jwt, {
+            expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365),
+          });
           dispatch(setUser(userData.user));
           router.push(!!redirect ? redirect : '/');
         }
