@@ -23,11 +23,12 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
   const [subnigditData, setSubnigditData] = useState<StrapiSubnigdit | null>(null);
 
   useEffect(() => {
+    if(subnigdit.id === 0) return;
     async function e() {
       setSubnigditData(await subnigditService.getOne(subnigdit.id));
     }
     e();
-  }, []);
+  }, [subnigdit]);
 
   return (
     <>

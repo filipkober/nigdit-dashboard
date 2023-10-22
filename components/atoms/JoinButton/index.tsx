@@ -2,24 +2,20 @@ import { useEffect, useState } from 'react';
 import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import { StrapiSubnigdit } from '../../../models/Subnigdit';
 import SubnigditService from '../../../util/requests/SubnigditService';
+import { useSelector } from 'react-redux';
+import { UserState } from '../../../store/userSlice';
 
 type JoinButtonProps = {
   subnigdit: StrapiSubnigdit;
 } & GenericComponentProps;
 
 export function JoinButton({ className, subnigdit }: JoinButtonProps) {
-  const [joined, setJoined] = useState<Boolean>(false);
-
+  
   const subnigditService = new SubnigditService();
-
-  useEffect(() => {
-    subnigditService.checkSubnigdit(subnigdit.id.toString())
-    .then(
-      (responseJoined) => {
-        setJoined(responseJoined)
-      }
-    )
-  }, []);
+  
+  const user = useSelector((state: UserState) => state.user)
+  
+  const [joined, setJoined] = useState<Boolean>(!!user.subnigdits?.find(s => s.id === subnigdit.id) ?? false);
 
   function joinThisSub()
   {
