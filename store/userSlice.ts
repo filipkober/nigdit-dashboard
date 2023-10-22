@@ -50,6 +50,28 @@ export const userSlice = createSlice({
     setUserVotes(state, action: {payload: UserVotes}) {
       state.user.votes = action.payload;
     },
+    resetData(state) {
+      state.user = {
+        username: '',
+        confirmed: false,
+        email: '',
+        votes: {
+          upvotes: {
+            posts: [],
+            comments: [],
+            replies: [],
+          },
+          downvotes: {
+            posts: [],
+            comments: [],
+            replies: [],
+          },
+        },
+        provider: '',
+      };
+      state.count = 0;
+      state.currentSubnigdit = undefined;
+    }
   },
 });
 
@@ -59,6 +81,7 @@ export const {
   incrementCounter,
   setCurrentSubnigdit,
   setUserVotes,
+  resetData
 } = userSlice.actions;
 
 export default userSlice.reducer;
