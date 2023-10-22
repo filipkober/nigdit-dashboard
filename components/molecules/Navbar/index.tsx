@@ -138,10 +138,10 @@ export default function Navbar()
                 {/* buttons */}
                 {!!username ?
                 <div className='max-w-[7.2rem] hidden tm:flex flex-row-reverse'>
-                    <div className='w-[2.4rem] tl:flex hidden items-center h-full p-1 '>
-                        {/* dostylizuj to olo */}
+                    <Link href="/new/post" className='pointer-events-auto w-[2.4rem] tl:flex hidden select-none hover:cursor-pointeritems-center h-full p-1'>
+                        {/* dostylizuj to olo jak chcesz */}
                         <BiMessageAdd size={32} className="select-none hover:cursor-pointer object-cover overflow-hidden w-full h-full"/>
-                    </div>
+                    </Link>
                     <div className='w-[2.4rem] items-center h-full hidden tm:flex '>
                         {/* icon 2 - empty disappears at the latest*/}
                     </div>
