@@ -41,7 +41,7 @@ export default function DashboardFeed() {
       setPage(0);
     };
     f();
-  }, [viewSubscribed, curAlg, username]);
+  }, [username]);
 
   useEffect(() => {
     async function fetchPosts() {
@@ -65,7 +65,7 @@ export default function DashboardFeed() {
     }
     fetchPosts();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page,curAlg,viewSubscribed]);
 
   useEffect(() => {
     setPage(0);
