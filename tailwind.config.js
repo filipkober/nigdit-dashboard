@@ -125,6 +125,7 @@ module.exports = {
       'ts': '580px',  //tablet
       'tm': '640px',
       'tl': '768px',
+      'th': '840px',  //extra
       'ls': '1024px', //laptop
       'cs': '1280px', //computer
       'cm': '1920px', 
