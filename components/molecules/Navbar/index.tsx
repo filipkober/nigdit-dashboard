@@ -12,6 +12,7 @@ import nigditIcon from '../../../assets/testimage.svg';
 import { SubnigditSearchResult } from '../../../models/Subnigdit';
 import { UserState } from '../../../store/userSlice';
 import SubnigditService from '../../../util/requests/SubnigditService';
+import VerticalDivider from '../../atoms/VerticalDivider';
 import SubnigditSearch from '../SubnigditSearch';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   user?: {
@@ -31,6 +32,17 @@ export default function Navbar() {
   const { username, profilePicture } = user;
   useEffect(() => {
     setLogged(!!username); //Cookies.get("jwt") !! - zamienia wartości takie jak null/undefined na false, reszta jest true
+
+    const handleRouteChange = () => {
+      setSearchValue('');
+      setIsMenuOpen(false);
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
   }, []);
 
   const handleMenuOpen = () => {
@@ -227,9 +239,14 @@ export default function Navbar() {
                 onClose={handleMenuClose}
                 width={'35%'}
               >
-                <a href="/">Home</a>
-                <a href="/my-account">Account</a>
-                <a href="/new/post">Create Post</a>
+                <Link className="bg-[#272727]" href="/">
+                  Home
+                </Link>
+
+                <Link href="/my-account">Account</Link>
+                <Link className="bg-[#272727]" href="/new/post">
+                  Create Post
+                </Link>
               </Menu>
             ) : (
               <Menu
@@ -237,10 +254,15 @@ export default function Navbar() {
                 burgerBarClassName="hidden"
                 isOpen={isMenuOpen}
                 onClose={handleMenuClose}
+                width={'35%'}
               >
-                <a href="/">Home</a>
-                <a href="login">Login</a>
-                <a href="register">Register</a>
+                <Link className="bg-[#272727]" href="/">
+                  Home
+                </Link>
+                <Link href="/login">Login</Link>
+                <Link className="bg-[#272727]" href="/register">
+                  Register
+                </Link>
               </Menu>
             )}
             <RxHamburgerMenu

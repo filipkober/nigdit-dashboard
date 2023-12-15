@@ -53,19 +53,19 @@
 
 /* Color/shape of close button cross */
 .bm-cross {
-  background: #d0d0d0;
+  background: #f0f0f0;
 
 }
 
 /* This positions the cross centrally in the button */
 .bm-cross-button>span {
-  top: -0.2rem !important;
+  top: calc(-1*(1.6rem - 24px)) !important;
   right: 1.3rem !important;
 }
 
 /* This targets the actual elements that make up the cross */
 .bm-cross {
-  width: 5px !important;
+  width: 3px !important;
   height: 30px !important;
 }
 
@@ -82,7 +82,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-menu {
   margin: -0.5rem;
   background: #2b2b2b;
-  padding: 2em 1em 0;
   font-size: 1.15em;
   height: 100%;
   border-left: 2px solid #000000;
@@ -96,8 +95,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Wrapper for item list */
 .bm-item-list {
   color: #ffff;
-  padding-top: 0.5em;
-  padding-left: 0.1em;
+  padding-top: 3.2rem;
 }
 
 /* Individual item */
@@ -105,7 +103,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
   display: inline-block;
   font-size: large;
   font-family: 'Roboto';
-  padding-bottom: 1rem;
+  padding: 0.8rem;
+
+
+
   -webkit-user-select: none;
   /* Safari */
   -ms-user-select: none;
@@ -117,6 +118,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
   -moz-user-drag: none;
   -o-user-drag: none;
   -ms-user-drag: none;
+
+
 }
 
 /* Styling of overlay */
