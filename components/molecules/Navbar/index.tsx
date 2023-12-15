@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { InputHTMLAttributes, useCallback, useEffect, useState } from 'react';
-import { slide as Menu, slide as MenuLoggedIn } from 'react-burger-menu';
+import { slide as Menu } from 'react-burger-menu';
 import { BiMessageAdd } from 'react-icons/Bi';
 import { RxHamburgerMenu } from 'react-icons/Rx';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,6 @@ import nigditIcon from '../../../assets/testimage.svg';
 import { SubnigditSearchResult } from '../../../models/Subnigdit';
 import { UserState } from '../../../store/userSlice';
 import SubnigditService from '../../../util/requests/SubnigditService';
-import VerticalDivider from '../../atoms/VerticalDivider';
 import SubnigditSearch from '../SubnigditSearch';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   user?: {
