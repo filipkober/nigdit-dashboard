@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { InputHTMLAttributes, useCallback, useEffect, useState } from 'react';
+import { slide as Menu, slide as MenuLoggedIn } from 'react-burger-menu';
 import { BiMessageAdd } from 'react-icons/Bi';
 import { RxHamburgerMenu } from 'react-icons/Rx';
 import { useSelector } from 'react-redux';
@@ -12,7 +13,6 @@ import { SubnigditSearchResult } from '../../../models/Subnigdit';
 import { UserState } from '../../../store/userSlice';
 import SubnigditService from '../../../util/requests/SubnigditService';
 import SubnigditSearch from '../SubnigditSearch';
-import { slide as Menu, slide as MenuLoggedIn } from 'react-burger-menu';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   user?: {
     username: string;
@@ -199,39 +199,40 @@ export default function Navbar() {
             </Link>
           ) : (
             <>
-            <div className="min-w-[2.4rem] flex flex-row-reverse my-[6.5px] ml-1 mr-3">
-              <Link
-                href="/register"
-                className="pointer-events-auto hover:cursor-pointer mx-1 shrink-0 px-4 py-1 rounded-[666px] bg-[#aaa] text-[#373737] border-[1px] font-bold shadow-md border-[#000000] hover:bg-gray-100 transition-colors duration-300"
-              >
-                register
-              </Link>
-              <Link
-                href={'/login?redirect=' + router.asPath}
-                className="pointer-events-auto hover:cursor-pointer shrink-0 px-4 py-1 rounded-[666px] bg-[#aaa] text-[#373737] border-[1px] font-bold shadow-md border-[#000000] hover:bg-gray-200 transition-colors duration-300"
-              >
-                login
-              </Link>
-            </div>
-            
+              <div className="min-w-[2.4rem] flex flex-row-reverse my-[6.5px] ml-1 mr-3">
+                <Link
+                  href="/register"
+                  className="pointer-events-auto hover:cursor-pointer mx-1 shrink-0 px-4 py-1 rounded-[666px] bg-[#aaa] text-[#373737] border-[1px] font-bold shadow-md border-[#000000] hover:bg-gray-100 transition-colors duration-300"
+                >
+                  register
+                </Link>
+                <Link
+                  href={'/login?redirect=' + router.asPath}
+                  className="pointer-events-auto hover:cursor-pointer shrink-0 px-4 py-1 rounded-[666px] bg-[#aaa] text-[#373737] border-[1px] font-bold shadow-md border-[#000000] hover:bg-gray-200 transition-colors duration-300"
+                >
+                  login
+                </Link>
+              </div>
             </>
           )}
         </div>
         {/* burger */}
-<div className="ts:hidden h-full pointer-events-auto min-w-[2.4rem] w-[2.4rem] ml:w-[3.8rem] flex flex-row-reverse my-2 mx-2">
+        <div className="ts:hidden h-full pointer-events-auto min-w-[2.4rem] w-[2.4rem] ml:w-[3.8rem] flex flex-row-reverse my-2 mx-2">
           <div className="shrink-0">
             {isLogged ? (
-                <Menu
-              right
-              burgerBarClassName="hidden"
-              isOpen={isMenuOpen}
-              onClose={handleMenuClose}
-            >
-              <a href="/">Home</a>
-              <a href="my-account">Account</a>
-              <a href="new/post">Create Post</a>
-            </Menu> ) : (
-                <Menu
+              <Menu
+                right
+                burgerBarClassName="hidden"
+                isOpen={isMenuOpen}
+                onClose={handleMenuClose}
+                width={'35%'}
+              >
+                <a href="/">Home</a>
+                <a href="/my-account">Account</a>
+                <a href="/new/post">Create Post</a>
+              </Menu>
+            ) : (
+              <Menu
                 right
                 burgerBarClassName="hidden"
                 isOpen={isMenuOpen}

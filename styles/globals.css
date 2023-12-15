@@ -5,29 +5,30 @@
 @tailwind utilities;
 
 @layer components {
-    .gridComment {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        grid-template-rows: repeat(3, auto);
-        grid-column-gap: 5px;
-        grid-row-gap: 0;
-        } 
+  .gridComment {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(3, auto);
+    grid-column-gap: 5px;
+    grid-row-gap: 0;
+  }
+
   /* ... */
 }
 
 .fade-out-text::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(transparent, 100px, white);
-  }
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(transparent, 100px, white);
+}
 
-  /* Position and sizing of burger button */
+/* Position and sizing of burger button */
 .bm-burger-button {
-  position: fixed;
+  position: absolute;
   width: 36px;
   height: 30px;
   left: 36px;
@@ -46,13 +47,26 @@
 
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
-  height: 38px;
-  width: 38px;
+  height: 100px;
+  width: 100px;
 }
 
 /* Color/shape of close button cross */
 .bm-cross {
-  background: #bdc3c7;
+  background: #d0d0d0;
+
+}
+
+/* This positions the cross centrally in the button */
+.bm-cross-button>span {
+  top: -0.2rem !important;
+  right: 1.3rem !important;
+}
+
+/* This targets the actual elements that make up the cross */
+.bm-cross {
+  width: 5px !important;
+  height: 30px !important;
 }
 
 /*
@@ -67,9 +81,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* General sidebar styles */
 .bm-menu {
   margin: -0.5rem;
-  background: #2B2B2B;
-  padding: 2.5em 1.5em 0;
+  background: #2b2b2b;
+  padding: 2em 1em 0;
   font-size: 1.15em;
+  height: 100%;
+  border-left: 2px solid #000000;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -79,14 +95,28 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* Wrapper for item list */
 .bm-item-list {
-  color: #b8b7ad;
-  padding: 0.8em;
+  color: #ffff;
+  padding-top: 0.5em;
+  padding-left: 0.1em;
 }
 
 /* Individual item */
 .bm-item {
   display: inline-block;
-  font-size: x-large;
+  font-size: large;
+  font-family: 'Roboto';
+  padding-bottom: 1rem;
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  -ms-user-drag: none;
 }
 
 /* Styling of overlay */
