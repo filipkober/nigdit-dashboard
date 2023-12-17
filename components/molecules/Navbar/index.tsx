@@ -246,6 +246,7 @@ export default function Navbar() {
                 <Link className="bg-[#272727]" href="/new/post">
                   Create Post
                 </Link>
+                <Link href="/logout">Log out</Link>
               </Menu>
             ) : (
               <Menu
