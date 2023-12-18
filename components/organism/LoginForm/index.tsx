@@ -1,15 +1,14 @@
-import React, { InputHTMLAttributes, useEffect, useState } from 'react';
-import InputField from '../../atoms/InputField';
-import UserService from '../../../util/requests/UserService';
+import { useGoogleLogin } from '@react-oauth/google';
 import Cookies from 'js-cookie';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserState, setUser } from '../../../store/userSlice';
-import { useRouter } from 'next/router';
-import { GoogleLogin } from '@react-oauth/google';
-import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+import UserService from '../../../util/requests/UserService';
 import GoogleButton from '../../atoms/GoogleButton';
-import Link from 'next/link';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import InputField from '../../atoms/InputField';
 
 const userService = new UserService();
 
@@ -95,7 +94,7 @@ export default function LoginForm() {
 
   return (
     <div className="w-[100%] m-0 p-0 h-[100%] flex flex-col justify-center items-center">
-      <div className="selection:bg-[#b8b8b8] selection:text-[#FF5C00] flex flex-wrap flex-col justify-center items-center p-[0.5rem] w-[22vw] min-w-[288px] max-w-[380px]">
+      <div className="selection:bg-[#b8b8b8] selection:text-[#FF5C00] flex flex-wrap flex-col justify-center items-center w-[90vw]">
             <form onSubmit={handleSubmit(onSubmit)}>
               {/* Login title text */}
               <div className=" w-[100%] min-h-[3rem] h-[7vh] flex flex-wrap flex-col justify-center items-center my-4">
@@ -111,6 +110,7 @@ export default function LoginForm() {
               </div>
               {/* google login */}
               <div className=" w-[100%] min-h-[3rem] h-[8vh] flex flex-row justify-center items-center mt-3 ">
+                <br></br>
                 <GoogleButton
                   onClick={() => {
                     login();
@@ -133,26 +133,26 @@ export default function LoginForm() {
                 </div>
               </div>
               {/* login */}
-              <div className=" w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center">
-                <p className="w-[37%] shrink-1 pl-4 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">
+              <div className="w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-between px-2 py-0 items-center">
+                <p className="w-[37%] shrink-1 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">
                   Username
                 </p>
                 {(failed) ? (
-                  <InputField className="w-[63%] h-[85%]" id={'login'} fieldClassName='ring-pink-500 focus:ring-2 ring-[0.6px] border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500' placeholder={'lnos ǝɥʇ ɟo ɹǝuʍo ɹǝɯɹoɟ'} type={'text'} register={register} name='login'/>
+                  <InputField className="w-[63%] h-[85%]" id={'login'} fieldClassName='ring-pink-500 focus:ring-2 ring-[0.6px] border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500' placeholder={'lnosǝɥʇɟoɹǝuʍoɹǝɯɹoɟ'} type={'text'} register={register} name='login'/>
                   ) : (
-                  <InputField className="w-[63%] h-[85%]" id={'login'} placeholder={'lnos ǝɥʇ ɟo ɹǝuʍo ɹǝɯɹoɟ'} type={'text'} register={register} name='login'/>
-                )}   
+                  <InputField className="w-[63%] h-[85%]" id={'login'} placeholder={'ln0stǝɥʇɟoɹǝuʍoɹǝɯɹoɟ'} type={'text'} register={register} name='login'/>
+                )}
               </div>
               {/* password */}
-              <div className="w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-0 py-0 items-center">
-                <p className="w-[37%] shrink-1 pl-4 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">
+              <div className="w-[100%] min-h-[3rem] h-[2.8vw] flex flex-row justify-start px-2 py-0 items-center">
+                <p className="w-[37%] shrink-1 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">
                   Password
                 </p>
                 {(failed) ? (
                   <InputField className="w-[63%] h-[85%]" id={'password'} fieldClassName='ring-pink-500 focus:ring-2 ring-[0.6px] border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500' placeholder={'pǝʞɐǝl ʎpɐǝɹlɐ ʎlqɐqoɹd'} type={'password'} register={register} name='password'/>
                   ) : (
                   <InputField className="w-[63%] h-[85%]" id={'password'} placeholder={'pǝʞɐǝl ʎpɐǝɹlɐ ʎlqɐqoɹd'} type={'password'} register={register} name='password'/>
-                )}                
+                )}
               </div>
               {/* forgot password */}
               {failed ? (
@@ -173,7 +173,7 @@ export default function LoginForm() {
                 ) : null}
               </div>
               {/* submit button ☞  ☜*/}
-              <div className="w-[100%] min-h-[3rem] h-[2vw] flex flex-row justify-center px-0 mt-8 items-center">
+              <div className="w-[100%] min-h-[3rem] h-[2vw] flex flex-row justify-center px-0 mt-2 items-center">
                 <button
                   type="submit"
                   className='active:translate-y-0.5 duration-[10ms] shrink-1 text-[1.8rem] font-["Roboto"] text-black text-center font-bold drop-shadow-buttonDevil active:drop-shadow-buttonDevilA border-black border-solid border-[1px] rounded-[10px] py-1 px-4 bg-[#FF5C00] hover:bg-[#ff7d31]'
