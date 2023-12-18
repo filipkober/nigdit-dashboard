@@ -112,14 +112,14 @@ module.exports = {
       'sm': '10deg',
       'md': '20deg',
       'lg': '40deg',
-    },    
+    },
     backgroundImage: {
       'bloodDrip': "url('/easterEgg1/drippin.svg')",
       'ocean': "url('/easterEgg1/seaofblood.png')",  //prawdopodobnie do konwersji na svg
       'joinedGroups': "url('/colorful43.svg')",
     },
     screens: {
-      'ms': '320px',  //mobile phone 
+      'ms': '320px',  //mobile phone
       'mm': '375px',
       'ml': '425px',
       'ts': '580px',  //tablet
@@ -128,7 +128,7 @@ module.exports = {
       'th': '840px',  //extra
       'ls': '1024px', //laptop
       'cs': '1280px', //computer
-      'cm': '1920px', 
+      'cm': '1920px',
     },
     extend: {
       dropShadow: {
@@ -183,13 +183,13 @@ module.exports = {
       },
       keyframes: {
         flashing: {
-          '0%': {opacity: 0, filter: 'invert(0%) brightness(2) hue-rotate(120deg) contrast(2) saturate(0.5)'},    
+          '0%': {opacity: 0, filter: 'invert(0%) brightness(2) hue-rotate(120deg) contrast(2) saturate(0.5)'},
           '1%': {opacity: 1, filter: 'invert(0%) brightness(2) hue-rotate(210deg) contrast(2) saturate(0.5)'},
-          '2%': {opacity: 0, filter: 'invert(0%) brightness(0.6) hue-rotate(320deg) contrast(2) saturate(1)'},    
-          '3%': {opacity: 1, filter: 'invert(0%) brightness(0.6) hue-rotate(320deg) contrast(2) saturate(1)'},          
-          '4%': {opacity: 0, filter: 'invert(0%) brightness(1.3) hue-rotate(340deg) contrast(2) saturate(2)'},    
+          '2%': {opacity: 0, filter: 'invert(0%) brightness(0.6) hue-rotate(320deg) contrast(2) saturate(1)'},
+          '3%': {opacity: 1, filter: 'invert(0%) brightness(0.6) hue-rotate(320deg) contrast(2) saturate(1)'},
+          '4%': {opacity: 0, filter: 'invert(0%) brightness(1.3) hue-rotate(340deg) contrast(2) saturate(2)'},
           '5%': {opacity: 1, filter: 'invert(0%) brightness(1.3) hue-rotate(340deg) contrast(2) saturate(2)'},
-          '6%': {opacity: 0, filter: 'invert(0%) brightness(0.5) hue-rotate(340deg) contrast(2) saturate(2)'},    
+          '6%': {opacity: 0, filter: 'invert(0%) brightness(0.5) hue-rotate(340deg) contrast(2) saturate(2)'},
           '7%': {opacity: 1, filter: 'invert(0%) brightness(0.5) hue-rotate(340deg) contrast(2) saturate(2)'},
           '11%': {opacity: 1, filter: 'invert(0%) brightness(0.5) hue-rotate(340deg) contrast(2) saturate(2)'},
           '12%': {opacity: 0, filter: 'invert(0%) brightness(0.5) hue-rotate(340deg) contrast(2) saturate(2)'},
@@ -203,26 +203,26 @@ module.exports = {
           '0%': { transform: 'translateY(0px) translateX(0px)', opacity: 0 },
           '79%': { transform: 'translateY(0px) translateX(0px)', opacity: 0 },
           '80%': { transform: 'translateY(-2px) translateX(2px)', opacity: 1 },
-          '80.5%': { transform: 'translateY(1px) translateX(-1px)', opacity: 1}, 
-          '81%': { transform: 'translateY(2px) translateX(1px)', opacity: 1},    
-          '81.5%': { transform: 'translateY(-1px) translateX(1px)', opacity: 1}, 
+          '80.5%': { transform: 'translateY(1px) translateX(-1px)', opacity: 1},
+          '81%': { transform: 'translateY(2px) translateX(1px)', opacity: 1},
+          '81.5%': { transform: 'translateY(-1px) translateX(1px)', opacity: 1},
           '82%': { transform: 'translateY(-1x) translateX(-2px)', opacity: 1 },
-          '82.5%': { transform: 'translateY(0px) translateX(1px)', opacity: 1}, 
+          '82.5%': { transform: 'translateY(0px) translateX(1px)', opacity: 1},
           '83%': { transform: 'translateY(2px) translateX(-1px)', opacity: 1 },
-          '83.5%': { transform: 'translateY(1px) translateX(-1px)', opacity: 1}, 
+          '83.5%': { transform: 'translateY(1px) translateX(-1px)', opacity: 1},
           '84%': { transform: 'translateY(-1px) translateX(0px)', opacity: 1 },
           '84.5%': { transform: 'translateY(0px) translateX(0px)', opacity: 0 },
           '100%': { transform: 'translateY(0px) translateX(0px)', opacity: 0 },
         },
         drip: {
           '0%': { transform: 'translateY(-135px) translateX(-22vw)', opacity: 0 }, //-135
-          '1%': { transform: 'translateY(-135px) translateX(-22vw)', opacity: 1},    
+          '1%': { transform: 'translateY(-135px) translateX(-22vw)', opacity: 1},
           '99%': { transform: 'translateY(-18px) translateX(-22vw)', opacity: 1 },  //-70
           '100%': { transform: 'translateY(-18px) translateX(-22vw)', opacity: 0 },
         },
         drop: {
           '0%': { transform: 'translateY(20px)', opacity: 0 }, //-135
-          '1%': { transform: 'translateY(20px)', opacity: 1},    
+          '1%': { transform: 'translateY(20px)', opacity: 1},
           '99%': { transform: 'translateY(99vh)', opacity: 1 },
           '100%': { transform: 'translateY(99vh)', opacity: 0 },
         },
