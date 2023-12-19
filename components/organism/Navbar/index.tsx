@@ -2,7 +2,7 @@ import { debounce } from 'lodash';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { InputHTMLAttributes, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import { RxHamburgerMenu } from 'react-icons/Rx';
 import { useSelector } from 'react-redux';
@@ -11,14 +11,7 @@ import nigditIcon from '../../../assets/testimage.svg';
 import { SubnigditSearchResult } from '../../../models/Subnigdit';
 import { UserState } from '../../../store/userSlice';
 import SubnigditService from '../../../util/requests/SubnigditService';
-import SubnigditSearch from '../SubnigditSearch';
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  user?: {
-    username: string;
-    avatar: string;
-    profilePage: string;
-  };
-}
+import SubnigditSearch from '../../molecules/SubnigditSearch';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

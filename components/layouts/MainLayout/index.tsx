@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import Toast from '../../atoms/Toast';
-import Navbar from '../../molecules/Navbar';
+import Navbar from '../../organism/Navbar';
 
 interface LayoutProps {
   children: ReactNode;

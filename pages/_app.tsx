@@ -1,19 +1,15 @@
-import 'tailwindcss/tailwind.css';
-import type { AppProps } from 'next/app';
-import { useEffect, useState } from 'react';
-import React from 'react';
-import { useDarkMode } from '../hooks/useDarkMode';
 import Cookies from 'js-cookie';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from '../store/store';
+import type { AppProps } from 'next/app';
+import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
-import { NextPage } from 'next';
-import '../styles/globals.css';
-import Navbar from '../components/molecules/Navbar';
+import { PersistGate } from 'redux-persist/integration/react';
+import 'tailwindcss/tailwind.css';
 import Layout from '../components/layouts/MainLayout';
-import UserService from '../util/requests/UserService';
+import { useDarkMode } from '../hooks/useDarkMode';
+import { persistor, store } from '../store/store';
 import { setUser } from '../store/userSlice';
-import { userAdapter } from '../models/User';
+import '../styles/globals.css';
+import UserService from '../util/requests/UserService';
 
 export const darkModeContext = React.createContext<
   [boolean, (any: any) => void]

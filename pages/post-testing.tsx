@@ -1,8 +1,4 @@
 import type { NextPage } from 'next';
-import makpaj from '../assets/makpaj.svg';
-import Navbar from "../components/molecules/Navbar";
-import PostMedia from '../components/molecules/PostMedia';
-import PostText from '../components/molecules/PostText';
 
 const onChange = (value: string)=> console.log(value);
 
