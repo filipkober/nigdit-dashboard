@@ -34,6 +34,11 @@ export default function SubnigditDashboard()
   const [page, setPage] = useState<number>(0);
   const [posts, setPosts] = useState<Post[]>([]);
 
+  
+  let address = window.location.pathname
+  const split = address.split('/');
+  const subnigditName = split[split.length - 1];
+
   function clicked(cc: number)
   {
     if(isLogged)
@@ -60,9 +65,6 @@ export default function SubnigditDashboard()
       if(thisSubnigdit == null)
       {
         setLogged(!!username)
-        let address = window.location.pathname
-        const split = address.split('/');
-        const subnigditName = split[split.length - 1];
         const response = await subnigditService.getBySlug(subnigditName,true)
         setThisSubnigdit(response[0]);
         sn = response[0].id
@@ -226,7 +228,7 @@ export default function SubnigditDashboard()
         <div className="hidden ls:inline">
           <div className="flex flex-row justify-around">
             <div className="w-[20vw] my-2">
-              <CreatePostBlock subnigditSlug={'gayspiderbrothel'} />
+              <CreatePostBlock subnigditSlug={subnigditName} />
             </div>
             {content}
             <div className="w-[20vw] my-2">

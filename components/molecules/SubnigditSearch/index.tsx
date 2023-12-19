@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import Arrow from '../../atoms/Vote';
 import Image from 'next/image';
-import moment from 'moment';
-import SubnigditService from '../../../util/requests/SubnigditService';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { UserState } from '../../../store/userSlice';
+import SubnigditService from '../../../util/requests/SubnigditService';
 
 type SubnigditSearch = {
   id: number,
@@ -37,20 +35,20 @@ export default function SubnigditSearch({id,name,image,members,number}: Subnigdi
         <div className='w-[75%] flex'>
             <a className='w-[44px] h-[44px] flex' href={"/n/"+name}>
                 <Image draggable="false" src={image} width={100} height={100} className="w-[44px] pointer-events-auto select-none hover:cursor-pointer object-cover overflow-hidden rounded-full" alt={''}/>
-            </a>              
-            <div className='w-[70%] h-[100%] justify-top flex flex-col my-[-4px]'>            
+            </a>
+            <div className='w-[70%] h-[100%] justify-top flex flex-col my-[-4px]'>
                 <a className='text-[24px] w-fit px-2 pointer-events-auto select-none hover:cursor-pointer' href={"/n/"+name}>{name}</a>
                 <a className='text-[11px] w-fit px-[9px] my-[-2px] text-[#b1b1b1] pointer-events-auto select-none hover:cursor-pointer' href={"/n/"+name}>{members} members</a>
-            </div>  
-        </div>  
+            </div>
+        </div>
         {/* connect joining to backend */}
-        {!!username?         
+        {!!username?
           <a className='flex flex-row-reverse w-[25%] p-[5px] pointer-events-auto'>
               <button onClick={joinSubNigdit} className={`w-[calc(2*20%+30px)] h-[100%] min-h-[30px] hover:cursor-pointer text-[calc(0.7vw+10px)] font-["Roboto"] text-white duration-[100ms] text-center hover:drop-shadow-midget border-black border-solid border-[1px] bg-experimentA hover:bg-experimentB rounded-[10px]`}>{joined?"joined":"join"}</button>
-          </a>  
+          </a>
           :
           ""
-        }      
+        }
     </div>
   )
 }

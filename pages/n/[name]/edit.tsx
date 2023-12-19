@@ -1,15 +1,15 @@
-import type { NextPage } from 'next'
-import SubnigditCreationPanel from '../../../components/organism/SubnigditCreationPanel';
-import { useRouter } from 'next/router';
-import SubnigditService from '../../../util/requests/SubnigditService';
-import { useEffect, useRef, useState } from 'react';
-import Subnigdit, { strapiSubnigditToSubnigdit } from '../../../models/Subnigdit';
-import { toastDisplay } from '../../../components/atoms/Toast';
-import ToastType from '../../../models/ToastType';
-import Spinner from '../../../components/atoms/Spinner';
 import autoAnimate from '@formkit/auto-animate';
+import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Spinner from '../../../components/atoms/Spinner';
+import { toastDisplay } from '../../../components/atoms/Toast';
+import SubnigditCreationPanel from '../../../components/organism/SubnigditCreationPanel';
+import Subnigdit, { strapiSubnigditToSubnigdit } from '../../../models/Subnigdit';
+import ToastType from '../../../models/ToastType';
 import { UserState } from '../../../store/userSlice';
+import SubnigditService from '../../../util/requests/SubnigditService';
 
 const EditSubnigdit: NextPage = () => {
 
@@ -51,12 +51,12 @@ const EditSubnigdit: NextPage = () => {
       }, [divRef])
 
   return (
-    <>    
-      <div ref={divRef} className="dark:text-white dark:bg-backgroundD bg-backgroundL w-[100%] m-0 h-screen scrollbar-thin scrollbar-thumb-[#535353] scrollbar-track-[#2323232a] scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll">
+    <>
+      <div ref={divRef} className="dark:text-white dark:bg-backgroundD bg-backgroundL w-[100%] m-0 h-screen">
         {!!subnigdit ? <SubnigditCreationPanel subnigdit={subnigdit}/> : <div className='flex h-screen'>
             <div className="m-auto">
                 <Spinner/>
-            </div>    
+            </div>
         </div>}
       </div>
     </>

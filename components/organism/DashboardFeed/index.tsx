@@ -98,12 +98,12 @@ export default function DashboardFeed() {
   return (
     <>
       <div className="flex flex-row justify-between w-[100%] m-0 p-0 ">
-        <div className="tl:w-[22%] w-[0%] min-h-[56px] bg-[rgba(255,0,0,0)] tl:block hidden"></div>
-        <div className="tl:w-[56%] w-[100%] min-h-[56px] bg-[rgba(255,255,0,0)]">
-          <div className="flex flex-col items-center">
+        <div className="tl:w-[22%] w-[0%] min-h-[56px] bg-[rgba(255,0,0,0)] tl:block hidden "></div>
+        <div className="tl:w-[56%] w-[100%] min-h-[56px] bg-[rgba(255,255,0,0)] px-1 ">
+          <div className="flex flex-col items-center w-[100%]">
             <div
               id="scrollableDiv"
-              className="h-full ls:w-[50vw] tl:w-[56vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px]"
+              className="h-full ls:w-[50vw] tl:w-[56vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px] ml:p-0 p-2"
             >
               <FilteringBar clicked={clicked} changeAlg={changeAlg} showSubscribed={true}/>
               {posts.map((post, index) => {
@@ -144,7 +144,7 @@ export default function DashboardFeed() {
           </div>
         </div>
         <div className="tl:w-[22%] w-[0%] bg-[rgba(255,0,255,0)] tl:block hidden">
-          <div className="w-[100%] flex flex-row justify-start tl:p-2">
+          <div className="w-[100%] flex flex-row justify-start tl:p-2 p-0 m-0">
             {isLogged && <JoinedGroups />}
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function DashboardFeed() {
           }
         ></div>
       ) : (
-        <div></div>
+        <div className='p-0 m-0 w-0'></div>
       )}
       <ReportModal isOpen={modalReportOpen} contentType={'post'} id={reportedPostId} onClose={() => setModalReportOpen(false)} />
     </>
