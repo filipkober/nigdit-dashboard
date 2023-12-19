@@ -72,7 +72,7 @@ export default function FilteringBar({clicked, changeAlg, showSubscribed}: Props
         <div className="justify-start flex flex-col items-start w-[100%]">
             <div className="flex justify-center flex-row items-center w-[100%]">
                 <div className="mt-2 p-0 w-[100%] h-[4.5vh] min-h-[40px] max-h-[3rem] bg-foregroundL dark:bg-foregroundD border-black border-[2px] border-solid rounded-[5px] drop-shadow-minimalistic flex justify-between flex-row items-center">
-                    <div className="flex justify-between flex-row items-center overflow-hidden h-[100%]">
+                    <div className="flex justify-between flex-row items-center overflow-hidden h-[100%] pl-1">
                         <FilterElement name={"Hot"} clearHL={callClearHL} changeAlg={changeAlg} svgIcon="/feed/fire.png" initialVal={true} ref={elementRef1}/>
                         <FilterElement name={"New"} clearHL={callClearHL} changeAlg={changeAlg} svgIcon="/feed/lightbulb.png" ref={elementRef2}/>
                         <FilterElement name={"Top"} clearHL={callClearHL} changeAlg={changeAlg} svgIcon="/feed/crown.png" ref={elementRef3}/>

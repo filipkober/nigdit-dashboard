@@ -2,9 +2,8 @@ import { debounce } from 'lodash';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { InputHTMLAttributes, useCallback, useEffect, useState } from 'react';
+import { InputHTMLAttributes, useCallback, useEffect, useRef, useState } from 'react';
 import { slide as Menu } from 'react-burger-menu';
-import { BiMessageAdd } from 'react-icons/Bi';
 import { RxHamburgerMenu } from 'react-icons/Rx';
 import { useSelector } from 'react-redux';
 import emptypfp from '../../../assets/emptypfp.jpg';
@@ -29,20 +28,41 @@ export default function Navbar() {
   const [isLogged, setLogged] = useState(false);
   const user = useSelector((state: UserState) => state.user);
   const { username, profilePicture } = user;
+
+  const [hasScrollbar, setHasScrollbar] = useState(false);
+  const realRef = useRef<HTMLDivElement | null>(null);
+  const imaginaryRef = useRef<HTMLDivElement | null>(null);
+  const checkForScrollbar = () => {
+    const realElement = realRef.current;
+    const imaginaryElement = imaginaryRef.current;
+    if(realElement && imaginaryElement)
+    {
+      setHasScrollbar(realElement.clientWidth < imaginaryElement.clientWidth);
+      //console.log("r: "+realElement.clientWidth)
+      //console.log("i: "+imaginaryElement.clientWidth)
+      //console.log(realElement.clientWidth < imaginaryElement.clientWidth)
+    }
+  };
+  
   useEffect(() => {
     setLogged(!!username); //Cookies.get("jwt") !! - zamienia wartości takie jak null/undefined na false, reszta jest true
+    window.addEventListener('resize', checkForScrollbar);
 
     const handleRouteChange = () => {
       setSearchValue('');
       setIsMenuOpen(false);
     };
-
     router.events.on('routeChangeComplete', handleRouteChange);
 
     return () => {
+      window.removeEventListener('resize', checkForScrollbar);
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, []);
+
+  useEffect(()=>{
+    checkForScrollbar();
+  },[searchValue])
 
   const handleMenuOpen = () => {
     setIsMenuOpen(true);
@@ -75,7 +95,7 @@ export default function Navbar() {
   );
 
   return (
-    <div className="pointer-events-none flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-[40] top-0 left-0 right-0">
+    <div ref={realRef} className="pointer-events-none flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-[40] top-0 left-0 right-0">
       {/* dashboard icon */}
       <div className="flex flex-row">
         <Link
@@ -111,13 +131,13 @@ export default function Navbar() {
         {searchValue != '' ? (
           <div
             className={
-              'h-[70%] w-[100%] flex flex-row justify-between bg-backgroundL dark:bg-backgroundD  border-solid border-accentD border-[1px] border-b-[1px] z-50 rounded-t-[10px]'
+              'h-[70%] w-[100%] flex flex-row justify-between bg-backgroundL dark:bg-backgroundD border-solid border-accentD border-[1px] border-b-[1px] z-50 rounded-t-[10px]'
             }
           >
             <div className="w-[2.1rem] min-w-[2.1rem]">
               <Image
                 draggable="false"
-                src={'/searchIcon.png'}
+                src={'/navbar/searchIcon.png'}
                 width={33}
                 height={33}
                 className="rounded-none ml-1 p-[6px] select-none object-cover overflow-hidden"
@@ -141,7 +161,7 @@ export default function Navbar() {
             >
               <Image
                 draggable="false"
-                src={'/searchx.png'}
+                src={'/navbar/searchx.png'}
                 width={33}
                 height={33}
                 className=""
@@ -158,7 +178,7 @@ export default function Navbar() {
             <div className="w-[2.1rem] min-w-[2.1rem]">
               <Image
                 draggable="false"
-                src={'/searchIcon.png'}
+                src={'/navbar/searchIcon.png'}
                 width={33}
                 height={33}
                 className="rounded-none ml-1 p-[6px] select-none object-cover overflow-hidden"
@@ -180,7 +200,7 @@ export default function Navbar() {
       {/* user account panel */}
       <div className="flex flex-row-reverse">
         {/* account info */}
-        <div className="ts:block hidden h-ful">
+        <div className="ts:block hidden h-full">
           {/* login buttons or user icon */}
           {!!username ? (
             <Link
@@ -274,21 +294,28 @@ export default function Navbar() {
         </div>
         {/* buttons */}
         {!!username ? (
-          <div className="max-w-[7.2rem] hidden ts:flex flex-row-reverse">
+          <div className="max-w-[10.8rem] hidden ts:flex flex-row-reverse">
             <Link
               href="/new/post"
-              className="pointer-events-auto w-[2.4rem] ts:flex hidden select-none hover:cursor-pointeritems-center h-full p-1"
+              className="pointer-events-auto w-[3.6rem] ts:flex hidden select-none hover:cursor-pointeritems-center h-full p-1"
             >
-              {/* dostylizuj to olo jak chcesz */}
-              <BiMessageAdd
+              {/*<BiMessageAdd
                 size={32}
                 className="select-none hover:cursor-pointer object-cover overflow-hidden w-full h-full"
+              /> */}
+              <Image
+                draggable="false"
+                src={'/navbar/createpost.png'}
+                width={32}
+                height={32}
+                className="select-none hover:cursor-pointer object-scale-down overflow-hidden w-full p-1"
+                alt={'create post'}
               />
             </Link>
-            <div className="w-[2.4rem] items-center h-full hidden tm:flex ">
+            <div className="w-[3.6rem] items-center h-full hidden th:flex">
               {/* icon 2 - empty disappears at the latest*/}
             </div>
-            <div className="w-[2.4rem] items-center h-full hidden th:flex ">
+            <div className="w-[3.6rem] items-center h-full hidden ls:flex">
               {/* icon 3 - disappears at the earliest*/}
             </div>
           </div>
@@ -299,8 +326,8 @@ export default function Navbar() {
 
       {/* search results FRAGILE, mimic*/}
       {searchValue != '' ? (
-        <div className="overflow-hidden flex flex-row fixed w-[100%] justify-between left-0 mt-[25px]">
-          <div className="flex flex-row ">
+        <div ref={imaginaryRef} className="overflow-hidden flex flex-row fixed w-[100%] justify-between left-0 mt-[25px]">
+          <div className="flex flex-row">
             <div className="min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:max-w-[13rem] h-[100%] flex flex-row my-2 mx-2"></div>
             {isLogged ? (
               <div className="max-w-[7.2rem] hidden tm:flex flex-row-reverse th:w-[7.2rem] tl:w-[4.8rem] w-[2.4rem]"></div>
@@ -331,18 +358,25 @@ export default function Navbar() {
             )}
             <div className="w-full h-[10px] bg-backgroundD rounded-b-[10px] border-accentD border-[1px] border-t-[0px]"></div>
           </div>
+          {/* user account panel simulation*/}
           <div className="flex flex-row-reverse">
-            <div className="w-[8px] h-full"></div> {/* scrollbar simulation */}
-            <div className="ts:block hidden h-full ">
+            {/* scrollbar simulation */}
+            {hasScrollbar ? (
+              <div className="ml:w-[8px] h-full"></div>
+            ) : (
+              ""
+            )}
+            {/* account info simulation*/}
+            <div className="ts:block hidden h-full0">
               {isLogged ? (
                 <div className="hover:cursor-pointer min-w-[2.4rem] h-[100%] flex flex-row-reverse my-2 ml-1 mr-3">
-                  <div className="w-[2.4rem] shrink-0 "></div>
+                  <div className="w-[2.4rem] shrink-0"></div>
                   <div className="shrink-1 hidden tl:block">
                     <p className=" text-[20px] text-transparent font-thin pr-2">
                       {username}
                     </p>
                   </div>
-                  <div className="w-[5rem] block tl:hidden"></div>
+                  <div className="w-[5rem] block ts:hidden"></div>
                 </div>
               ) : (
                 <div className="min-w-[2.4rem] flex flex-row-reverse my-[6.5px] ml-1 mr-3">
@@ -350,9 +384,11 @@ export default function Navbar() {
                 </div>
               )}
             </div>
+            {/* burger sim */}
             <div className="ts:hidden h-full pointer-events-auto w-[2.4rem] ml:w-[3.8rem] flex flex-row-reverse my-2 mx-2"></div>
+            {/* buttons sim */}
             {!!username ? (
-              <div className="max-w-[7.2rem] hidden tm:flex flex-row-reverse th:w-[7.2rem] tl:w-[4.8rem] w-[2.4rem]"></div>
+              <div className="hidden ts:flex flex-row-reverse ls:w-[10.8rem] th:w-[7.2rem] w-[3.6rem]"></div>
             ) : (
               ''
             )}

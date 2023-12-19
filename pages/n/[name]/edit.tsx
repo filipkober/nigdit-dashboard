@@ -51,12 +51,12 @@ const EditSubnigdit: NextPage = () => {
       }, [divRef])
 
   return (
-    <>    
+    <>
       <div ref={divRef} className="dark:text-white dark:bg-backgroundD bg-backgroundL w-[100%] m-0 h-screen">
         {!!subnigdit ? <SubnigditCreationPanel subnigdit={subnigdit}/> : <div className='flex h-screen'>
             <div className="m-auto">
                 <Spinner/>
-            </div>    
+            </div>
         </div>}
       </div>
     </>
