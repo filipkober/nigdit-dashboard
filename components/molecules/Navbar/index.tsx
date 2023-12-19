@@ -75,12 +75,12 @@ export default function Navbar() {
   const router = useRouter();
 
   const searchValChanged = async (cval: string) => {
-    console.log('Search Value: ' + cval);
+    //console.log('Search Value: ' + cval);
     if (!!cval) {
       //fetch(process.env.NEXT_PUBLIC_STRAPI_URL+'/api/search?search='+cval)
       //.then(res => res.json())
       subnigditService.searchSubnigdits(cval).then((data) => {
-        console.log(data);
+        //console.log(data);
         setSearched(data);
       });
     } else {

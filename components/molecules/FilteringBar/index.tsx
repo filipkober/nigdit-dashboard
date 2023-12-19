@@ -29,7 +29,7 @@ export default function FilteringBar({clicked, changeAlg, showSubscribed}: Props
     function swapCollection()
     {
         clickCount.current = clickCount.current+1;
-        if (clickCount.current >= 66)
+        if (clickCount.current >= 66 && showSubscribed == true)
         {
             setCollection("STOP!");
             collection === "STOP!" ? setCollection("Enough!") : setCollection("STOP!");
@@ -50,9 +50,11 @@ export default function FilteringBar({clicked, changeAlg, showSubscribed}: Props
             else
                 setCollection("Everything");
         }
-        if (clickCount.current >= 16)
-        console.log("blood spawning")
+        if (clickCount.current >= 16 && showSubscribed == true)
+        {
+            console.log("blood spawning")
             bftbg.current.blood(Math.round(Math.random()*Math.min(clickCount.current-16,19)));
+        }
         clicked(clickCount.current)
     }
 
@@ -81,7 +83,7 @@ export default function FilteringBar({clicked, changeAlg, showSubscribed}: Props
                     <div className="h-[100%] ml:mr-1 pt-[3px] px-[2px]">
                         <div className="flex justify-between flex-row items-center h-[80%]">  {/* specjalny przycisk: "użytkownik powinien wiedzieć, że może go kliknąć" */}
                             
-                            {clickCount.current > 16 ?
+                            {clickCount.current > 16 && showSubscribed == true ?
                             (<button onClick={swapCollection} className={`hover:cursor-pointer shrink-1 text-[12px] ts:text-[14px] tm:text-[16px] tl:text-[18px] font-["Roboto"] text-red-700 active:translate-y-0.5 duration-[10ms] shrink-1 text-center font-bold drop-shadow-buttonImp active:drop-shadow-buttonImpA border-black border-solid border-[1px] w-[100%] h-[100%] hover:bg-experimentB bg-experimentA px-2 rounded-[5px]`}>{collection}</button>                                             )
                             : (<button onClick={swapCollection} className={`hover:cursor-pointer shrink-1 text-[12px] ts:text-[14px] tm:text-[16px] tl:text-[18px] font-["Roboto"] dark:text-white active:translate-y-0.5 duration-[10ms] shrink-1 text-center font-bold drop-shadow-buttonImp active:drop-shadow-buttonImpA border-black border-solid border-[1px] w-[100%] h-[100%] hover:bg-experimentB bg-experimentA px-2 rounded-[5px]`}>{collection}</button>                                             )
                             }
@@ -90,8 +92,8 @@ export default function FilteringBar({clicked, changeAlg, showSubscribed}: Props
                 </div>
             </div>
             <Blood ref={bftbg}/>
-            {clickCount.current > 35 ? (
-            <div className="z-30 fixed flex translate-y-[-18px] tl:translate-x-[-22vw] animate-drip">
+            {clickCount.current > 35 && showSubscribed == true ? (
+            <div className="z-30 fixed flex translate-y-[-18px] animate-drip tl:translate-x-[-25.2vw] tm:translate-x-[-16vw] ts:translate-x-[-11vw] ml:translate-x-[-6vw] translate-x-[-2vw]">
                 <div className="z-30 fixed w-[100vw] h-[85px] bg-bloodDrip bg-repeat-x bg-contain cursor-no-drop"></div>
             </div>
             ) : (
