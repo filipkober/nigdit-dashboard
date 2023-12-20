@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import banner from '../../../assets/banner.png';
 import { StrapiSubnigdit } from '../../../models/Subnigdit';
 import { JoinButton } from '../../atoms/JoinButton';
@@ -9,6 +10,18 @@ type Props = {
 
 export default function DashboardHeader({subnigdit, isLogged}: Props)
 {
+  const [members, setMembers] = useState<number>(subnigdit.attributes.subscribers.data.length);
+  const join = (newState: boolean) => {
+    if(newState)
+    {
+      setMembers(members+1)
+    }
+    else
+    {
+      setMembers(members-1)
+    }
+  }
+
   return (
     <div className="font-['Roboto']">
       <div className="relative h-[25vh] bg-red-500 pointer-events-none">
@@ -45,34 +58,33 @@ export default function DashboardHeader({subnigdit, isLogged}: Props)
         />
       </div>
 
-      <div className=" bg-foregroundD overflow-hidden p-1 mb-[1vw]">
-        <div className="flex tm:flex-row items-center tm:mt-0 mt-[10vh] justify-around">
-          <div>
-            <p className="text-left text-xl tm:ml-[23vh]">
+      <div className="bg-foregroundD overflow-hidden p-1 mb-2">
+        <div className="flex ts:flex-row flex-col items-center tm:mt-0 mt-[10vh] justify-between p-0">
+          {/* name section */}
+          <div className=' h-[100%] ts:max-w-[50%] p-0 m-0'>
+            <p className="text-left font-bold text-[32px] tm:ml-[24vh] ml-[2vw] font-['Roboto']">
               n/{subnigdit.attributes.name}
             </p>
           </div>
-          <div className="tm:ml-auto ml-[5vw] flex flex-row items-center">
-            <p className="mr-[2vw] lm:text-lg text-base tm:flex hidden">
-              {subnigdit.attributes.subscribers.data.length} members
+          {/* members section */}
+          <div className=" h-[100%] ts:max-w-[50%] flex flex-row items-center justify-end">
+            <p className="mr-1 lm:text-lg text-[18px] flex">
+              {members} members
             </p>
-            <div className="scale-75 tm:scale-100 m-2">
-              {isLogged ? (
+            {isLogged ? (
+              <div className='scale-[80%]'>
                 <JoinButton
-                  subnigdit={subnigdit}
-                />
+                    subnigdit={subnigdit}
+                    onJoin={join}
+                  />
+              </div>
               ) : (
-                <div className="py-5"></div>
+                ""
               )}
-            </div>
           </div>
         </div>
 
-        <p className="mr-[2vw] lm:text-lg text-base justify-center flex tm:hidden">
-          {subnigdit.attributes.subscribers.data.length} members
-        </p>
-
-        <p className="text-left mt-[5vh] mb-[1vh] mx-[2vw]">
+        <p className="text-left tm:mt-[5vh] mt-2 mb-[1vh] mx-[2vw]">
           {subnigdit.attributes.description}
         </p>
       </div>

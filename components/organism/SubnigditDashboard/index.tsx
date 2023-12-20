@@ -186,7 +186,7 @@ export default function SubnigditDashboard()
             <div className="ls:hidden inline">
               <div className="flex flex-col flex-wrap items-center ">
                 <div className="w-[40vw] min-w-[300px] my-2 mx-2">
-                  <CreatePostBlock subnigditSlug={'gayspiderbrothel'} />
+                  <CreatePostBlock subnigditSlug={subnigditName} />
                 </div>
                 <div className="w-[40vw] min-w-[300px] my-2 mx-2">
                   <SubnigditRules subnigdit={{
