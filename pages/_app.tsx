@@ -7,7 +7,7 @@ import 'tailwindcss/tailwind.css';
 import Layout from '../components/layouts/MainLayout';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { persistor, store } from '../store/store';
-import { setUser } from '../store/userSlice';
+import { resetData, setUser } from '../store/userSlice';
 import '../styles/globals.css';
 import UserService from '../util/requests/UserService';
 
@@ -45,6 +45,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         console.log(res)
         store.dispatch(setUser(res));
       })
+    } else {
+      store.dispatch(resetData());
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[jwtCookie]);

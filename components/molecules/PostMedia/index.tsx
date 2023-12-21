@@ -130,7 +130,7 @@ export default function PostMedia({
           <div className="hover:bg-backgroundL dark:hover:bg-experimentB flex items-center">
             <Share floatRight={false} className='align-middle'/>
           </div>
-          <PostMenu className='my-auto' postId={post.id} showReportModal={showReportModal} isAdmin={isAdmin}/>
+          <PostMenu className='my-auto h-full' postId={post.id} showReportModal={showReportModal} isAdmin={isAdmin}/>
         </div>
     </div>
   );

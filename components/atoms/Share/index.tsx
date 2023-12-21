@@ -4,7 +4,7 @@ import { GenericComponentProps } from "../../../models/GenericComponentProps";
 import ToastType from "../../../models/ToastType";
 import { toastDisplay } from "../Toast";
 
-function copyLinkToClipboard(url: string) {
+export function copyLinkToClipboard(url: string) {
   navigator.clipboard.writeText(url).then(() => {
     console.log('Link copied to clipboard:', url);
   }).catch((error) => {

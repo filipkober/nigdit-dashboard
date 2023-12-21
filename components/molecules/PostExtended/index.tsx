@@ -15,6 +15,9 @@ import Share from '../../atoms/Share';
 import { toastDisplay } from '../../atoms/Toast';
 import Vote from '../../atoms/Vote';
 import ReportModal from '../ReportModal';
+import ExpandableMenu from '../ExpandableMenu';
+import { useShare } from '../../../hooks/useShare';
+import { FaRegCommentAlt } from "react-icons/fa";
 
 type PostExtendedProps = {
   post: PostN;
@@ -38,7 +41,7 @@ export default function PostExtended({
   const createdAt = post.createdAt;
   const type = post.type;
   const id = post.id;
-  const modIds = subnigdit.data.attributes.moderators.data.map(m => m.id);
+  const modIds = subnigdit.data.attributes.moderators.data.map((m) => m.id);
 
   const [modalReportVisible, changeModalReportVisible] = useModal();
 
@@ -56,17 +59,24 @@ export default function PostExtended({
     watch,
     reset,
     formState: { errors },
-  } = useForm<FormValues>()
+  } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    const comment = await commentService.create({content: values.content, post: post.id});
+    const comment = await commentService.create({
+      content: values.content,
+      post: post.id,
+    });
     if (comment) {
       toastDisplay(ToastType.Success, 'Comment created');
-      post.comments ? post.comments.data.push(comment) : post.comments = {data: [comment]};
+      post.comments
+        ? post.comments.data.push(comment)
+        : (post.comments = { data: [comment] });
       reset();
     } else {
       toastDisplay(ToastType.Error, 'Error creating comment');
     }
   };
+
+  const share = useShare();
 
   return (
     <>
@@ -74,7 +84,7 @@ export default function PostExtended({
         <div className="text-left font-normal border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2">
           <div className="flex ls:flex-row flex-col">
             <div className="flex ">
-              <div className="font-['Roboto'] w-7 h-7 mr-1">
+              <div className="font-['Roboto'] w-7 h-7 mr-1 flex-shrink-0">
                 <Image
                   src={
                     process.env.NEXT_PUBLIC_STRAPI_URL! +
@@ -140,36 +150,65 @@ export default function PostExtended({
               ) : null}
             </div>
           </div>
-          <div className="flex font-['Roboto'] dark:text-white text-xl mt-5">
+          <div className="flex font-['Roboto'] dark:text-white text-xl mt-5 z-0">
             {/* chujstwo pod contentem */}
-            <div className='flex flex-row content-start w-1/2'>
-            <p className="mr-5">{allComNum} Comment{(allComNum === 0 || allComNum > 1) ? 's' : ''}</p>
-            <Vote votes={votes} contentId={id} contentType='post' variant='horizontal' className='mb-2' arrowSize={30}/>
-            </div>
-            <div className='flex flex-row content-end w-1/2'>
-            <Share />
-            {isLogged &&
-            <p className="ml-5 cursor-pointer">
-              <div onClick={changeModalReportVisible}>Report</div>
-            </p>}
+            <div className="flex flex-row content-start ls:w-1/2 w-full">
+              <p className="mr-5 flex">
+              <FaRegCommentAlt className='h-full mr-2' />{allComNum} <span className='hidden ls:inline ml-[.6ch]'>Comment{allComNum === 0 || allComNum > 1 ? 's' : ''}</span>
+              </p>
+              <Vote
+                  votes={votes}
+                  contentId={id}
+                  contentType="post"
+                  variant="horizontal"
+                  arrowSize={22}
+                  className='mr-4'
+                />
+              <div className='ls:flex hidden'>
+              <div className="flex flex-row content-end w-1/2">
+                <Share />
+                {isLogged && (
+                  <p className="ml-5 cursor-pointer">
+                    <div onClick={changeModalReportVisible}>Report</div>
+                  </p>
+                )}
+              </div>
+              </div>
+              <ExpandableMenu 
+              className='ls:hidden'
+                buttons={[
+                  {
+                    text: 'Share',
+                    onClick: share,
+                    id: 'share',
+                    disasbled: !isLogged,
+                  },
+                  {
+                    text: 'Report',
+                    onClick: changeModalReportVisible,
+                    id: 'report',
+                    disasbled: !isLogged,
+                  }
+                ]}
+              />
             </div>
           </div>
           <div>
             {/* KOMETNARZE */}
             {isLogged && (
-            <form onSubmit={handleSubmit(onSubmit)}>
-            <textarea
-              className="px-1 w-[100%] resize-none bg-accentL dark:bg-accentD text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:italic"
-              cols={50}
-              rows={5}
-              placeholder="Put your racist opinion here..."
-              {...register("content", { required: true })}
-            ></textarea>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <textarea
+                  className="px-1 w-[100%] resize-none bg-accentL dark:bg-accentD text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:italic"
+                  cols={50}
+                  rows={5}
+                  placeholder="Put your racist opinion here..."
+                  {...register('content', { required: true })}
+                ></textarea>
 
-            <button className="p-1 rounded ml-auto flex bg-accentL dark:bg-accentD border-solid border-black dark:border-white text-black dark:text-white">
-              Comment
-            </button>
-            </form>
+                <button className="p-1 rounded ml-auto flex bg-accentL dark:bg-accentD border-solid border-black dark:border-white text-black dark:text-white">
+                  Comment
+                </button>
+              </form>
             )}
             <div>
               {comments?.data.map((comment) => {
