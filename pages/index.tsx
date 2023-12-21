@@ -1,24 +1,8 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect } from 'react';
 import DashboardFeed from '../components/organism/DashboardFeed';
 
 const Home: NextPage = () => {
-
-  useEffect( ()=> {
-    return () =>     console.log(`
-    $$\\   $$\\ $$\\           $$$$$$$\\  $$$$$$\\ $$$$$$$$\\
-    $$$\\  $$ |\\__|          $$  __$$\\ \\_$$  _|\\__$$  __|
-    $$$$\\ $$ |$$\\  $$$$$$\\  $$ |  $$ |  $$ |     $$ |
-    $$ $$\\$$ |$$ |$$  __$$\\ $$ |  $$ |  $$ |     $$ |
-    $$ \\$$$$ |$$ |$$ /  $$ |$$ |  $$ |  $$ |     $$ |
-    $$ |\\$$$ |$$ |$$ |  $$ |$$ |  $$ |  $$ |     $$ |
-    $$ | \\$$ |$$ |\\$$$$$$$ |$$$$$$$  |$$$$$$\\    $$ |
-    \\__|  \\__|\\__| \\____$$ |\\_______/ \\______|   \\__|
-                  $$\\   $$ |
-                  \\$$$$$$  |
-                   \\______/`);
-  },[]);
    
   return (
     <>

@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import { StrapiSubnigdit } from '../../../models/Subnigdit';
-import SubnigditService from '../../../util/requests/SubnigditService';
-import { useSelector } from 'react-redux';
 import { UserState } from '../../../store/userSlice';
+import SubnigditService from '../../../util/requests/SubnigditService';
 
 type JoinButtonProps = {
-  subnigdit: StrapiSubnigdit;
+  subnigdit: StrapiSubnigdit,
+  onJoin?: (newState: boolean) => void;
 } & GenericComponentProps;
 
-export function JoinButton({ className, subnigdit }: JoinButtonProps) {
+export function JoinButton({ className, subnigdit, onJoin }: JoinButtonProps) {
   
   const subnigditService = new SubnigditService();
   
@@ -19,6 +20,7 @@ export function JoinButton({ className, subnigdit }: JoinButtonProps) {
 
   function joinThisSub()
   {
+    onJoin?.(!joined);
     setJoined(!joined);
     subnigditService.joinSubnigdit(subnigdit.id.toString())
     .then(

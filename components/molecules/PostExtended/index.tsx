@@ -1,29 +1,20 @@
 import moment from 'moment';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import Arrow from '../../atoms/Vote';
-import commentIcon from '../../../assets/comment-icon.svg';
-import shareIcon from '../../../assets/share-icon.svg';
-import reportIcon from '../../../assets/report-icon.svg';
-import makpaj from '../../../assets/makpaj.svg';
-import Comment from '../../atoms/Comment';
-import Reply from '../../atoms/ReplyButton';
-import ReportModal from '../ReportModal';
-import { useModal } from '../../../hooks/useModal';
-import PostService from '../../../util/requests/PostService';
-import { StrapiPost, PostN } from '../../../models/Post';
-import { StrapiComment, commentAdapter } from '../../../models/Comment';
-import { GenericComponentProps } from '../../../models/GenericComponentProps';
-import { useDispatch, useSelector } from 'react-redux';
-import { UserState, setCurrentSubnigdit } from '../../../store/userSlice';
-import Toast, { toastDisplay } from '../../atoms/Toast';
-import { ToastContainer, toast } from 'react-toastify';
-import ToastType from '../../../models/ToastType';
-import 'react-toastify/dist/ReactToastify.css';
-import Share from '../../atoms/Share';
-import Vote from '../../atoms/Vote';
-import CommentService from '../../../util/requests/CommentService';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import 'react-toastify/dist/ReactToastify.css';
+import { useModal } from '../../../hooks/useModal';
+import { commentAdapter } from '../../../models/Comment';
+import { GenericComponentProps } from '../../../models/GenericComponentProps';
+import { PostN } from '../../../models/Post';
+import ToastType from '../../../models/ToastType';
+import { UserState } from '../../../store/userSlice';
+import CommentService from '../../../util/requests/CommentService';
+import Comment from '../../atoms/Comment';
+import Share from '../../atoms/Share';
+import { toastDisplay } from '../../atoms/Toast';
+import Vote from '../../atoms/Vote';
+import ReportModal from '../ReportModal';
 
 type PostExtendedProps = {
   post: PostN;
@@ -89,14 +80,10 @@ export default function PostExtended({
                     process.env.NEXT_PUBLIC_STRAPI_URL! +
                       subnigdit?.data.attributes.icon.data.attributes.url || ''
                   }
-                  width={25}
-                  height={25}
+                  width={128}
+                  height={128}
                   className="overflow-hidden w-[100%] h-[100%] rounded-full object-cover"
                   alt={''}
-                  loader={() =>
-                    process.env.NEXT_PUBLIC_STRAPI_URL! +
-                      subnigdit?.data.attributes.icon.data.attributes.url || ''
-                  }
                 />
               </div>
               <p className="font-['Roboto'] dark:text-white text-base">
@@ -143,10 +130,6 @@ export default function PostExtended({
                     alt={title + ' image or gif'}
                     width={media.data.attributes.width!}
                     height={media.data.attributes.height!}
-                    loader={(img) =>
-                      process.env.NEXT_PUBLIC_STRAPI_URL! +
-                      media.data.attributes.url!
-                    }
                     className={`w-[100%] h-[${media.data.attributes.height}px] object-cover`}
                   />
                 </div>
@@ -167,7 +150,7 @@ export default function PostExtended({
             <Share />
             {isLogged &&
             <p className="ml-5 cursor-pointer">
-              <a onClick={changeModalReportVisible}>Report</a>
+              <div onClick={changeModalReportVisible}>Report</div>
             </p>}
             </div>
           </div>

@@ -1,8 +1,8 @@
+import { useRouter } from 'next/router';
 import { twMerge } from "tailwind-merge";
 import { GenericComponentProps } from "../../../models/GenericComponentProps";
 import ToastType from "../../../models/ToastType";
 import { toastDisplay } from "../Toast";
-import { useRouter } from 'next/router';
 
 function copyLinkToClipboard(url: string) {
   navigator.clipboard.writeText(url).then(() => {
@@ -21,13 +21,11 @@ export default function Share({floatRight = true, className}: ShareProps) {
   const url = `${window.location.origin}${router.asPath}`;
 
   return (
-    <p className={twMerge('cursor-pointer select-none',floatRight ? 'ml-auto ' : '', className)}>
-      <a onClick={() => {
-        copyLinkToClipboard(url);
-        toastDisplay(ToastType.Success, 'Copied to clipboard');
-      }}>
-        Share
-      </a>
+    <p className={twMerge('cursor-pointer select-none',floatRight ? 'ml-auto ' : '', className)} onClick={() => {
+      copyLinkToClipboard(url);
+      toastDisplay(ToastType.Success, 'Copied to clipboard');
+    }}>
+      Share
     </p>
   );
 }

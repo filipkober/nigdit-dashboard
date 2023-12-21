@@ -1,13 +1,10 @@
-import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
+import { createSlice } from '@reduxjs/toolkit';
 import User, { UserVotes } from '../models/User';
-import { SubnigditN } from '../models/Subnigdit';
 
 // typ danych
 export interface UserState {
   user: User;
   count: number;
-  currentSubnigdit?: SubnigditN;
 }
 
 // Initial state
@@ -44,9 +41,6 @@ export const userSlice = createSlice({
     incrementCounter(state) {
         state.count += 1;
     },
-    setCurrentSubnigdit(state, action: PayloadAction<SubnigditN>) {
-      state.currentSubnigdit = action.payload;
-    },
     setUserVotes(state, action: {payload: UserVotes}) {
       state.user.votes = action.payload;
     },
@@ -70,7 +64,6 @@ export const userSlice = createSlice({
         provider: '',
       };
       state.count = 0;
-      state.currentSubnigdit = undefined;
     }
   },
 });
@@ -79,7 +72,6 @@ export const userSlice = createSlice({
 export const {
   setUser,
   incrementCounter,
-  setCurrentSubnigdit,
   setUserVotes,
   resetData
 } = userSlice.actions;

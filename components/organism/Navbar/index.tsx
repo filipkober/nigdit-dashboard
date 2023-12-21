@@ -103,12 +103,11 @@ export default function Navbar() {
               height={36}
               className="select-none hover:cursor-pointer object-cover overflow-hidden p-0 w-[2.4rem] h-[2.4rem] rounded-full"
               alt={'Nigdit icon'}
-              loader={({ src }) => src}
             />
           </div>
           <div className="w-[5rem] hidden ml:block">
             <p className="select-none shrink-1 text-[24px] font-['Roboto'] dark:text-white pl-2">
-              <Link href={'/'}>NigDIT</Link>
+              NigDIT
             </p>
           </div>
         </Link>
@@ -212,7 +211,6 @@ export default function Navbar() {
                   height={36}
                   className="w-[2.4rem] pointer-events-auto select-none hover:cursor-pointer object-cover overflow-hidden rounded-full"
                   alt={'Your profile picture'}
-                  loader={({ src }) => src}
                 />
               </div>
               <div className="select-none overflow-hidden ml-auto shrink-1 hidden tl:block">
@@ -340,6 +338,7 @@ export default function Navbar() {
                       image={process.env.NEXT_PUBLIC_STRAPI_URL + x.icon.url}
                       members={x.subscribers.toString()}
                       number={i}
+                      name_uid={x.name_uid}
                     />
                   </div>
                 );

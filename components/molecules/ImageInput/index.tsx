@@ -1,6 +1,6 @@
+import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
 import { UseFormRegister } from "react-hook-form";
-import Image, { StaticImageData } from "next/image";
 import emptyIcon from "../../../assets/emptyIcon.jpg";
 
 type Props = {
@@ -28,8 +28,8 @@ const ImageInput: React.FC<Props> = ({ name, register, customOnChange, img, empt
         <Image
           src={img ? img : (image ? URL.createObjectURL(image) : emptyImg)}
           alt="icon"
-          width={1000}
-          height={1000}
+          width={256}
+          height={256}
           className="scale-100 border-[0px] border-black rounded-full object-cover w-[100%] h-[100%]"
         />
         <label

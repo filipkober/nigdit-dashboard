@@ -1,22 +1,14 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { useModal } from '../../../hooks/useModal';
-import Arrow from '../Vote';
-import ReplyTextarea from '../ReplyTextarea';
-import RepliesContainer from '../RepliesContainer';
-import ReportModal from '../../molecules/ReportModal';
-import makpaj from '../../../assets/makpaj.svg';
-import { CommentExtended, CommentN, StrapiComment, commentAdapter, exampleComment } from '../../../models/Comment';
-import CommentService from '../../../util/requests/CommentService';
-import { useRouter } from 'next/router';
-import { StrapiPost } from '../../../models/Post';
-import Media, { emptyMedia } from '../../../models/Media';
-import { replyAdapter } from '../../../models/Reply';
-import { ReplyN } from '../../../models/Reply';
 import { useSelector } from 'react-redux';
-import { UserState } from '../../../store/userSlice';
-import Vote from '../Vote';
 import emptypfp from '../../../assets/emptypfp.jpg';
+import { useModal } from '../../../hooks/useModal';
+import { CommentN } from '../../../models/Comment';
+import { UserState } from '../../../store/userSlice';
+import ReportModal from '../../molecules/ReportModal';
+import RepliesContainer from '../RepliesContainer';
+import ReplyTextarea from '../ReplyTextarea';
+import Vote from '../Vote';
 
 type CommentProps = {
   comment: CommentN;
@@ -69,9 +61,8 @@ export default function Comment({ comment, subId, opId = 0, modIds = [] }: Comme
                 src={owner.data.attributes.profilePicture?.data ? (process.env.NEXT_PUBLIC_STRAPI_URL! + owner.data.attributes.profilePicture?.data?.attributes.url) : emptypfp}
                 alt=""
                 className="overflow-hidden rounded-full object-cover w-10 h-10"
-                width={100}
-                height={100}
-                loader={({src}) => src}
+                width={128}
+                height={128}
               ></Image>
             </div>
             <div className="justify-self-auto">

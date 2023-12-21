@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import moment from 'moment';
+import Image from 'next/image';
 import Link from 'next/link';
-import Vote from '../../atoms/Vote';
-import Media from '../../../models/Media';
-import PostMenu from '../PostMenu';
-import Share from '../../atoms/Share';
+import { useEffect, useRef, useState } from 'react';
 import Post from '../../../models/Post';
+import Share from '../../atoms/Share';
+import Vote from '../../atoms/Vote';
+import PostMenu from '../PostMenu';
 
 export type PostProps = {
   post: Post;
@@ -42,6 +41,7 @@ export default function PostText({
             className="rounded-[50%] object-cover"
             alt={''}
             fill
+            sizes="(max-width: 128px) 128px"
           />
         </div>
         <p className="font-['Roboto'] dark:text-white text-base">

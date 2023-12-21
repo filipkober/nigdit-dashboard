@@ -1,16 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import userIcon from '../../../assets/user-icon.svg';
-import { StrapiSubnigdit, SubnigditN } from '../../../models/Subnigdit';
-import { UserState } from '../../../store/userSlice';
+import { StrapiSubnigdit } from '../../../models/Subnigdit';
 import SubnigditService from '../../../util/requests/SubnigditService';
 import { JoinButton } from '../../atoms/JoinButton';
 
 //dziękuję za SubnigditN i jego 10 wersji olo
 type SubnigditInfoProps = {
-  subnigdit: SubnigditN
+  subnigdit: StrapiSubnigdit
 };
 
 function formatStrapiDate(dateIn: Date, locale = 'pl-PL'){
@@ -19,7 +17,6 @@ function formatStrapiDate(dateIn: Date, locale = 'pl-PL'){
 
 export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
   const subnigditService = new SubnigditService();
-  const { user } = useSelector((state: UserState) => state)
   const [subnigditData, setSubnigditData] = useState<StrapiSubnigdit | null>(null);
 
   useEffect(() => {
@@ -35,24 +32,21 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
       <div className="text-left font-normal font-['Roboto'] dark:text-white bg-foregroundL dark:bg-foregroundD border-solid border-black drop-shadow-lg border-2 rounded-[5px] py-2 px-2 overflow-hidden mb-2 ">
         <div className="mb-5 flex flex-row">
           <Image
-            src={process.env.NEXT_PUBLIC_STRAPI_URL! + subnigdit.iconUrl || ''}
-            width={1}
-            height={1}
+            src={process.env.NEXT_PUBLIC_STRAPI_URL! + subnigdit.attributes.icon.data.attributes.url || ''}
+            width={128}
+            height={128}
             alt={'subnigdit-picture'}
-            loader={() => 
-              process.env.NEXT_PUBLIC_STRAPI_URL! + subnigdit.iconUrl || ''
-            }
             className="rounded-full object-cover w-20 h-20"
           />
-          <Link className="ml-1 font-['Roboto'] font-semibold dark:text-white text-base self-center" href={`/n/${subnigdit.name_uid}`}>
-            n/{subnigdit.name}
+          <Link className="ml-1 font-['Roboto'] font-semibold dark:text-white text-base self-center" href={`/n/${subnigdit.attributes.name_uid}`}>
+            n/{subnigdit.attributes.name}
           </Link>
         </div>
 
         <div className="font-['Roboto'] dark:text-white text-base mb-5">
-          <p className="mb-5 max-w-[20ch] line-clamp-4">{subnigdit.description}</p>
+          <p className="mb-5 max-w-[20ch] line-clamp-4">{subnigdit.attributes.description}</p>
 
-          <p className="mb-5 ">🍰 Created at {formatStrapiDate(subnigdit.createdAt)}</p>
+          <p className="mb-5 ">🍰 Created at {formatStrapiDate(subnigdit.attributes.createdAt)}</p>
         </div>
 
         <div>
@@ -65,10 +59,10 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
             </div>
             <div className="flex flex-col">
               <div>
-                <p>{ subnigdit.subscribers }</p>
+                <p>{ subnigdit.attributes.subscribers.data.length }</p>
               </div>
               <div>
-                <p>{(subnigdit.subscribers > 1 || subnigdit.subscribers === 0) ? "Members" : "Member"}</p>
+                <p>{(subnigdit.attributes.subscribers.data.length > 1 || subnigdit.attributes.subscribers.data.length === 0) ? "Members" : "Member"}</p>
               </div>
             </div>
           </div>
