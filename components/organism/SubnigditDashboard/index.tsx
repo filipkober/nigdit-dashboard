@@ -189,35 +189,7 @@ export default function SubnigditDashboard()
                   <CreatePostBlock subnigditSlug={subnigditName} />
                 </div>
                 <div className="w-[40vw] min-w-[300px] my-2 mx-2">
-                  <SubnigditRules subnigdit={{
-                      id: 0,
-                      name: '',
-                      description: '',
-                      createdAt: new Date(),
-                      reports: 0,
-                      icon: {
-                        data: {
-                          id: 0,
-                          attributes: {
-                            name: '',
-                            alternativeText: '',
-                            width: 0,
-                            height: 0,
-                            ext: '',
-                            url: '',
-                            formats: {
-                              large: {
-                                url: ''
-                              }
-                            }
-                          }
-                        }
-                      },
-                      iconUrl: '',
-                      subscribers: 0,
-                      rules: [],
-                      name_uid: ''
-                    }} />
+                  {thisSubnigdit ? <SubnigditRules subnigdit={thisSubnigdit} /> : ""}
                 </div>
               </div>
             </div>
@@ -232,35 +204,7 @@ export default function SubnigditDashboard()
             </div>
             {content}
             <div className="w-[20vw] my-2">
-              <SubnigditRules subnigdit={{
-                id: 0,
-                name: '',
-                description: '',
-                createdAt: new Date(),
-                reports: 0,
-                icon: {
-                  data: {
-                    id: 0,
-                    attributes: {
-                      name: '',
-                      alternativeText: '',
-                      width: 0,
-                      height: 0,
-                      ext: '',
-                      url: '',
-                      formats: {
-                        large: {
-                          url: ''
-                        }
-                      }
-                    }
-                  }
-                },
-                iconUrl: '',
-                subscribers: 0,
-                rules: [],
-                name_uid: ''
-              }} />
+              {thisSubnigdit ? <SubnigditRules subnigdit={thisSubnigdit} /> : ""}
             </div>
           </div>
         </div>

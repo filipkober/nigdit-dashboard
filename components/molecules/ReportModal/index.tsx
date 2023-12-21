@@ -1,10 +1,10 @@
-import Button from "../../atoms/Button";
-import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import { useEffect, useRef } from 'react';
-import ReportService from '../../../util/requests/ReportService';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { toastDisplay } from "../../atoms/Toast";
+import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import ToastType from "../../../models/ToastType";
+import ReportService from '../../../util/requests/ReportService';
+import Button from "../../atoms/Button";
+import { toastDisplay } from "../../atoms/Toast";
 
 type ReportModalProps = {
   isOpen: boolean;
@@ -56,7 +56,7 @@ const ReportModal = ({ isOpen, onClose, contentType, id, subnigditId }: ReportMo
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex mx-2 mt-2 text-xl dark:text-white">
             <p>Report</p>
-            <p className="ml-auto cursor-pointer"><a onClick={onClose}>X</a></p>
+            <div className="ml-auto cursor-pointer"><p onClick={onClose}>X</p></div>
           </div>
           <div className="mt-4 flex flex-col ls:flex-row justify-around ls:justify-self-auto h-[70%] w-full">
             <div className="mx-2 ls:w-[15rem]">

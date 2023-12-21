@@ -5,7 +5,6 @@ import PostExtended from '../../components/molecules/PostExtended';
 import SubnigditInfo from '../../components/molecules/SubnigditInfo';
 import SubnigditRules from '../../components/molecules/SubnigditRules';
 import { StrapiPost, postAdapter } from '../../models/Post';
-import { subnigditAdapter } from '../../models/Subnigdit';
 import examplePostObject from '../../models/postObject';
 import PostService from '../../util/requests/PostService';
 
@@ -29,8 +28,6 @@ const PostPage: NextPage = () => {
     f();
   }, [pid]);
 
-  const adaptedSubnigdit = subnigditAdapter(post.attributes.subnigdit.data);
-
   return (
     <div className='flex-grow dark:bg-backgroundD bg-backgroundL'>
       <div className='ls:grid grid-cols-[0.5fr_1.5fr_0.5fr] grid-rows-1 row-start-1 gap-8 p-4'>
@@ -38,8 +35,8 @@ const PostPage: NextPage = () => {
       <PostExtended post={postAdapter(post)}/>
       </div>
       <div className='hidden ls:col-start-3 ls:flex flex-col row-start-1'>
-        <SubnigditInfo  subnigdit={adaptedSubnigdit} />
-        <SubnigditRules subnigdit={adaptedSubnigdit} />
+        <SubnigditInfo  subnigdit={post.attributes.subnigdit.data} />
+        <SubnigditRules subnigdit={post.attributes.subnigdit.data} /> {/* wasze adaptery są do śmieci*/}
       </div>
       </div>
     </div>

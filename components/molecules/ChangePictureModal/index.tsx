@@ -1,13 +1,12 @@
 import Image from 'next/image';
-import Button from '../../atoms/Button';
-import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import { useEffect, useRef } from 'react';
-import emptyPfp from '../../../assets/emptypfp.jpg';
-import UserService from '../../../util/requests/UserService';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../../store/userSlice';
-import { userAdapter } from '../../../models/User';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import emptyPfp from '../../../assets/emptypfp.jpg';
+import { GenericComponentProps } from '../../../models/GenericComponentProps';
+import { setUser } from '../../../store/userSlice';
+import UserService from '../../../util/requests/UserService';
+import Button from '../../atoms/Button';
 
 type ChangePictureModalProps = {
   isOpen: boolean;
@@ -80,10 +79,9 @@ export default function ChangePictureModal({
                 <Image
                   src={pic && pic[0] ? URL.createObjectURL(pic[0]) : initialImage}
                   alt="profile picture"
-                  width={100}
-                  height={100}
+                  width={128}
+                  height={128}
                   className="rounded-full z-2 object-cover absolute left-1/5 aspect-square"
-                  loader={({src}) => src}
                 />
                 <div
                   onClick={uploadImage}

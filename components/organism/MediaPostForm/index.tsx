@@ -1,17 +1,16 @@
+import autoAnimate from '@formkit/auto-animate';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import SubnigditRulesType from '../../../models/SubnigditRule';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { StrapiSubnigdit } from '../../../models/Subnigdit';
+import ToastType from '../../../models/ToastType';
+import PostService from '../../../util/requests/PostService';
+import SubnigditService from '../../../util/requests/SubnigditService';
 import Button from '../../atoms/Button';
 import Input from '../../atoms/Input';
-import SubnigditRules from '../../molecules/SubnigditRules';
-import { SubnigditN, subnigditAdapter, subnigditLimitedAdapter } from '../../../models/Subnigdit';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import SubnigditService from '../../../util/requests/SubnigditService';
-import PostService from '../../../util/requests/PostService';
 import { toastDisplay } from '../../atoms/Toast';
-import ToastType from '../../../models/ToastType';
-import { useRouter } from 'next/router';
-import autoAnimate from '@formkit/auto-animate';
+import SubnigditRules from '../../molecules/SubnigditRules';
 
 type mediaPostFormProps = {
   className?: string;
@@ -42,14 +41,14 @@ export default function MediaPostForm({ className, subnigditId }: mediaPostFormP
     }
   };
   
-  const [subnigdit, setSubnigdit] = useState<SubnigditN | null>(null)
+  const [subnigdit, setSubnigdit] = useState<StrapiSubnigdit | null>(null)
   const subnigditService = new SubnigditService()
   const postService = new PostService();
   
   useEffect(() => {
       if(subnigditId) {
           subnigditService.getOne(subnigditId).then((res) => {
-              setSubnigdit(subnigditLimitedAdapter(res))
+              setSubnigdit(res)
           })
       }
   // eslint-disable-next-line react-hooks/exhaustive-deps

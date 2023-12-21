@@ -40,9 +40,9 @@ function Blood({}: Props, ref: ForwardedRef<any>)
                     <div key={index}>
                         <div className="h-[30px] w-[30px] fixed" style={{transform: 'translate('+y+'vw, '+(-130-(x%166))+'px)'}}>
                             {z == 1 ? (
-                            <div className={"animate-droplet6"}><Image src={'/easterEgg1/blooddrop.svg'} width={30} height={30} className="fixed" alt={""}/></div>
+                            <div className={"animate-droplet6"}><Image src={'/easterEgg1/blooddrop.svg'} width={128} height={128} className="fixed" alt={""}/></div>
                             ) : (
-                            <div className={"animate-droplet2"}><Image src={'/easterEgg1/blooddrop.svg'} width={30} height={30} className="fixed" alt={""}/></div>
+                            <div className={"animate-droplet2"}><Image src={'/easterEgg1/blooddrop.svg'} width={128} height={128} className="fixed" alt={""}/></div>
                             )}  {/* działa ( ͡° ͜ʖ ͡°) */}
                         </div>
                     </div>

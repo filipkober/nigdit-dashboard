@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import Toast from '../../atoms/Toast';
 import Navbar from '../../organism/Navbar';
 
@@ -7,6 +7,22 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
+  
+  useEffect( ()=> {
+    return () =>     console.log(`
+    $$\\   $$\\ $$\\           $$$$$$$\\  $$$$$$\\ $$$$$$$$\\
+    $$$\\  $$ |\\__|          $$  __$$\\ \\_$$  _|\\__$$  __|
+    $$$$\\ $$ |$$\\  $$$$$$\\  $$ |  $$ |  $$ |     $$ |
+    $$ $$\\$$ |$$ |$$  __$$\\ $$ |  $$ |  $$ |     $$ |
+    $$ \\$$$$ |$$ |$$ /  $$ |$$ |  $$ |  $$ |     $$ |
+    $$ |\\$$$ |$$ |$$ |  $$ |$$ |  $$ |  $$ |     $$ |
+    $$ | \\$$ |$$ |\\$$$$$$$ |$$$$$$$  |$$$$$$\\    $$ |
+    \\__|  \\__|\\__| \\____$$ |\\_______/ \\______|   \\__|
+                  $$\\   $$ |
+                  \\$$$$$$  |
+                   \\______/`);
+  },[]);
+  
   return (
     <>
     <main className='min-h-screen'>

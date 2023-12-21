@@ -1,28 +1,19 @@
-import React, {useEffect, useRef, useState} from "react";
-import Image from 'next/image';
-import nigditIcon from '../../../assets/testimage.svg'
-import GroupListElement from "../../atoms/GroupListElement";
+import autoAnimate from "@formkit/auto-animate";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { UserState } from "../../../store/userSlice";
-import autoAnimate from "@formkit/auto-animate";
+import GroupListElement from "../../atoms/GroupListElement";
 
 type Props = {
 
 }
 
-type GroupListEl = {
-    name: string,
-    adress: string,
-    image: string,
-}
-
-
 export default function JoinedGroups({}: Props)
-{    
+{
     const [expanded, setExpanded] = useState<boolean>(true);
     const [h, seth] = useState<string>("28vh");
     const [expandButtonText, setExpandButtonText] = useState<string>("Expand");
-    const {user} = useSelector((state: UserState) => state)
+    const user = useSelector((state: UserState) => state.user)
 
     const subnigdits = user?.subnigdits?.map((x,index) =>{
         return(
@@ -50,9 +41,9 @@ export default function JoinedGroups({}: Props)
                     </div>
                     <div className="w-[100%] h-[2%] min-h-[1px]">
                         <hr className="h-[1px] border-solid border-[0px] w-[100%] bg-black drop-shadow-lucifer"></hr>
-                    </div>  
+                    </div>
                 </div>
-                <div ref={divRef} className={"w-[100%] overflow-hidden bg-scroll bg-cover scrollbar-thin scrollbar-thumb-[#535353] scrollbar-track-[#2323232a] scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll "}> 
+                <div ref={divRef} className={"w-[100%] overflow-hidden bg-scroll bg-cover scrollbar-thin scrollbar-thumb-[#535353] scrollbar-track-[#2323232a] scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll "}>
                     {expanded ? subnigdits : subnigdits?.map((x, index) => {
                         if(index < 5)
                         {
@@ -60,14 +51,14 @@ export default function JoinedGroups({}: Props)
                         }
                     })}
                 </div>
-                { ((subnigdits?.length || 0) > 5) &&                
-                <div className="flex flex-col justify-between items-center h-[3vw]">                    
+                { ((subnigdits?.length || 0) > 5) &&
+                <div className="flex flex-col justify-between items-center h-[3vw]">
                     <div className="w-[100%] h-[2%] min-h-[1px]">
                         <hr className="h-[1px] border-solid border-[0px] w-[100%] bg-black"></hr>
-                    </div>                   
+                    </div>
                     <div className="w-[100%] h-[98%] flex flex-col justify-center items-center p-[2.5%]">
                         <button onClick={expand} className={`w-[100%] h-[100%] hover:cursor-pointer text-[1.2vw] font-["Roboto"] text-white duration-[100ms] text-center hover:drop-shadow-midget border-black border-solid border-[1px] bg-experimentA hover:bg-experimentB rounded-[10px]`}>{expandButtonText}</button>
-                    </div> 
+                    </div>
                 </div>
                 }
             </div>
@@ -77,7 +68,7 @@ export default function JoinedGroups({}: Props)
 {/* <div className={"bg-red-500 w-[100%] " + y}></div>
 <div className={"bg-green-500 w-[100%] " + "h-["+test+"px]"}></div>
 <div className={`bg-blue-500 w-[100%] h-[${test}px]`}></div>
-<div className="bg-yellow-500 w-[100%] h-[25px]"></div> 
+<div className="bg-yellow-500 w-[100%] h-[25px]"></div>
 
 <hr className="h-[1px] border-solid border-[0px] w-[100%]" style={{backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0))"}}></hr>
 

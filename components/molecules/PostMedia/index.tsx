@@ -1,12 +1,11 @@
-import React, { useRef, useState } from 'react';
-import useBreakpoint from '../../../hooks/useBreakpoint';
-import Image from 'next/image';
 import moment from 'moment';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useRef } from 'react';
+import useBreakpoint from '../../../hooks/useBreakpoint';
+import Share from '../../atoms/Share';
 import Vote from '../../atoms/Vote';
 import PostMenu from '../PostMenu';
-import Share from '../../atoms/Share';
-import Post from '../../../models/Post';
 import { PostProps } from '../PostText';
 
 const MAX_HEIGHT = 600;
@@ -61,6 +60,7 @@ export default function PostMedia({
             className="rounded-[50%] object-cover"
             alt={''}
             fill
+            sizes="(max-width: 128px) 128px"
           />
         </div>
         <p className="font-['Roboto'] dark:text-white text-base">
@@ -99,7 +99,7 @@ export default function PostMedia({
                 alt={post.title + ' image'}
                 width={post.media!.width}
                 height={post.media!.height}
-                loader={(img) => process.env.NEXT_PUBLIC_STRAPI_URL + post.media!.url}
+                priority={true}
                 style={{ aspectRatio: `${post.media!.width} / ${post.media!.height}`, maxWidth: '100%'}}
               />
               </div>

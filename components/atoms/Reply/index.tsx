@@ -1,13 +1,11 @@
-import Arrow from '../Vote';
 import Image from 'next/image';
-import React, { useState } from 'react';
-import { useModal } from '../../../hooks/useModal';
-import ReportModal from '../../molecules/ReportModal';
 import { useSelector } from 'react-redux';
-import { UserState } from '../../../store/userSlice';
-import Vote from '../Vote';
 import emptypfp from '../../../assets/emptypfp.jpg';
+import { useModal } from '../../../hooks/useModal';
 import { StrapiUser } from '../../../models/User';
+import { UserState } from '../../../store/userSlice';
+import ReportModal from '../../molecules/ReportModal';
+import Vote from '../Vote';
 
 type ReplyProps = {
   id: number;
@@ -53,10 +51,9 @@ export default function Reply({
         <div className="justify-self-auto">
           <Image
             src={pfp ? (process.env.NEXT_PUBLIC_STRAPI_URL! + pfp) : emptypfp}
-            width={50}
-            height={50}
+            width={128}
+            height={128}
             alt=""
-            loader={({src}) => src}
             className="overflow-hidden rounded-full object-cover w-10 h-10"
           ></Image>
         </div>
@@ -70,13 +67,10 @@ export default function Reply({
           <p>{content}</p>
         </div>
         <div className="justify-self-auto col-span-2 flex flex-row gap-2 mt-2">
-            <p>
-              {isLogged && 
-              <a className="cursor-pointer" onClick={changeModalReportVisible}>
+              {isLogged &&
+              <p className="cursor-pointer" onClick={changeModalReportVisible}>
                 Report
-              </a>
-}
-            </p>
+              </p>}
             <Vote contentId={id} contentType='reply' variant='horizontal' votes={votes} />
           </div>
       </div>

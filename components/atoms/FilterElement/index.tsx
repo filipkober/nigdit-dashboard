@@ -21,11 +21,11 @@ function FilterElement({name, clearHL, initialVal, changeAlg, svgIcon}: Props, r
     }))
     return(
         <div className="min-h-[2.4rem] h-[10vw] max-h-[100%] w-[20vw] max-w-[5.1rem] px-[1px] py-1">
-            <a onClick={() => {changeAlg(name),clearHL(name)}} className={currentState ? (`bg-white dark:bg-experimentB ${aDefClass}`) : (`bg-white hover:dark:bg-experimentA dark:bg-foregroundD ${aDefClass}`)}>
-                <Image src={svgIcon} width={26} height={26} className="object-cover overflow-hidden p-0 rounded-full" alt={""}/>
+            <div onClick={() => {changeAlg(name),clearHL(name)}} className={currentState ? (`bg-white dark:bg-experimentB ${aDefClass}`) : (`bg-white hover:dark:bg-experimentA dark:bg-foregroundD ${aDefClass}`)}>
+                <Image src={svgIcon} width={64} height={64} className="w-[26px] h-[26px] object-cover overflow-hidden p-0 rounded-full" alt={""}/>
                 <p className="shrink-1 text-[12px] ms:text-[14px] mm:text-[16px] ml:text-[18px] font-['Roboto'] dark:text-white">{name}</p>
                 <div></div>
-            </a>
+            </div>
         </div>
     )
 }

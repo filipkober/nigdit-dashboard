@@ -1,11 +1,9 @@
-import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import emptypfp from '../../../assets/emptypfp.jpg';
-import Makpaj from '../../../assets/makpaj.svg';
 import { useModal } from '../../../hooks/useModal';
 import ToastType from '../../../models/ToastType';
 import { userAdapter } from '../../../models/User';
@@ -104,11 +102,8 @@ export default function MyAccountPanel() {
                 }
                 alt="profile picture"
                 className="rounded-full object-cover aspect-square"
-                width={100}
-                height={100}
-                loader={({ src }) => {
-                  return src;
-                }}
+                width={128}
+                height={128}
               />
             </div>
             <Button
