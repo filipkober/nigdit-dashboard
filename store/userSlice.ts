@@ -1,12 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { StrapiSubnigdit } from '../models/Subnigdit';
+import { createSlice } from '@reduxjs/toolkit';
 import User, { UserVotes } from '../models/User';
 
 // typ danych
 export interface UserState {
   user: User;
   count: number;
-  currentSubnigdit?: StrapiSubnigdit;
 }
 
 // Initial state
@@ -43,9 +41,6 @@ export const userSlice = createSlice({
     incrementCounter(state) {
         state.count += 1;
     },
-    setCurrentSubnigdit(state, action: PayloadAction<StrapiSubnigdit>) {
-      state.currentSubnigdit = action.payload;
-    },
     setUserVotes(state, action: {payload: UserVotes}) {
       state.user.votes = action.payload;
     },
@@ -69,7 +64,6 @@ export const userSlice = createSlice({
         provider: '',
       };
       state.count = 0;
-      state.currentSubnigdit = undefined;
     }
   },
 });
@@ -78,7 +72,6 @@ export const userSlice = createSlice({
 export const {
   setUser,
   incrementCounter,
-  setCurrentSubnigdit,
   setUserVotes,
   resetData
 } = userSlice.actions;
