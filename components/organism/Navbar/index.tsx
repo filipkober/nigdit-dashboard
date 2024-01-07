@@ -249,7 +249,7 @@ export default function Navbar() {
                 onClose={handleMenuClose}
                 width={'35%'}
               >
-              <>
+              <div>
                 <Link className="bg-[#272727]" href="/">
                   Home
                 </Link>
@@ -259,7 +259,7 @@ export default function Navbar() {
                   Create Post
                 </Link>
                 <Link href="/logout">Log out</Link>
-                </>
+                </div>
               </Menu>
             ) : (
               <Menu
@@ -269,7 +269,7 @@ export default function Navbar() {
                 onClose={handleMenuClose}
                 width={'35%'}
               >
-                <>
+                <div>
                 <Link className="bg-[#272727]" href="/">
                   Home
                 </Link>
@@ -277,7 +277,7 @@ export default function Navbar() {
                 <Link className="bg-[#272727]" href="/register">
                   Register
                 </Link>
-                </>
+                </div>
               </Menu>
             )}
             <RxHamburgerMenu
