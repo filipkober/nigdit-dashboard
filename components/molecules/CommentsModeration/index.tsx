@@ -1,5 +1,4 @@
 import { GenericModerationPanelProps } from "../../../models/GenericModerationPanelProps";
-import Report from "../../../models/Report";
 import Button from "../../atoms/Button";
 
 export default function CommentsModeration({className, report, onBanUser, onDeleteContent, onDismissReport}: GenericModerationPanelProps) {

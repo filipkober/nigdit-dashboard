@@ -12,7 +12,7 @@ export default class PostService {
   private requestService = new RequestService();
 
   async getAll() {
-    const query = qs.stringify( //olo, nie wiem do czego ci to, ale ty to usuniesz, bo nie chce mi się bawić z potencjalnymi błędami w twoim 6-miesięcznym kodzie
+    const query = qs.stringify(
       {
         populate: {
           owner: {

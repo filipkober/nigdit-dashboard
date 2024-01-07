@@ -1,15 +1,15 @@
+import autoAnimate from '@formkit/auto-animate';
+import { debounce } from 'lodash';
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
+import { SingleValue } from 'react-select';
 import AsyncSelect from 'react-select/async';
+import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import getStyle from '../../../util/reactSelectCustomClasses';
+import SubnigditService from '../../../util/requests/SubnigditService';
 import TabSelector from '../../molecules/TabSelector';
 import MediaPostForm from '../MediaPostForm';
 import TextPostForm from '../TextPostForm';
-import SubnigditService from '../../../util/requests/SubnigditService';
-import { debounce, forIn } from 'lodash';
-import { SingleValue } from 'react-select';
-import autoAnimate from '@formkit/auto-animate';
-import { GenericComponentProps } from '../../../models/GenericComponentProps';
-import { useRouter } from 'next/router';
 
 type newPostFormProps = {
 } & GenericComponentProps;
@@ -94,7 +94,6 @@ export default function NewPostForm({}: newPostFormProps) {
           });
         }, 300)}
         isSearchable={true}
-        // ! TODO: Add a way to toggle between dark and light mode
         styles={getStyle('dark')}
         className="w-[80vw] ts:w-[25rem] mb-2 mt-4 ml-2"
         onChange={(option: SingleValue<{ label: string; value: number }>) =>

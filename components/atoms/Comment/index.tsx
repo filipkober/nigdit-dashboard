@@ -30,7 +30,7 @@ export default function Comment({ comment, subId, opId = 0, modIds = [] }: Comme
   const createdAt = comment.createdAt;
   const owner = comment.owner;
   const post = comment.post;
-  const [replyCount, setReplyCount] = useState<number>(0); 
+  const [replyCount, setReplyCount] = useState<number>(0);
 
   useEffect(() => {
     setReplyCount(comment.replies.data.count);
@@ -47,7 +47,7 @@ export default function Comment({ comment, subId, opId = 0, modIds = [] }: Comme
   }
   else if (owner.data.attributes.admin) {
     nickColor = '#F05447'
-  } 
+  }
   else if (owner.data.id === opId) {
     nickColor = '#F2A44B'
   }

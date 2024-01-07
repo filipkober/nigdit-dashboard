@@ -105,8 +105,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
   font-family: 'Roboto';
   padding: 0.8rem;
 
-
-
   -webkit-user-select: none;
   /* Safari */
   -ms-user-select: none;
@@ -118,8 +116,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
   -moz-user-drag: none;
   -o-user-drag: none;
   -ms-user-drag: none;
-
-
 }
 
 /* Styling of overlay */

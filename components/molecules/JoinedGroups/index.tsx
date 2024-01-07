@@ -65,11 +65,3 @@ export default function JoinedGroups({}: Props)
         </div>
     )
 }
-{/* <div className={"bg-red-500 w-[100%] " + y}></div>
-<div className={"bg-green-500 w-[100%] " + "h-["+test+"px]"}></div>
-<div className={`bg-blue-500 w-[100%] h-[${test}px]`}></div>
-<div className="bg-yellow-500 w-[100%] h-[25px]"></div>
-
-<hr className="h-[1px] border-solid border-[0px] w-[100%]" style={{backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0))"}}></hr>
-
-*/}

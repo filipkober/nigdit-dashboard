@@ -44,7 +44,7 @@ export default class SubnigditService {
         const joined: boolean = await this.requestService.post(this.endpoint + '/join/' + id, {auth: true});
         return joined;
     }
-    async checkSubnigdit(id: string) //check if joined - returns true / false
+    async checkSubnigdit(id: string) //check if user joined - returns bool
     {
         const joined: boolean = await this.requestService.get(this.endpoint + '/check/' + id, {auth: true});
         return joined;
@@ -90,7 +90,7 @@ export default class SubnigditService {
         return deleted;
     }
 
-    /** 
+    /**
      * DOES NOT RETURN FULL TYPE
      * @returns {Promise<StrapiSubnigdit>}
      */

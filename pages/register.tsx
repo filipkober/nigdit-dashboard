@@ -19,12 +19,12 @@ const Register: NextPage = () => {
   return (
     <div className="dark:text-white dark:bg-backgroundD bg-backgroundL w-[100%] p-0 m-0 h-screen">
       <Head>
-        <title>Nigdit - Create account</title>
-        <link rel="icon" href={'/easterEgg1/blooddrop.svg'}/>
+        <title>Create account</title>
+        <link rel="icon" href={'/nigditLogo.svg'}/>
         <meta name="description" content="Register to nigdit."/>
       </Head>
       {verify == true? (
-        <EmailVerification verChange={verChange} email={email}/> //prześlij email z register
+        <EmailVerification verChange={verChange} email={email}/>
       ):(
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_LOGIN_CLIENT_KEY ?? ""}>
           <RegisterForm verChange={verChange}/>

@@ -115,19 +115,19 @@ module.exports = {
     },
     backgroundImage: {
       'bloodDrip': "url('/easterEgg1/drippin.svg')",
-      'ocean': "url('/easterEgg1/seaofblood.png')",  //prawdopodobnie do konwersji na svg
-      'joinedGroups': "url('/colorful43.svg')",
+      'ocean': "url('/easterEgg1/seaofblood.png')",
+      'joinedGroups': "url('/paintbg.svg')",
     },
     screens: {
-      'ms': '320px',  //mobile phone
+      'ms': '320px',
       'mm': '375px',
       'ml': '425px',
-      'ts': '580px',  //tablet
+      'ts': '580px',
       'tm': '640px',
       'tl': '768px',
-      'th': '840px',  //extra
-      'ls': '1024px', //laptop
-      'cs': '1280px', //computer
+      'th': '840px',
+      'ls': '1024px',
+      'cs': '1280px',
       'cm': '1920px',
     },
     extend: {
@@ -178,7 +178,7 @@ module.exports = {
         'droplet8': 'drop 1.1s cubic-bezier(.57,0,.75,.07)',
         'droplet9': 'drop 1.2s cubic-bezier(.65,0,.71,.3)',
         'droplet0': 'drop 1.3s cubic-bezier(.57,0,.75,.07)',
-        'drip': 'drip 20s cubic-bezier(.22,.73,.45,.83)',  //cubic-bezier(0,1.05,.59,.9)
+        'drip': 'drip 20s cubic-bezier(.22,.73,.45,.83)',
         'wiggle': 'wiggle 3s linear infinite',
       },
       keyframes: {
@@ -215,13 +215,13 @@ module.exports = {
           '100%': { transform: 'translateY(0px) translateX(0px)', opacity: 0 },
         },
         drip: {
-          '0%': { transform: 'translateY(-135px) translateX(-22vw)', opacity: 0 }, //-135
+          '0%': { transform: 'translateY(-135px) translateX(-22vw)', opacity: 0 },
           '1%': { transform: 'translateY(-135px) translateX(-22vw)', opacity: 1},
-          '99%': { transform: 'translateY(-18px) translateX(-22vw)', opacity: 1 },  //-70
+          '99%': { transform: 'translateY(-18px) translateX(-22vw)', opacity: 1 },
           '100%': { transform: 'translateY(-18px) translateX(-22vw)', opacity: 0 },
         },
         drop: {
-          '0%': { transform: 'translateY(20px)', opacity: 0 }, //-135
+          '0%': { transform: 'translateY(20px)', opacity: 0 },
           '1%': { transform: 'translateY(20px)', opacity: 1},
           '99%': { transform: 'translateY(99vh)', opacity: 1 },
           '100%': { transform: 'translateY(99vh)', opacity: 0 },
@@ -239,28 +239,10 @@ module.exports = {
     require('tailwindcss-gradients'),
     require("tailwindcss-animation-delay"),
     require('@tailwindcss/line-clamp')
-    // plugin(function({ addComponents }) {
-    //   const buttons = {
-    //     '.death': {
-    //       backgroundColor: '#3490dc',
-    //     },
-    //     '.fade': {
-    //       //mask-image: radial-gradient(ellipse 90% 80% at 48% 78%, black 40%, transparent 50%)
-    //     },
-    //     '.btn-red': {
-    //       backgroundColor: '#e3342f',
-    //       color: '#fff',
-    //       '&:hover': {
-    //         backgroundColor: '#cc1f1a'
-    //       },
-    //     },
-    //   }
-    //   addComponents(buttons)
-    // })
   ],
   variants: {
         scrollbar: ['rounded'],
-        backgroundImage: ['responsive'], // this is for the "bg-none" utility
+        backgroundImage: ['responsive'],
         linearGradients: ['responsive'],
         radialGradients: ['responsive'],
         conicGradients: ['responsive'],

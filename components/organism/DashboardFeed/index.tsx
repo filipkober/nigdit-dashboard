@@ -12,7 +12,6 @@ import ReportModal from '../../molecules/ReportModal';
 
 const postsPerScroll = 3;
 
-//Nigroglycerin
 export default function DashboardFeed() {
   const postService = new PostService();
   const {username, moderates, admin} = useSelector((state: UserState) => state.user);
@@ -25,7 +24,7 @@ export default function DashboardFeed() {
 
   //activated when toggled subs-everything
   function clicked(cc: number) {
-    setCounter(cc); //easter egg
+    setCounter(cc); //easteregg
     setViewSubscribed(!viewSubscribed);
   }
 
@@ -61,7 +60,6 @@ export default function DashboardFeed() {
           setPosts([...posts, ...p.slice(0, postsPerScroll)]);
         }
       }
-      //console.log("FEED: counter: "+counter+", subbed: "+counter%2+ ", algorithm: "+curAlg+ ", logged: "+isLogged+", page: "+page+", response length: "+p.length)
     }
     fetchPosts();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,7 +69,6 @@ export default function DashboardFeed() {
     setPage(0);
   }, [viewSubscribed, curAlg]);
 
-  //lvl 10 black magic
   const observer: any = useRef();
   const lastPostRef = useCallback(async (node: any) => {
     if (!node) {
@@ -80,7 +77,6 @@ export default function DashboardFeed() {
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting) {
-        //console.log("FEED: scrolled to next page")
         setPage((prevPage) => prevPage + postsPerScroll);
       }
     });

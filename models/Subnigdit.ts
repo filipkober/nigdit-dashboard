@@ -48,7 +48,6 @@ type StrapiSubnigdit = {
 };
 
 const strapiSubnigditToSubnigdit = (s: StrapiSubnigdit): Subnigdit => {
-  // console.log(s)
   return({
   id: s.id,
   name: s.attributes.name,

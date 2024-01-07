@@ -1,34 +1,27 @@
-import React, {
-  useState,
-  useRef,
-  useImperativeHandle,
-  forwardRef,
-  useEffect,
-  ChangeEvent,
-} from 'react';
-import makpaj from '../../../assets/makpaj.svg';
-import testimage from '../../../assets/testimage.svg';
+import { debounce } from 'lodash';
 import Image from 'next/image';
-import Input from '../../atoms/Input';
-import TextArea from '../../atoms/TextArea';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, {
+  ChangeEvent,
+  useEffect,
+  useState
+} from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import AsyncSelect from 'react-select';
-import UserService from '../../../util/requests/UserService';
-import SubnigditService from '../../../util/requests/SubnigditService';
-import { SearchUser } from '../../../models/User';
-import { debounce } from 'lodash';
-import ImageCropModal from '../../molecules/ImageCropModal';
-import ImageInput from '../../molecules/ImageInput';
-import ErrorMessage from '../../atoms/ErrorMessage';
 import emptyBanner from '../../../assets/emptyBanner.png';
 import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import Subnigdit from '../../../models/Subnigdit';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { toastDisplay } from '../../atoms/Toast';
 import ToastType from '../../../models/ToastType';
-
-//regular string does not work for some reason
+import { SearchUser } from '../../../models/User';
+import SubnigditService from '../../../util/requests/SubnigditService';
+import UserService from '../../../util/requests/UserService';
+import ErrorMessage from '../../atoms/ErrorMessage';
+import Input from '../../atoms/Input';
+import TextArea from '../../atoms/TextArea';
+import { toastDisplay } from '../../atoms/Toast';
+import ImageCropModal from '../../molecules/ImageCropModal';
+import ImageInput from '../../molecules/ImageInput';
 
 type Inputs = {
   icon: string;
@@ -48,7 +41,6 @@ export default function SubnigditCreationPanel({
 }: SubnigditCreationPanelProps) {
   const editing = !!subnigdit;
 
-  //some banner & icon of subnigdit
   const uploadIcon = (e: any) => {
     document.getElementById('iconUpload')?.click();
   };
@@ -89,7 +81,6 @@ export default function SubnigditCreationPanel({
     setNewRule('');
   };
   const removeRule = (ruleToDelete: number) => {
-    //this is probably not the best way to do it, but it seems to work fine
     setRules(
       rules.filter((rule, index) => {
         return index != ruleToDelete ? rule : null;
@@ -394,7 +385,6 @@ export default function SubnigditCreationPanel({
               <div className="flex flex-wrap justify-between w-[100%]">
                 <div className="flex justify-between w-[100%] tl:h-[calc((5vw+12px)*60/100)] h-[calc((5vw+12px)*98/100)]">
                   <div className="flex justify-start w-[calc((14vw+24px)*3*98/100+2vw)] tl:w-[calc((13vw+37px)*3*56/100+1vw)]">
-                    {/* ^^^ co tu się dzieje i dlaczego przepuściłem to przez code review */}
                     <div className="basis-1/3"></div>
                     <div className="basis-2/3 p-[1vw] tl:p-[0.5vw]">
                       <Input
@@ -415,7 +405,6 @@ export default function SubnigditCreationPanel({
                   {editing && (
                     <div className="w-[20%] p-[1vw] tl:p-[0.5vw]">
                       {destroy ? (
-                        // <button type="button" onClick={toggleDestruction} className={`w-[100%] h-[100%] text-[calc(2vw+5px)] tl:text-[calc(1vw+5px)] border-[1px] bg-cancel hover:bg-cancelH rounded-[10px] ${btnDefClass}`}>Cancel</button>
                         <button
                           type="button"
                           onClick={toggleDestruction}
@@ -424,7 +413,6 @@ export default function SubnigditCreationPanel({
                           Cancel
                         </button>
                       ) : (
-                        // <button type="button" onClick={toggleDestruction} className={`w-[100%] h-[100%] text-[calc(2vw+5px)] tl:text-[calc(1vw+5px)] border-[1px] bg-delete hover:bg-deleteH rounded-[10px] ${btnDefClass}`}>Delete</button>
                         <button
                           type="button"
                           onClick={toggleDestruction}

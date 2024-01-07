@@ -5,8 +5,8 @@ export default function logout() {
   return (
     <>
       <Head>
-        <title>Nigdit - Logout page</title>
-        <link rel="icon" href={'/easterEgg1/blooddrop.svg'}/>
+        <title>Logout page</title>
+        <link rel="icon" href={'/nigditLogo.svg'}/>
         <meta name="description" content="Log out of nigdit."/>
       </Head>
       <LogoutScreen />

@@ -1,13 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import User, { UserVotes } from '../models/User';
 
-// typ danych
 export interface UserState {
   user: User;
   count: number;
 }
 
-// Initial state
 const initialState: UserState = {
   user: {
     username: '',
@@ -30,7 +28,6 @@ const initialState: UserState = {
   count: 0,
 };
 
-// funkcje ustawiające dane
 export const userSlice = createSlice({
   name: 'userData',
   initialState,
@@ -68,7 +65,6 @@ export const userSlice = createSlice({
   },
 });
 
-// eksporty
 export const {
   setUser,
   incrementCounter,

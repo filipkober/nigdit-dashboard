@@ -1,10 +1,9 @@
-import { string } from 'yup';
+import { StrapiComment } from './Comment';
 import Media, { StrapiMedia } from './Media';
 import Subnigdit, { StrapiSubnigdit } from './Subnigdit';
 import User, { StrapiUser } from './User';
-import { StrapiComment } from './Comment';
 
-type Post = { //zabiję cię olo jeśli zmienisz to bez uzasadnienia
+type Post = {
   id: number;
   title: string;
   description?: string;
@@ -47,7 +46,6 @@ type StrapiPost = {
   };
 };
 
-//to ma jakieś cel w swoim istnieniu?
 type PostN = {
   id: number;
   title: string;
@@ -87,5 +85,6 @@ const postAdapter = (p: StrapiPost): PostN => {
 };
 
 export default Post;
-export type { StrapiPost, PostN };
 export { postAdapter };
+export type { PostN, StrapiPost };
+

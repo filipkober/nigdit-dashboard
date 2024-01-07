@@ -75,7 +75,7 @@ export default function LoginForm() {
       formState: { errors },
     } = useForm<FormValues>()
     const onSubmit: SubmitHandler<FormValues> = async (values) => {
-      const userData = await userService.login( //dodaj try catch
+      const userData = await userService.login(
               values.login,
               values.password
             );
@@ -172,7 +172,7 @@ export default function LoginForm() {
                   </a>
                 ) : null}
               </div>
-              {/* submit button ☞  ☜*/}
+              {/* submit button*/}
               <div className="w-[100%] min-h-[3rem] h-[2vw] flex flex-row justify-center px-0 mt-2 items-center">
                 <button
                   type="submit"

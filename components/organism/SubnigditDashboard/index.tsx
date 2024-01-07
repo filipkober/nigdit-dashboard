@@ -14,8 +14,6 @@ import PostText from '../../molecules/PostText';
 import SubnigditRules from '../../molecules/SubnigditRules';
 import TabSelector from '../../molecules/TabSelector';
 
-//description must be downloaded in useEffect
-//same as rules
 const postsPerScroll = 3;
 
 export default function SubnigditDashboard()
@@ -102,7 +100,7 @@ export default function SubnigditDashboard()
     observer.current = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting)
       {
-        //console.log("FEED: scrolled to next page")
+        //scrolled to the next page
         setPage((prevPage) => prevPage + postsPerScroll);
       }
     });
