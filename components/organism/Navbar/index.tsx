@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { slide as Menu } from 'react-burger-menu';
-import { RxHamburgerMenu } from 'react-icons/Rx';
+import { RxHamburgerMenu } from 'react-icons/rx';
 import { useSelector } from 'react-redux';
 import emptypfp from '../../../assets/emptypfp.jpg';
 import nigditIcon from '../../../assets/testimage.svg';
