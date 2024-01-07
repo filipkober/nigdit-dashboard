@@ -468,7 +468,7 @@ export default function SubnigditCreationPanel({
                     <div className="bg-experimentA border-black border-t-[2px] w-[100%] h-[40px] flex p-[0.5vw] tl:p-[0.25vw]">
                       <input
                         value={newRule}
-                        placeholder="Do not be racist..."
+                        placeholder="Do not be rude..."
                         name="newRule"
                         type="text"
                         onChange={handleNewRuleChange}

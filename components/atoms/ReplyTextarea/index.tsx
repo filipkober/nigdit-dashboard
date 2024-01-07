@@ -1,11 +1,7 @@
-import { useState } from 'react';
-import Replies from '../../molecules/Replies';
-import TextArea from '../TextArea';
-import { useModal } from '../../../hooks/useModal';
-import ReplyService from '../../../util/requests/ReplyService';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { toastDisplay } from '../Toast';
 import ToastType from '../../../models/ToastType';
+import ReplyService from '../../../util/requests/ReplyService';
+import { toastDisplay } from '../Toast';
 
 type ReplyTextareaProps = {
   commentId: number;
@@ -45,7 +41,7 @@ export default function ReplyTextarea({ commentId, visible, addReply }: ReplyTex
               className="px-1 resize-none bg-accentL dark:bg-accentD text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:italic"
               cols={50}
               rows={5}
-              placeholder="Put your racist conclusions and insults here..."
+              placeholder="Put your conclusions and insults here..."
               {...register('content', { required: true })}
             ></textarea>
             <button className="p-1 rounded flex bg-accentL dark:bg-accentD border-solid border-black dark:border-white text-black dark:text-white">

@@ -200,7 +200,7 @@ export default function PostExtended({
                   className="px-1 w-[100%] resize-none bg-accentL dark:bg-accentD text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:italic"
                   cols={50}
                   rows={5}
-                  placeholder="Put your racist opinion here..."
+                  placeholder="Put your opinion here..."
                   {...register('content', { required: true })}
                 ></textarea>
 
