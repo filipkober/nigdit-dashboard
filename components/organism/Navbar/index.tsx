@@ -12,6 +12,8 @@ import { SubnigditSearchResult } from '../../../models/Subnigdit';
 import { UserState } from '../../../store/userSlice';
 import SubnigditService from '../../../util/requests/SubnigditService';
 import SubnigditSearch from '../../molecules/SubnigditSearch';
+import MenuLoggedLinks from '../../molecules/MenuLoggedLinks';
+import MenuNotLoggedLinks from '../../molecules/MenuNotLoggedLinks';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -249,17 +251,7 @@ export default function Navbar() {
                 onClose={handleMenuClose}
                 width={'35%'}
               >
-              <div>
-                <Link className="bg-[#272727]" href="/">
-                  Home
-                </Link>
-
-                <Link href="/my-account">Account</Link>
-                <Link className="bg-[#272727]" href="/new/post">
-                  Create Post
-                </Link>
-                <Link href="/logout">Log out</Link>
-                </div>
+                <MenuLoggedLinks />
               </Menu>
             ) : (
               <Menu
@@ -269,15 +261,7 @@ export default function Navbar() {
                 onClose={handleMenuClose}
                 width={'35%'}
               >
-                <div>
-                <Link className="bg-[#272727]" href="/">
-                  Home
-                </Link>
-                <Link href="/login">Login</Link>
-                <Link className="bg-[#272727]" href="/register">
-                  Register
-                </Link>
-                </div>
+                <MenuNotLoggedLinks />
               </Menu>
             )}
             <RxHamburgerMenu
