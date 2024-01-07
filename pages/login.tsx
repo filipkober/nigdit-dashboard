@@ -8,8 +8,8 @@ const Login: NextPage = () => {
   return (
     <div className="dark:text-white dark:bg-backgroundD bg-backgroundL w-[100%] m-0 h-screen">
       <Head>
-        <title>Nigdit - Welcome back!</title>
-        <link rel="icon" href={'/easterEgg1/blooddrop.svg'}/>
+        <title>Welcome back!</title>
+        <link rel="icon" href={'/nigditLogo.svg'}/>
         <meta name="description" content="Log into nigdit."/>
       </Head>
     <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_LOGIN_CLIENT_KEY ?? ""}>

@@ -1,9 +1,9 @@
 import qs from 'qs';
-import User, { StrapiUser, LoginUser, SearchUser } from '../../models/User';
-import StrapiResponse from '../../models/StrapiResponse';
-import RequestService from './RequestService';
 import { toastDisplay } from '../../components/atoms/Toast';
+import StrapiResponse from '../../models/StrapiResponse';
 import ToastType from '../../models/ToastType';
+import User, { LoginUser, SearchUser, StrapiUser } from '../../models/User';
+import RequestService from './RequestService';
 
 export default class UserService {
   private endpoint = 'users';

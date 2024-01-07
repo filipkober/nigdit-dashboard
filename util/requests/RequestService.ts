@@ -68,7 +68,7 @@ function genericErrorHandler(e: NetworkError) {
         console.error('Wywaliło w strapim coś, napisz lepszy backend');
         break;
       default:
-        console.error('chuj wie co się stało, powodzenia. Status: ' + e.status);
+        console.error('bóg wie co się stało, powodzenia. Status: ' + e.status);
     }
   }
   throw e;
@@ -85,7 +85,7 @@ export default class RequestService {
       method: 'GET',
       headers: constructHeaders(contentType, auth),
     });
-    if(!response.ok) handleError(new NetworkError(response.status, response.statusText)); 
+    if(!response.ok) handleError(new NetworkError(response.status, response.statusText));
     return await response.json();
   }
 
@@ -103,7 +103,7 @@ export default class RequestService {
       body: data ? (contentType === 'application/json' ? JSON.stringify(data) : data) : undefined,
       headers: constructHeaders(contentType, auth),
     });
-    if(!response.ok) handleError(new NetworkError(response.status, response.statusText)); 
+    if(!response.ok) handleError(new NetworkError(response.status, response.statusText));
     return await response.json();
   }
   async put(
@@ -120,7 +120,7 @@ export default class RequestService {
       body: data ? (contentType === 'application/json' ? JSON.stringify(data) : data) : undefined,
       headers: constructHeaders(contentType, auth),
     });
-    if(!response.ok) handleError(new NetworkError(response.status, response.statusText)); 
+    if(!response.ok) handleError(new NetworkError(response.status, response.statusText));
     return await response.json();
   }
 
@@ -132,7 +132,7 @@ export default class RequestService {
       method: 'DELETE',
       headers: constructHeaders(contentType, auth),
     });
-    if(!response.ok) handleError(new NetworkError(response.status, response.statusText)); 
+    if(!response.ok) handleError(new NetworkError(response.status, response.statusText));
     return await response.json();
   }
 }

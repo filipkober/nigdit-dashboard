@@ -1,6 +1,4 @@
-import React, {useState} from "react";
 import Image from 'next/image';
-import nigditIcon from '../../../assets/testimage.svg'
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
@@ -14,7 +12,7 @@ type Props = {
 
 
 export default function GroupListElement({num, name, link, image, last = false}: Props)
-{    
+{
     const classes = twMerge(
         "hover:cursor-pointer overflow-hidden w-[100%] h-[3vw] flex flex-row dark:hover:bg-experimentB dark:bg-foregroundD hover:bg-backgroundL",
         num % 2 == 1 ? "dark:bg-experimentC bg-[#F47FFA]" : "dark:bg-foregroundD bg-[#DB73E0]",

@@ -33,7 +33,6 @@ const initValues: FormValues = {
   email: '',
 };
 const schema = yup.object().shape({
-  //! dodaj do pliku osobnego
   login: yup
     .string()
     .min(2, 'Username is too short.')
@@ -63,7 +62,6 @@ const schema = yup.object().shape({
     )
     .required('Required'),
 });
-//NAPRAW niech errory beda dynamiczne
 
 export default function RegisterForm({ verChange }: Props) {
   const [au, setAu] = useState('');
@@ -118,7 +116,6 @@ export default function RegisterForm({ verChange }: Props) {
             if(userData.user.username != null)
             {
                 verChange(true, values.email);
-                //Cookies.set("jwt", userData.jwt);
             }
         }
         catch(e)
@@ -135,7 +132,7 @@ export default function RegisterForm({ verChange }: Props) {
               <div className=' w-[100%] min-h-[3rem] h-[7vh] flex flex-wrap flex-col justify-center items-center my-4'>
                   <p className="shrink-1 text-[4.5rem] font-['Roboto'] dark:text-white text-center font-bold">Register</p>
               </div>
-              {/* missing google stuff */}
+              {/* google */}
               <div className=" w-[100%] min-h-[3rem] h-[8vh] flex flex-row justify-center items-center mt-3 ">
                   <GoogleButton isRegister onClick={()=>{login()}}/>
               </div>
@@ -181,7 +178,6 @@ export default function RegisterForm({ verChange }: Props) {
                   )}
                   <p className="w-[37%] shrink-1 text-[1.3rem] font-['Roboto'] dark:text-white flex font-bold">E-mail</p>
               </div>
-              {/* submit button */}
               <div>
                   { errors.login && touchedFields.login ? (<p className="mt-[0.2rem]] text-pink-600 text-sm pl-2 w-[100%]">{errors.login?.message}</p>) : (null)}
                   { errors.password && touchedFields.password ? (<p className="mt-[0.2rem]] text-pink-600 text-sm pl-2 w-[100%]">{errors.password?.message}</p>) : null}
@@ -193,6 +189,7 @@ export default function RegisterForm({ verChange }: Props) {
               <div className='w-[100%] min-h-[2rem] flex flex-row justify-center'>
                   <p className="shrink-1 text-[0.85rem] mt-2 font-['Roboto'] dark:text-white">By continuing you agree to our Privacy Policy.</p>
               </div>
+              {/* submit button */}
               <div className='w-[100%] min-h-[3rem] h-[2vw] flex flex-row justify-center px-0 mt-2 items-center'>
                   <button type='submit' className='active:translate-y-0.5 duration-[10ms] shrink-1 text-[1.8rem] font-["Roboto"] text-black text-center font-bold drop-shadow-buttonDevil active:drop-shadow-buttonDevilA border-black border-solid border-[1px] rounded-[10px] py-1 px-4 bg-[#FF5C00] hover:bg-[#ff7d31]'>Create account</button>
               </div>

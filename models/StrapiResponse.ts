@@ -26,9 +26,5 @@ const strapiDataTypeToData = <T>(strapiDataType: GenericStrapiData) => {
     }
 }
 
-// const shapeStrapiResponse = <T>(strapiResponse: StrapiResponse<GenericStrapiData>) => {
-//     return strapiResponseToData(s)
-// }
-
 export default StrapiResponse
-export { strapiResponseToData };
+export { strapiResponseToData }

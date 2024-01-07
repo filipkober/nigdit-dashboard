@@ -1,9 +1,11 @@
 import moment from 'moment';
 import Image from 'next/image';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { FaRegCommentAlt } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 import { useModal } from '../../../hooks/useModal';
+import { useShare } from '../../../hooks/useShare';
 import { commentAdapter } from '../../../models/Comment';
 import { GenericComponentProps } from '../../../models/GenericComponentProps';
 import { PostN } from '../../../models/Post';
@@ -14,10 +16,8 @@ import Comment from '../../atoms/Comment';
 import Share from '../../atoms/Share';
 import { toastDisplay } from '../../atoms/Toast';
 import Vote from '../../atoms/Vote';
-import ReportModal from '../ReportModal';
 import ExpandableMenu from '../ExpandableMenu';
-import { useShare } from '../../../hooks/useShare';
-import { FaRegCommentAlt } from "react-icons/fa";
+import ReportModal from '../ReportModal';
 
 type PostExtendedProps = {
   post: PostN;
@@ -151,7 +151,6 @@ export default function PostExtended({
             </div>
           </div>
           <div className="flex font-['Roboto'] dark:text-white text-xl mt-5 z-0">
-            {/* chujstwo pod contentem */}
             <div className="flex flex-row content-start ls:w-1/2 w-full">
               <p className="mr-5 flex">
               <FaRegCommentAlt className='h-full mr-2' />{allComNum} <span className='hidden ls:inline ml-[.6ch]'>Comment{allComNum === 0 || allComNum > 1 ? 's' : ''}</span>
@@ -174,7 +173,7 @@ export default function PostExtended({
                 )}
               </div>
               </div>
-              <ExpandableMenu 
+              <ExpandableMenu
               className='ls:hidden'
                 buttons={[
                   {
@@ -194,14 +193,14 @@ export default function PostExtended({
             </div>
           </div>
           <div>
-            {/* KOMETNARZE */}
+            {/* comments */}
             {isLogged && (
               <form onSubmit={handleSubmit(onSubmit)}>
                 <textarea
                   className="px-1 w-[100%] resize-none bg-accentL dark:bg-accentD text-black dark:text-white placeholder:text-black dark:placeholder:text-white placeholder:italic"
                   cols={50}
                   rows={5}
-                  placeholder="Put your racist opinion here..."
+                  placeholder="Put your opinion here..."
                   {...register('content', { required: true })}
                 ></textarea>
 

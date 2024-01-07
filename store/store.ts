@@ -1,14 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import {
-    persistStore,
     persistReducer,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER
+    persistStore
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";

@@ -33,7 +33,6 @@ export default function PostText({
 
   return (
     <div className="min-h-[4rem] w-[100%] text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] pt-2 min-w-[25vw] max-h-[50vh] my-2">
-      {/* GÓRNY PASEK AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
       <div className="flex flex-row min-w-[25vw] mx-2 flex-wrap">
         <div className="relative aspect-square mr-1 min-w-[24px] max-h-[1.5rem]">
           <Image
@@ -60,7 +59,7 @@ export default function PostText({
         </p>
       </div>
 
-      {/* CONTENT  */}
+      {/* Content */}
       <div className='flex flex-row'>
         <div className='flex-1'>
         <div className='mx-2'>

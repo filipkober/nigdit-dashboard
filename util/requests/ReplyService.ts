@@ -12,7 +12,6 @@ export default class ReplyService {
         const replies: StrapiResponse<StrapiReply[]> =  await this.requestService.get(this.endpoint);
         return replies.data;
     }
-
     
     async getOne(id: number, populate?: boolean) {
         const reply: StrapiResponse<StrapiReplyExtended | StrapiReply> = await this.requestService.get(this.endpoint + '/' + id + (populate ? '?populate=*' : ''));

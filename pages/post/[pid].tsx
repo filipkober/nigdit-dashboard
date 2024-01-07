@@ -36,7 +36,7 @@ const PostPage: NextPage = () => {
       </div>
       <div className='hidden ls:col-start-3 ls:flex flex-col row-start-1'>
         <SubnigditInfo  subnigdit={post.attributes.subnigdit.data} />
-        <SubnigditRules subnigdit={post.attributes.subnigdit.data} /> {/* wasze adaptery są do śmieci*/}
+        <SubnigditRules subnigdit={post.attributes.subnigdit.data} />
       </div>
       </div>
     </div>
@@ -44,11 +44,3 @@ const PostPage: NextPage = () => {
 };
 
 export default PostPage;
-
-// post ext ls:ml-[5vh] my-[5vh]
-// s info div: my-[5vh] hidden ls:inline ls:mx-[5vh]
-/*               
-<PostExtended post={postAdapter(post)} />
-<SubnigditInfo  subnigdit={subnigditAdapter(post.attributes.subnigdit.data)} />
-<SubnigditRules />
-*/

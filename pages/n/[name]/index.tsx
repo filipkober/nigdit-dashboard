@@ -9,8 +9,8 @@ const SubnigditPage: NextPage = () => {
   const { name } = router.query;
   return <>
       <Head>
-        <title>Welcome to nigdit!</title>
-        <link rel="icon" href={'/easterEgg1/blooddrop.svg'}/>
+        <title>Nigdit</title>
+        <link rel="icon" href={'/nigditLogo.svg'}/>
         <meta name="description" content="Subnigdit page."/>
       </Head>
       <SubnigditDashboard/>

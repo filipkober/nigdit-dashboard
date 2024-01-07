@@ -54,7 +54,7 @@ const SubnigditModerationPanelPage: NextPage = () => {
     <div className='bg-backgroundL dark:bg-backgroundD h-full'>
       <Head>
         <title>Subnigdit moderation page</title>
-        <link rel="icon" href={'/easterEgg1/blooddrop.svg'}/>
+        <link rel="icon" href={'/nigditLogo.svg'}/>
         <meta name="description" content="Subnigdit moderation page."/>
       </Head>
       <TabSelector selected={selected} setSelected={setSelected} tabs={['Posts', 'Comments', 'Replies']}/>

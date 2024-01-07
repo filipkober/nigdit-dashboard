@@ -16,7 +16,6 @@ type Media = {
   },
 };
 
-//Olo, ty gruby geju, zachowuj spójność - atrybuty tylko do typów z napisem strapi
 type StrapiMedia = {
   data: {
     id: number;
@@ -83,5 +82,6 @@ const mediaAdapter = (media: StrapiMedia): Media => {
 };
 
 export default Media;
+export { mediaAdapter };
 export type { StrapiMedia };
-export { mediaAdapter }
+

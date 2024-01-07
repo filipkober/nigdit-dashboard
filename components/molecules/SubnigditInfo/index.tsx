@@ -6,7 +6,6 @@ import { StrapiSubnigdit } from '../../../models/Subnigdit';
 import SubnigditService from '../../../util/requests/SubnigditService';
 import { JoinButton } from '../../atoms/JoinButton';
 
-//dziękuję za SubnigditN i jego 10 wersji olo
 type SubnigditInfoProps = {
   subnigdit: StrapiSubnigdit
 };

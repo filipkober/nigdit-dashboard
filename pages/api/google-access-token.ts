@@ -1,5 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { Credentials, OAuth2Client } from 'google-auth-library';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Data = {
   tokens?: Credentials;
@@ -12,7 +12,6 @@ const oAuth2Client = new OAuth2Client(
   'postmessage',
 );
 
-//wymaga code - zwraca access_token i pozostałe
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
@@ -24,8 +23,8 @@ export default async function handler(
 
     const { tokens } = await oAuth2Client.getToken(code);
     return res.status(200).json({tokens});
-  } 
-  else 
+  }
+  else
   {
     return res.status(405).json({ message: 'Method not allowed' });
   }

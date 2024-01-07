@@ -1,7 +1,5 @@
 import { ContentType } from "../../models/ContentType";
-import Report, { reportAdapter } from "../../models/Report";
-import StrapiReport from "../../models/Report";
-import StrapiResponse from "../../models/StrapiResponse";
+import Report from "../../models/Report";
 import RequestService, { NetworkError } from "./RequestService";
 
 type getAllArgs = {

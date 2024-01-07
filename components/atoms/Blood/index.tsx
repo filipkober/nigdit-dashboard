@@ -28,7 +28,7 @@ function Blood({}: Props, ref: ForwardedRef<any>)
                 }
             }
         }
-    }))//${(x%10)}
+    }))
 
     return(
         <div className="fixed z-50">
@@ -43,7 +43,7 @@ function Blood({}: Props, ref: ForwardedRef<any>)
                             <div className={"animate-droplet6"}><Image src={'/easterEgg1/blooddrop.svg'} width={128} height={128} className="fixed" alt={""}/></div>
                             ) : (
                             <div className={"animate-droplet2"}><Image src={'/easterEgg1/blooddrop.svg'} width={128} height={128} className="fixed" alt={""}/></div>
-                            )}  {/* działa ( ͡° ͜ʖ ͡°) */}
+                            )}  {/* ( ͡° ͜ʖ ͡°) */}
                         </div>
                     </div>
                 )

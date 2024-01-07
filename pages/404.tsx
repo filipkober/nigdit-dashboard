@@ -23,7 +23,7 @@ export default function Custom404() {
     <div className="flex flex-col items-center justify-center h-[calc(90vh)] text-center">
       <Head>
         <title>Error 404</title>
-        <link rel="icon" href={'/easterEgg1/blooddrop.svg'}/>
+        <link rel="icon" href={'/nigditLogo.svg'}/>
         <meta name="description" content="Nigdit error page."/>
       </Head>
       <Image src={error404svg} alt='404' width={600} height={400}/>
