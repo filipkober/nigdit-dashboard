@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Post from '../../../models/Post';
 import { UserState } from '../../../store/userSlice';
 import PostService from '../../../util/requests/PostService';
+import CreateSubButton from '../../atoms/CreateSubButton';
 import FilteringBar from '../../molecules/FilteringBar';
 import JoinedGroups from '../../molecules/JoinedGroups';
 import PostMedia from '../../molecules/PostMedia';
@@ -14,7 +15,9 @@ const postsPerScroll = 3;
 
 export default function DashboardFeed() {
   const postService = new PostService();
-  const {username, moderates, admin} = useSelector((state: UserState) => state.user);
+  const { username, moderates, admin } = useSelector(
+    (state: UserState) => state.user
+  );
   const [isLogged, setLogged] = useState(false);
   const [curAlg, setCurAlg] = useState<string>('Hot');
   const [counter, setCounter] = useState<number>(0);
@@ -30,7 +33,7 @@ export default function DashboardFeed() {
 
   //activated when toggled top-new-hot
   function changeAlg(n: string) {
-    console.log(n)
+    console.log(n);
     setCurAlg(n);
   }
 
@@ -45,13 +48,22 @@ export default function DashboardFeed() {
   useEffect(() => {
     async function fetchPosts() {
       let p: Post[] = [];
-      if (viewSubscribed && isLogged == true)
-      {
-        p = await postService.getPosts(page, postsPerScroll,toLower(curAlg),"Sub",null);
-      }
-      else
-      {
-        p = await postService.getPosts(page, postsPerScroll,toLower(curAlg),"",null);
+      if (viewSubscribed && isLogged == true) {
+        p = await postService.getPosts(
+          page,
+          postsPerScroll,
+          toLower(curAlg),
+          'Sub',
+          null
+        );
+      } else {
+        p = await postService.getPosts(
+          page,
+          postsPerScroll,
+          toLower(curAlg),
+          '',
+          null
+        );
       }
       if (page === 0) {
         setPosts(p);
@@ -62,8 +74,8 @@ export default function DashboardFeed() {
       }
     }
     fetchPosts();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page,curAlg,viewSubscribed]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, curAlg, viewSubscribed]);
 
   useEffect(() => {
     setPage(0);
@@ -89,7 +101,14 @@ export default function DashboardFeed() {
   const toggleModalReport = (id: number) => {
     setModalReportOpen(true);
     setReportedPostId(id);
-  }
+  };
+
+  const isOwner = !!useSelector(
+    (values: UserState) => values.user.owned_subnigdit
+  );
+  const hasJoined = !!useSelector(
+    (values: UserState) => values.user.subnigdits?.length
+  );
 
   return (
     <>
@@ -101,12 +120,16 @@ export default function DashboardFeed() {
               id="scrollableDiv"
               className="h-full ls:w-[50vw] tl:w-[56vw] tm:w-[70vw] ts:w-[80vw] ml:w-[90vw] w-[100vw] min-w-[320px] ml:p-0 p-2"
             >
-              <FilteringBar clicked={clicked} changeAlg={changeAlg} showSubscribed={true}/>
+              <FilteringBar
+                clicked={clicked}
+                changeAlg={changeAlg}
+                showSubscribed={true}
+              />
               {posts.map((post, index) => {
-
                 let isAdmin = false;
-                if(admin) isAdmin = true;
-                else if(moderates?.find(sub => sub.id === post.subnigdit.id)) isAdmin = true;
+                if (admin) isAdmin = true;
+                else if (moderates?.find((sub) => sub.id === post.subnigdit.id))
+                  isAdmin = true;
 
                 if (post.type == 'Text') {
                   return (
@@ -118,7 +141,11 @@ export default function DashboardFeed() {
                         position: 'relative',
                       }}
                     >
-                      <PostText post={post} showReportModal={toggleModalReport} isAdmin={isAdmin} />
+                      <PostText
+                        post={post}
+                        showReportModal={toggleModalReport}
+                        isAdmin={isAdmin}
+                      />
                     </div>
                   );
                 } else {
@@ -131,7 +158,11 @@ export default function DashboardFeed() {
                         position: 'relative',
                       }}
                     >
-                      <PostMedia post={post} showReportModal={toggleModalReport} isAdmin={isAdmin} />
+                      <PostMedia
+                        post={post}
+                        showReportModal={toggleModalReport}
+                        isAdmin={isAdmin}
+                      />
                     </div>
                   );
                 }
@@ -141,7 +172,14 @@ export default function DashboardFeed() {
         </div>
         <div className="tl:w-[22%] w-[0%] bg-[rgba(255,0,255,0)] tl:block hidden">
           <div className="w-[100%] flex flex-row justify-start tl:p-2 p-0 m-0">
-            {isLogged && <JoinedGroups />}
+            {isLogged && hasJoined && <JoinedGroups />}
+          </div>
+          <div>
+            {!isOwner && isLogged && (
+              <div className="w-[100%] ls:w-[80%] flex flex-row justify-center tl:p-2 p-0 m-0">
+                <CreateSubButton />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -153,9 +191,14 @@ export default function DashboardFeed() {
           }
         ></div>
       ) : (
-        <div className='p-0 m-0 w-0'></div>
+        <div className="p-0 m-0 w-0"></div>
       )}
-      <ReportModal isOpen={modalReportOpen} contentType={'post'} id={reportedPostId} onClose={() => setModalReportOpen(false)} />
+      <ReportModal
+        isOpen={modalReportOpen}
+        contentType={'post'}
+        id={reportedPostId}
+        onClose={() => setModalReportOpen(false)}
+      />
     </>
   );
 }
