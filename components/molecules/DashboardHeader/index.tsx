@@ -9,7 +9,7 @@ type Props = {
 
 export default function DashboardHeader({subnigdit, isLogged}: Props)
 {
-  const [members, setMembers] = useState<number>(subnigdit.attributes.subscribers.data.length);
+  const [members, setMembers] = useState<number>(subnigdit.attributes.subscribers.data.attributes.count);
   const join = (newState: boolean) => {
     if(newState)
     {
