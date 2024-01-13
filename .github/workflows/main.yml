@@ -24,6 +24,7 @@ jobs:
         port: 22
         script: |
           cd ~/nigdit-dashboard
+          git fetch
           git pull origin main
           yarn build
           pm2 restart "nigdit dashboard"
