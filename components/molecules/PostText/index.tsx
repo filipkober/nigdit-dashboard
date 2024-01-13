@@ -60,11 +60,12 @@ export default function PostText({
       </div>
 
       {/* Content */}
+      <Link href={`/post/${post.id}`}>
       <div className='flex flex-row'>
         <div className='flex-1'>
         <div className='mx-2'>
           <p className="h-11 max-w-[80%] font-['IBM_Plex_Sans'] text-[170%] dark:text-white">
-            <Link href={`/post/${post.id}`}>{post.title}</Link>
+            {post.title}
           </p>
         </div>
         <div className='flex flex-row'>
@@ -85,6 +86,7 @@ export default function PostText({
         />
       </div>
       </div>
+      </Link>
       <div className='flex flex-row gap-2 border-t-[1px] border-experimentA px-2 h-9'>
           <div className="hover:bg-backgroundL dark:hover:bg-experimentB flex items-center">
             <Share floatRight={false} className='align-middle'/>

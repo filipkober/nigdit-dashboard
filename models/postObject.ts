@@ -60,7 +60,11 @@ const examplePostObject: StrapiPost = {
               }
             },
             subscribers: {
-              data: []
+              data: {
+                attributes: {
+                  count: 0
+                }
+              }
             },
             name_uid: '',
             banner: {

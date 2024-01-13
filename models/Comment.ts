@@ -191,7 +191,11 @@ const exampleComment: StrapiComment = {
                 reports: 0,
                 icon: emptyStrapiMedia,
                 subscribers: {
-                  data: []
+                  data: {
+                    attributes: {
+                      count: 0
+                    }
+                  }
                 },
                 name_uid: '',
                 banner: {

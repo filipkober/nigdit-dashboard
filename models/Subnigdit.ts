@@ -11,9 +11,7 @@ type Subnigdit = {
   reports: number;
   icon: Media;
   banner: Media;
-  subscribers: {
-    data: StrapiUser[]
-  },
+  subscribers: number;
   rules?: SubnigditRule[];
   moderators: StrapiUser[];
   owner: StrapiUser;
@@ -31,10 +29,11 @@ type StrapiSubnigdit = {
     icon: StrapiMedia;
     banner: StrapiMedia;
     subscribers: {
-      data: StrapiUser[]
-      //   attributes:{
-      //     count: number
-      //   }
+      data: {
+        attributes:{
+          count: number
+        }
+      }
     },
     name_uid: string;
     rules?: SubnigditRule[];
@@ -56,7 +55,7 @@ const strapiSubnigditToSubnigdit = (s: StrapiSubnigdit): Subnigdit => {
   reports: s.attributes.reports,
   icon: mediaAdapter(s.attributes.icon),
   banner: mediaAdapter(s.attributes.banner),
-  subscribers: s.attributes.subscribers,
+  subscribers: s.attributes.subscribers.data.attributes.count,
   rules: s.attributes.rules || [],
   moderators: s.attributes.moderators.data,
   owner: s.attributes.owner.data,
