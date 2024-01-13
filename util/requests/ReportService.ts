@@ -20,6 +20,8 @@ export default class ReportService {
             if(e instanceof NetworkError) {
                 if(e.status === 401) {
                     window.location.href = "/login?redirect=" + window.location.pathname + window.location.search + window.location.hash;
+                } else if (e.status === 403) {
+                    window.location.href = "/";
                 }
                 return [];
             }

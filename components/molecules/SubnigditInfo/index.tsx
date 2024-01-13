@@ -56,12 +56,12 @@ export default function SubnigditInfo({ subnigdit }: SubnigditInfoProps) {
             <div>
               <Image src={userIcon} className="h-10" alt={''}></Image>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col justify-center align-middle items-center">
               <div>
-                <p>{ subnigdit.attributes.subscribers.data.length }</p>
+                <p>{ subnigdit.attributes.subscribers.data.attributes.count }</p>
               </div>
               <div>
-                <p>{(subnigdit.attributes.subscribers.data.length > 1 || subnigdit.attributes.subscribers.data.length === 0) ? "Members" : "Member"}</p>
+                <p>{(subnigdit.attributes.subscribers.data.attributes.count > 1 || subnigdit.attributes.subscribers.data.attributes.count === 0) ? "Members" : "Member"}</p>
               </div>
             </div>
           </div>
