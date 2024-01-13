@@ -41,7 +41,7 @@ const Subnigdits: NextPage = () => {
           </div>
         )) || (
           <div className="flex justify-center mt-10 font-bold">
-            You haven't joined any subnigdit yet.
+            You haven&apos;t joined any subnigdit yet.
           </div>
         )}
 
