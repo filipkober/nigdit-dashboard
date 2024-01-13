@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import Image from 'next/image';
-import makpaj from '../../../assets/makpaj.svg';
-import Arrow from '../../atoms/Vote';
-import Reply from '../../atoms/Reply';
 import { ReplyN } from '../../../models/Reply';
+import Reply from '../../atoms/Reply';
 
 type RepliesProps = {
   replies: ReplyN[]

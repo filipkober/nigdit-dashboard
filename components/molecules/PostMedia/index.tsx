@@ -52,7 +52,6 @@ export default function PostMedia({
 
   return (
     <div className="w-[100%] text-left font-normal flex flex-col border-black bg-foregroundL dark:bg-foregroundD border-solid drop-shadow-lg border-2 rounded-[5px] pt-2 min-w-[25vw] my-2">
-        {/* GÓRNY PASEK AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */}
         <div className="flex flex-row min-w-[25vw] mx-2 flex-wrap">
         <div className="relative aspect-square mr-1 min-w-[24px] max-h-[1.5rem]">
           <Image
@@ -78,7 +77,7 @@ export default function PostMedia({
           <span className='text-foregroundD dark:text-[rgba(197,197,197,1)]'>posted</span> {moment(post.createdAt).fromNow()}
         </p>
       </div>
-        {/* CONTENT  */}
+        {/* Content */}
         <div className=''>
           <div className='mx-2'>
             <p className="h-11 max-w-full font-['IBM_Plex_Sans'] text-[170%] dark:text-white">

@@ -7,13 +7,10 @@ import { slide as Menu } from 'react-burger-menu';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { useSelector } from 'react-redux';
 import emptypfp from '../../../assets/emptypfp.jpg';
-import nigditIcon from '../../../assets/testimage.svg';
 import { SubnigditSearchResult } from '../../../models/Subnigdit';
 import { UserState } from '../../../store/userSlice';
 import SubnigditService from '../../../util/requests/SubnigditService';
 import SubnigditSearch from '../../molecules/SubnigditSearch';
-import MenuLoggedLinks from '../../molecules/MenuLoggedLinks';
-import MenuNotLoggedLinks from '../../molecules/MenuNotLoggedLinks';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,7 +37,7 @@ export default function Navbar() {
   };
   
   useEffect(() => {
-    setLogged(!!username); //Cookies.get("jwt") !! - zamienia wartości takie jak null/undefined na false, reszta jest true
+    setLogged(!!username);
     window.addEventListener('resize', checkForScrollbar);
 
     const handleRouteChange = () => {
@@ -70,12 +67,8 @@ export default function Navbar() {
   const router = useRouter();
 
   const searchValChanged = async (cval: string) => {
-    //console.log('Search Value: ' + cval);
     if (!!cval) {
-      //fetch(process.env.NEXT_PUBLIC_STRAPI_URL+'/api/search?search='+cval)
-      //.then(res => res.json())
       subnigditService.searchSubnigdits(cval).then((data) => {
-        //console.log(data);
         setSearched(data);
       });
     } else {
@@ -100,7 +93,7 @@ export default function Navbar() {
           <div className="shrink-0">
             <Image
               draggable="false"
-              src={nigditIcon}
+              src={'/nigditLogo.svg'}
               width={36}
               height={36}
               className="select-none hover:cursor-pointer object-cover overflow-hidden p-0 w-[2.4rem] h-[2.4rem] rounded-full"
@@ -251,7 +244,15 @@ export default function Navbar() {
                 onClose={handleMenuClose}
                 width={'35%'}
               >
-                <MenuLoggedLinks />
+                <Link className="bg-[#272727]" href="/">
+        Home
+      </Link>
+
+      <Link href="/my-account">Account</Link>
+      <Link className="bg-[#272727]" href="/new/post">
+        Create Post
+      </Link>
+      <Link href="/logout">Log out</Link>
               </Menu>
             ) : (
               <Menu
@@ -261,7 +262,13 @@ export default function Navbar() {
                 onClose={handleMenuClose}
                 width={'35%'}
               >
-                <MenuNotLoggedLinks />
+                      <Link className="bg-[#272727]" href="/">
+        Home
+      </Link>
+      <Link href="/login">Login</Link>
+      <Link className="bg-[#272727]" href="/register">
+        Register
+      </Link>
               </Menu>
             )}
             <RxHamburgerMenu
@@ -303,7 +310,7 @@ export default function Navbar() {
         )}
       </div>
 
-      {/* search results FRAGILE, mimic*/}
+      {/* search results - do not edit unless you know what you are doing*/}
       {searchValue != '' ? (
         <div ref={imaginaryRef} className="overflow-hidden flex flex-row fixed w-[100%] justify-between left-0 mt-[25px]">
           <div className="flex flex-row">

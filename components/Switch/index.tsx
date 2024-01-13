@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 type SwitchProps = {
   className?: string,
   onClick?: (e?: React.MouseEvent<MouseEvent | HTMLDivElement>) => void,

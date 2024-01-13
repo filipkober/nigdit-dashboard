@@ -7,7 +7,7 @@ export default function Document() {
       <body style={{minHeight: '100vh'}} >
         <div className='bg-backgroundL dark:bg-backgroundD text-black dark:text-white w-screen h-screen ml:scrollbar-thin scrollbar-thumb-[#535353] scrollbar-track-[#2323232a] scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll'>
         <Main/>
-        <NextScript />
+        <NextScript/>
         </div>
       </body>
     </Html>

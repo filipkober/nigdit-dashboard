@@ -1,7 +1,5 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import macieknastronke from '../../../assets/easterEgg2/macieknastronke.png';
-import maciej from '../../../assets/easterEgg2/verificationMaciej.jpg';
 import Spinner from '../../atoms/Spinner';
 
 type Props = {
@@ -25,25 +23,25 @@ export default function EmailVerification({verChange, email} : Props)
         <>
         { e2 == true ? (
         <div className='w-[100vw] h-[90vh] absolute m-0 p-0 b-0'>
-            <Image src={maciej} alt="trolled" width={666} height={666} className="-brightness-150 hue-rotate-90 contrast-200 saturate-200 animate-troll w-[100%] h-[100%] opacity-[0%]"/>
+            <Image src={'/easterEgg2/verificationMaciej.jpg'} alt="trolled" width={666} height={666} className="-brightness-150 hue-rotate-90 contrast-200 saturate-200 animate-troll w-[100%] h-[100%] opacity-[0%]"/>
         </div>
         ):(
             <div></div>
         )}
         <div className='w-[300px] h-[300px] absolute m-0 p-0 b-0 -right-[-10vw] -bottom-[-10vh]'>
-            <Image onClick={()=>{setE2b(!e2b)}} src={macieknastronke} alt=" " width={1000} height={1000} className='object-contain w-[100%] h-[100%] opacity-0 hover:opacity-100 hover:cursor-pointer'/>
+            <Image onClick={()=>{setE2b(!e2b)}} src={'/easterEgg2/macieknastronke.png'} alt=" " width={1000} height={1000} className='object-contain w-[100%] h-[100%] opacity-0 hover:opacity-100 hover:cursor-pointer'/>
         </div>
         <p className='absolute m-0 p-2 b-0 -left-[-7vw] -top-[-26vh] font-["Consolas"] animation-delay-100 animate-creep opacity-0'>He is coming for you.</p>
         <p className='absolute m-0 p-2 b-0 -right-[-16vw] -top-[-56vh] font-["Consolas"] animation-delay-2000 animate-creep opacity-0'>Sometimes we would have had time to scream.</p>
         <p className='absolute m-0 p-2 b-0 -right-[-50vw] -top-[-44vh] font-["Consolas"] animation-delay-16000 animate-creep opacity-0'>λ</p>
         <p className='absolute m-0 p-2 b-0 -left-[-18vw] -bottom-[-20vh] font-["Consolas"] animation-delay-12000 animate-creep opacity-0'>112.74.193.95</p>
-        <p className='absolute m-0 p-2 b-0 -right-[-6vw] -bottom-[-76vh] font-["Consolas"] animation-delay-5000 animate-creep opacity-0'>Nigdit.</p>
-        <p className='absolute m-0 p-2 b-0 -right-[-22vw] -top-[-4vh] font-["Consolas"] animation-delay-10000 animate-creep opacity-0'>Old data.</p>
-        <p className='absolute m-0 p-2 b-0 -left-[-31vw] -bottom-[-3vh] font-["Consolas"] animation-delay-20000 animate-creep opacity-0'>N01r &Ῠ^%⨚*n#y_.</p>
-        <p className='absolute m-0 p-2 b-0 -right-[-14vw] -bottom-[-7vh] font-["Consolas"] animation-delay-15000 animate-creep opacity-0'>Nobody is here.</p>
-        <p className='absolute m-0 p-2 b-0 -left-[-1vw] -bottom-[-12vh] font-["Consolas"] animation-delay-500 animate-creep opacity-0'>Stay secret.</p>
+        <p className='absolute m-0 p-2 b-0 -right-[-6vw] -bottom-[-76vh] font-["Consolas"] animation-delay-5000 animate-creep opacity-0'>Nigdit</p>
+        <p className='absolute m-0 p-2 b-0 -right-[-22vw] -top-[-4vh] font-["Consolas"] animation-delay-10000 animate-creep opacity-0'>07dt@.</p>
+        <p className='absolute m-0 p-2 b-0 -left-[-31vw] -bottom-[-3vh] font-["Consolas"] animation-delay-20000 animate-creep opacity-0'>N01r&Ῠ^%⨚*#u.</p>
+        <p className='absolute m-0 p-2 b-0 -right-[-14vw] -bottom-[-7vh] font-["Consolas"] animation-delay-15000 animate-creep opacity-0'>Nobody is here</p>
+        <p className='absolute m-0 p-2 b-0 -left-[-1vw] -bottom-[-12vh] font-["Consolas"] animation-delay-500 animate-creep opacity-0'>A little secret.</p>
         <p className='absolute m-0 p-2 b-0 -left-[-15vw] -top-[-3vh] font-["Consolas"] animation-delay-9000 animate-creep opacity-0'>Show yourself!</p>
-        <p className='absolute m-0 p-2 b-0 -right-[-50vw] -bottom-[-50vh] font-["Consolas"] font-bold text-red-900 animation-delay-3000 animate-creep opacity-0'>LEAVE THIS PAGE NOW!</p>
+        <p className='absolute m-0 p-2 b-0 -right-[-50vw] -bottom-[-50vh] font-["Consolas"] font-bold text-red-900 animation-delay-3000 animate-creep opacity-0'>LEAVE THIS PAGE NOW</p>
         <div className="w-[100%] m-0 p-[10vw] h-[100%] flex flex-col justify-start items-center overflow-hidden">
             <p className="text-[calc(2vw+17px)] font-['Roboto'] font-bold text-white drop-shadow-midget">Verify your email adress</p>
             <div className='p-2 bg-gradient-black-apply'>
@@ -52,7 +50,7 @@ export default function EmailVerification({verChange, email} : Props)
             </div>
             {e2b==true?(
             <div className='w-[calc(10vw+150px)] p-2'>
-                <Image onClick={()=>{setE2(!e2)}} src={maciej} alt="troll" width={1000} height={1000} className="blur-[3px] hover:cursor-pointer saturate-100 hover:saturate-150 contrast-100 hover:contrast-125 hover:blur-[0px] drop-shadow-midget border-solid border-4 border-experimentB duration-[1000ms] grayscale-[80%] hover:grayscale-[0%] object-contain w-[100%] h-[100%] opacity-[100%]"/>
+                <Image onClick={()=>{setE2(!e2)}} src={'/easterEgg2/verificationMaciej.jpg'} alt="troll" width={1000} height={1000} className="blur-[3px] hover:cursor-pointer saturate-100 hover:saturate-150 contrast-100 hover:contrast-125 hover:blur-[0px] drop-shadow-midget border-solid border-4 border-experimentB duration-[1000ms] grayscale-[80%] hover:grayscale-[0%] object-contain w-[100%] h-[100%] opacity-[100%]"/>
             </div>
             ):(
                 <div className='h-[100%] w-[calc(10vw+150px)] p-2'></div>
@@ -71,4 +69,3 @@ export default function EmailVerification({verChange, email} : Props)
 
     );
 }
-//gradient-mask-b-0  Ω

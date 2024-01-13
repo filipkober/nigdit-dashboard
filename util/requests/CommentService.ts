@@ -1,11 +1,11 @@
-import Comment, {
+import qs from 'qs';
+import {
   StrapiComment,
   StrapiCommentExtended,
   StrapiCommentShallow,
 } from '../../models/Comment';
 import StrapiResponse from '../../models/StrapiResponse';
 import RequestService from './RequestService';
-import qs from 'qs';
 
 export default class CommentService {
   private endpoint = 'comments';

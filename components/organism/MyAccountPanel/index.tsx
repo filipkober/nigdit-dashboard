@@ -33,8 +33,6 @@ export default function MyAccountPanel() {
   const [visible, changeVisible] = useModal();
   const [changePassVisible, setChangePassVisible] = useState<boolean>(false);
   const [darkMode, setDarkMode] = useContext(darkModeContext);
-  //const [parent] = useAutoAnimate<HTMLDivElement>({duration: 100, easing: 'ease-in-out'});
-  //przestarzały kod którego nie umiem naprawić
   const dispatch = useDispatch();
 
   const user = useSelector((state: UserState) => state.user);
@@ -193,7 +191,6 @@ export default function MyAccountPanel() {
               />
             </div>
             <div>
-              {/* ref={parent} */}
               {changePassVisible &&
                 (provider === 'local' ? (
                   <form

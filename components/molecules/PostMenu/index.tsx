@@ -1,21 +1,16 @@
-import autoAnimate from '@formkit/auto-animate';
-import { Menu } from '@headlessui/react'
-import { useEffect, useRef } from 'react';
-import {FiMoreVertical} from 'react-icons/fi'
-import { MdDeleteForever, MdReport } from 'react-icons/md'
-import { GiHammerDrop } from 'react-icons/gi'
+import { useRouter } from 'next/router';
+import { GiHammerDrop } from 'react-icons/gi';
+import { MdDeleteForever, MdReport } from 'react-icons/md';
 import { GenericComponentProps } from '../../../models/GenericComponentProps';
-import { twMerge } from 'tailwind-merge';
-import ExpandableMenu, { Button } from '../ExpandableMenu';
+import ToastType from '../../../models/ToastType';
 import PostService from '../../../util/requests/PostService';
 import { toastDisplay } from '../../atoms/Toast';
-import ToastType from '../../../models/ToastType';
-import { useRouter } from 'next/router';
+import ExpandableMenu, { Button } from '../ExpandableMenu';
 
 type PostMenuProps = {
     postId: number;
     isAdmin?: boolean;
-    showReportModal: (id: number) => void; 
+    showReportModal: (id: number) => void;
 } & GenericComponentProps;
 
 export default function PostMenu({postId, isAdmin = false, className, showReportModal}: PostMenuProps) {
@@ -32,7 +27,7 @@ export default function PostMenu({postId, isAdmin = false, className, showReport
       },
   ]
     if(isAdmin) {
-      buttons = [...buttons, 
+      buttons = [...buttons,
         {
           text: "Delete",
           onClick: async () => {

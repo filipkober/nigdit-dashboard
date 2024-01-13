@@ -7,8 +7,8 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Welcome to nigdit!</title>
-        <link rel="icon" href={'/easterEgg1/blooddrop.svg'}/>
+        <title>Nigdit</title>
+        <link rel="icon" href={'/nigditLogo.svg'}/>
         <meta name="description" content="Welcome to nigdit."/>
       </Head>
       <div className="dark:text-white dark:bg-backgroundD bg-backgroundL h-[100%] w-[100%] m-0 p-0">

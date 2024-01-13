@@ -1,7 +1,5 @@
 import { ContentType } from "../../models/ContentType";
-import Report, { reportAdapter } from "../../models/Report";
-import StrapiReport from "../../models/Report";
-import StrapiResponse from "../../models/StrapiResponse";
+import Report from "../../models/Report";
 import RequestService, { NetworkError } from "./RequestService";
 
 type getAllArgs = {
@@ -22,6 +20,8 @@ export default class ReportService {
             if(e instanceof NetworkError) {
                 if(e.status === 401) {
                     window.location.href = "/login?redirect=" + window.location.pathname + window.location.search + window.location.hash;
+                } else if (e.status === 403) {
+                    window.location.href = "/";
                 }
                 return [];
             }

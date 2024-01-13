@@ -1,6 +1,4 @@
 import { ContentType, contentTypeToPlural } from "../../models/ContentType";
-import Reply, { StrapiReply, StrapiReplyExtended } from "../../models/Reply";
-import StrapiResponse from "../../models/StrapiResponse";
 import { UserVotes } from "../../models/User";
 import RequestService from "./RequestService";
 export default class VoteService {

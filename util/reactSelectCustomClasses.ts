@@ -35,7 +35,7 @@ export default function getStyle(theme: "dark" | "light") {
         }),
         placeholder: (provided: any, state: any) => ({
             ...provided,
-            color: '#ffffff',  
+            color: '#ffffff',
         }),
     }  :
     {

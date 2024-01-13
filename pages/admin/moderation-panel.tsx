@@ -12,7 +12,6 @@ const ModerationPanelPage: NextPage = () => {
     const reportService = new ReportService();
     const [reports, setReports] = useState<Report[]>([]);
 
-
     // TODO change first argument to subnigdit id
     useEffect(() => {
         reportService.getAll({type: type[selected], toNigdit: true}).then((res) => {
@@ -40,8 +39,8 @@ const ModerationPanelPage: NextPage = () => {
   return (
     <div className='bg-backgroundL dark:bg-backgroundD h-full'>
       <Head>
-        <title>Nigdit - Moderation panel</title>
-        <link rel="icon" href={'/easterEgg1/blooddrop.svg'}/>
+        <title>Moderation panel</title>
+        <link rel="icon" href={'/nigditLogo.svg'}/>
         <meta name="description" content="Nigdit moderation panel."/>
       </Head>
       <TabSelector selected={selected} setSelected={setSelected} tabs={['Posts', 'Comments', 'Replies']}/>

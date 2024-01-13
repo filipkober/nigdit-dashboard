@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import banner from '../../../assets/banner.png';
 import { StrapiSubnigdit } from '../../../models/Subnigdit';
 import { JoinButton } from '../../atoms/JoinButton';
 type Props = {
@@ -10,7 +9,7 @@ type Props = {
 
 export default function DashboardHeader({subnigdit, isLogged}: Props)
 {
-  const [members, setMembers] = useState<number>(subnigdit.attributes.subscribers.data.length);
+  const [members, setMembers] = useState<number>(subnigdit.attributes.subscribers.data.attributes.count);
   const join = (newState: boolean) => {
     if(newState)
     {
@@ -27,7 +26,7 @@ export default function DashboardHeader({subnigdit, isLogged}: Props)
       <div className="relative h-[25vh] bg-red-500 pointer-events-none">
         {subnigdit.attributes.banner.data == null ? (
           <Image
-            src={banner}
+            src={'/defBanner.png'}
             alt={'Subnigdit Banner'}
             layout="fill"
             className="drop-shadow-walter"
@@ -44,7 +43,6 @@ export default function DashboardHeader({subnigdit, isLogged}: Props)
           />
         )}
 
-        {/* <img className="object-cover h-[20vh] w-[80vw]" src='https://source.unsplash.com/random/1920x1080' alt='></img> */}
       </div>
       <div className="flex overflow-hidden w-[20vh] h-[20vh] ml-[calc(50vw-10vh)] -my-[10vh] tm:ml-[3vh] drop-shadow-walter rounded-full">
         <Image

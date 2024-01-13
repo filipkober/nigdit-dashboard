@@ -40,7 +40,7 @@ export default function Reply({
   }
   else if (owner.attributes.admin) {
     nickColor = '#F05447'
-  } 
+  }
   else if (owner.id === opId) {
     nickColor = '#F2A44B'
   }

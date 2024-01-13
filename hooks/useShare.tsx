@@ -10,4 +10,4 @@ export const useShare = () => {
         toastDisplay(ToastType.Success, 'Copied to clipboard');
         copyLinkToClipboard(url);
     }
-}   
+}
