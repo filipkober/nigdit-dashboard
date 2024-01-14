@@ -23,6 +23,7 @@ const initialState: UserState = {
         replies: [],
       },
     },
+    owned_subnigdit: [],
     provider: '',
   },
   count: 0,
@@ -36,9 +37,9 @@ export const userSlice = createSlice({
       state.user = action.payload;
     },
     incrementCounter(state) {
-        state.count += 1;
+      state.count += 1;
     },
-    setUserVotes(state, action: {payload: UserVotes}) {
+    setUserVotes(state, action: { payload: UserVotes }) {
       state.user.votes = action.payload;
     },
     resetData(state) {
@@ -58,18 +59,15 @@ export const userSlice = createSlice({
             replies: [],
           },
         },
+        owned_subnigdit: [],
         provider: '',
       };
       state.count = 0;
-    }
+    },
   },
 });
 
-export const {
-  setUser,
-  incrementCounter,
-  setUserVotes,
-  resetData
-} = userSlice.actions;
+export const { setUser, incrementCounter, setUserVotes, resetData } =
+  userSlice.actions;
 
 export default userSlice.reducer;

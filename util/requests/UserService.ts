@@ -31,25 +31,26 @@ export default class UserService {
   }
 
   async getMe() {
-
     const query = qs.stringify({
       populate: {
         posts: true,
         subnigdits: {
-          populate: ['icon']
+          populate: ['icon'],
         },
-        owned_subnigdit: true,
+        owned_subnigdit: {
+          populate: ['icon'],
+        },
         moderates: {
-          fields: ['id']
+          fields: ['id'],
         },
         comments: true,
         replies: true,
-        profilePicture: true
-      }
+        profilePicture: true,
+      },
     });
 
     const user: User = await this.requestService.get(
-      this.endpoint + '/me?'+query,
+      this.endpoint + '/me?' + query,
       { auth: true }
     );
     return user;
@@ -139,10 +140,9 @@ export default class UserService {
     });
 
     const users: SearchUser[] = await this.requestService.get(
-        `${this.endpoint}?${query}`
+      `${this.endpoint}?${query}`
     );
 
-    return users
-
+    return users;
   }
 }

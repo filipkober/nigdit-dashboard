@@ -27,15 +27,14 @@ export default function Navbar() {
   const checkForScrollbar = () => {
     const realElement = realRef.current;
     const imaginaryElement = imaginaryRef.current;
-    if(realElement && imaginaryElement)
-    {
+    if (realElement && imaginaryElement) {
       setHasScrollbar(realElement.clientWidth < imaginaryElement.clientWidth);
       //console.log("r: "+realElement.clientWidth)
       //console.log("i: "+imaginaryElement.clientWidth)
       //console.log(realElement.clientWidth < imaginaryElement.clientWidth)
     }
   };
-  
+
   useEffect(() => {
     setLogged(!!username);
     window.addEventListener('resize', checkForScrollbar);
@@ -52,9 +51,9 @@ export default function Navbar() {
     };
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     checkForScrollbar();
-  },[searchValue])
+  }, [searchValue]);
 
   const handleMenuOpen = () => {
     setIsMenuOpen(true);
@@ -83,7 +82,10 @@ export default function Navbar() {
   );
 
   return (
-    <div ref={realRef} className="pointer-events-none flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-[40] top-0 left-0 right-0">
+    <div
+      ref={realRef}
+      className="pointer-events-none flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-[40] top-0 left-0 right-0"
+    >
       {/* dashboard icon */}
       <div className="flex flex-row">
         <Link
@@ -245,14 +247,17 @@ export default function Navbar() {
                 width={'35%'}
               >
                 <Link className="bg-[#272727]" href="/">
-        Home
-      </Link>
+                  Home
+                </Link>
 
-      <Link href="/my-account">Account</Link>
-      <Link className="bg-[#272727]" href="/new/post">
-        Create Post
-      </Link>
-      <Link href="/logout">Log out</Link>
+                <Link href="/my-account">Account</Link>
+                <Link className="bg-[#272727]" href="/new/post">
+                  Create Post
+                </Link>
+                <Link href="/subnigdits">Subnigdits</Link>
+                <Link className="bg-[#272727]" href="/logout">
+                  Log out
+                </Link>
               </Menu>
             ) : (
               <Menu
@@ -262,13 +267,13 @@ export default function Navbar() {
                 onClose={handleMenuClose}
                 width={'35%'}
               >
-                      <Link className="bg-[#272727]" href="/">
-        Home
-      </Link>
-      <Link href="/login">Login</Link>
-      <Link className="bg-[#272727]" href="/register">
-        Register
-      </Link>
+                <Link className="bg-[#272727]" href="/">
+                  Home
+                </Link>
+                <Link href="/login">Login</Link>
+                <Link className="bg-[#272727]" href="/register">
+                  Register
+                </Link>
               </Menu>
             )}
             <RxHamburgerMenu
@@ -312,7 +317,10 @@ export default function Navbar() {
 
       {/* search results - do not edit unless you know what you are doing*/}
       {searchValue != '' ? (
-        <div ref={imaginaryRef} className="overflow-hidden flex flex-row fixed w-[100%] justify-between left-0 mt-[25px]">
+        <div
+          ref={imaginaryRef}
+          className="overflow-hidden flex flex-row fixed w-[100%] justify-between left-0 mt-[25px]"
+        >
           <div className="flex flex-row">
             <div className="min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:max-w-[13rem] h-[100%] flex flex-row my-2 mx-2"></div>
             {isLogged ? (
@@ -348,11 +356,7 @@ export default function Navbar() {
           {/* user account panel simulation*/}
           <div className="flex flex-row-reverse">
             {/* scrollbar simulation */}
-            {hasScrollbar ? (
-              <div className="ml:w-[8px] h-full"></div>
-            ) : (
-              ""
-            )}
+            {hasScrollbar ? <div className="ml:w-[8px] h-full"></div> : ''}
             {/* account info simulation*/}
             <div className="ts:block hidden h-full0">
               {isLogged ? (
