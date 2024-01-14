@@ -44,7 +44,7 @@ export default function PostText({
             sizes="(max-width: 128px) 128px"
           />
         </div>
-        <p className="font-['Roboto'] dark:text-white text-base">
+        <p className="font-['Roboto'] dark:text-white text-base truncate max-w-[12ch] ls:max-w-full">
           <Link href={'/n/' + post.subnigdit.name_uid}>
             n/{post.subnigdit.name}
           </Link>
@@ -53,7 +53,7 @@ export default function PostText({
           <p className="font-['Roboto'] dark:text-[rgba(197,197,197,1)] text-foregroundD ml-2 text-base">
             author:
           </p>
-          <p className="font-['Roboto'] dark:text-white ml-2 text-base truncate max-w-[20em]">
+          <p className="font-['Roboto'] dark:text-white ml-2 text-base truncate max-w-[15ch] ls:max-w-[25ch]">
             {post.owner.username}
           </p>
         </div>
@@ -70,7 +70,7 @@ export default function PostText({
         <div className="flex flex-row">
           <div className="flex-1">
             <div className="mx-2">
-              <p className="h-11 max-w-[80%] font-['IBM_Plex_Sans'] text-[170%] dark:text-white">
+              <p className="h-11 max-w-[80%] font-['IBM_Plex_Sans'] text-[170%] dark:text-white truncate">
                 {post.title}
               </p>
             </div>
