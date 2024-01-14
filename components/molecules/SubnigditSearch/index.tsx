@@ -45,7 +45,7 @@ export default function SubnigditSearch({id,name,image,members,number,name_uid}:
         </Link>
         {!!username?
           <div className='flex flex-row-reverse w-[25%] p-[5px] pointer-events-auto'>
-              <button onClick={joinSubNigdit} className={`w-[calc(2*20%+30px)] h-[100%] min-h-[30px] hover:cursor-pointer text-[calc(0.7vw+10px)] font-["Roboto"] text-white duration-[100ms] text-center hover:drop-shadow-midget border-black border-solid border-[1px] bg-experimentA hover:bg-experimentB rounded-[10px]`}>{joined?"joined":"join"}</button>
+              <button onClick={joinSubNigdit} className={`w-[calc(2*20%+30px)] h-[100%] min-h-[30px] hover:cursor-pointer font-["Roboto"] text-white duration-[100ms] text-center hover:drop-shadow-midget border-black border-solid border-[1px] bg-experimentA hover:bg-experimentB rounded-[10px]`}>{joined?"joined":"join"}</button>
           </div>
           :
           ""
