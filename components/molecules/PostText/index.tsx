@@ -66,37 +66,35 @@ export default function PostText({
       </div>
 
       {/* Content */}
-      <Link href={`/post/${post.id}`}>
-        <div className="flex flex-row">
-          <div className="flex-1">
-            <div className="mx-2">
-              <p className="h-11 max-w-[80%] font-['IBM_Plex_Sans'] text-[170%] dark:text-white truncate">
-                {post.title}
+      <div className="flex flex-row">
+        <div className="flex-1">
+          <div className="mx-2">
+            <p className="h-11 max-w-[80%] font-['IBM_Plex_Sans'] text-[170%] dark:text-white truncate">
+              <Link href={`/post/${post.id}`}>{post.title}</Link>
+            </p>
+          </div>
+          <div className="flex flex-row">
+            <div ref={componentRef} className="px-2 flex-1 flex pb-2">
+              <p
+                className={`font-['Roboto'] dark:text-white text-xl max-h-[5.5rem] w-[92%] overflow-hidden ${
+                  textLines > 2 ? 'gradient-mask-b-0' : ''
+                }`}
+              >
+                <Link href={`/post/${post.id}`}>{post.description}</Link>
               </p>
             </div>
-            <div className="flex flex-row">
-              <div ref={componentRef} className="px-2 flex-1 flex pb-2">
-                <p
-                  className={`font-['Roboto'] dark:text-white text-xl max-h-[5.5rem] w-[92%] overflow-hidden ${
-                    textLines > 2 ? 'gradient-mask-b-0' : ''
-                  }`}
-                >
-                  {post.description}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="content-center flex w-auto justify-center my-1">
-            <Vote
-              variant="vertical"
-              className="my-auto"
-              votes={post.votes}
-              contentType="post"
-              contentId={post.id}
-            />
           </div>
         </div>
-      </Link>
+        <div className="content-center flex w-auto justify-center my-1">
+          <Vote
+            variant="vertical"
+            className="my-auto"
+            votes={post.votes}
+            contentType="post"
+            contentId={post.id}
+          />
+        </div>
+      </div>
       <div className="flex flex-row gap-2 border-t-[1px] border-experimentA px-2 h-9">
         <div className="hover:bg-backgroundL dark:hover:bg-experimentB flex items-center">
           <Share floatRight={false} className="align-middle" />
