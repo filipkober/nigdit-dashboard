@@ -7,9 +7,9 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-  
-  useEffect( ()=> {
-    return () =>     console.log(`
+  useEffect(() => {
+    return () =>
+      console.log(`
     $$\\   $$\\ $$\\           $$$$$$$\\  $$$$$$\\ $$$$$$$$\\
     $$$\\  $$ |\\__|          $$  __$$\\ \\_$$  _|\\__$$  __|
     $$$$\\ $$ |$$\\  $$$$$$\\  $$ |  $$ |  $$ |     $$ |
@@ -21,15 +21,15 @@ export default function Layout({ children }: LayoutProps) {
                   $$\\   $$ |
                   \\$$$$$$  |
                    \\______/`);
-  },[]);
-  
+  }, []);
+
   return (
     <>
-    <main className='min-h-screen'>
-      <Navbar/>
-      {children}
-    </main>
-    <Toast/>
+      <main className="min-h-screen">
+        <Navbar />
+        {children}
+      </main>
+      <Toast />
     </>
-  )
+  );
 }
