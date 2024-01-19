@@ -2,6 +2,7 @@ import Cookies from 'js-cookie';
 import type { AppProps } from 'next/app';
 import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
+import 'react-toastify/dist/ReactToastify.css';
 import { PersistGate } from 'redux-persist/integration/react';
 import 'tailwindcss/tailwind.css';
 import Layout from '../components/layouts/MainLayout';
@@ -32,24 +33,23 @@ function MyApp({ Component, pageProps }: AppProps) {
     } else {
       removeDarkMode(setDarkMode);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [darkMode]);
 
   const userService = new UserService();
   const jwtCookie = Cookies.get('jwt');
 
   useEffect(() => {
-    if(jwtCookie != undefined)
-    {
+    if (jwtCookie != undefined) {
       userService.getMe().then((res) => {
-        console.log(res)
+        console.log(res);
         store.dispatch(setUser(res));
-      })
+      });
     } else {
       store.dispatch(resetData());
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[jwtCookie]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [jwtCookie]);
 
   return (
     <>
