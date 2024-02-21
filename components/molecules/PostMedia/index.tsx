@@ -73,7 +73,7 @@ export default function PostMedia({
         </p>
       </div>
       {/* Content */}
-      <div className="">
+      <div className="relative">
         <div className="mx-2">
           <p className="h-11 max-w-full font-['IBM_Plex_Sans'] text-[170%] dark:text-white truncate">
             <Link href={`/post/${post.id}`}>{post.title}</Link>
@@ -92,7 +92,7 @@ export default function PostMedia({
                 <div
                   className={`h-[${
                     post.media!.height
-                  }px] w-full flex justify-center`}
+                  }px] w-full flex justify-center overflow-hidden`}
                   style={{ opacity: isImageOverflowing ? 0.5 : undefined }}
                 >
                   <Image
@@ -141,9 +141,11 @@ export default function PostMedia({
         />
       </div>
       {isImageOverflowing && (
+        <div className='relative w-[100%]'>
+          <div className='sticky top-0'>
         <Link href={`/post/${post.id}`}>
           <div
-            className={`fixed border-2 border-black bg-backgroundL dark:bg-experimentA py-2 px-5 rounded-lg font-bold left-1/2 translate-x-[-50%]`}
+            className={`absolute border-2 border-black bg-backgroundL dark:bg-experimentA py-2 px-5 rounded-lg font-bold left-1/2 translate-x-[-50%]`}
             style={{
               bottom: '3.5rem',
             }}
@@ -151,6 +153,8 @@ export default function PostMedia({
             <p className="text-center text-white">Click to expand</p>
           </div>
         </Link>
+        </div>
+        </div>
       )}
     </div>
   );
