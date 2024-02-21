@@ -165,7 +165,7 @@ export default function SubnigditDashboard()
       <div className="h-full">
         <div className="">
           {
-            thisSubnigdit === null ? (""):(
+            thisSubnigdit && (
               <DashboardHeader subnigdit={thisSubnigdit} isLogged={isLogged}/>
             )
           }

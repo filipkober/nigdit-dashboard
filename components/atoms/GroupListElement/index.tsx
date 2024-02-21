@@ -70,7 +70,7 @@ export function GroupListElementMobile({
       <div className="flex flex-row justify-center items-center w-[15%] overflow-hidden">
         <p className="text-lg">{num}.</p>
       </div>
-      <div className="flex flex-row justify-center items-center w-[10vw] overflow-hidden">
+      <div className="flex flex-row justify-center flex-shrink-0 items-center w-[10vw] overflow-hidden">
         <Image
           src={image}
           width={25}
