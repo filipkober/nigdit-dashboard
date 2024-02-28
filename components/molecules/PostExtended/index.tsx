@@ -18,6 +18,10 @@ import { toastDisplay } from '../../atoms/Toast';
 import Vote from '../../atoms/Vote';
 import ExpandableMenu from '../ExpandableMenu';
 import ReportModal from '../ReportModal';
+import PostService from '../../../util/requests/PostService';
+import { MdDeleteForever } from 'react-icons/md';
+import { GiHammerDrop } from 'react-icons/gi';
+import { useRouter } from 'next/router';
 
 type PostExtendedProps = {
   post: PostN;
@@ -44,6 +48,9 @@ export default function PostExtended({
   const modIds = subnigdit.data.attributes.moderators.data.map((m) => m.id);
 
   const [modalReportVisible, changeModalReportVisible] = useModal();
+
+  const postService = new PostService();
+  const router = useRouter();
 
   const isLogged = !!useSelector((state: UserState) => state.user.username);
 
@@ -77,6 +84,72 @@ export default function PostExtended({
   };
 
   const share = useShare();
+
+  let menuButtons = [
+    {
+      text: 'Share',
+      onClick: share,
+      id: 'share',
+      disasbled: !isLogged,
+    },
+    {
+      text: 'Report',
+      onClick: changeModalReportVisible,
+      id: 'report',
+      disasbled: !isLogged,
+    }
+  ];
+
+  const {id: userId, admin, moderates} = useSelector((state: UserState) => state.user);
+
+  const isAdminOrMod = (admin || !!moderates?.find(m => m.id === subnigdit.data.id))
+  const isOwner = userId === author.data.id
+
+  const deletePost = async () => {
+    const deleted = await postService.delete(id);
+    if(deleted) {
+      toastDisplay(ToastType.Success, "Post deleted, refreshing page...")
+      setTimeout(() => {
+        router.reload();
+      }, 1500);
+    }
+  }
+
+  const banUser = async () => {
+    const banned = await postService.banAuthor(id);
+    if(banned) {
+      toastDisplay(ToastType.Success, "Author banned, refreshing page...")
+      setTimeout(() => {
+        router.reload();
+      }, 1500);
+    }
+  }
+
+  if (isAdminOrMod) {
+    menuButtons = [...menuButtons,
+      {
+        text: "Delete",
+        onClick: deletePost,
+        id: "delete",
+        disasbled: !isLogged,
+      },
+      {
+        text: "Ban",
+        onClick: banUser,
+        id: "ban",
+        disasbled: !isLogged,
+      }
+  ]
+  } else if (isOwner) {
+    menuButtons = [...menuButtons,
+      {
+        text: "Delete",
+        onClick: deletePost,
+        id: "delete",
+        disasbled: !isLogged,
+      }
+  ]
+  }
 
   return (
     <>
@@ -171,24 +244,21 @@ export default function PostExtended({
                     <div onClick={changeModalReportVisible}>Report</div>
                   </p>
                 )}
+                {isAdminOrMod && (
+                    <p className="ml-5 cursor-pointer text-red-400" onClick={banUser}>
+                    Ban
+                    </p>
+                    )}
+                {(isOwner || isAdminOrMod) && (
+                  <p className="ml-5 cursor-pointer text-red-400" onClick={deletePost}>
+                    Delete
+                  </p>
+                )}
               </div>
               </div>
               <ExpandableMenu
               className='ls:hidden'
-                buttons={[
-                  {
-                    text: 'Share',
-                    onClick: share,
-                    id: 'share',
-                    disasbled: !isLogged,
-                  },
-                  {
-                    text: 'Report',
-                    onClick: changeModalReportVisible,
-                    id: 'report',
-                    disasbled: !isLogged,
-                  }
-                ]}
+                buttons={menuButtons}
               />
             </div>
           </div>

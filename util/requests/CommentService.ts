@@ -74,4 +74,15 @@ export default class CommentService {
       });
     return comment.data;
   }
+
+  async delete(id: number) {
+    const deletedComment: StrapiResponse<StrapiComment> = await this.requestService.delete(this.endpoint + '/' + id);
+    return deletedComment.data;
+}
+
+async banAuthor(id: number) {
+    const bannedAuthor: StrapiResponse<StrapiComment> =
+  await this.requestService.put(this.endpoint + '/' + id + '/ban-author', {auth: true});
+return bannedAuthor.data;
+}
 }

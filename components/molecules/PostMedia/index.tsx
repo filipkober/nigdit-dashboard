@@ -16,6 +16,7 @@ export default function PostMedia({
   post,
   showReportModal,
   isAdmin = false,
+  isOwner = false,
 }: PostProps) {
   const { isAboveTs, isBelowTs } = useBreakpoint('ts');
   const { isAboveTl, isBelowTl } = useBreakpoint('tl');
@@ -138,6 +139,7 @@ export default function PostMedia({
           postId={post.id}
           showReportModal={showReportModal}
           isAdmin={isAdmin}
+          isOwner={isOwner}
         />
       </div>
       {isImageOverflowing && (
