@@ -4,22 +4,20 @@ import { StrapiSubnigdit } from '../../../models/Subnigdit';
 import { JoinButton } from '../../atoms/JoinButton';
 type Props = {
   subnigdit: StrapiSubnigdit;
-  isLogged?: boolean
-}
+  isLogged?: boolean;
+};
 
-export default function DashboardHeader({subnigdit, isLogged}: Props)
-{
-  const [members, setMembers] = useState<number>(subnigdit.attributes.subscribers.data.attributes.count);
+export default function DashboardHeader({ subnigdit, isLogged }: Props) {
+  const [members, setMembers] = useState<number>(
+    subnigdit.attributes.subscribers.data.attributes.count
+  );
   const join = (newState: boolean) => {
-    if(newState)
-    {
-      setMembers(members+1)
+    if (newState) {
+      setMembers(members + 1);
+    } else {
+      setMembers(members - 1);
     }
-    else
-    {
-      setMembers(members-1)
-    }
-  }
+  };
 
   return (
     <div className="font-['Roboto']">
@@ -42,7 +40,6 @@ export default function DashboardHeader({subnigdit, isLogged}: Props)
             className="drop-shadow-walter"
           />
         )}
-
       </div>
       <div className="flex overflow-hidden w-[20vh] h-[20vh] ml-[calc(50vw-10vh)] -my-[10vh] tm:ml-[3vh] drop-shadow-walter rounded-full">
         <Image
@@ -59,26 +56,22 @@ export default function DashboardHeader({subnigdit, isLogged}: Props)
       <div className="bg-foregroundD overflow-hidden p-1 mb-2">
         <div className="flex ts:flex-row flex-col items-center tm:mt-0 mt-[10vh] justify-between p-0">
           {/* name section */}
-          <div className=' h-[100%] ts:max-w-[50%] p-0 m-0'>
+          <div className=" h-[100%] ts:max-w-[50%] p-0 m-0">
             <p className="text-left font-bold text-[32px] tm:ml-[24vh] ml-[2vw] font-['Roboto']">
               n/{subnigdit.attributes.name}
             </p>
           </div>
-          {/* members section */}
           <div className=" h-[100%] ts:max-w-[50%] flex flex-row items-center justify-end">
             <p className="mr-1 lm:text-lg text-[18px] flex">
-              {members} members
+              {members} {members > 1 || members === 0 ? 'Members' : 'Member'}
             </p>
             {isLogged ? (
-              <div className='scale-[80%]'>
-                <JoinButton
-                    subnigdit={subnigdit}
-                    onJoin={join}
-                  />
+              <div className="scale-[80%]">
+                <JoinButton subnigdit={subnigdit} onJoin={join} />
               </div>
-              ) : (
-                ""
-              )}
+            ) : (
+              ''
+            )}
           </div>
         </div>
 
