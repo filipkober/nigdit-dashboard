@@ -15,7 +15,7 @@ const postsPerScroll = 3;
 
 export default function DashboardFeed() {
   const postService = new PostService();
-  const { username, moderates, admin } = useSelector(
+  const { username, moderates, admin, id } = useSelector(
     (state: UserState) => state.user
   );
   const [isLogged, setLogged] = useState(false);
@@ -127,9 +127,12 @@ export default function DashboardFeed() {
               />
               {posts.map((post, index) => {
                 let isAdmin = false;
+                let isOwner = false;
                 if (admin) isAdmin = true;
                 else if (moderates?.find((sub) => sub.id === post.subnigdit.id))
                   isAdmin = true;
+
+                if ((id !== undefined) && (post.owner.id == id)) isOwner = true;
 
                 if (post.type == 'Text') {
                   return (
@@ -145,6 +148,7 @@ export default function DashboardFeed() {
                         post={post}
                         showReportModal={toggleModalReport}
                         isAdmin={isAdmin}
+                        isOwner={isOwner}
                       />
                     </div>
                   );
@@ -162,6 +166,7 @@ export default function DashboardFeed() {
                         post={post}
                         showReportModal={toggleModalReport}
                         isAdmin={isAdmin}
+                        isOwner={isOwner}
                       />
                     </div>
                   );

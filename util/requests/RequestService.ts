@@ -27,6 +27,15 @@ function constructHeaders(contentType: string, auth: boolean) {
   return headers;
 }
 
+function handleOldToken(response: Response) {
+  if (response.status === 401) {
+    Cookies.remove('jwt');
+    window.location.href = '/login?redirect=' + window.location.pathname + window.location.search + window.location.hash;
+    return true;
+  }
+  return false;
+}
+
 function genericErrorHandler(e: NetworkError) {
   if (inProduction) {
     switch (e.status) {
@@ -85,6 +94,7 @@ export default class RequestService {
       method: 'GET',
       headers: constructHeaders(contentType, auth),
     });
+    if (handleOldToken(response)) return;
     if(!response.ok) handleError(new NetworkError(response.status, response.statusText));
     return await response.json();
   }
@@ -103,6 +113,7 @@ export default class RequestService {
       body: data ? (contentType === 'application/json' ? JSON.stringify(data) : data) : undefined,
       headers: constructHeaders(contentType, auth),
     });
+    if (handleOldToken(response)) return;
     if(!response.ok) handleError(new NetworkError(response.status, response.statusText));
     return await response.json();
   }
@@ -120,6 +131,7 @@ export default class RequestService {
       body: data ? (contentType === 'application/json' ? JSON.stringify(data) : data) : undefined,
       headers: constructHeaders(contentType, auth),
     });
+    if (handleOldToken(response)) return;
     if(!response.ok) handleError(new NetworkError(response.status, response.statusText));
     return await response.json();
   }
@@ -132,6 +144,7 @@ export default class RequestService {
       method: 'DELETE',
       headers: constructHeaders(contentType, auth),
     });
+    if (handleOldToken(response)) return;
     if(!response.ok) handleError(new NetworkError(response.status, response.statusText));
     return await response.json();
   }

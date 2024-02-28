@@ -11,12 +11,14 @@ export type PostProps = {
   post: Post;
   showReportModal: (id: number) => void;
   isAdmin?: boolean;
+  isOwner?: boolean;
 };
 
 export default function PostText({
   post,
   showReportModal,
   isAdmin = false,
+  isOwner = false,
 }: PostProps) {
   const componentRef = useRef<HTMLDivElement>(null);
   const [textLines, setTextLines] = useState(0);
@@ -104,6 +106,7 @@ export default function PostText({
           postId={post.id}
           showReportModal={showReportModal}
           isAdmin={isAdmin}
+          isOwner={isOwner}
         />
       </div>
     </div>
