@@ -176,16 +176,16 @@ export default function DashboardFeed() {
           </div>
         </div>
         <div className="tl:w-[22%] w-[0%] bg-[rgba(255,0,255,0)] tl:block hidden">
-          <div className="w-[100%] flex flex-row justify-start tl:p-2 p-0 m-0">
-            {isLogged && hasJoined && <JoinedGroups />}
-          </div>
-          <div>
-            {!isOwner && isLogged && (
-              <div className="w-[100%] ls:w-[80%] flex flex-row justify-center tl:p-2 p-0 m-0">
-                <CreateSubButton />
-              </div>
-            )}
-          </div>
+          {isLogged && hasJoined && (
+            <div className="w-[100%] flex flex-row justify-start tl:pt-2 p-0 m-0">
+              <JoinedGroups />
+            </div>
+          )}
+          {!isOwner && isLogged && (
+            <div className="w-[100%] ls:w-[80%] flex flex-row justify-center tl:pt-2 p-0 m-0">
+              <CreateSubButton/>
+            </div>
+          )}
         </div>
       </div>
       {counter > 16 ? (

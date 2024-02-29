@@ -196,7 +196,7 @@ export default function Navbar() {
               href="/my-account"
               className="hover:cursor-pointer min-w-[2.4rem] h-[100%] flex flex-row-reverse my-2 ml-1 mr-3"
             >
-              <div className="w-[2.4rem] shrink-0">
+              <div className="w-[2.4rem] h-[2.4rem] flex object-cover">
                 <Image
                   draggable="false"
                   src={
@@ -206,7 +206,7 @@ export default function Navbar() {
                   }
                   width={36}
                   height={36}
-                  className="w-[2.4rem] pointer-events-auto select-none hover:cursor-pointer object-cover overflow-hidden rounded-full"
+                  className="w-[2.4rem] pointer-events-auto select-none hover:cursor-pointer overflow-hidden rounded-full"
                   alt={'Your profile picture'}
                 />
               </div>
