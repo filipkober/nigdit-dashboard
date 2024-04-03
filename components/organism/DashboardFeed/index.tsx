@@ -182,7 +182,7 @@ export default function DashboardFeed() {
             </div>
           )}
           {!isOwner && isLogged && (
-            <div className="w-[100%] ls:w-[80%] flex flex-row justify-center tl:pt-2 p-0 m-0">
+            <div className="w-[100%] ls:w-[80%] flex flex-row justify-center p-2 m-0">
               <CreateSubButton/>
             </div>
           )}
