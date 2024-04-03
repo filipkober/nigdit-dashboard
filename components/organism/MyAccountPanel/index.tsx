@@ -110,7 +110,6 @@ export default function MyAccountPanel() {
               onClick={changeVisible}
               className="mt-6 mr-4 ls:mx-auto cs:w-4/5"
             />
-            // TODO
             <ChangePictureModal
               isOpen={visible}
               onClose={changeVisible}

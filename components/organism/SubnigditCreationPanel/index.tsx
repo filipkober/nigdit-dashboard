@@ -598,7 +598,6 @@ export default function SubnigditCreationPanel({
         </div>
         <div className="tl:w-[22%] w-[0%] bg-[rgba(255,0,255,0)] tl:block hidden p-2"></div>
       </div>
-      // TODO
       <ImageCropModal
         isOpen={cropModalOpen}
         onClose={onCloseCropModal}
