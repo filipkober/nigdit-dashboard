@@ -21,7 +21,7 @@ export default function SubnigditDashboard()
   const postService = new PostService();
   
   const [isLogged, setLogged] = useState(false);
-  const {username, moderates, admin} = useSelector((state: UserState) => state.user);
+  const {username, moderates, admin, id} = useSelector((state: UserState) => state.user);
   
   const subnigditService = new SubnigditService();
   const [selected, setSelected] = useState<number>(0);
@@ -125,8 +125,11 @@ export default function SubnigditDashboard()
         />
         {posts.map((post, index) => {
         let isAdmin = false;
+        let isOwner = false;
         if(admin) isAdmin = true;
         else if(moderates?.find(sub => sub.id === post.subnigdit.id)) isAdmin = true;
+
+        if((id !== undefined) && (id == post.owner.id)) isOwner = true;
 
         if (post.type == 'Text') {
           return (
@@ -138,7 +141,7 @@ export default function SubnigditDashboard()
                 position: 'relative',
               }}
             >
-              <PostText post={post} showReportModal={toggleModalReport} isAdmin={isAdmin} />
+              <PostText post={post} showReportModal={toggleModalReport} isAdmin={isAdmin} isOwner={isOwner} />
             </div>
           );
         } else {
@@ -151,7 +154,7 @@ export default function SubnigditDashboard()
                 position: 'relative',
               }}
             >
-              <PostMedia post={post} showReportModal={toggleModalReport} isAdmin={isAdmin} />
+              <PostMedia post={post} showReportModal={toggleModalReport} isAdmin={isAdmin} isOwner={isOwner} />
             </div>
           );
         }

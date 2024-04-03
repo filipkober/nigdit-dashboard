@@ -10,10 +10,11 @@ import ExpandableMenu, { Button } from '../ExpandableMenu';
 type PostMenuProps = {
     postId: number;
     isAdmin?: boolean;
+    isOwner?: boolean;
     showReportModal: (id: number) => void;
 } & GenericComponentProps;
 
-export default function PostMenu({postId, isAdmin = false, className, showReportModal}: PostMenuProps) {
+export default function PostMenu({postId, isAdmin = false, className, showReportModal, isOwner = false}: PostMenuProps) {
 
   const postService = new PostService();
   const router = useRouter();
@@ -55,6 +56,23 @@ export default function PostMenu({postId, isAdmin = false, className, showReport
           },
           icon: <GiHammerDrop />,
           id: "ban"
+        }
+    ]
+    } else if(isOwner) {
+      buttons = [...buttons,
+        {
+          text: "Delete",
+          onClick: async () => {
+            const deleted = await postService.delete(postId);
+            if(deleted) {
+              toastDisplay(ToastType.Success, "Post deleted, refreshing page...")
+              setTimeout(() => {
+                router.reload();
+              }, 1500);
+            }
+          },
+          icon: <MdDeleteForever />,
+          id: "delete"
         }
     ]
     }

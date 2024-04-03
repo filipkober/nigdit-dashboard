@@ -35,4 +35,10 @@ export default class ReplyService {
         return deletedReply.data;
     }
 
+    async banAuthor(id: number) {
+        const bannedAuthor: StrapiResponse<StrapiReply> =
+      await this.requestService.put(this.endpoint + '/' + id + '/ban-author', {auth: true});
+    return bannedAuthor.data;
+    }
+
 }

@@ -31,14 +31,14 @@ export default function EmailVerification({verChange, email} : Props)
         <div className='w-[300px] h-[300px] absolute m-0 p-0 b-0 -right-[-10vw] -bottom-[-10vh]'>
             <Image onClick={()=>{setE2b(!e2b)}} src={'/easterEgg2/macieknastronke.png'} alt=" " width={1000} height={1000} className='object-contain w-[100%] h-[100%] opacity-0 hover:opacity-100 hover:cursor-pointer'/>
         </div>
-        <p className='absolute m-0 p-2 b-0 -left-[-7vw] -top-[-26vh] font-["Consolas"] animation-delay-100 animate-creep opacity-0'>He is coming for you.</p>
+        <p className='absolute m-0 p-2 b-0 -left-[-7vw] -top-[-26vh] font-["Consolas"] animation-delay-100 animate-creep opacity-0'>E1 E2 ED</p>
         <p className='absolute m-0 p-2 b-0 -right-[-16vw] -top-[-56vh] font-["Consolas"] animation-delay-2000 animate-creep opacity-0'>Sometimes we would have had time to scream.</p>
         <p className='absolute m-0 p-2 b-0 -right-[-50vw] -top-[-44vh] font-["Consolas"] animation-delay-16000 animate-creep opacity-0'>λ</p>
         <p className='absolute m-0 p-2 b-0 -left-[-18vw] -bottom-[-20vh] font-["Consolas"] animation-delay-12000 animate-creep opacity-0'>112.74.193.95</p>
         <p className='absolute m-0 p-2 b-0 -right-[-6vw] -bottom-[-76vh] font-["Consolas"] animation-delay-5000 animate-creep opacity-0'>Nigdit</p>
         <p className='absolute m-0 p-2 b-0 -right-[-22vw] -top-[-4vh] font-["Consolas"] animation-delay-10000 animate-creep opacity-0'>07dt@.</p>
         <p className='absolute m-0 p-2 b-0 -left-[-31vw] -bottom-[-3vh] font-["Consolas"] animation-delay-20000 animate-creep opacity-0'>N01r&Ῠ^%⨚*#u.</p>
-        <p className='absolute m-0 p-2 b-0 -right-[-14vw] -bottom-[-7vh] font-["Consolas"] animation-delay-15000 animate-creep opacity-0'>Nobody is here</p>
+        <p className='absolute m-0 p-2 b-0 -right-[-14vw] -bottom-[-7vh] font-["Consolas"] animation-delay-15000 animate-creep opacity-0'>Nobody is here. help</p>
         <p className='absolute m-0 p-2 b-0 -left-[-1vw] -bottom-[-12vh] font-["Consolas"] animation-delay-500 animate-creep opacity-0'>A little secret.</p>
         <p className='absolute m-0 p-2 b-0 -left-[-15vw] -top-[-3vh] font-["Consolas"] animation-delay-9000 animate-creep opacity-0'>Show yourself!</p>
         <p className='absolute m-0 p-2 b-0 -right-[-50vw] -bottom-[-50vh] font-["Consolas"] font-bold text-red-900 animation-delay-3000 animate-creep opacity-0'>LEAVE THIS PAGE NOW</p>

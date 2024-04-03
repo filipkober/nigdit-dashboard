@@ -6,6 +6,10 @@ import { StrapiUser } from '../../../models/User';
 import { UserState } from '../../../store/userSlice';
 import ReportModal from '../../molecules/ReportModal';
 import Vote from '../Vote';
+import { toastDisplay } from '../Toast';
+import ReplyService from '../../../util/requests/ReplyService';
+import ToastType from '../../../models/ToastType';
+import { useRouter } from 'next/router';
 
 type ReplyProps = {
   id: number;
@@ -45,6 +49,33 @@ export default function Reply({
     nickColor = '#F2A44B'
   }
 
+  const {id: userId, admin, moderates} = useSelector((state: UserState) => state.user);
+  const replyService = new ReplyService();
+  const router = useRouter();
+
+  const isAdminOrMod = (admin || modIds.includes(userId || 0))
+  const isOwner = userId === owner.id
+
+  const deleteReply = async () => {
+    const deleted = await replyService.delete(id);
+    if(deleted) {
+      toastDisplay(ToastType.Success, "Post deleted, refreshing page...")
+      setTimeout(() => {
+        router.reload();
+      }, 1500);
+    }
+  }
+
+  const banUser = async () => {
+    const banned = await replyService.banAuthor(id);
+    if(banned) {
+      toastDisplay(ToastType.Success, "Author banned, refreshing page...")
+      setTimeout(() => {
+        router.reload();
+      }, 1500);
+    }
+  }
+
   return (
     <>
       <div className="gridComment my-5">
@@ -70,6 +101,14 @@ export default function Reply({
               {isLogged &&
               <p className="cursor-pointer" onClick={changeModalReportVisible}>
                 Report
+              </p>}
+              {isAdminOrMod &&
+              <p className="cursor-pointer text-red-400" onClick={banUser}>
+                Ban
+              </p>}
+              {(isOwner || isAdminOrMod) &&
+              <p className="cursor-pointer text-red-400" onClick={deleteReply}>
+                Delete
               </p>}
             <Vote contentId={id} contentType='reply' variant='horizontal' votes={votes} />
           </div>
