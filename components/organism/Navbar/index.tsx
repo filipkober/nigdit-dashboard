@@ -11,6 +11,7 @@ import { SubnigditSearchResult } from '../../../models/Subnigdit';
 import { UserState } from '../../../store/userSlice';
 import SubnigditService from '../../../util/requests/SubnigditService';
 import SubnigditSearch from '../../molecules/SubnigditSearch';
+import icon from '../../../assets/icon.svg';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -92,19 +93,22 @@ export default function Navbar() {
           href="/"
           className="pointer-events-auto min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:max-w-[13rem] h-[100%] flex flex-row my-2 mx-2"
         >
+          {/* <div className="shrink-0 w-[3rem] h-[2.4rem] overflow-hidden relative"></div> */}
           <div className="shrink-0">
             <Image
               draggable="false"
-              src={'/nigditLogo.svg'}
-              width={36}
-              height={36}
-              className="select-none hover:cursor-pointer object-cover overflow-hidden p-0 w-[2.4rem] h-[2.4rem] rounded-full"
+              src={'./nigditLogo.svg'}
+              width={64}
+              height={64}
+              // piksele ustawiane metodą prób i błędów, mam nadzieję że nie trzeba będzie tego zmieniać
+              // className="select-none hover:cursor-pointer object-cover min-w-[4.5rem] h-[4.5rem] absolute top-[-17.5px] right-[-12px]"
+              className="select-none hover:cursor-pointer object-cover overflow-hidden w-[2.4rem] h-[2.4rem]"
               alt={'Nigdit icon'}
             />
           </div>
           <div className="w-[5rem] hidden ml:block">
             <p className="select-none shrink-1 text-[24px] font-['Roboto'] dark:text-white pl-2">
-              NigDIT
+              nigdit
             </p>
           </div>
         </Link>
