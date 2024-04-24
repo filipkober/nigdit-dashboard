@@ -65,13 +65,9 @@ export default function DashboardHeader({ subnigdit, isLogged }: Props) {
             <p className="mr-1 lm:text-lg text-[18px] flex">
               {members} {members > 1 || members === 0 ? 'Members' : 'Member'}
             </p>
-            {isLogged ? (
-              <div className="scale-[80%]">
-                <JoinButton subnigdit={subnigdit} onJoin={join} />
-              </div>
-            ) : (
-              ''
-            )}
+            <div className="scale-[80%]">
+              <JoinButton subnigdit={subnigdit} onJoin={join} />
+            </div>
           </div>
         </div>
 
