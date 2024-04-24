@@ -30,6 +30,7 @@ export function JoinButton({ className, subnigdit, onJoin }: JoinButtonProps) {
   const name = subnigdit?.attributes?.name_uid;
 
   const [isOwner, setIsOwner] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (name) {
@@ -39,6 +40,7 @@ export function JoinButton({ className, subnigdit, onJoin }: JoinButtonProps) {
         } else {
           setIsOwner(false);
         }
+        setIsLoading(false);
       });
     }
   }, [subnigdit?.attributes?.name_uid]);
@@ -54,6 +56,10 @@ export function JoinButton({ className, subnigdit, onJoin }: JoinButtonProps) {
   }
 
   const isLogged = !!useSelector((state: UserState) => state.user.username);
+
+  if (isLoading) {
+    return null;
+  }
 
   switch (userType()) {
     case 'owner':
