@@ -111,7 +111,7 @@ export default class UserService {
     {
       if(oldPassword == newPassword)
       {
-        toastDisplay(ToastType.Warning, 'Passwords are the same'); //mogę to powiedzieć użytkownikowi, skoro jego hasło jest i tak wypisywane w requescie
+        toastDisplay(ToastType.Warning, 'Passwords are the same');
       }
       else
       {
