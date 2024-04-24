@@ -3,7 +3,7 @@ import { toastDisplay } from '../../components/atoms/Toast';
 import StrapiResponse from '../../models/StrapiResponse';
 import ToastType from '../../models/ToastType';
 import User, { LoginUser, SearchUser, StrapiUser } from '../../models/User';
-import RequestService from './RequestService';
+import RequestService, { NetworkError } from './RequestService';
 
 export default class UserService {
   private endpoint = 'users';
@@ -91,6 +91,7 @@ export default class UserService {
     newPassword: string,
     newPasswordConfirmation: string
   ) {
+    let error: NetworkError|null = null
     const updatedUser: LoginUser = await this.requestService.post(
       'auth/change-password',
       {
@@ -100,12 +101,28 @@ export default class UserService {
           passwordConfirmation: newPasswordConfirmation,
         },
         auth: true,
-        handleError(e) {
-          toastDisplay(ToastType.Error, 'Password change failed');
+        handleError(e)
+        {
+          error = e
         },
       }
     );
-    toastDisplay(ToastType.Success, 'Password changed successfully');
+    if(error)
+    {
+      if(oldPassword == newPassword)
+      {
+        toastDisplay(ToastType.Warning, 'Passwords are the same'); //mogę to powiedzieć użytkownikowi, skoro jego hasło jest i tak wypisywane w requescie
+      }
+      else
+      {
+        toastDisplay(ToastType.Error, 'Password change failed');
+        console.warn(error)
+      }
+    }
+    else
+    {
+      toastDisplay(ToastType.Success, 'Password changed successfully');
+    }
     return updatedUser;
   }
 
