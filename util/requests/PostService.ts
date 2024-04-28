@@ -137,27 +137,25 @@ export default class PostService {
     },
     { encodeValuesOnly: true }
   );
-  //suffix - "" | "Sub" | "My"
+  //mode 0-all 1-subscribed 2-my posts
   //alg - hot | top | new
   //subnigdit - null | id of subnigdit
-  async getPosts(start: number, limit: number, alg: string, suffix: string, subnigdit: number | null)
+  async getPosts(isLogged: boolean,start: number, limit: number, alg: string, mode: number, subnigdit: number | null)
   {
     let sid = ""
     if(isNumber(subnigdit))
     {
       sid = '&'+"subnigdit="+subnigdit
     }
-    if(!suffix)
+    let auth = {}
+    if(isLogged)
     {
-      const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/"+alg+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit+sid);
-      return posts.data;
+      auth = {auth: true}
     }
-    else
-    {
-      const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/"+alg+suffix+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit+sid, {auth: true});
-      return posts.data;
-    }
+    const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/"+alg+ '?' + this.feedQuery+'&start='+start+'&'+"limit="+limit+'&mode='+mode+sid, auth);
+    return posts.data;
   }
+
   async createText({ title, description, subnigdit, nsfw}: createTextPostParams) {
     const formData = new FormData();
     formData.append('title', title);

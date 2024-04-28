@@ -70,11 +70,11 @@ export default function SubnigditDashboard()
       let p: Post[] = [];
       if (viewMyPosts && isLogged == true)
       {
-        p = await postService.getPosts(page, postsPerScroll,toLower(curAlg),"My",sn); //replace null with id
+        p = await postService.getPosts(isLogged,page, postsPerScroll,toLower(curAlg),2,sn); //replace null with id
       }
       else
       {
-        p = await postService.getPosts(page, postsPerScroll,toLower(curAlg),"",sn);
+        p = await postService.getPosts(isLogged,page, postsPerScroll,toLower(curAlg),0,sn);
       }
       if (page === 0)
       {
