@@ -137,7 +137,7 @@ export default class PostService {
     },
     { encodeValuesOnly: true }
   );
-  //suffix - "" | "Sub" | "My"      0-all 1-subscribed 2-myposts
+  //mode 0-all 1-subscribed 2-my posts
   //alg - hot | top | new
   //subnigdit - null | id of subnigdit
   async getPosts(isLogged: boolean,start: number, limit: number, alg: string, mode: number, subnigdit: number | null)
@@ -154,8 +154,6 @@ export default class PostService {
     }
     const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/"+alg+ '?' + this.feedQuery+'&start='+start+'&'+"limit="+limit+'&mode='+mode+sid, auth);
     return posts.data;
-    //   const posts: StrapiResponse<Post[]> = await this.requestService.get("posts/"+alg+suffix+ '?' + this.feedQuery+'&'+"start="+start+'&'+"limit="+limit+sid, {auth: true});
-    //   return posts.data;
   }
 
   async createText({ title, description, subnigdit, nsfw}: createTextPostParams) {
