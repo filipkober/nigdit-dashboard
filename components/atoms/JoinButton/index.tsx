@@ -30,70 +30,41 @@ export function JoinButton({ className, subnigdit, onJoin }: JoinButtonProps) {
   const name = subnigdit?.attributes?.name_uid;
 
   const [isOwner, setIsOwner] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (name) {
       subnigditService.getBySlug(name as string, true).then((res) => {
-        if (res[0]?.attributes?.owner?.data?.id == user?.id) {
-          setIsOwner(true);
-        } else {
-          setIsOwner(false);
-        }
-        setIsLoading(false);
+        setIsOwner(res[0]?.attributes?.owner?.data?.id === user?.id);
       });
     }
   }, [subnigdit?.attributes?.name_uid]);
 
-  function userType() {
-    if (isOwner) {
-      return 'owner';
-    } else if (isLogged) {
-      return 'user';
-    } else {
-      return 'guest';
-    }
-  }
-
   const isLogged = !!useSelector((state: UserState) => state.user.username);
 
-  if (isLoading) {
-    return null;
+  let userType: string;
+
+  if (isOwner) {
+    userType = 'owner';
+  } else if (isLogged) {
+    userType = 'user';
+  } else {
+    userType = 'guest';
   }
 
-  switch (userType()) {
-    case 'owner':
-      return (
-        <button
-          onClick={() => {
-            router.push(`/n/${subnigdit.attributes.name_uid}/edit`);
-          }}
-          className="w-[8rem] justify-center py-3 font-semibold text-lg text-white rounded-full shadow-sm border-4 border-white"
-        >
-          Edit
-        </button>
-      );
-    case 'user':
-      return (
-        <button
-          onClick={() => {
-            joinThisSub();
-          }}
-          className="w-[8rem] justify-center py-3 font-semibold text-lg text-white rounded-full shadow-sm border-4 border-white"
-        >
-          {!joined ? 'Join' : 'Joined'}
-        </button>
-      );
-    case 'guest':
-      return (
-        <button
-          onClick={() => {
-            router.push('/login');
-          }}
-          className="w-[8rem] justify-center py-3 font-semibold text-lg text-white rounded-full shadow-sm border-4 border-white"
-        >
-          Join
-        </button>
-      );
-  }
+  return (
+    <button
+      onClick={() => {
+        if (userType === 'owner') {
+          router.push(`/n/${subnigdit.attributes.name_uid}/edit`);
+        } else if (userType === 'user') {
+          joinThisSub();
+        } else {
+          router.push('/login');
+        }
+      }}
+      className="w-[8rem] justify-center py-3 font-semibold text-lg text-white rounded-full shadow-sm border-4 border-white"
+    >
+      {userType === 'owner' ? 'Edit' : !joined ? 'Join' : 'Joined'}
+    </button>
+  );
 }
