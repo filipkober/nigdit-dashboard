@@ -50,18 +50,20 @@ export default function DashboardFeed() {
       let p: Post[] = [];
       if (viewSubscribed && isLogged == true) {
         p = await postService.getPosts(
+          isLogged,
           page,
           postsPerScroll,
           toLower(curAlg),
-          'Sub',
+          1,
           null
         );
       } else {
         p = await postService.getPosts(
+          isLogged,
           page,
           postsPerScroll,
           toLower(curAlg),
-          '',
+          0,
           null
         );
       }
