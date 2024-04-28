@@ -178,7 +178,7 @@ export default function DashboardFeed() {
           </div>
         </div>
         <div className="tl:w-[22%] w-[0%] bg-[rgba(255,0,255,0)] tl:block hidden px-2">
-        {isLogged && hasJoined && (
+          {isLogged && hasJoined && (
             <div className="w-[100%] flex flex-row justify-start tl:pt-2 px-0 m-0">
               <JoinedGroups />
             </div>
