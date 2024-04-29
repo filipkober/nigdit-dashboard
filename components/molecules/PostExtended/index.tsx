@@ -1,5 +1,6 @@
 import moment from 'moment';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FaRegCommentAlt } from "react-icons/fa";
 import { useSelector } from 'react-redux';
@@ -12,16 +13,13 @@ import { PostN } from '../../../models/Post';
 import ToastType from '../../../models/ToastType';
 import { UserState } from '../../../store/userSlice';
 import CommentService from '../../../util/requests/CommentService';
+import PostService from '../../../util/requests/PostService';
 import Comment from '../../atoms/Comment';
 import Share from '../../atoms/Share';
 import { toastDisplay } from '../../atoms/Toast';
 import Vote from '../../atoms/Vote';
 import ExpandableMenu from '../ExpandableMenu';
 import ReportModal from '../ReportModal';
-import PostService from '../../../util/requests/PostService';
-import { MdDeleteForever } from 'react-icons/md';
-import { GiHammerDrop } from 'react-icons/gi';
-import { useRouter } from 'next/router';
 
 type PostExtendedProps = {
   post: PostN;
@@ -218,7 +216,9 @@ export default function PostExtended({
                 </div>
               ) : media && media.data.attributes && type == 'Video' ? (
                 <video controls className="w-[92%] max-h-[100vh]">
-                  <source src={media!.data.attributes.url} />
+                  <source
+                    src={process.env.NEXT_PUBLIC_STRAPI_URL + media!.data.attributes.url}
+                  />
                 </video>
               ) : null}
             </div>
