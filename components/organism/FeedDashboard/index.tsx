@@ -13,17 +13,22 @@ import ReportModal from '../../molecules/ReportModal';
 
 const postsPerScroll = 3;
 
-export default function DashboardFeed() {
+//Olo nie formatuj mi kodu, skoro go nigdy nie dotykałeś i nie będziesz dotykał, mind your business
+
+export default function FeedDashboard()
+{
   const postService = new PostService();
   const { username, moderates, admin, id } = useSelector(
     (state: UserState) => state.user
   );
-  const [isLogged, setLogged] = useState(false);
-  const [curAlg, setCurAlg] = useState<string>('Hot');
   const [counter, setCounter] = useState<number>(0);
+  const [isLogged, setLogged] = useState(false);
   const [viewSubscribed, setViewSubscribed] = useState<boolean>(false); //true = subscribed, false = everything
-  const [page, setPage] = useState<number>(0);
+  const [curAlg, setCurAlg] = useState<string>('Hot');
   const [posts, setPosts] = useState<Post[]>([]);
+  const [page, setPage] = useState<number>(0);
+
+  const curAlgRef = useRef(curAlg); //blessing
 
   //activated when toggled subs-everything
   function clicked(cc: number) {
@@ -33,7 +38,7 @@ export default function DashboardFeed() {
 
   //activated when toggled top-new-hot
   function changeAlg(n: string) {
-    console.log(n);
+    //console.log(n);
     setCurAlg(n);
   }
 
@@ -45,37 +50,43 @@ export default function DashboardFeed() {
     f();
   }, [username]);
 
+  // function wait(ms: number)
+  // {
+  //   return new Promise(resolve => setTimeout(resolve, ms));
+  // }
   useEffect(() => {
-    async function fetchPosts() {
+    curAlgRef.current = curAlg;
+    async function fetchPosts(usedAlg: string)
+    {
       let p: Post[] = [];
-      if (viewSubscribed && isLogged == true) {
-        p = await postService.getPosts(
-          isLogged,
-          page,
-          postsPerScroll,
-          toLower(curAlg),
-          1,
-          null
-        );
-      } else {
-        p = await postService.getPosts(
-          isLogged,
-          page,
-          postsPerScroll,
-          toLower(curAlg),
-          0,
-          null
-        );
+      if (viewSubscribed && isLogged == true)
+      {
+        p = await postService.getPosts(isLogged, page, postsPerScroll, toLower(curAlg), 1, null);
       }
-      if (page === 0) {
+      else
+      {
+        p = await postService.getPosts( isLogged, page, postsPerScroll, toLower(curAlg), 0, null);
+      }
+      // console.log("page: "+page)
+      // await wait(2500);
+      // console.warn(usedAlg+" - used "+curAlgRef.current+" - current")
+      if(usedAlg != curAlgRef.current)
+      {
+        return;
+      }
+      if (page === 0)
+      {
         setPosts(p);
-      } else {
-        if (page + 3 > posts.length) {
+      }
+      else
+      {
+        if (page + 3 > posts.length) //prevents duplication of posts (if 2 requests are sent from the same page)
+        {
           setPosts([...posts, ...p.slice(0, postsPerScroll)]);
         }
       }
     }
-    fetchPosts();
+    fetchPosts(curAlgRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, curAlg, viewSubscribed]);
 
@@ -85,12 +96,14 @@ export default function DashboardFeed() {
 
   const observer: any = useRef();
   const lastPostRef = useCallback(async (node: any) => {
-    if (!node) {
+    if (!node)
+    {
       return;
     }
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver(async (entries) => {
-      if (entries[0].isIntersecting) {
+      if (entries[0].isIntersecting)
+      {
         setPage((prevPage) => prevPage + postsPerScroll);
       }
     });
