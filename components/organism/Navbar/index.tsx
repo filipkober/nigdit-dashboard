@@ -84,7 +84,7 @@ export default function Navbar() {
   return (
     <div
       ref={realRef}
-      className="pointer-events-none flex flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] overflow-hidden bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-[40] top-0 left-0 right-0"
+      className="pointer-events-none flex overflow-visible flex-row justify-between h-[5.5vh] min-h-[52px] max-h-[3.2rem] w-[100%] bg-foregroundL dark:bg-foregroundD border-black border-b-2 border-solid sticky z-[40] top-0 left-0 right-0"
     >
       {/* dashboard icon */}
       <div className="flex flex-row">
@@ -322,7 +322,7 @@ export default function Navbar() {
       {searchValue != '' ? (
         <div
           ref={imaginaryRef}
-          className="overflow-hidden flex flex-row fixed w-[100%] justify-between left-0 mt-[25px]"
+          className="overflow-hidden flex flex-row absolute w-[100%] justify-between left-0 mt-[25px]"
         >
           <div className="flex flex-row">
             <div className="min-w-[2.4rem] w-[2.4rem] ml:w-[7.4rem] tl:max-w-[13rem] h-[100%] flex flex-row my-2 mx-2"></div>
