@@ -29,9 +29,9 @@ export default function SubnigditDashboard()
   //display
   const [viewMyPosts, setViewMyPosts] = useState<boolean>(false); //true = my posts, false = everything
   const [curAlg, setCurAlg] = useState<string>('Hot');
-  const [page, setPage] = useState<number>(0);
   const [posts, setPosts] = useState<Post[]>([]);
-
+  const [page, setPage] = useState<number>(0);
+  const curAlgRef = useRef(curAlg);
   
   let address = window.location.pathname
   const split = address.split('/');
@@ -57,8 +57,9 @@ export default function SubnigditDashboard()
   }, [viewMyPosts, curAlg]);
 
   useEffect(() => {
+    curAlgRef.current = curAlg;
     let sn = thisSubnigdit ? thisSubnigdit.id : null;
-    async function fetchPosts()
+    async function fetchPosts(usedAlg: string)
     {
       if(thisSubnigdit == null)
       {
@@ -76,18 +77,23 @@ export default function SubnigditDashboard()
       {
         p = await postService.getPosts(isLogged,page, postsPerScroll,toLower(curAlg),0,sn);
       }
+      if(usedAlg != curAlgRef.current)
+      {
+        return;
+      }
       if (page === 0)
       {
         setPosts(p);
       }
       else
       {
-        if (page + 3 > posts.length) {
+        if (page + 3 > posts.length)
+        {
           setPosts([...posts, ...p.slice(0, postsPerScroll)]);
         }
       }
     }
-    fetchPosts();
+    fetchPosts(curAlgRef.current);
   }, [page,curAlg,viewMyPosts]);
 
   const observer: any = useRef();
